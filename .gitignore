@@ -1,0 +1,16 @@
+.flutter-plugins/
+.flutter-plugins-dependencies/
+.dart_tool/
+build/
+.idea/
+.vscode/
+# Flutter-specific
+build/
+.dart_tool/
+.packages
+.idea/
+*.iml
+android/.gradle
+ios/Pods
+*.log
+.dart_tool/flutter_build/

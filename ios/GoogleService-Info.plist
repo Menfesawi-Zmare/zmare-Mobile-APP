@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>602385201573-brbl7un39uv42ol3toqav43e0i235p39.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.602385201573-brbl7un39uv42ol3toqav43e0i235p39</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>602385201573-42a52thosulmdj4lh8ppvti3uemamdpr.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCmIHCjQaCst6vPNiNVxFQ34EoFcERZW9M</string>
+	<key>GCM_SENDER_ID</key>
+	<string>602385201573</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.flutter.music.pro</string>
+	<key>PROJECT_ID</key>
+	<string>flutter-music-pro</string>
+	<key>STORAGE_BUCKET</key>
+	<string>flutter-music-pro.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:602385201573:ios:a531305220c92fea59904c</string>
+</dict>
+</plist>
