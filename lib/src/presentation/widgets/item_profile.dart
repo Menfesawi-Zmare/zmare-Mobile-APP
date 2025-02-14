@@ -9,8 +9,9 @@ import 'package:flutter_music_pro/src/utils/ext/common.dart';
 import 'package:flutter_music_pro/src/utils/ext/string_extensions.dart';
 import 'package:flutter_music_pro/src/data/profile/model/profile.dart';
 import 'package:flutter_music_pro/src/presentation/widgets/khmertracks_image.dart';
-import 'package:flutter_music_pro/src/presentation/widgets/texts/khmertracks_subTitle.dart';
 import 'package:flutter_music_pro/src/presentation/widgets/texts/khmertracks_title.dart';
+
+import 'texts/khmertracks_subtitle.dart';
 
 class ItemProfile extends StatefulWidget {
   const ItemProfile({super.key, required this.profile});

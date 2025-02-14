@@ -4,9 +4,10 @@ import 'package:go_router/go_router.dart';
 import 'package:flutter_music_pro/src/utils/ext/common.dart';
 import 'package:flutter_music_pro/src/data/album/model/album.dart';
 import 'package:flutter_music_pro/src/presentation/widgets/khmertracks_image.dart';
-import 'package:flutter_music_pro/src/presentation/widgets/texts/khmertracks_subTitle.dart';
 import 'package:flutter_music_pro/src/presentation/widgets/texts/khmertracks_title.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+
+import 'texts/khmertracks_subtitle.dart';
 
 class ItemAlbum extends StatelessWidget {
   const ItemAlbum({super.key, required this.album});

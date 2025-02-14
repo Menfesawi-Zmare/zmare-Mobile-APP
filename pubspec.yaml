@@ -40,7 +40,7 @@ dependencies:
   marquee: ^2.2.3
   audiotagger: ^2.2.1
   palette_generator: ^0.3.3+3
-  rxdart: ^0.28.0
+  rxdart: ^0.27.7
   path_provider: ^2.1.1
   readmore: ^3.0.0
   logging: ^1.1.1
@@ -62,7 +62,7 @@ dependencies:
   fluentui_system_icons: ^1.1.199
   dartz: ^0.10.1
   flutter_screenutil: ^5.7.0
-  metadata_god: ^1.0.0
+  metadata_god: ^0.5.2
   font_awesome_flutter: ^10.5.0
   google_mobile_ads: ^3.0.0
   http_parser: ^4.0.2
