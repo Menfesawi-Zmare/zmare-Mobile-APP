@@ -5,8 +5,9 @@ import 'package:go_router/go_router.dart';
 import 'package:flutter_music_pro/src/utils/ext/common.dart';
 import 'package:flutter_music_pro/src/data/artist/model/artist.dart';
 import 'package:flutter_music_pro/src/presentation/widgets/khmertracks_image.dart';
-import 'package:flutter_music_pro/src/presentation/widgets/texts/khmertracks_subTitle.dart';
 import 'package:flutter_music_pro/src/presentation/widgets/texts/khmertracks_title.dart';
+
+import 'texts/khmertracks_subtitle.dart';
 
 class ItemArtist extends StatelessWidget {
   const ItemArtist({super.key, required this.artists});

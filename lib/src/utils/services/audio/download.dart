@@ -409,7 +409,7 @@ class Download with ChangeNotifier {
               album: data['album'].toString(),
               genre: data['genre'].toString(),
               year: int.parse(data['year'].toString()),
-              fileSize: file.lengthSync() as BigInt,
+              fileSize: file.lengthSync(),
               picture: Picture(
                 data: File(filepath2).readAsBytesSync(),
                 mimeType: 'image/jpeg',
