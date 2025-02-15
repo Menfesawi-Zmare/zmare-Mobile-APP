@@ -2,18 +2,18 @@ import 'dart:io';
 
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_music_pro/src/presentation/settings/widgets/app_font_changer.dart';
-import 'package:flutter_music_pro/src/presentation/settings/widgets/app_language_changer.dart';
+import 'package:zmare/src/presentation/settings/widgets/app_font_changer.dart';
+import 'package:zmare/src/presentation/settings/widgets/app_language_changer.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:flutter_music_pro/src/utils/ext/common.dart';
-import 'package:flutter_music_pro/src/core/enum/box_types.dart';
-import 'package:flutter_music_pro/src/core/enum/theme_mode.dart';
-import 'package:flutter_music_pro/src/presentation/settings/pages/personalize_page.dart';
-import 'package:flutter_music_pro/src/presentation/settings/widgets/circular_play_button_widget.dart';
-import 'package:flutter_music_pro/src/presentation/settings/widgets/settings_color_picker_widget.dart';
-import 'package:flutter_music_pro/src/presentation/widgets/texts/khmertracks_title.dart';
-import 'package:flutter_music_pro/src/service_locator.dart';
+import 'package:zmare/src/utils/ext/common.dart';
+import 'package:zmare/src/core/enum/box_types.dart';
+import 'package:zmare/src/core/enum/theme_mode.dart';
+import 'package:zmare/src/presentation/settings/pages/personalize_page.dart';
+import 'package:zmare/src/presentation/settings/widgets/circular_play_button_widget.dart';
+import 'package:zmare/src/presentation/settings/widgets/settings_color_picker_widget.dart';
+import 'package:zmare/src/presentation/widgets/texts/khmertracks_title.dart';
+import 'package:zmare/src/service_locator.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 

@@ -1,5 +1,5 @@
-import 'package:flutter_music_pro/src/data/album/model/album.dart';
-import 'package:flutter_music_pro/src/data/pagination/pagination_model.dart';
+import 'package:zmare/src/data/album/model/album.dart';
+import 'package:zmare/src/data/pagination/pagination_model.dart';
 
 class AlbumList {
   List<Album>? albumList;

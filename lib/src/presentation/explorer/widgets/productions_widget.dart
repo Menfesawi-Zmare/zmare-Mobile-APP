@@ -1,16 +1,16 @@
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_music_pro/src/core/enum/explorer_item_type.dart';
+import 'package:zmare/src/core/enum/explorer_item_type.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:flutter_music_pro/src/app/routes.dart';
-import 'package:flutter_music_pro/src/utils/ext/common.dart';
-import 'package:flutter_music_pro/src/core/enum/box_types.dart';
-import 'package:flutter_music_pro/src/core/enum/grid_type.dart';
-import 'package:flutter_music_pro/src/utils/helper/ad_helper.dart';
-import 'package:flutter_music_pro/src/data/production/model/production.dart';
-import 'package:flutter_music_pro/src/presentation/widgets/dynamic_grid.dart';
-import 'package:flutter_music_pro/src/service_locator.dart';
+import 'package:zmare/src/app/routes.dart';
+import 'package:zmare/src/utils/ext/common.dart';
+import 'package:zmare/src/core/enum/box_types.dart';
+import 'package:zmare/src/core/enum/grid_type.dart';
+import 'package:zmare/src/utils/helper/ad_helper.dart';
+import 'package:zmare/src/data/production/model/production.dart';
+import 'package:zmare/src/presentation/widgets/dynamic_grid.dart';
+import 'package:zmare/src/service_locator.dart';
 
 class ProductionsWidget extends StatefulWidget {
   const ProductionsWidget(
@@ -42,27 +42,39 @@ class _ProductionsWidgetState extends State<ProductionsWidget> {
           trailing: Visibility(
             visible: widget.productions!.length >= limit! ? true : false,
             child: IconButton(
-              onPressed: () {
-                AdHelper.showInterstitialAd();
-                widget.type == ExplorerItemType.custom.name
-                    ? context.pushNamed(customProductionPath,
-                        extra: widget.productions,
-                        pathParameters: {'title': widget.title})
-                    : context.pushNamed(allProductionPath, extra: widget.title);
-              },
-              icon: Icon(
-                FluentIcons.arrow_right_28_regular,
-                color: Theme.of(context).colorScheme.onPrimaryContainer,
-              ),
-            ),
+                onPressed: () {
+                  AdHelper.showInterstitialAd();
+                  widget.type == ExplorerItemType.custom.name
+                      ? context.pushNamed(customProductionPath,
+                          extra: widget.productions,
+                          pathParameters: {'title': widget.title})
+                      : context.pushNamed(allProductionPath,
+                          extra: widget.title);
+                },
+                icon: SizedBox(
+                  width: 70,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Text("See All",
+                          textAlign: TextAlign.start,
+                          style: context.titleMedium?.copyWith(
+                              color: context.colorScheme.onSurface,
+                              fontSize: 14)),
+                      Icon(
+                        Icons.arrow_forward_ios_rounded,
+                        size: 18,
+                      )
+                    ],
+                  ),
+                )),
           )),
       ValueListenableBuilder<Box<dynamic>>(
           valueListenable: locator
               .get<Box<dynamic>>(instanceName: BoxType.settings.name)
               .listenable(keys: [productionGridKey]),
           builder: (context, value, child) {
-            int gridStyleId = value.get(productionGridKey,
-                defaultValue: GridType.squareCard.toIndex);
+            int gridStyleId = 2;
             return SizedBox(
               height: gridStyleId != 3 ? 200 : 130,
               child: ListView.builder(

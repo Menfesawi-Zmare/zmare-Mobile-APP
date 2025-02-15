@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_music_pro/src/utils/ext/common.dart';
-import 'package:flutter_music_pro/src/utils/ext/string_extensions.dart';
-import 'package:flutter_music_pro/src/core/enum/profile_privacy.dart';
-import 'package:flutter_music_pro/src/data/account/model/account.dart';
-import 'package:flutter_music_pro/src/data/profile/model/profile.dart';
-import 'package:flutter_music_pro/src/presentation/account/modal/profile_privacy_modal.dart';
-import 'package:flutter_music_pro/src/presentation/login/bloc/auth_bloc.dart';
-import 'package:flutter_music_pro/src/presentation/widgets/khmertracks_text.dart';
-import 'package:flutter_music_pro/src/presentation/widgets/khmertracks_text_field.dart';
-import 'package:flutter_music_pro/src/service_locator.dart';
+import 'package:zmare/src/utils/ext/common.dart';
+import 'package:zmare/src/utils/ext/string_extensions.dart';
+import 'package:zmare/src/core/enum/profile_privacy.dart';
+import 'package:zmare/src/data/account/model/account.dart';
+import 'package:zmare/src/data/profile/model/profile.dart';
+import 'package:zmare/src/presentation/account/modal/profile_privacy_modal.dart';
+import 'package:zmare/src/presentation/login/bloc/auth_bloc.dart';
+import 'package:zmare/src/presentation/widgets/khmertracks_text.dart';
+import 'package:zmare/src/presentation/widgets/khmertracks_text_field.dart';
+import 'package:zmare/src/service_locator.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
@@ -77,7 +77,7 @@ class _EditBioPageState extends State<EditBioPage> {
             }
           }
           if (state is Failure) {
-            context.showMaterialSnackBar(state.message);            
+            context.showMaterialSnackBar(state.message);
           }
         },
         builder: (context, state) {
@@ -199,7 +199,8 @@ class _EditBioPageState extends State<EditBioPage> {
               padding: const EdgeInsets.only(left: 16, right: 16, bottom: 30),
               child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                      backgroundColor: Theme.of(context).colorScheme.primaryContainer),
+                      backgroundColor:
+                          Theme.of(context).colorScheme.primaryContainer),
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       ProfileData profile = ProfileData(

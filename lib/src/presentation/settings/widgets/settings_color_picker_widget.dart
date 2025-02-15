@@ -4,9 +4,9 @@ import 'package:device_info_plus/device_info_plus.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'package:flutter_music_pro/src/presentation/settings/widgets/color_picker_widget.dart';
+import 'package:zmare/src/presentation/settings/widgets/color_picker_widget.dart';
 
-import 'package:flutter_music_pro/src/utils/ext/common.dart';
+import 'package:zmare/src/utils/ext/common.dart';
 import '../../widgets/future_resolve.dart';
 import 'dynamic_color_switch_widget.dart';
 import 'setting_option.dart';

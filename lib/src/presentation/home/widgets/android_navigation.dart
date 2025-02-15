@@ -1,6 +1,6 @@
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_music_pro/src/utils/ext/common.dart';
+import 'package:zmare/src/utils/ext/common.dart';
 import 'package:go_router/go_router.dart';
 
 class AndroidNavigation extends StatelessWidget {
@@ -29,11 +29,11 @@ class AndroidNavigation extends StatelessWidget {
             icon: const Icon(FluentIcons.arrow_trending_12_regular),
             selectedIcon: const Icon(FluentIcons.arrow_trending_12_filled),
           ),
-          NavigationDestination(
-            label: context.loc.randomLabel,
-            icon: const Icon(FluentIcons.arrow_repeat_all_16_regular),
-            selectedIcon: const Icon(FluentIcons.arrow_repeat_all_16_filled),
-          ),
+          // NavigationDestination(
+          //   label: context.loc.randomLabel,
+          //   icon: const Icon(FluentIcons.arrow_repeat_all_16_regular),
+          //   selectedIcon: const Icon(FluentIcons.arrow_repeat_all_16_filled),
+          // ),
           NavigationDestination(
             label: context.loc.libraryLabel,
             icon: const Icon(FluentIcons.library_16_regular),

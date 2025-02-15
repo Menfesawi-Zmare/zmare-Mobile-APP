@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_music_pro/src/data/playlist/model/playlist.dart';
-import 'package:flutter_music_pro/src/utils/ext/common.dart';
-import 'package:flutter_music_pro/src/presentation/widgets/item_explorer_playlist.dart';
-
+import 'package:zmare/src/data/playlist/model/playlist.dart';
+import 'package:zmare/src/utils/ext/common.dart';
+import 'package:zmare/src/presentation/widgets/item_explorer_playlist.dart';
 
 class AllPlaylistsPage extends StatelessWidget {
   const AllPlaylistsPage(
@@ -27,7 +26,6 @@ class AllPlaylistsPage extends StatelessWidget {
           itemBuilder: (_, index) {
             return ItemExplorerPlaylist(playlist: listPlaylists[index]);
           }),
-      
     );
   }
 }

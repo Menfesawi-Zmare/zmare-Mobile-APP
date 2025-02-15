@@ -1,11 +1,11 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_displaymode/flutter_displaymode.dart';
-import 'package:flutter_music_pro/src/utils/services/firebase/firebase.dart';
+import 'package:zmare/src/utils/services/firebase/firebase.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:flutter_music_pro/src/app.dart';
-import 'package:flutter_music_pro/src/service_locator.dart';
+import 'package:zmare/src/app.dart';
+import 'package:zmare/src/service_locator.dart';
 import 'package:hive/hive.dart';
 
 import 'src/core/enum/box_types.dart';

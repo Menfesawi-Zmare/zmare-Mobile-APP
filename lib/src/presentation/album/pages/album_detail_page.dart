@@ -2,19 +2,19 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_music_pro/src/core/resources/resources.dart';
-import 'package:flutter_music_pro/src/utils/services/audio/player_service.dart';
-import 'package:flutter_music_pro/src/utils/ext/common.dart';
-import 'package:flutter_music_pro/src/utils/helper/color_ultil.dart';
-import 'package:flutter_music_pro/src/utils/helper/khmertracks_palette.dart';
-import 'package:flutter_music_pro/src/data/album/model/album.dart';
-import 'package:flutter_music_pro/src/data/song/model/item_song_model.dart';
-import 'package:flutter_music_pro/src/presentation/album/bloc/album_bloc.dart';
-import 'package:flutter_music_pro/src/presentation/widgets/item_song_small.dart';
-import 'package:flutter_music_pro/src/presentation/widgets/khmertracks_image.dart';
+import 'package:zmare/src/core/resources/resources.dart';
+import 'package:zmare/src/utils/services/audio/player_service.dart';
+import 'package:zmare/src/utils/ext/common.dart';
+import 'package:zmare/src/utils/helper/color_ultil.dart';
+import 'package:zmare/src/utils/helper/khmertracks_palette.dart';
+import 'package:zmare/src/data/album/model/album.dart';
+import 'package:zmare/src/data/song/model/item_song_model.dart';
+import 'package:zmare/src/presentation/album/bloc/album_bloc.dart';
+import 'package:zmare/src/presentation/widgets/item_song_small.dart';
+import 'package:zmare/src/presentation/widgets/khmertracks_image.dart';
 
-import 'package:flutter_music_pro/src/presentation/widgets/texts/khmertracks_subtitle.dart';
-import 'package:flutter_music_pro/src/service_locator.dart';
+import 'package:zmare/src/presentation/widgets/texts/khmertracks_subtitle.dart';
+import 'package:zmare/src/service_locator.dart';
 
 class AlbumDetailPage extends StatefulWidget {
   const AlbumDetailPage({super.key, required this.album});
@@ -122,7 +122,7 @@ class _AlbumDetailPageState extends State<AlbumDetailPage> {
                               index: 0,
                               isOffline: false,
                               shuffle: false,
-                            );                            
+                            );
                           }
                         },
                         icon: Icon(Icons.play_arrow, color: color),
@@ -148,7 +148,7 @@ class _AlbumDetailPageState extends State<AlbumDetailPage> {
                               index: 0,
                               isOffline: false,
                               shuffle: true,
-                            );                            
+                            );
                           }
                         },
                         icon: Icon(
@@ -211,7 +211,6 @@ class _AlbumDetailPageState extends State<AlbumDetailPage> {
           ),
         ],
       ),
-      
     );
   }
 }

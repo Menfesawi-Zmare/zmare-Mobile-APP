@@ -1,6 +1,6 @@
 import 'dart:io';
-import 'package:flutter_music_pro/src/app/routes.dart';
-import 'package:flutter_music_pro/src/utils/helper/constants.dart';
+import 'package:zmare/src/app/routes.dart';
+import 'package:zmare/src/utils/helper/constants.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:logging/logging.dart';
 
@@ -10,8 +10,14 @@ class AdHelper {
 
   static InterstitialAd? _interstitialAd;
   static int _numInterstitialLoadAttempts = 0;
-  static int? maxInterstitialAdclick = int.parse(settings.get(Platform.isAndroid ? androidMaxInterstitialAdClick : iosMaxInterstitialAdClick, defaultValue: 5));
-  static var interstialad = settings.get(Platform.isAndroid ? androidInterstitialStatus : iosInterstitialStatus, defaultValue: 0);
+  static int? maxInterstitialAdclick = int.parse(settings.get(
+      Platform.isAndroid
+          ? androidMaxInterstitialAdClick
+          : iosMaxInterstitialAdClick,
+      defaultValue: 5));
+  static var interstialad = settings.get(
+      Platform.isAndroid ? androidInterstitialStatus : iosInterstitialStatus,
+      defaultValue: 0);
 
   static String get interstitialAdUnitId {
     if (Platform.isAndroid) {

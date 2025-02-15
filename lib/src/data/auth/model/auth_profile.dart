@@ -1,4 +1,4 @@
-import 'package:flutter_music_pro/src/data/profile/model/profile.dart';
+import 'package:zmare/src/data/profile/model/profile.dart';
 
 class AuthProfile {
   bool? status;

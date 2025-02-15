@@ -2,22 +2,22 @@ import 'dart:convert';
 
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_music_pro/src/core/resources/resources.dart';
-import 'package:flutter_music_pro/src/utils/ext/string_extensions.dart';
+import 'package:zmare/src/core/resources/resources.dart';
+import 'package:zmare/src/utils/ext/string_extensions.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:flutter_music_pro/src/utils/ext/common.dart';
-import 'package:flutter_music_pro/src/core/enum/box_types.dart';
-import 'package:flutter_music_pro/src/data/profile/model/profile.dart';
-import 'package:flutter_music_pro/src/presentation/account/modal/account_settings_modal.dart';
-import 'package:flutter_music_pro/src/presentation/profile/widget/about_widget.dart';
-import 'package:flutter_music_pro/src/presentation/profile/widget/likes_widget.dart';
-import 'package:flutter_music_pro/src/presentation/profile/widget/profile_playlists_widget.dart';
-import 'package:flutter_music_pro/src/presentation/profile/widget/subscriber_widget.dart';
-import 'package:flutter_music_pro/src/presentation/profile/widget/subscriptions_widget.dart';
-import 'package:flutter_music_pro/src/presentation/widgets/khmertracks_image.dart';
+import 'package:zmare/src/utils/ext/common.dart';
+import 'package:zmare/src/core/enum/box_types.dart';
+import 'package:zmare/src/data/profile/model/profile.dart';
+import 'package:zmare/src/presentation/account/modal/account_settings_modal.dart';
+import 'package:zmare/src/presentation/profile/widget/about_widget.dart';
+import 'package:zmare/src/presentation/profile/widget/likes_widget.dart';
+import 'package:zmare/src/presentation/profile/widget/profile_playlists_widget.dart';
+import 'package:zmare/src/presentation/profile/widget/subscriber_widget.dart';
+import 'package:zmare/src/presentation/profile/widget/subscriptions_widget.dart';
+import 'package:zmare/src/presentation/widgets/khmertracks_image.dart';
 
-import 'package:flutter_music_pro/src/service_locator.dart';
+import 'package:zmare/src/service_locator.dart';
 
 class AccountPage extends StatefulWidget {
   const AccountPage({super.key});

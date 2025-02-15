@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_music_pro/src/data/artist/model/artist.dart';
-import 'package:flutter_music_pro/src/data/follow/model/follow_response_model.dart';
-import 'package:flutter_music_pro/src/presentation/widgets/item_artist.dart';
+import 'package:zmare/src/data/artist/model/artist.dart';
+import 'package:zmare/src/data/follow/model/follow_response_model.dart';
+import 'package:zmare/src/presentation/widgets/item_artist.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:flutter_music_pro/src/app/routes.dart';
-import 'package:flutter_music_pro/src/utils/ext/common.dart';
-import 'package:flutter_music_pro/src/data/profile/model/profile.dart';
-import 'package:flutter_music_pro/src/presentation/profile/bloc/profile_bloc.dart';
-import 'package:flutter_music_pro/src/presentation/widgets/item_profile.dart';
+import 'package:zmare/src/app/routes.dart';
+import 'package:zmare/src/utils/ext/common.dart';
+import 'package:zmare/src/data/profile/model/profile.dart';
+import 'package:zmare/src/presentation/profile/bloc/profile_bloc.dart';
+import 'package:zmare/src/presentation/widgets/item_profile.dart';
 
-import 'package:flutter_music_pro/src/presentation/widgets/no_result_widget.dart';
-import 'package:flutter_music_pro/src/service_locator.dart';
+import 'package:zmare/src/presentation/widgets/no_result_widget.dart';
+import 'package:zmare/src/service_locator.dart';
 
 class SubscriptionsPage extends StatefulWidget {
   const SubscriptionsPage({super.key});
@@ -50,7 +50,6 @@ class _SubscriptionsPageState extends State<SubscriptionsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: context.materialYouAppBar(context.loc.allSubscriptions),
-      
       body: RefreshIndicator(
         key: _refreshIndicatorKey,
         backgroundColor: Theme.of(context).colorScheme.primaryContainer,
