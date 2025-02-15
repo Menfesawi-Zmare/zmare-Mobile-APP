@@ -40,29 +40,40 @@ class _AlbumsWidgetState extends State<AlbumsWidget> {
           trailing: Visibility(
             visible: widget.albums!.length >= limit! ? true : false,
             child: IconButton(
-              onPressed: () {
-                AdHelper.showInterstitialAd();
-                widget.type == ExplorerItemType.custom.name
-                    ? context.pushNamed(customAlbumPath,
-                        extra: widget.albums,
-                        pathParameters: {'title': widget.title})
-                    : context.pushNamed(allAlbumPath, extra: widget.title);
-              },
-              icon: Icon(
-                FluentIcons.arrow_right_28_regular,
-                color: Theme.of(context).colorScheme.onPrimaryContainer,
-              ),
-            ),
+                onPressed: () {
+                  AdHelper.showInterstitialAd();
+                  widget.type == ExplorerItemType.custom.name
+                      ? context.pushNamed(customAlbumPath,
+                          extra: widget.albums,
+                          pathParameters: {'title': widget.title})
+                      : context.pushNamed(allAlbumPath, extra: widget.title);
+                },
+                icon: SizedBox(
+                  width: 70,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Text("See All",
+                          textAlign: TextAlign.start,
+                          style: context.titleMedium?.copyWith(
+                              color: context.colorScheme.onSurface,
+                              fontSize: 14)),
+                      Icon(
+                        Icons.arrow_forward_ios_rounded,
+                        size: 18,
+                      )
+                    ],
+                  ),
+                )),
           )),
       ValueListenableBuilder<Box<dynamic>>(
           valueListenable: locator
               .get<Box<dynamic>>(instanceName: BoxType.settings.name)
               .listenable(keys: [albumGridKey]),
           builder: (context, value, child) {
-            int gridStyleId = value.get(albumGridKey,
-                defaultValue: GridType.coloredCard.toIndex);
+            int gridStyleId = 1;
             return SizedBox(
-              height: gridStyleId != 3 ? 200 : 130,
+              height: 200,
               child: ListView.builder(
                   physics: const BouncingScrollPhysics(),
                   shrinkWrap: true,
@@ -75,6 +86,7 @@ class _AlbumsWidgetState extends State<AlbumsWidget> {
                       title: widget.albums![index].name!,
                       image: widget.albums![index].image!,
                       gridStyleId: gridStyleId,
+                      tracksInAlbum: widget.albums![index].trackTotal,
                       onTap: () => context.pushNamed(albumSongsPath,
                           extra: widget.albums![index]),
                     );

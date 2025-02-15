@@ -102,13 +102,13 @@ class _ExplorerMobilePageState extends State<ExplorerMobilePage> {
                           return ArtistsWidget(
                               artists: explorerModel?.data![i].artists,
                               title: explorerModel!.data![i].title!,
-                              type: explorerModel!.data![i].type!);
+                              type: "0");
                         } else if (explorerModel?.data![i].albums
                             is List<Album>) {
                           return AlbumsWidget(
                               albums: explorerModel?.data![i].albums,
                               title: explorerModel!.data![i].title!,
-                              type: explorerModel!.data![i].type!);
+                              type: "1");
                         } else if (explorerModel?.data![i].playlists
                             is List<Playlist>) {
                           return PlaylistsWidget(
@@ -120,7 +120,7 @@ class _ExplorerMobilePageState extends State<ExplorerMobilePage> {
                           return ProductionsWidget(
                               productions: explorerModel?.data![i].productions,
                               title: explorerModel!.data![i].title!,
-                              type: explorerModel!.data![i].type!);
+                              type: "2");
                         } else if (explorerModel?.data![i].banners is Banners) {
                           return ImageBannerWidget(
                               image: explorerModel!.data![i].banners!.image!,

@@ -42,27 +42,39 @@ class _ProductionsWidgetState extends State<ProductionsWidget> {
           trailing: Visibility(
             visible: widget.productions!.length >= limit! ? true : false,
             child: IconButton(
-              onPressed: () {
-                AdHelper.showInterstitialAd();
-                widget.type == ExplorerItemType.custom.name
-                    ? context.pushNamed(customProductionPath,
-                        extra: widget.productions,
-                        pathParameters: {'title': widget.title})
-                    : context.pushNamed(allProductionPath, extra: widget.title);
-              },
-              icon: Icon(
-                FluentIcons.arrow_right_28_regular,
-                color: Theme.of(context).colorScheme.onPrimaryContainer,
-              ),
-            ),
+                onPressed: () {
+                  AdHelper.showInterstitialAd();
+                  widget.type == ExplorerItemType.custom.name
+                      ? context.pushNamed(customProductionPath,
+                          extra: widget.productions,
+                          pathParameters: {'title': widget.title})
+                      : context.pushNamed(allProductionPath,
+                          extra: widget.title);
+                },
+                icon: SizedBox(
+                  width: 70,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Text("See All",
+                          textAlign: TextAlign.start,
+                          style: context.titleMedium?.copyWith(
+                              color: context.colorScheme.onSurface,
+                              fontSize: 14)),
+                      Icon(
+                        Icons.arrow_forward_ios_rounded,
+                        size: 18,
+                      )
+                    ],
+                  ),
+                )),
           )),
       ValueListenableBuilder<Box<dynamic>>(
           valueListenable: locator
               .get<Box<dynamic>>(instanceName: BoxType.settings.name)
               .listenable(keys: [productionGridKey]),
           builder: (context, value, child) {
-            int gridStyleId = value.get(productionGridKey,
-                defaultValue: GridType.squareCard.toIndex);
+            int gridStyleId = 2;
             return SizedBox(
               height: gridStyleId != 3 ? 200 : 130,
               child: ListView.builder(

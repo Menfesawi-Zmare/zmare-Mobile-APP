@@ -1,5 +1,5 @@
 name: zmare
-description: zmare 
+description: Hura Music 
 version: 1.0.0+1
 
 environment:
@@ -71,7 +71,7 @@ dependencies:
   glassmorphism: ^3.0.0
   video_player: ^2.9.2
   chewie: ^1.9.0
- 
+  flutter_svg: ^2.0.17
   
   
 
@@ -121,5 +121,4 @@ flutter:
   assets:
     - assets/
     - assets/images/
-    - assets/icon/
     

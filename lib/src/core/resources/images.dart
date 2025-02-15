@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 class Images {
   Images._();
   static const String logoIcon = 'assets/images/icon.png';
+  static const String zmareIconWhite = "assets/logo-white.svg";
+  static const String zmareIconBlack = "assets/logo-black.svg";
   static const String transparentIcon = 'assets/images/huraIcon.png';
   static const String defalutProductionCover = 'assets/production.png';
   static const String defalultArtistCover = 'assets/artist.png';

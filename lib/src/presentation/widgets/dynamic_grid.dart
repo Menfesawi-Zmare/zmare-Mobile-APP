@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:zmare/src/core/resources/resources.dart';
 import 'package:zmare/src/utils/ext/common.dart';
@@ -12,10 +13,14 @@ class DynamicGrid extends StatelessWidget {
       required this.title,
       required this.image,
       required this.gridStyleId,
-      required this.onTap});
+      required this.onTap,
+      this.subscribers,
+      this.tracksInAlbum});
   final String title;
   final String image;
   final int gridStyleId;
+  final int? subscribers;
+  final int? tracksInAlbum;
   final VoidCallback onTap;
   @override
   Widget build(BuildContext context) {
@@ -48,30 +53,57 @@ class DynamicGrid extends StatelessWidget {
   }
 
   Widget circular(BuildContext context) {
-    return Column(children: [
-      SizedBox(
-        width: 160,
-        child: AspectRatio(
-          aspectRatio: 1 / 1,
-          child: ClipOval(
-              child: KhmertracksImage(
-            imageUrl: image,
-            placeholderImage: Images.defalultArtistCover,
-          )),
-        ),
+    return Container(
+      padding: EdgeInsets.symmetric(
+        horizontal: 5,
       ),
-      Padding(
-        padding: const EdgeInsets.only(top: 12),
-        child: SizedBox(
-          width: 160,
-          child: Text(title,
-              maxLines: 1,
-              textAlign: TextAlign.center,
-              style: context.titleMedium
-                  ?.copyWith(color: context.colorScheme.onSurface)),
+      decoration: BoxDecoration(
+        color: context.colorScheme.onSurface.withOpacity(0.1),
+        borderRadius: BorderRadius.circular(40),
+      ),
+      height: 60,
+      child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+        SizedBox(
+          width: 50,
+          child: AspectRatio(
+            aspectRatio: 1 / 1,
+            child: ClipOval(
+                child: KhmertracksImage(
+              imageUrl: image,
+              placeholderImage: Images.defalultArtistCover,
+            )),
+          ),
         ),
-      )
-    ]);
+        SizedBox(
+          width: 10,
+        ),
+        Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(
+              width: 100,
+              child: Text(title,
+                  maxLines: 1,
+                  textAlign: TextAlign.start,
+                  style: context.titleMedium?.copyWith(
+                      fontWeight: FontWeight.w700,
+                      color: context.colorScheme.onSurface,
+                      fontSize: 12)),
+            ),
+            if (subscribers != null)
+              SizedBox(
+                width: 100,
+                child: Text("$subscribers followers",
+                    maxLines: 1,
+                    textAlign: TextAlign.start,
+                    style: context.titleMedium?.copyWith(
+                        color: context.colorScheme.onSurface, fontSize: 10)),
+              ),
+          ],
+        )
+      ]),
+    );
   }
 
   Widget colorCard(BuildContext context) {
@@ -87,44 +119,68 @@ class DynamicGrid extends StatelessWidget {
               : darken(
                   snapshot.data?[6]! ?? Theme.of(context).colorScheme.surface,
                   0.4);
+          final cardColor =
+              snapshot.data?[6] ?? Theme.of(context).colorScheme.surface;
           return AnimatedContainer(
             duration: const Duration(milliseconds: 600),
             child: ClipRRect(
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: BorderRadius.circular(10),
               child: Container(
                 width: 156,
                 color: snapshot.data?[6]!.withOpacity(
                     Theme.of(context).brightness == Brightness.dark
                         ? 0.3
                         : 0.4),
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        width: 156,
-                        height: 160,
-                        child: AspectRatio(
-                          aspectRatio: 1 / 1,
-                          child: Card(
-                              elevation: 0,
-                              margin: const EdgeInsets.all(0),
-                              child: KhmertracksImage(
-                                imageUrl: image,
-                                placeholderImage: Images.defalultArtistCover,
-                              )),
-                        ),
+                child: Stack(children: [
+                  AspectRatio(
+                    aspectRatio: 1 / 1.28,
+                    child: KhmertracksImage(
+                      imageUrl: image,
+                      placeholderImage: Images.defalultArtistCover,
+                    ),
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                            colors: [
+                          cardColor.withOpacity(0.9),
+                          Colors.transparent
+                        ],
+                            begin: Alignment.bottomCenter,
+                            end: Alignment.topCenter)),
+                  ),
+                  Positioned(
+                    bottom: 20,
+                    child: Container(
+                      width: 156,
+                      color: context.colorScheme.onPrimary,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 8, vertical: 4),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(title,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              textAlign: TextAlign.left,
+                              style: context.bodyLarge?.copyWith(
+                                  color: textColor,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.bold)),
+                          if (tracksInAlbum != null)
+                            Text("$tracksInAlbum hymns",
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                textAlign: TextAlign.left,
+                                style: context.bodyLarge?.copyWith(
+                                    color: textColor,
+                                    fontSize: 10,
+                                    fontWeight: FontWeight.w300)),
+                        ],
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 8, vertical: 8),
-                        child: Text(title,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            textAlign: TextAlign.left,
-                            style:
-                                context.bodyLarge?.copyWith(color: textColor)),
-                      )
-                    ]),
+                    ),
+                  )
+                ]),
               ),
             ),
           );
@@ -134,30 +190,42 @@ class DynamicGrid extends StatelessWidget {
   Widget card(BuildContext context) {
     return SizedBox(
       width: 156,
-      child: Card(
-        clipBehavior: Clip.antiAliasWithSaveLayer,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16.0),
-        ),
+      child: Container(
         margin: EdgeInsets.zero,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            color: Theme.of(context).colorScheme.onSurface.withOpacity(0.4)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox.square(
-              dimension: 156,
-              child: AspectRatio(
-                  aspectRatio: 1 / 1,
-                  child: KhmertracksImage(
-                    imageUrl: image,
-                    placeholderImage: Images.defalultArtistCover,
-                  )),
+            ClipRRect(
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(10), topRight: Radius.circular(10)),
+              child: SizedBox.square(
+                dimension: 156,
+                child: AspectRatio(
+                    aspectRatio: 1 / 1,
+                    child: KhmertracksImage(
+                      imageUrl: image,
+                      placeholderImage: Images.defalultArtistCover,
+                    )),
+              ),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
-              child: Text(title,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: context.titleMedium),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(title,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: context.titleMedium),
+                  Icon(
+                    Icons.arrow_circle_right_outlined,
+                    color: Theme.of(context).colorScheme.surface,
+                  )
+                ],
+              ),
             )
           ],
         ),

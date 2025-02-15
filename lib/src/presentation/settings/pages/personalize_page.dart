@@ -85,38 +85,38 @@ class _PersonalizePageState extends State<PersonalizePage> {
       body: ListView(
         shrinkWrap: true,
         children: [
-          SettingsGroup(
-            title: context.loc.home,
-            options: [
-              SettingsOption(
-                  icon: Icons.person_outline_rounded,
-                  title: context.loc.artistGrid,
-                  subtitle: GridType.values[artistGridIndex].name(context),
-                  onTap: () => chooseGridStyle(
-                      context.loc.artistGrid, artistGridIndex, 0)),
-              Divider(color: Colors.grey.withOpacity(0.2)),
-              SettingsOption(
-                  icon: Icons.featured_play_list_outlined,
-                  title: context.loc.playlistGrid,
-                  subtitle: GridType.values[playlistGridIndex].name(context),
-                  onTap: () => chooseGridStyle(
-                      context.loc.playlistGrid, playlistGridIndex, 1)),
-              Divider(color: Colors.grey.withOpacity(0.2)),
-              SettingsOption(
-                  icon: Icons.album_outlined,
-                  title: context.loc.albumGrid,
-                  subtitle: GridType.values[albumGridIndex].name(context),
-                  onTap: () => chooseGridStyle(
-                      context.loc.albumGrid, albumGridIndex, 2)),
-              Divider(color: Colors.grey.withOpacity(0.2)),
-              SettingsOption(
-                  icon: Icons.library_music_outlined,
-                  title: context.loc.productionGrid,
-                  subtitle: GridType.values[productionGridIndex].name(context),
-                  onTap: () => chooseGridStyle(
-                      context.loc.productionGrid, productionGridIndex, 3))
-            ],
-          ),
+          // SettingsGroup(
+          //   title: context.loc.home,
+          //   options: [
+          //     SettingsOption(
+          //         icon: Icons.person_outline_rounded,
+          //         title: context.loc.artistGrid,
+          //         subtitle: GridType.values[artistGridIndex].name(context),
+          //         onTap: () => chooseGridStyle(
+          //             context.loc.artistGrid, artistGridIndex, 0)),
+          //     Divider(color: Colors.grey.withOpacity(0.2)),
+          //     SettingsOption(
+          //         icon: Icons.featured_play_list_outlined,
+          //         title: context.loc.playlistGrid,
+          //         subtitle: GridType.values[playlistGridIndex].name(context),
+          //         onTap: () => chooseGridStyle(
+          //             context.loc.playlistGrid, playlistGridIndex, 1)),
+          //     Divider(color: Colors.grey.withOpacity(0.2)),
+          //     SettingsOption(
+          //         icon: Icons.album_outlined,
+          //         title: context.loc.albumGrid,
+          //         subtitle: GridType.values[albumGridIndex].name(context),
+          //         onTap: () => chooseGridStyle(
+          //             context.loc.albumGrid, albumGridIndex, 2)),
+          //     Divider(color: Colors.grey.withOpacity(0.2)),
+          //     SettingsOption(
+          //         icon: Icons.library_music_outlined,
+          //         title: context.loc.productionGrid,
+          //         subtitle: GridType.values[productionGridIndex].name(context),
+          //         onTap: () => chooseGridStyle(
+          //             context.loc.productionGrid, productionGridIndex, 3))
+          //   ],
+          // ),
           SettingsGroup(
               title: context.loc.miniPlayer,
               options: const [ExtraControlsWidget()])
