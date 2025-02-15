@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 
-import 'package:flutter_music_pro/src/utils/ext/common.dart';
+import 'package:zmare/src/utils/ext/common.dart';
 import '../../widgets/future_resolve.dart';
 import 'dynamic_color_switch_widget.dart';
 import 'setting_option.dart';

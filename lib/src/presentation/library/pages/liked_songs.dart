@@ -2,23 +2,22 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter_music_pro/src/core/resources/resources.dart';
+import 'package:zmare/src/core/resources/resources.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:flutter_music_pro/src/utils/ext/common.dart';
-import 'package:flutter_music_pro/src/core/enum/box_types.dart';
-import 'package:flutter_music_pro/src/utils/helper/songs_count.dart'
-    as songs_count;
-import 'package:flutter_music_pro/src/utils/services/audio/player_service.dart';
-import 'package:flutter_music_pro/src/presentation/widgets/collage.dart';
-import 'package:flutter_music_pro/src/presentation/widgets/download_button.dart';
-import 'package:flutter_music_pro/src/presentation/widgets/downloads_search.dart';
-import 'package:flutter_music_pro/src/presentation/widgets/empty_screen.dart';
-import 'package:flutter_music_pro/src/presentation/widgets/like_button.dart';
+import 'package:zmare/src/utils/ext/common.dart';
+import 'package:zmare/src/core/enum/box_types.dart';
+import 'package:zmare/src/utils/helper/songs_count.dart' as songs_count;
+import 'package:zmare/src/utils/services/audio/player_service.dart';
+import 'package:zmare/src/presentation/widgets/collage.dart';
+import 'package:zmare/src/presentation/widgets/download_button.dart';
+import 'package:zmare/src/presentation/widgets/downloads_search.dart';
+import 'package:zmare/src/presentation/widgets/empty_screen.dart';
+import 'package:zmare/src/presentation/widgets/like_button.dart';
 
-import 'package:flutter_music_pro/src/presentation/widgets/playlist_head.dart';
-import 'package:flutter_music_pro/src/presentation/widgets/texts/khmertracks_subtitle.dart';
-import 'package:flutter_music_pro/src/presentation/widgets/texts/khmertracks_title.dart';
+import 'package:zmare/src/presentation/widgets/playlist_head.dart';
+import 'package:zmare/src/presentation/widgets/texts/khmertracks_subtitle.dart';
+import 'package:zmare/src/presentation/widgets/texts/khmertracks_title.dart';
 
 class LikedSongs extends StatefulWidget {
   final String playlistName;
@@ -722,9 +721,14 @@ class _AlbumsTabState extends State<AlbumsTab>
                     ? '${widget.albums[widget.sortedAlbumKeysList[index]]!.length} ${context.loc.song}'
                     : '${widget.albums[widget.sortedAlbumKeysList[index]]!.length} ${context.loc.songs}'),
                 onTap: () {
-                  context.pushNamed(showSongName,
-                      extra: widget.albums[widget.sortedAlbumKeysList[index]]!,
-                      pathParameters: {'type': widget.offline.toString(), 'title': widget.sortedAlbumKeysList[index]},);
+                  context.pushNamed(
+                    showSongName,
+                    extra: widget.albums[widget.sortedAlbumKeysList[index]]!,
+                    pathParameters: {
+                      'type': widget.offline.toString(),
+                      'title': widget.sortedAlbumKeysList[index]
+                    },
+                  );
                 },
               );
             },

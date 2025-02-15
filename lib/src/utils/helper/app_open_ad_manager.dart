@@ -1,5 +1,5 @@
-import 'package:flutter_music_pro/src/app/routes.dart';
-import 'package:flutter_music_pro/src/utils/helper/constants.dart';
+import 'package:zmare/src/app/routes.dart';
+import 'package:zmare/src/utils/helper/constants.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'dart:io' show Platform;
 

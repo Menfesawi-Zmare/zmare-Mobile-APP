@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:flutter_music_pro/src/utils/ext/common.dart';
-import 'package:flutter_music_pro/src/presentation/login/bloc/auth_bloc.dart';
-import 'package:flutter_music_pro/src/presentation/widgets/khmertracks_text.dart';
-import 'package:flutter_music_pro/src/presentation/widgets/khmertracks_text_field.dart';
-import 'package:flutter_music_pro/src/service_locator.dart';
+import 'package:zmare/src/utils/ext/common.dart';
+import 'package:zmare/src/presentation/login/bloc/auth_bloc.dart';
+import 'package:zmare/src/presentation/widgets/khmertracks_text.dart';
+import 'package:zmare/src/presentation/widgets/khmertracks_text_field.dart';
+import 'package:zmare/src/service_locator.dart';
 import 'package:logging/logging.dart';
 
 class LoginPage extends StatefulWidget {

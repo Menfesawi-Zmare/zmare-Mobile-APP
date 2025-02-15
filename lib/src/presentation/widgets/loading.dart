@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_music_pro/src/presentation/widgets/color_loaders.dart';
+import 'package:zmare/src/presentation/widgets/color_loaders.dart';
 
 class Loading extends StatelessWidget {
   const Loading({super.key, this.showMessage = true});

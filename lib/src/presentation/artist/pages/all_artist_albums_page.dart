@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:flutter_music_pro/src/utils/ext/common.dart';
-import 'package:flutter_music_pro/src/data/album/model/album.dart';
-import 'package:flutter_music_pro/src/data/artist/model/artist.dart';
-import 'package:flutter_music_pro/src/presentation/album/bloc/album_bloc.dart';
-import 'package:flutter_music_pro/src/presentation/widgets/item_artist_album.dart';
-import 'package:flutter_music_pro/src/service_locator.dart';
+import 'package:zmare/src/utils/ext/common.dart';
+import 'package:zmare/src/data/album/model/album.dart';
+import 'package:zmare/src/data/artist/model/artist.dart';
+import 'package:zmare/src/presentation/album/bloc/album_bloc.dart';
+import 'package:zmare/src/presentation/widgets/item_artist_album.dart';
+import 'package:zmare/src/service_locator.dart';
 
 class AllArtistAlbumsPage extends StatefulWidget {
   const AllArtistAlbumsPage({super.key, required this.artist});

@@ -2,15 +2,15 @@ import 'package:audio_service/audio_service.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_music_pro/src/app/routes.dart';
-import 'package:flutter_music_pro/src/utils/ext/common.dart';
-import 'package:flutter_music_pro/src/core/enum/box_types.dart';
-import 'package:flutter_music_pro/src/core/enum/favorite_type.dart';
-import 'package:flutter_music_pro/src/utils/helper/playlist.dart';
-import 'package:flutter_music_pro/src/data/like/model/like_dislike.dart';
-import 'package:flutter_music_pro/src/presentation/login/bloc/auth_bloc.dart';
-import 'package:flutter_music_pro/src/presentation/widgets/snackbar.dart';
-import 'package:flutter_music_pro/src/service_locator.dart';
+import 'package:zmare/src/app/routes.dart';
+import 'package:zmare/src/utils/ext/common.dart';
+import 'package:zmare/src/core/enum/box_types.dart';
+import 'package:zmare/src/core/enum/favorite_type.dart';
+import 'package:zmare/src/utils/helper/playlist.dart';
+import 'package:zmare/src/data/like/model/like_dislike.dart';
+import 'package:zmare/src/presentation/login/bloc/auth_bloc.dart';
+import 'package:zmare/src/presentation/widgets/snackbar.dart';
+import 'package:zmare/src/service_locator.dart';
 
 class LikeButton extends StatefulWidget {
   final MediaItem? mediaItem;

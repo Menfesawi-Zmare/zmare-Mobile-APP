@@ -1,11 +1,11 @@
 import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_music_pro/src/presentation/widgets/queue_control_bar.dart';
-import 'package:flutter_music_pro/src/utils/ext/common.dart';
-import 'package:flutter_music_pro/src/presentation/player/pages/audioplayer.dart';
-import 'package:flutter_music_pro/src/presentation/player/pages/now_play.dart';
-import 'package:flutter_music_pro/src/presentation/widgets/empty_screen.dart';
-import 'package:flutter_music_pro/src/service_locator.dart';
+import 'package:zmare/src/presentation/widgets/queue_control_bar.dart';
+import 'package:zmare/src/utils/ext/common.dart';
+import 'package:zmare/src/presentation/player/pages/audioplayer.dart';
+import 'package:zmare/src/presentation/player/pages/now_play.dart';
+import 'package:zmare/src/presentation/widgets/empty_screen.dart';
+import 'package:zmare/src/service_locator.dart';
 import 'package:glassmorphism/glassmorphism.dart';
 
 class NowPlaying extends StatefulWidget {
@@ -62,7 +62,7 @@ class _NowPlayingState extends State<NowPlaying> {
                       return mediaItem == null
                           ? const SizedBox()
                           : NowPlayingStream(
-                            scrollController: _scrollController,
+                              scrollController: _scrollController,
                               audioHandler: audioHandler,
                             );
                     },

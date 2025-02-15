@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_music_pro/src/utils/ext/common.dart';
-import 'package:flutter_music_pro/src/utils/helper/audio_query.dart';
-import 'package:flutter_music_pro/src/presentation/widgets/empty_screen.dart';
-import 'package:flutter_music_pro/src/presentation/widgets/texts/khmertracks_title.dart';
+import 'package:zmare/src/utils/ext/common.dart';
+import 'package:zmare/src/utils/helper/audio_query.dart';
+import 'package:zmare/src/presentation/widgets/empty_screen.dart';
+import 'package:zmare/src/presentation/widgets/texts/khmertracks_title.dart';
 import 'package:go_router/go_router.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 

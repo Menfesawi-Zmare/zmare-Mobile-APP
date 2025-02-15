@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_music_pro/src/utils/ext/common.dart';
-import 'package:flutter_music_pro/src/data/artist/model/artist.dart';
-import 'package:flutter_music_pro/src/data/profile/model/profile.dart';
-import 'package:flutter_music_pro/src/presentation/artist/bloc/artist_bloc.dart';
-import 'package:flutter_music_pro/src/presentation/widgets/item_profile.dart';
+import 'package:zmare/src/utils/ext/common.dart';
+import 'package:zmare/src/data/artist/model/artist.dart';
+import 'package:zmare/src/data/profile/model/profile.dart';
+import 'package:zmare/src/presentation/artist/bloc/artist_bloc.dart';
+import 'package:zmare/src/presentation/widgets/item_profile.dart';
 
-import 'package:flutter_music_pro/src/presentation/widgets/no_result_widget.dart';
-import 'package:flutter_music_pro/src/service_locator.dart';
+import 'package:zmare/src/presentation/widgets/no_result_widget.dart';
+import 'package:zmare/src/service_locator.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 class ArtistScrobbles extends StatefulWidget {
@@ -71,8 +71,8 @@ class _ArtistScrobblesState extends State<ArtistScrobbles> {
                 _pagingController.error = state.message;
               }
               if (state is NoData) {
-              _pagingController.appendLastPage([]);
-            }
+                _pagingController.appendLastPage([]);
+              }
             },
             builder: (context, state) {
               return PagedListView(
@@ -87,7 +87,6 @@ class _ArtistScrobblesState extends State<ArtistScrobbles> {
           ),
         ),
       ),
-      
     );
   }
 }

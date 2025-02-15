@@ -2,12 +2,12 @@ import 'dart:io';
 
 import 'package:audio_service/audio_service.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_music_pro/src/core/resources/resources.dart';
+import 'package:zmare/src/core/resources/resources.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:flutter_music_pro/src/core/enum/box_types.dart';
-import 'package:flutter_music_pro/src/utils/helper/mediaitem_converter.dart';
-import 'package:flutter_music_pro/src/presentation/player/pages/audioplayer.dart';
-import 'package:flutter_music_pro/src/service_locator.dart';
+import 'package:zmare/src/core/enum/box_types.dart';
+import 'package:zmare/src/utils/helper/mediaitem_converter.dart';
+import 'package:zmare/src/presentation/player/pages/audioplayer.dart';
+import 'package:zmare/src/service_locator.dart';
 import 'package:logging/logging.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import 'package:path_provider/path_provider.dart';
@@ -49,11 +49,7 @@ class PlayerInvoke {
             ? setDownValues(finalList, globalIndex)
             : setOffValues(finalList, globalIndex);
       } else {
-        setValues(
-          finalList,
-          globalIndex,
-          recommend: recommend
-        );
+        setValues(finalList, globalIndex, recommend: recommend);
       }
     }
   }
@@ -124,18 +120,13 @@ class PlayerInvoke {
     updateNplay(queue, index);
   }
 
-  static void setValues(
-    List response,
-    int index, {
-    bool recommend = true
-  }) async{
+  static void setValues(List response, int index,
+      {bool recommend = true}) async {
     final List<MediaItem> queue = [];
     queue.addAll(
       response.map(
-        (song) => MediaItemConverter.mapToMediaItem(
-          song as Map,
-          autoplay: recommend
-        ),
+        (song) =>
+            MediaItemConverter.mapToMediaItem(song as Map, autoplay: recommend),
       ),
     );
     await updateNplay(queue, index);
@@ -144,7 +135,8 @@ class PlayerInvoke {
   static Future<void> updateNplay(List<MediaItem> queue, int index) async {
     await audioHandler.setShuffleMode(AudioServiceShuffleMode.none);
     // await audioHandler.updateQueue(queue);
-    await audioHandler.customAction('setTracksAndPlay', {'id': index, 'playlist' : queue});
+    await audioHandler
+        .customAction('setTracksAndPlay', {'id': index, 'playlist': queue});
     // await audioHandler.play();
     final String repeatMode = Hive.box(BoxType.player.name)
         .get('repeatMode', defaultValue: 'None')

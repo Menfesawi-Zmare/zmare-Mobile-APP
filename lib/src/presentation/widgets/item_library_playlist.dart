@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_music_pro/src/core/resources/resources.dart';
-import 'package:flutter_music_pro/src/utils/ext/common.dart';
-import 'package:flutter_music_pro/src/core/enum/playlist_privacy_type.dart';
-import 'package:flutter_music_pro/src/data/playlist/model/playlist.dart';
-import 'package:flutter_music_pro/src/presentation/widgets/khmertracks_image.dart';
+import 'package:zmare/src/core/resources/resources.dart';
+import 'package:zmare/src/utils/ext/common.dart';
+import 'package:zmare/src/core/enum/playlist_privacy_type.dart';
+import 'package:zmare/src/data/playlist/model/playlist.dart';
+import 'package:zmare/src/presentation/widgets/khmertracks_image.dart';
 
 class ItemLibraryPlaylist extends StatelessWidget {
   const ItemLibraryPlaylist(
