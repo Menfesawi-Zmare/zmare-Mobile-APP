@@ -10,7 +10,7 @@ class SearchButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return IconButton(
       icon: Icon(
-        FluentIcons.search_28_regular,
+        FluentIcons.search_48_filled,
         color: context.onBackground,
       ),
       onPressed: () {

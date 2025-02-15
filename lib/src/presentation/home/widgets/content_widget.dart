@@ -17,8 +17,7 @@ class ContentWidget extends StatelessWidget {
     0: const ExplorerPage(),
     1: TrackPage(type: HomepageTrackType.latest.toName),
     2: TrackPage(type: HomepageTrackType.popular.toName),
-    3: TrackPage(type: HomepageTrackType.random.toName),
-    4: const LibraryPage(),
+    3: const LibraryPage(),
   };
   @override
   Widget build(BuildContext context) {

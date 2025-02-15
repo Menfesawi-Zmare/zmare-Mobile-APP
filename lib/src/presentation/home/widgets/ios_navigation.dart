@@ -38,12 +38,12 @@ class IosNavigation extends StatelessWidget {
                 icon: const Icon(FluentIcons.arrow_trending_12_regular),
                 selectedIcon: const Icon(FluentIcons.arrow_trending_12_filled),
               ),
-              NavigationDestination(
-                label: context.loc.randomLabel,
-                icon: const Icon(FluentIcons.arrow_repeat_all_16_regular),
-                selectedIcon:
-                    const Icon(FluentIcons.arrow_repeat_all_16_filled),
-              ),
+              // NavigationDestination(
+              //   label: context.loc.randomLabel,
+              //   icon: const Icon(FluentIcons.arrow_repeat_all_16_regular),
+              //   selectedIcon:
+              //       const Icon(FluentIcons.arrow_repeat_all_16_filled),
+              // ),
               NavigationDestination(
                 label: context.loc.libraryLabel,
                 icon: const Icon(FluentIcons.library_16_regular),
