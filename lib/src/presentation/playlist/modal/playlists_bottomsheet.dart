@@ -1,16 +1,16 @@
 import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_music_pro/src/data/playlist/model/create_playlist_model.dart';
-import 'package:flutter_music_pro/src/presentation/widgets/khmertracks_text.dart';
-import 'package:flutter_music_pro/src/utils/ext/common.dart';
-import 'package:flutter_music_pro/src/utils/helper/mediaitem_converter.dart';
-import 'package:flutter_music_pro/src/data/playlist/model/playlist.dart';
-import 'package:flutter_music_pro/src/data/playlist/model/playlists_request_model.dart';
-import 'package:flutter_music_pro/src/data/song/model/item_song_model.dart';
-import 'package:flutter_music_pro/src/presentation/login/bloc/auth_bloc.dart';
-import 'package:flutter_music_pro/src/presentation/widgets/textinput_dialog.dart';
-import 'package:flutter_music_pro/src/service_locator.dart';
+import 'package:zmare/src/data/playlist/model/create_playlist_model.dart';
+import 'package:zmare/src/presentation/widgets/khmertracks_text.dart';
+import 'package:zmare/src/utils/ext/common.dart';
+import 'package:zmare/src/utils/helper/mediaitem_converter.dart';
+import 'package:zmare/src/data/playlist/model/playlist.dart';
+import 'package:zmare/src/data/playlist/model/playlists_request_model.dart';
+import 'package:zmare/src/data/song/model/item_song_model.dart';
+import 'package:zmare/src/presentation/login/bloc/auth_bloc.dart';
+import 'package:zmare/src/presentation/widgets/textinput_dialog.dart';
+import 'package:zmare/src/service_locator.dart';
 
 class PlaylistsBottomSheet extends StatefulWidget {
   const PlaylistsBottomSheet({super.key, required this.songList});
@@ -112,8 +112,7 @@ class _PlaylistsBottomSheetState extends State<PlaylistsBottomSheet> {
                                     controlAffinity:
                                         ListTileControlAffinity.leading,
                                     title: Text(playlist![index].name!,
-                                        style:
-                                            context.titleMedium?.copyWith()),
+                                        style: context.titleMedium?.copyWith()),
                                     value: listCheckBox![index],
                                     secondary: playlist![index].public == 0
                                         ? const Icon(Icons.lock)

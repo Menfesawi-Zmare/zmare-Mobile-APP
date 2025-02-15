@@ -5,14 +5,14 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_lyric/lyrics_reader.dart';
-import 'package:flutter_music_pro/src/core/resources/resources.dart';
-import 'package:flutter_music_pro/src/presentation/player/lyric/lyric_ui.dart';
+import 'package:zmare/src/core/resources/resources.dart';
+import 'package:zmare/src/presentation/player/lyric/lyric_ui.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:flutter_music_pro/src/utils/ext/common.dart';
-import 'package:flutter_music_pro/src/core/enum/box_types.dart';
-import 'package:flutter_music_pro/src/utils/helper/lyrics.dart';
-import 'package:flutter_music_pro/src/presentation/player/pages/audioplayer.dart';
-import 'package:flutter_music_pro/src/presentation/widgets/khmertracks_text.dart';
+import 'package:zmare/src/utils/ext/common.dart';
+import 'package:zmare/src/core/enum/box_types.dart';
+import 'package:zmare/src/utils/helper/lyrics.dart';
+import 'package:zmare/src/presentation/player/pages/audioplayer.dart';
+import 'package:zmare/src/presentation/widgets/khmertracks_text.dart';
 import 'package:logging/logging.dart';
 
 class ArtWorkWidget extends StatefulWidget {
@@ -43,7 +43,7 @@ class _ArtWorkWidgetState extends State<ArtWorkWidget> {
   //Lyric
   Map lyrics = {'id': '', 'lyrics': ''};
   bool flipped = false;
-  
+
   void fetchLyrics() {
     Logger.root.info('Fetching lyrics for ${widget.mediaItem.title}');
     done.value = false;
@@ -84,12 +84,12 @@ class _ArtWorkWidgetState extends State<ArtWorkWidget> {
   @override
   Widget build(BuildContext context) {
     var lyricUI = FlutterMusicProLyricUI(
-      textStyle: context.titleMedium,
-      highlight: false,
-      defaultSize: 22.0,
-      defaultExtSize: 20.0,
-      lyricBaseLine: LyricBaseLine.CENTER,
-      lyricAlign: LyricAlign.LEFT);
+        textStyle: context.titleMedium,
+        highlight: false,
+        defaultSize: 22.0,
+        defaultExtSize: 20.0,
+        lyricBaseLine: LyricBaseLine.CENTER,
+        lyricAlign: LyricAlign.LEFT);
 
     if (flipped && lyrics['id'] != widget.mediaItem.id) {
       fetchLyrics();
@@ -146,7 +146,8 @@ class _ArtWorkWidgetState extends State<ArtWorkWidget> {
                             Widget? child,
                           ) {
                             return value
-                                ? lyrics['lyrics'] == '' || lyrics['lyrics'] == null
+                                ? lyrics['lyrics'] == '' ||
+                                        lyrics['lyrics'] == null
                                     ? SizedBox(
                                         width: widget.width * 0.9,
                                         height: widget.width * 0.9,

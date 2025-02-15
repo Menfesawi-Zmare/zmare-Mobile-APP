@@ -4,24 +4,24 @@ import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_music_pro/src/data/auth/model/auth_profile.dart';
-import 'package:flutter_music_pro/src/data/auth/model/update_account_response.dart';
-import 'package:flutter_music_pro/src/data/playlist/model/add_to_playlist_response.dart';
-import 'package:flutter_music_pro/src/data/playlist/model/create_playlist_model.dart';
-import 'package:flutter_music_pro/src/data/playlist/model/playlist_list.dart';
-import 'package:flutter_music_pro/src/data/playlist/model/response/create_playlist_response.dart';
+import 'package:zmare/src/data/auth/model/auth_profile.dart';
+import 'package:zmare/src/data/auth/model/update_account_response.dart';
+import 'package:zmare/src/data/playlist/model/add_to_playlist_response.dart';
+import 'package:zmare/src/data/playlist/model/create_playlist_model.dart';
+import 'package:zmare/src/data/playlist/model/playlist_list.dart';
+import 'package:zmare/src/data/playlist/model/response/create_playlist_response.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:flutter_music_pro/src/app/routes.dart';
-import 'package:flutter_music_pro/src/utils/ext/common.dart';
-import 'package:flutter_music_pro/src/core/enum/login_type.dart';
-import 'package:flutter_music_pro/src/core/error/error.dart';
-import 'package:flutter_music_pro/src/data/account/model/account.dart';
-import 'package:flutter_music_pro/src/data/like/model/like_dislike.dart';
-import 'package:flutter_music_pro/src/data/playlist/model/playlist_update_request_model.dart';
-import 'package:flutter_music_pro/src/data/playlist/model/playlists_request_model.dart';
-import 'package:flutter_music_pro/src/data/register/model/register_response.dart';
-import 'package:flutter_music_pro/src/data/register/model/register_social_request.dart';
-import 'package:flutter_music_pro/src/domain/auth/repository/auth_repository.dart';
+import 'package:zmare/src/app/routes.dart';
+import 'package:zmare/src/utils/ext/common.dart';
+import 'package:zmare/src/core/enum/login_type.dart';
+import 'package:zmare/src/core/error/error.dart';
+import 'package:zmare/src/data/account/model/account.dart';
+import 'package:zmare/src/data/like/model/like_dislike.dart';
+import 'package:zmare/src/data/playlist/model/playlist_update_request_model.dart';
+import 'package:zmare/src/data/playlist/model/playlists_request_model.dart';
+import 'package:zmare/src/data/register/model/register_response.dart';
+import 'package:zmare/src/data/register/model/register_social_request.dart';
+import 'package:zmare/src/domain/auth/repository/auth_repository.dart';
 import 'package:logging/logging.dart';
 
 part 'auth_event.dart';
@@ -144,7 +144,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     //Update Avatar & Cover Profile
     on<UpdateImageEvent>((event, emit) async {
       emit(Loading());
-      final data = await iAuthRepository.updateImage(event.file,event.type);
+      final data = await iAuthRepository.updateImage(event.file, event.type);
       data.fold((l) {
         if (l is ServerFailure) {
           emit(Failure(l.message ?? ""));
@@ -212,7 +212,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         if (l is ServerFailure) {
           emit(Failure(l.message ?? ""));
         }
-         if (l is NoDataFailure) {
+        if (l is NoDataFailure) {
           emit(NoData());
         }
       }, (r) {
@@ -375,31 +375,32 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         if (l is ServerFailure) {
           emit(Failure(l.message ?? ""));
         }
-      }, (r) {       
-          settings.put(explorerPerPage, r.ePerPage);
-          settings.put(facebookUrl, r.facebook);
-          settings.put(youtubeUrl, r.youtube);
-          settings.put(telegramUrl, r.telegram);
-          settings.put(instagramUrl, r.instagram);
-          settings.put(twitterUrl, r.twitter);
-          settings.put(playStoreUrl, r.psUrl);
-          settings.put(appStoreUrl, r.asUrl);
-          settings.put(tosUrl, r.tosUrl);
-          settings.put(privacyUrl, r.privacyUrl);
-          settings.put(androidExplorerAd, r.androidExplorerAd);
-          settings.put(androidInterstitialAd, r.androidInterstitialAd);
-          settings.put(androidMaxInterstitialAdClick, r.androidMaxInterstitialAdClick);
-          settings.put(androidAppOpenAd, r.androidAppOpenAd);
-          settings.put(iosExplorerAd, r.iosExplorerAd);
-          settings.put(iosInterstitialAd, r.iosInterstitialAd);
-          settings.put(iosMaxInterstitialAdClick, r.iosMaxInterstitialAdClick);
-          settings.put(iosAppOpenAd, r.iosAppOpenAd);
-          settings.put(androidExplorerStatus, r.androidExplorerStatus);
-          settings.put(androidAppOpenStatus, r.androidAppOpenStatus);
-          settings.put(iosExplorerStatus, r.iosExplorerStatus);
-          settings.put(androidInterstitialStatus, r.androidInterstitialStatus);
-          settings.put(iosInterstitialStatus, r.iosInterstitialStatus);
-          settings.put(iosAppOpenStatus, r.iosAppOpenStatus);
+      }, (r) {
+        settings.put(explorerPerPage, r.ePerPage);
+        settings.put(facebookUrl, r.facebook);
+        settings.put(youtubeUrl, r.youtube);
+        settings.put(telegramUrl, r.telegram);
+        settings.put(instagramUrl, r.instagram);
+        settings.put(twitterUrl, r.twitter);
+        settings.put(playStoreUrl, r.psUrl);
+        settings.put(appStoreUrl, r.asUrl);
+        settings.put(tosUrl, r.tosUrl);
+        settings.put(privacyUrl, r.privacyUrl);
+        settings.put(androidExplorerAd, r.androidExplorerAd);
+        settings.put(androidInterstitialAd, r.androidInterstitialAd);
+        settings.put(
+            androidMaxInterstitialAdClick, r.androidMaxInterstitialAdClick);
+        settings.put(androidAppOpenAd, r.androidAppOpenAd);
+        settings.put(iosExplorerAd, r.iosExplorerAd);
+        settings.put(iosInterstitialAd, r.iosInterstitialAd);
+        settings.put(iosMaxInterstitialAdClick, r.iosMaxInterstitialAdClick);
+        settings.put(iosAppOpenAd, r.iosAppOpenAd);
+        settings.put(androidExplorerStatus, r.androidExplorerStatus);
+        settings.put(androidAppOpenStatus, r.androidAppOpenStatus);
+        settings.put(iosExplorerStatus, r.iosExplorerStatus);
+        settings.put(androidInterstitialStatus, r.androidInterstitialStatus);
+        settings.put(iosInterstitialStatus, r.iosInterstitialStatus);
+        settings.put(iosAppOpenStatus, r.iosAppOpenStatus);
       });
     });
   }

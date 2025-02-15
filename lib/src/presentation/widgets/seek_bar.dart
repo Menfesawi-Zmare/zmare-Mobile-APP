@@ -1,6 +1,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:flutter_music_pro/src/presentation/player/pages/audioplayer.dart';
+import 'package:zmare/src/presentation/player/pages/audioplayer.dart';
 
 class SeekBar extends StatefulWidget {
   final AudioPlayerHandler audioHandler;

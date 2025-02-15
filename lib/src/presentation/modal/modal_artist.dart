@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:flutter_music_pro/src/utils/ext/common.dart';
-import 'package:flutter_music_pro/src/data/artist/model/artist.dart';
+import 'package:zmare/src/utils/ext/common.dart';
+import 'package:zmare/src/data/artist/model/artist.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class ModalArtists extends StatelessWidget {
@@ -39,7 +39,7 @@ class ModalArtists extends StatelessWidget {
                 title: Text(artistName.split(',')[index],
                     style: context.titleMedium
                         ?.copyWith(fontWeight: FontWeight.bold)),
-                leading:  Icon(MdiIcons.accountMusicOutline),
+                leading: Icon(MdiIcons.accountMusicOutline),
                 onTap: () {
                   GoRouter.of(context).pop();
                   if (isPlayingPage) {

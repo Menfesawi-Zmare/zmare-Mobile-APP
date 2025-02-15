@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_music_pro/src/utils/ext/common.dart';
-import 'package:flutter_music_pro/src/data/song/model/item_song_model.dart';
+import 'package:zmare/src/utils/ext/common.dart';
+import 'package:zmare/src/data/song/model/item_song_model.dart';
 import 'package:go_router/go_router.dart';
 
 class ModalFilter extends StatelessWidget {

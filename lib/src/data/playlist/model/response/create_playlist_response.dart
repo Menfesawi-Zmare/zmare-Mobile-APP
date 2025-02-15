@@ -1,4 +1,4 @@
-import 'package:flutter_music_pro/src/data/playlist/model/playlist.dart';
+import 'package:zmare/src/data/playlist/model/playlist.dart';
 
 class CreatePlaylistResponse {
   bool? status;

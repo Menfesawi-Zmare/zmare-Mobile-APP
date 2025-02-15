@@ -1,5 +1,5 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:flutter_music_pro/src/presentation/network/bloc/network_bloc.dart';
+import 'package:zmare/src/presentation/network/bloc/network_bloc.dart';
 
 class NetworkHelper {
   static void observeNetwork() {

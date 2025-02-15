@@ -1,4 +1,4 @@
-import 'package:flutter_music_pro/src/data/artist/model/artist.dart';
+import 'package:zmare/src/data/artist/model/artist.dart';
 
 class ArtistDetail {
   Artist? artist;

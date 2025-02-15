@@ -6,27 +6,28 @@ import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_music_pro/src/presentation/modal/modal_comment.dart';
+import 'package:zmare/src/presentation/modal/modal_comment.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:flutter_music_pro/src/utils/ext/common.dart';
-import 'package:flutter_music_pro/src/core/enum/box_types.dart';
-import 'package:flutter_music_pro/src/utils/helper/lyrics.dart';
-import 'package:flutter_music_pro/src/utils/helper/mediaitem_converter.dart';
-import 'package:flutter_music_pro/src/data/song/model/item_song_model.dart';
-import 'package:flutter_music_pro/src/presentation/modal/modal_more.dart';
-import 'package:flutter_music_pro/src/presentation/player/pages/audioplayer.dart';
-import 'package:flutter_music_pro/src/presentation/widgets/animated_text.dart';
-import 'package:flutter_music_pro/src/presentation/widgets/download_button.dart';
-import 'package:flutter_music_pro/src/presentation/widgets/like_button.dart';
-import 'package:flutter_music_pro/src/presentation/widgets/seek_bar.dart';
-import 'package:flutter_music_pro/src/presentation/widgets/textinput_dialog.dart';
+import 'package:zmare/src/utils/ext/common.dart';
+import 'package:zmare/src/core/enum/box_types.dart';
+import 'package:zmare/src/utils/helper/lyrics.dart';
+import 'package:zmare/src/utils/helper/mediaitem_converter.dart';
+import 'package:zmare/src/data/song/model/item_song_model.dart';
+import 'package:zmare/src/presentation/modal/modal_more.dart';
+import 'package:zmare/src/presentation/player/pages/audioplayer.dart';
+import 'package:zmare/src/presentation/widgets/animated_text.dart';
+import 'package:zmare/src/presentation/widgets/download_button.dart';
+import 'package:zmare/src/presentation/widgets/like_button.dart';
+import 'package:zmare/src/presentation/widgets/seek_bar.dart';
+import 'package:zmare/src/presentation/widgets/textinput_dialog.dart';
 import 'package:rxdart/rxdart.dart';
 
 class NameNControls extends StatelessWidget {
   final GlobalKey<FlipCardState> cardKey;
   final MediaItem mediaItem;
   final bool offline;
+  final AnimationController? animationController;
   final double width;
   final double height;
   final AudioPlayerHandler audioHandler;
@@ -39,6 +40,7 @@ class NameNControls extends StatelessWidget {
     required this.mediaItem,
     required this.audioHandler,
     this.offline = false,
+    required this.animationController,
   });
 
   Stream<Duration> get _bufferedPositionStream => audioHandler.playbackState
@@ -204,6 +206,7 @@ class NameNControls extends StatelessWidget {
                             ],
                           ),
                           ControlButtons(
+                            animationController: animationController,
                             audioHandler,
                           ),
                           Column(
