@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_music_pro/src/core/resources/resources.dart';
-import 'package:flutter_music_pro/src/utils/ext/common.dart';
+import 'package:zmare/src/core/resources/resources.dart';
+import 'package:zmare/src/utils/ext/common.dart';
 
 class KhmertracksIconTitle extends StatelessWidget {
   const KhmertracksIconTitle({super.key});

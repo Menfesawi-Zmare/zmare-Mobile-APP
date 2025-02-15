@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_music_pro/src/data/artist/model/artist.dart';
-import 'package:flutter_music_pro/src/data/follow/model/follow_response_model.dart';
-import 'package:flutter_music_pro/src/presentation/widgets/item_artist.dart';
+import 'package:zmare/src/data/artist/model/artist.dart';
+import 'package:zmare/src/data/follow/model/follow_response_model.dart';
+import 'package:zmare/src/presentation/widgets/item_artist.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:flutter_music_pro/src/presentation/profile/bloc/profile_bloc.dart';
-import 'package:flutter_music_pro/src/presentation/widgets/item_profile.dart';
-import 'package:flutter_music_pro/src/presentation/widgets/no_result_widget.dart';
-import 'package:flutter_music_pro/src/service_locator.dart';
+import 'package:zmare/src/presentation/profile/bloc/profile_bloc.dart';
+import 'package:zmare/src/presentation/widgets/item_profile.dart';
+import 'package:zmare/src/presentation/widgets/no_result_widget.dart';
+import 'package:zmare/src/service_locator.dart';
 
 class SubscriptionsWidget extends StatefulWidget {
   const SubscriptionsWidget({
@@ -76,7 +76,7 @@ class _SubscriptionsWidgetState extends State<SubscriptionsWidget> {
           },
           builder: (context, state) {
             return PagedListView(
-              physics: const BouncingScrollPhysics(),
+                physics: const BouncingScrollPhysics(),
                 pagingController: _pagingController,
                 builderDelegate: PagedChildBuilderDelegate<Follow>(
                     noItemsFoundIndicatorBuilder: (context) => NoResultWidget(

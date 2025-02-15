@@ -1,16 +1,17 @@
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:flutter_music_pro/src/utils/ext/common.dart';
-import 'package:flutter_music_pro/src/core/enum/box_types.dart';
-import 'package:flutter_music_pro/src/presentation/widgets/texts/khmertracks_title.dart';
-import 'package:flutter_music_pro/src/service_locator.dart';
+import 'package:zmare/src/utils/ext/common.dart';
+import 'package:zmare/src/core/enum/box_types.dart';
+import 'package:zmare/src/presentation/widgets/texts/khmertracks_title.dart';
+import 'package:zmare/src/service_locator.dart';
 
 class CircularPlayButtonWidget extends StatefulWidget {
   const CircularPlayButtonWidget({super.key});
 
   @override
-  State<CircularPlayButtonWidget> createState() => _CircularPlayButtonWidgetState();
+  State<CircularPlayButtonWidget> createState() =>
+      _CircularPlayButtonWidgetState();
 }
 
 class _CircularPlayButtonWidgetState extends State<CircularPlayButtonWidget> {

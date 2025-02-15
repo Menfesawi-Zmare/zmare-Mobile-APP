@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:flutter_music_pro/src/app/routes.dart';
-import 'package:flutter_music_pro/src/utils/ext/common.dart';
-import 'package:flutter_music_pro/src/core/enum/grid_type.dart';
-import 'package:flutter_music_pro/src/presentation/settings/widgets/extra_controls_widget.dart';
-import 'package:flutter_music_pro/src/presentation/settings/widgets/setting_option.dart';
-import 'package:flutter_music_pro/src/presentation/settings/widgets/settings_group_card.dart';
-import 'package:flutter_music_pro/src/presentation/widgets/khmertracks_text.dart';
-import 'package:flutter_music_pro/src/presentation/widgets/texts/khmertracks_title.dart';
+import 'package:zmare/src/app/routes.dart';
+import 'package:zmare/src/utils/ext/common.dart';
+import 'package:zmare/src/core/enum/grid_type.dart';
+import 'package:zmare/src/presentation/settings/widgets/extra_controls_widget.dart';
+import 'package:zmare/src/presentation/settings/widgets/setting_option.dart';
+import 'package:zmare/src/presentation/settings/widgets/settings_group_card.dart';
+import 'package:zmare/src/presentation/widgets/khmertracks_text.dart';
+import 'package:zmare/src/presentation/widgets/texts/khmertracks_title.dart';
 
 class PersonalizePage extends StatefulWidget {
   const PersonalizePage({super.key});

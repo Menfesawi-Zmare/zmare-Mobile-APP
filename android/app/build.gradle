@@ -51,7 +51,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.flutter.music.pro"
+        applicationId "com.zmare.zmare"
         minSdkVersion Math.max(24, flutter.minSdkVersion)
         targetSdkVersion 34
         versionCode flutterVersionCode.toInteger()

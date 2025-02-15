@@ -1,14 +1,14 @@
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_music_pro/src/core/resources/resources.dart';
-import 'package:flutter_music_pro/src/core/theme/flutter_music_pro_theme.dart';
-import 'package:flutter_music_pro/src/presentation/library/modal/download_filter.dart';
-import 'package:flutter_music_pro/src/presentation/widgets/cover_sliver_appbar.dart';
-import 'package:flutter_music_pro/src/presentation/widgets/data_search.dart';
+import 'package:zmare/src/core/resources/resources.dart';
+import 'package:zmare/src/core/theme/zmare_theme.dart';
+import 'package:zmare/src/presentation/library/modal/download_filter.dart';
+import 'package:zmare/src/presentation/widgets/cover_sliver_appbar.dart';
+import 'package:zmare/src/presentation/widgets/data_search.dart';
 import 'package:hive/hive.dart';
-import 'package:flutter_music_pro/src/utils/ext/common.dart';
-import 'package:flutter_music_pro/src/core/enum/box_types.dart';
-import 'package:flutter_music_pro/src/utils/services/audio/player_service.dart';
+import 'package:zmare/src/utils/ext/common.dart';
+import 'package:zmare/src/core/enum/box_types.dart';
+import 'package:zmare/src/utils/services/audio/player_service.dart';
 
 class ShowSongs extends StatefulWidget {
   final List data;

@@ -1,10 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_music_pro/src/core/resources/resources.dart';
-import 'package:flutter_music_pro/src/utils/ext/common.dart';
-import 'package:flutter_music_pro/src/utils/helper/color_ultil.dart';
-import 'package:flutter_music_pro/src/utils/helper/khmertracks_palette.dart';
-import 'package:flutter_music_pro/src/presentation/widgets/khmertracks_image.dart';
+import 'package:zmare/src/core/resources/resources.dart';
+import 'package:zmare/src/utils/ext/common.dart';
+import 'package:zmare/src/utils/helper/color_ultil.dart';
+import 'package:zmare/src/utils/helper/khmertracks_palette.dart';
+import 'package:zmare/src/presentation/widgets/khmertracks_image.dart';
 
 class DynamicGrid extends StatelessWidget {
   const DynamicGrid(

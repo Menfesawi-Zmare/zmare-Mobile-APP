@@ -1,8 +1,8 @@
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_music_pro/src/utils/ext/common.dart';
-import 'package:flutter_music_pro/src/utils/services/audio/player_service.dart';
-import 'package:flutter_music_pro/src/data/song/model/item_song_model.dart';
+import 'package:zmare/src/utils/ext/common.dart';
+import 'package:zmare/src/utils/services/audio/player_service.dart';
+import 'package:zmare/src/data/song/model/item_song_model.dart';
 
 class PlayAndShuffleButton extends StatelessWidget {
   const PlayAndShuffleButton({super.key, required this.songList});
@@ -22,7 +22,7 @@ class PlayAndShuffleButton extends StatelessWidget {
                   index: 0,
                   isOffline: false,
                   shuffle: false,
-                );                
+                );
               }
             },
             icon: const Icon(
@@ -53,7 +53,7 @@ class PlayAndShuffleButton extends StatelessWidget {
                   index: 0,
                   isOffline: false,
                   shuffle: true,
-                );                
+                );
               }
             },
             icon: const Icon(

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:flutter_music_pro/src/utils/ext/common.dart';
-import 'package:flutter_music_pro/src/core/enum/box_types.dart';
-import 'package:flutter_music_pro/src/presentation/widgets/texts/khmertracks_subtitle.dart';
-import 'package:flutter_music_pro/src/presentation/widgets/texts/khmertracks_title.dart';
-import 'package:flutter_music_pro/src/service_locator.dart';
+import 'package:zmare/src/utils/ext/common.dart';
+import 'package:zmare/src/core/enum/box_types.dart';
+import 'package:zmare/src/presentation/widgets/texts/khmertracks_subtitle.dart';
+import 'package:zmare/src/presentation/widgets/texts/khmertracks_title.dart';
+import 'package:zmare/src/service_locator.dart';
 
 class ExtraControlsWidget extends StatefulWidget {
   const ExtraControlsWidget({super.key});
@@ -15,8 +15,7 @@ class ExtraControlsWidget extends StatefulWidget {
 
 class _ExtraControlsWidgetState extends State<ExtraControlsWidget> {
   final settings = locator<Box<dynamic>>(instanceName: BoxType.settings.name);
-  late bool isSelected =
-      settings.get(extraControlsKey, defaultValue: false);
+  late bool isSelected = settings.get(extraControlsKey, defaultValue: false);
   @override
   Widget build(BuildContext context) {
     return SwitchListTile(

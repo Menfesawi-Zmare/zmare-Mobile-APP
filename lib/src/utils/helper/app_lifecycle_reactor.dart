@@ -1,5 +1,5 @@
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:flutter_music_pro/src/utils/helper/app_open_ad_manager.dart';
+import 'package:zmare/src/utils/helper/app_open_ad_manager.dart';
 import 'package:logging/logging.dart';
 
 /// Listens for app foreground events and shows app open ads.

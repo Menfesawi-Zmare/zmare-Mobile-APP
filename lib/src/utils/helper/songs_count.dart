@@ -1,5 +1,5 @@
 import 'package:hive/hive.dart';
-import 'package:flutter_music_pro/src/core/enum/box_types.dart';
+import 'package:zmare/src/core/enum/box_types.dart';
 
 void addSongsCount(String playlistName, int len, List images) {
   final Map playlistDetails = Hive.box(BoxType.playlists.name)

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_music_pro/src/presentation/track/pages/track_mobile_page.dart';
+import 'package:zmare/src/presentation/track/pages/track_mobile_page.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 class TrackPage extends StatefulWidget {

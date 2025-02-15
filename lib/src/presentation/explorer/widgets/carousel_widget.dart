@@ -1,9 +1,9 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_music_pro/src/core/resources/resources.dart';
-import 'package:flutter_music_pro/src/data/explorer/model/explorer_model.dart';
-import 'package:flutter_music_pro/src/utils/ext/common.dart';
-import 'package:flutter_music_pro/src/presentation/widgets/khmertracks_image.dart';
+import 'package:zmare/src/core/resources/resources.dart';
+import 'package:zmare/src/data/explorer/model/explorer_model.dart';
+import 'package:zmare/src/utils/ext/common.dart';
+import 'package:zmare/src/presentation/widgets/khmertracks_image.dart';
 
 class CarouselWidget extends StatefulWidget {
   const CarouselWidget({super.key, required this.banners});

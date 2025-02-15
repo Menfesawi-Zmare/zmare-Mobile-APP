@@ -1,11 +1,11 @@
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_music_pro/src/core/resources/resources.dart';
+import 'package:zmare/src/core/resources/resources.dart';
 import 'package:go_router/go_router.dart';
-import 'package:flutter_music_pro/src/utils/ext/common.dart';
-import 'package:flutter_music_pro/src/data/artist/model/artist.dart';
-import 'package:flutter_music_pro/src/presentation/widgets/khmertracks_image.dart';
-import 'package:flutter_music_pro/src/presentation/widgets/texts/khmertracks_title.dart';
+import 'package:zmare/src/utils/ext/common.dart';
+import 'package:zmare/src/data/artist/model/artist.dart';
+import 'package:zmare/src/presentation/widgets/khmertracks_image.dart';
+import 'package:zmare/src/presentation/widgets/texts/khmertracks_title.dart';
 
 import 'texts/khmertracks_subtitle.dart';
 

@@ -2,20 +2,20 @@ import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_music_pro/src/data/playlist/model/create_playlist_model.dart';
+import 'package:zmare/src/data/playlist/model/create_playlist_model.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:flutter_music_pro/src/utils/ext/common.dart';
-import 'package:flutter_music_pro/src/core/enum/box_types.dart';
-import 'package:flutter_music_pro/src/utils/helper/ad_helper.dart';
-import 'package:flutter_music_pro/src/data/playlist/model/playlist.dart';
-import 'package:flutter_music_pro/src/data/profile/model/profile.dart';
-import 'package:flutter_music_pro/src/presentation/library/modal/modal_add_playlist_tracks.dart';
-import 'package:flutter_music_pro/src/presentation/login/bloc/auth_bloc.dart';
-import 'package:flutter_music_pro/src/presentation/widgets/item_library_add_playlist.dart';
-import 'package:flutter_music_pro/src/presentation/widgets/item_library_playlist.dart';
-import 'package:flutter_music_pro/src/presentation/widgets/textinput_dialog.dart';
-import 'package:flutter_music_pro/src/service_locator.dart';
+import 'package:zmare/src/utils/ext/common.dart';
+import 'package:zmare/src/core/enum/box_types.dart';
+import 'package:zmare/src/utils/helper/ad_helper.dart';
+import 'package:zmare/src/data/playlist/model/playlist.dart';
+import 'package:zmare/src/data/profile/model/profile.dart';
+import 'package:zmare/src/presentation/library/modal/modal_add_playlist_tracks.dart';
+import 'package:zmare/src/presentation/login/bloc/auth_bloc.dart';
+import 'package:zmare/src/presentation/widgets/item_library_add_playlist.dart';
+import 'package:zmare/src/presentation/widgets/item_library_playlist.dart';
+import 'package:zmare/src/presentation/widgets/textinput_dialog.dart';
+import 'package:zmare/src/service_locator.dart';
 
 class LibraryPlaylistWidget extends StatefulWidget {
   const LibraryPlaylistWidget(

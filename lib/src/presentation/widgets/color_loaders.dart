@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import "package:flutter/material.dart";
-import 'package:flutter_music_pro/src/core/resources/resources.dart';
+import 'package:zmare/src/core/resources/resources.dart';
 
 class ColorLoader extends StatefulWidget {
   final double radius;
