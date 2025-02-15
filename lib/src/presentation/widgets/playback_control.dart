@@ -62,6 +62,7 @@ class PlaybackControl extends StatelessWidget {
           },
         ),
         ControlButtons(
+          animationController: null,
           audioPlayerHandler,
         ),
         Column(
