@@ -1,15 +1,15 @@
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_music_pro/src/app/routes.dart';
-import 'package:flutter_music_pro/src/utils/ext/common.dart';
-import 'package:flutter_music_pro/src/data/profile/model/profile.dart';
-import 'package:flutter_music_pro/src/data/song/model/item_song_model.dart';
-import 'package:flutter_music_pro/src/data/track/model/response/load_comment_response.dart';
-import 'package:flutter_music_pro/src/presentation/track/bloc/track_bloc.dart';
-import 'package:flutter_music_pro/src/presentation/widgets/item_comment.dart';
-import 'package:flutter_music_pro/src/presentation/widgets/no_comment_widget.dart';
-import 'package:flutter_music_pro/src/service_locator.dart';
+import 'package:zmare/src/app/routes.dart';
+import 'package:zmare/src/utils/ext/common.dart';
+import 'package:zmare/src/data/profile/model/profile.dart';
+import 'package:zmare/src/data/song/model/item_song_model.dart';
+import 'package:zmare/src/data/track/model/response/load_comment_response.dart';
+import 'package:zmare/src/presentation/track/bloc/track_bloc.dart';
+import 'package:zmare/src/presentation/widgets/item_comment.dart';
+import 'package:zmare/src/presentation/widgets/no_comment_widget.dart';
+import 'package:zmare/src/service_locator.dart';
 import 'package:go_router/go_router.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
@@ -51,14 +51,14 @@ class _ModalCommentState extends State<ModalComment> {
   @override
   Widget build(BuildContext context) {
     return RefreshIndicator(
-        key: _refreshIndicatorKey,
-        backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-        strokeWidth: 2.0,
-        onRefresh: () async {
-          trackBloc.add(LoadTrackCommentEvent(widget.track.id!, 1));
-          _pagingController.refresh();
-        },
-        child: Scaffold(
+      key: _refreshIndicatorKey,
+      backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+      strokeWidth: 2.0,
+      onRefresh: () async {
+        trackBloc.add(LoadTrackCommentEvent(widget.track.id!, 1));
+        _pagingController.refresh();
+      },
+      child: Scaffold(
         appBar: context.materialYouAppBar(
           context.loc.comment,
           leadingWidget: IconButton(
@@ -110,8 +110,9 @@ class _ModalCommentState extends State<ModalComment> {
             child: PagedListView<int, Comment>(
               pagingController: _pagingController,
               builderDelegate: PagedChildBuilderDelegate<Comment>(
-                  noItemsFoundIndicatorBuilder: (context) =>
-                      Center(child: NoCommentWidget(onTap: () => _pagingController.refresh())),
+                  noItemsFoundIndicatorBuilder: (context) => Center(
+                      child: NoCommentWidget(
+                          onTap: () => _pagingController.refresh())),
                   itemBuilder: (context, item, index) {
                     return ItemComment(
                         comment: item,
@@ -124,10 +125,12 @@ class _ModalCommentState extends State<ModalComment> {
                           });
                         },
                         onEditCallBack: (int value, String message) {
-                          trackBloc.add(EditTrackCommentEvent(_pagingController.itemList![value].id!, message));
+                          trackBloc.add(EditTrackCommentEvent(
+                              _pagingController.itemList![value].id!, message));
                           setState(() {
                             itemIndex = value;
-                            _pagingController.itemList![itemIndex!].message = message;
+                            _pagingController.itemList![itemIndex!].message =
+                                message;
                           });
                         });
                   }),
@@ -176,8 +179,8 @@ class _ModalCommentState extends State<ModalComment> {
             keyboardType: TextInputType.text,
             textInputAction: TextInputAction.send,
             onSubmitted: (submittedQuery) {
-              trackBloc.add(
-                  AddTrackCommentEvent(widget.track.id!, commentController.text));
+              trackBloc.add(AddTrackCommentEvent(
+                  widget.track.id!, commentController.text));
             },
           ),
         ),

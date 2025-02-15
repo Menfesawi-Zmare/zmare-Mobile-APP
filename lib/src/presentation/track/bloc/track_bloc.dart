@@ -1,12 +1,12 @@
 // ignore: depend_on_referenced_packages
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter_music_pro/src/core/error/error.dart';
-import 'package:flutter_music_pro/src/data/track/model/response/comment_response.dart';
-import 'package:flutter_music_pro/src/data/track/model/response/load_comment_response.dart';
-import 'package:flutter_music_pro/src/data/track/model/track_list_model.dart';
-import 'package:flutter_music_pro/src/data/track/model/track_report_request.model.dart';
-import 'package:flutter_music_pro/src/domain/track/repository/track_repository.dart';
+import 'package:zmare/src/core/error/error.dart';
+import 'package:zmare/src/data/track/model/response/comment_response.dart';
+import 'package:zmare/src/data/track/model/response/load_comment_response.dart';
+import 'package:zmare/src/data/track/model/track_list_model.dart';
+import 'package:zmare/src/data/track/model/track_report_request.model.dart';
+import 'package:zmare/src/domain/track/repository/track_repository.dart';
 
 part 'track_event.dart';
 part 'track_state.dart';
@@ -123,10 +123,11 @@ class TrackBloc extends Bloc<TrackEvent, TrackState> {
       emit(DeleteTrackCommentState(r));
     });
   }
-  void _trackReport(
-      TrackReportEvent event, Emitter<TrackState> emit) async {
+
+  void _trackReport(TrackReportEvent event, Emitter<TrackState> emit) async {
     emit(TrackLoading());
-    final data = await iTrackRepository!.trackReport(event.trackReportRequestModel,event.trackId);
+    final data = await iTrackRepository!
+        .trackReport(event.trackReportRequestModel, event.trackId);
     data.fold((l) {
       if (l is ServerFailure) {
         emit(TrackReportFaildState(l.message!));

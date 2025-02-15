@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:flutter_music_pro/src/utils/ext/common.dart';
-import 'package:flutter_music_pro/src/data/production/model/production.dart';
-import 'package:flutter_music_pro/src/presentation/explorer/bloc/bloc/explorer_bloc.dart';
-import 'package:flutter_music_pro/src/presentation/widgets/item_production.dart';
+import 'package:zmare/src/utils/ext/common.dart';
+import 'package:zmare/src/data/production/model/production.dart';
+import 'package:zmare/src/presentation/explorer/bloc/bloc/explorer_bloc.dart';
+import 'package:zmare/src/presentation/widgets/item_production.dart';
 
-import 'package:flutter_music_pro/src/presentation/widgets/no_result_widget.dart';
-import 'package:flutter_music_pro/src/service_locator.dart';
+import 'package:zmare/src/presentation/widgets/no_result_widget.dart';
+import 'package:zmare/src/service_locator.dart';
 
 class AllProductionPage extends StatefulWidget {
   const AllProductionPage({super.key, required this.title});
@@ -92,7 +92,6 @@ class _AllProductionPageState extends State<AllProductionPage> {
                             ItemProduction(production: item)));
               },
             )),
-        
       ),
     );
   }

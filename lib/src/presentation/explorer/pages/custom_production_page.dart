@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_music_pro/src/utils/ext/common.dart';
-import 'package:flutter_music_pro/src/data/production/model/production.dart';
-import 'package:flutter_music_pro/src/presentation/widgets/item_production.dart';
-
+import 'package:zmare/src/utils/ext/common.dart';
+import 'package:zmare/src/data/production/model/production.dart';
+import 'package:zmare/src/presentation/widgets/item_production.dart';
 
 class CustomProductionPage extends StatelessWidget {
   const CustomProductionPage(
@@ -27,7 +26,6 @@ class CustomProductionPage extends StatelessWidget {
           itemBuilder: (_, index) {
             return ItemProduction(production: listProductions![index]);
           }),
-      
     );
   }
 }

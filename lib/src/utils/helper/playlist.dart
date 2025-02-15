@@ -1,6 +1,6 @@
 import 'package:audio_service/audio_service.dart';
-import 'package:flutter_music_pro/src/core/enum/box_types.dart';
-import 'package:flutter_music_pro/src/utils/helper/mediaitem_converter.dart';
+import 'package:zmare/src/core/enum/box_types.dart';
+import 'package:zmare/src/utils/helper/mediaitem_converter.dart';
 import 'songs_count.dart' as songs_count;
 import 'package:hive/hive.dart';
 

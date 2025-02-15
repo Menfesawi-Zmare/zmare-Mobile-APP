@@ -1,6 +1,6 @@
 // ignore: depend_on_referenced_packages
 import 'package:bloc/bloc.dart';
-import 'package:flutter_music_pro/src/utils/helper/network_helper.dart';
+import 'package:zmare/src/utils/helper/network_helper.dart';
 
 part 'network_event.dart';
 part 'network_state.dart';

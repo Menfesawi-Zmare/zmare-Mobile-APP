@@ -1,5 +1,5 @@
 import 'dart:isolate';
-import 'package:flutter_music_pro/src/core/api/dio_client.dart';
+import 'package:zmare/src/core/api/dio_client.dart';
 
 class IsolateParser<T> {
   final Map<String, dynamic> json;

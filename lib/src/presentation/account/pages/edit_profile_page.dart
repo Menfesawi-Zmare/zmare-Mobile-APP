@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:flutter_music_pro/src/utils/ext/common.dart';
-import 'package:flutter_music_pro/src/core/enum/box_types.dart';
-import 'package:flutter_music_pro/src/core/enum/profile_image_type.dart';
-import 'package:flutter_music_pro/src/data/profile/model/profile.dart';
-import 'package:flutter_music_pro/src/presentation/account/widgets/bio_widget.dart';
-import 'package:flutter_music_pro/src/presentation/account/widgets/cover_photo_widget.dart';
-import 'package:flutter_music_pro/src/presentation/account/widgets/profile_picture_widget.dart';
-import 'package:flutter_music_pro/src/presentation/account/widgets/socials_widget.dart';
-import 'package:flutter_music_pro/src/presentation/login/bloc/auth_bloc.dart';
-import 'package:flutter_music_pro/src/service_locator.dart';
+import 'package:zmare/src/utils/ext/common.dart';
+import 'package:zmare/src/core/enum/box_types.dart';
+import 'package:zmare/src/core/enum/profile_image_type.dart';
+import 'package:zmare/src/data/profile/model/profile.dart';
+import 'package:zmare/src/presentation/account/widgets/bio_widget.dart';
+import 'package:zmare/src/presentation/account/widgets/cover_photo_widget.dart';
+import 'package:zmare/src/presentation/account/widgets/profile_picture_widget.dart';
+import 'package:zmare/src/presentation/account/widgets/socials_widget.dart';
+import 'package:zmare/src/presentation/login/bloc/auth_bloc.dart';
+import 'package:zmare/src/service_locator.dart';
 
 class EditProfilePage extends StatefulWidget {
   const EditProfilePage({super.key, this.profile});
@@ -44,7 +44,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                     authBloc.add(GetProfileEvent());
                   }
                 }
-                if (state is Failure){
+                if (state is Failure) {
                   context.showMaterialSnackBar(state.message);
                 }
               },

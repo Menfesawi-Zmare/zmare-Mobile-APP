@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:flutter_music_pro/src/utils/ext/common.dart';
-import 'package:flutter_music_pro/src/data/profile/model/profile.dart';
-import 'package:flutter_music_pro/src/presentation/profile/bloc/profile_bloc.dart';
-import 'package:flutter_music_pro/src/presentation/widgets/item_playlist_big.dart';
+import 'package:zmare/src/utils/ext/common.dart';
+import 'package:zmare/src/data/profile/model/profile.dart';
+import 'package:zmare/src/presentation/profile/bloc/profile_bloc.dart';
+import 'package:zmare/src/presentation/widgets/item_playlist_big.dart';
 
-import 'package:flutter_music_pro/src/service_locator.dart';
+import 'package:zmare/src/service_locator.dart';
 
 import '../../../data/playlist/model/playlist.dart';
 
@@ -40,7 +40,7 @@ class _UserPlaylistPageState extends State<UserPlaylistPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(    
+    return Scaffold(
       appBar: context.materialYouAppBar(context.loc.playlists),
       body: RefreshIndicator(
         key: _refreshIndicatorKey,
@@ -63,14 +63,14 @@ class _UserPlaylistPageState extends State<UserPlaylistPage> {
                 if (isLastPage) {
                   _pagingController.appendLastPage(playlists!);
                 } else {
-                  _pagingController.appendPage(
-                      playlists!, state.playlistList.pagination!.currentPage! + 1);
+                  _pagingController.appendPage(playlists!,
+                      state.playlistList.pagination!.currentPage! + 1);
                 }
               }
               if (state is ProfileFailed) {
                 _pagingController.error = state.message;
               }
-              if(state is NoData){
+              if (state is NoData) {
                 _pagingController.appendLastPage([]);
               }
             },

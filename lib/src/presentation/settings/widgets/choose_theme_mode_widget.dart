@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'package:flutter_music_pro/src/core/enum/box_types.dart';
-import 'package:flutter_music_pro/src/presentation/widgets/texts/khmertracks_title.dart';
-import 'package:flutter_music_pro/src/service_locator.dart';
+import 'package:zmare/src/core/enum/box_types.dart';
+import 'package:zmare/src/presentation/widgets/texts/khmertracks_title.dart';
+import 'package:zmare/src/service_locator.dart';
 
-import 'package:flutter_music_pro/src/utils/ext/common.dart';
+import 'package:zmare/src/utils/ext/common.dart';
 import '../../../core/enum/theme_mode.dart';
 
 class ChooseThemeModeWidget extends StatefulWidget {

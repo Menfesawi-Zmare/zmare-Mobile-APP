@@ -1,14 +1,14 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter_music_pro/src/app/routes.dart';
-import 'package:flutter_music_pro/src/core/api/api.dart';
-import 'package:flutter_music_pro/src/core/error/error.dart';
-import 'package:flutter_music_pro/src/utils/ext/common.dart';
-import 'package:flutter_music_pro/src/utils/services/firebase/firebase.dart'; 
+import 'package:zmare/src/app/routes.dart';
+import 'package:zmare/src/core/api/api.dart';
+import 'package:zmare/src/core/error/error.dart';
+import 'package:zmare/src/utils/ext/common.dart';
+import 'package:zmare/src/utils/services/firebase/firebase.dart';
+
 typedef ResponseConverter<T> = T Function(dynamic response);
 
 class DioClient {
-
   String? _auth;
   bool _isUnitTest = false;
   late Dio _dio;
@@ -171,6 +171,7 @@ class DioClient {
       );
     }
   }
+
   Future<Either<Failure, T>> deleteRequest<T>(
     String url, {
     Map<String, dynamic>? data,
@@ -207,5 +208,4 @@ class DioClient {
       );
     }
   }
-  
 }
