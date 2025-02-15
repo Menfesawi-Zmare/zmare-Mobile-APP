@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_music_pro/src/core/resources/resources.dart';
-import 'package:flutter_music_pro/src/presentation/widgets/no_result_widget.dart';
+import 'package:zmare/src/core/resources/resources.dart';
+import 'package:zmare/src/presentation/widgets/no_result_widget.dart';
 import 'package:go_router/go_router.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:flutter_music_pro/src/utils/ext/common.dart';
-import 'package:flutter_music_pro/src/data/artist/model/artist.dart';
-import 'package:flutter_music_pro/src/presentation/artist/bloc/artist_bloc.dart';
-import 'package:flutter_music_pro/src/presentation/widgets/khmertracks_image.dart';
+import 'package:zmare/src/utils/ext/common.dart';
+import 'package:zmare/src/data/artist/model/artist.dart';
+import 'package:zmare/src/presentation/artist/bloc/artist_bloc.dart';
+import 'package:zmare/src/presentation/widgets/khmertracks_image.dart';
 
-import 'package:flutter_music_pro/src/service_locator.dart';
+import 'package:zmare/src/service_locator.dart';
 
 class AllArtistPage extends StatefulWidget {
   const AllArtistPage({super.key, required this.title});
@@ -46,7 +46,6 @@ class _AllArtistPageState extends State<AllArtistPage> {
         appBar: context.materialYouAppBar(
           widget.title,
         ),
-        
         body: RefreshIndicator(
           key: _refreshIndicatorKey,
           backgroundColor: Theme.of(context).colorScheme.primaryContainer,

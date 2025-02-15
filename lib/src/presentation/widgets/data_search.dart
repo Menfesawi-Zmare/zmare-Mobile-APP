@@ -1,12 +1,12 @@
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_music_pro/src/core/resources/resources.dart';
-import 'package:flutter_music_pro/src/utils/ext/common.dart';
-import 'package:flutter_music_pro/src/utils/helper/audio_query.dart';
-import 'package:flutter_music_pro/src/utils/services/audio/player_service.dart';
-import 'package:flutter_music_pro/src/presentation/widgets/download_button.dart';
-import 'package:flutter_music_pro/src/presentation/widgets/khmertracks_image.dart';
+import 'package:zmare/src/core/resources/resources.dart';
+import 'package:zmare/src/utils/ext/common.dart';
+import 'package:zmare/src/utils/helper/audio_query.dart';
+import 'package:zmare/src/utils/services/audio/player_service.dart';
+import 'package:zmare/src/presentation/widgets/download_button.dart';
+import 'package:zmare/src/presentation/widgets/khmertracks_image.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 class DataSearch extends SearchDelegate {

@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_music_pro/src/core/resources/resources.dart';
-import 'package:flutter_music_pro/src/data/playlist/model/create_playlist_model.dart';
+import 'package:zmare/src/core/resources/resources.dart';
+import 'package:zmare/src/data/playlist/model/create_playlist_model.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:flutter_music_pro/src/utils/ext/common.dart';
-import 'package:flutter_music_pro/src/core/enum/box_types.dart';
-import 'package:flutter_music_pro/src/data/playlist/model/playlists_request_model.dart';
-import 'package:flutter_music_pro/src/presentation/login/bloc/auth_bloc.dart';
-import 'package:flutter_music_pro/src/presentation/widgets/khmertracks_bottom_sheet.dart';
-import 'package:flutter_music_pro/src/presentation/widgets/khmertracks_image.dart';
-import 'package:flutter_music_pro/src/presentation/widgets/khmertracks_text.dart';
-import 'package:flutter_music_pro/src/presentation/widgets/textinput_dialog.dart';
-import 'package:flutter_music_pro/src/service_locator.dart';
+import 'package:zmare/src/utils/ext/common.dart';
+import 'package:zmare/src/core/enum/box_types.dart';
+import 'package:zmare/src/data/playlist/model/playlists_request_model.dart';
+import 'package:zmare/src/presentation/login/bloc/auth_bloc.dart';
+import 'package:zmare/src/presentation/widgets/khmertracks_bottom_sheet.dart';
+import 'package:zmare/src/presentation/widgets/khmertracks_image.dart';
+import 'package:zmare/src/presentation/widgets/khmertracks_text.dart';
+import 'package:zmare/src/presentation/widgets/textinput_dialog.dart';
+import 'package:zmare/src/service_locator.dart';
 
 class ModalAddPlaylistTracks extends StatefulWidget {
   const ModalAddPlaylistTracks({super.key, required this.onCallBack});

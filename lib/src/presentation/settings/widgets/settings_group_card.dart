@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_music_pro/src/utils/ext/common.dart';
+import 'package:zmare/src/utils/ext/common.dart';
 
 class SettingsGroup extends StatelessWidget {
   final String title;

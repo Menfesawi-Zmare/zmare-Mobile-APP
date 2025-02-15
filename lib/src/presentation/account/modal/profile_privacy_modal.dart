@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_music_pro/src/utils/ext/common.dart';
-import 'package:flutter_music_pro/src/core/enum/profile_privacy.dart';
+import 'package:zmare/src/utils/ext/common.dart';
+import 'package:zmare/src/core/enum/profile_privacy.dart';
 import 'package:go_router/go_router.dart';
 
 class ProfilePrivacyModal extends StatelessWidget {

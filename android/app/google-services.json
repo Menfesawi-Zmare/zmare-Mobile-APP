@@ -1,51 +1,26 @@
 {
   "project_info": {
-    "project_number": "602385201573",
-    "project_id": "flutter-music-pro",
-    "storage_bucket": "flutter-music-pro.appspot.com"
+    "project_number": "1098387068225",
+    "project_id": "zmare-mobile-appication",
+    "storage_bucket": "zmare-mobile-appication.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:602385201573:android:d5a2f20c19fa42eb59904c",
+        "mobilesdk_app_id": "1:1098387068225:android:4d107e3045826116147dc0",
         "android_client_info": {
-          "package_name": "com.flutter.music.pro"
+          "package_name": "com.zmare.zmare"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "602385201573-42a52thosulmdj4lh8ppvti3uemamdpr.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.flutter.music.pro",
-            "certificate_hash": "662492be9297ff1f320304733c683e7991adf9f9"
-          }
-        },
-        {
-          "client_id": "602385201573-kauhkraedvqvqbj8fajhtv5ve4qpj8er.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyAYa3AmXMOLUudMG_USRdxKmkT5pVjTPB4"
+          "current_key": "AIzaSyBP48FqdHe9_Tgi2Vn-QQs_LeIZxVY0Ys0"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "602385201573-70r1lbbhg8t5kbudcfm6qpgekj4s3fju.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "602385201573-brbl7un39uv42ol3toqav43e0i235p39.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.flutter.music.pro"
-              }
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     }

@@ -2,8 +2,8 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_music_pro/src/utils/helper/common.dart';
-import 'package:flutter_music_pro/src/utils/services/firebase/firebase_crashlogger.dart';
+import 'package:zmare/src/utils/helper/common.dart';
+import 'package:zmare/src/utils/services/firebase/firebase_crashlogger.dart';
 
 class DioInterceptor extends Interceptor with FirebaseCrashLogger {
   @override

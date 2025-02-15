@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:flutter_music_pro/src/presentation/profile/bloc/profile_bloc.dart';
-import 'package:flutter_music_pro/src/presentation/widgets/item_playlist.dart';
-import 'package:flutter_music_pro/src/presentation/widgets/no_result_widget.dart';
-import 'package:flutter_music_pro/src/service_locator.dart';
+import 'package:zmare/src/presentation/profile/bloc/profile_bloc.dart';
+import 'package:zmare/src/presentation/widgets/item_playlist.dart';
+import 'package:zmare/src/presentation/widgets/no_result_widget.dart';
+import 'package:zmare/src/service_locator.dart';
 
 import '../../../data/playlist/model/playlist.dart';
 
 class ProfilePlaylistsWidget extends StatefulWidget {
   const ProfilePlaylistsWidget(
-      {super.key, required this.profileId, this.action = false, this.username = ""});
+      {super.key,
+      required this.profileId,
+      this.action = false,
+      this.username = ""});
   final int profileId;
   final bool action;
   final String username;
@@ -62,14 +65,14 @@ class _ProfilePlaylistsWidgetState extends State<ProfilePlaylistsWidget> {
               if (isLastPage) {
                 _pagingController.appendLastPage(playlists!);
               } else {
-                _pagingController.appendPage(
-                    playlists!, state.playlistList.pagination!.currentPage! + 1);
+                _pagingController.appendPage(playlists!,
+                    state.playlistList.pagination!.currentPage! + 1);
               }
             }
             if (state is ProfileFailed) {
               _pagingController.error = state.message;
             }
-            if(state is NoData){
+            if (state is NoData) {
               _pagingController.appendLastPage([]);
             }
           },
@@ -83,7 +86,8 @@ class _ProfilePlaylistsWidgetState extends State<ProfilePlaylistsWidget> {
                 pagingController: _pagingController,
                 itemExtent: 75,
                 builderDelegate: PagedChildBuilderDelegate<Playlist>(
-                  noItemsFoundIndicatorBuilder: (context) => NoResultWidget(onTap: () => _pagingController.refresh()),
+                    noItemsFoundIndicatorBuilder: (context) => NoResultWidget(
+                        onTap: () => _pagingController.refresh()),
                     itemBuilder: (context, item, index) =>
                         ItemPlaylist(playlist: item, action: widget.action)));
           },

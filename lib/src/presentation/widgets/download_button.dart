@@ -1,9 +1,9 @@
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:flutter_music_pro/src/utils/services/audio/download.dart';
+import 'package:zmare/src/utils/services/audio/download.dart';
 import 'package:hive/hive.dart';
-import 'package:flutter_music_pro/src/core/enum/box_types.dart';
+import 'package:zmare/src/core/enum/box_types.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class DownloadButton extends StatefulWidget {

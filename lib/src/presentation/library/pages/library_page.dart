@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_music_pro/src/presentation/library/pages/library_mobile_page.dart';
+import 'package:zmare/src/presentation/library/pages/library_mobile_page.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 class LibraryPage extends StatefulWidget {
