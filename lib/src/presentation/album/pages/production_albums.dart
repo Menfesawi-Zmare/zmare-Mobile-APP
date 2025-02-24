@@ -80,9 +80,9 @@ class _ProductionAlbumsPageState extends State<ProductionAlbumsPage> {
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
-                        crossAxisSpacing: 16.0,
+                        crossAxisSpacing: 14.0,
                         mainAxisSpacing: 16.0,
-                        childAspectRatio: 0.87,
+                        childAspectRatio: 0.86,
                       ),
                       padding: const EdgeInsets.all(16),
                       pagingController: _pagingController,

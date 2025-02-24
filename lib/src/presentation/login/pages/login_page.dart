@@ -1,12 +1,19 @@
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/adapters.dart';
 import 'package:zmare/src/utils/ext/common.dart';
 import 'package:zmare/src/presentation/login/bloc/auth_bloc.dart';
 import 'package:zmare/src/presentation/widgets/khmertracks_text.dart';
 import 'package:zmare/src/presentation/widgets/khmertracks_text_field.dart';
 import 'package:zmare/src/service_locator.dart';
 import 'package:logging/logging.dart';
+
+import '../../../core/enum/box_types.dart';
+import '../../../core/resources/images.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -26,7 +33,8 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: context.materialYouAppBar(
-        context.loc.login,
+        // context.loc.login,
+        "",
       ),
       body: BlocProvider(
         create: (context) => authBloc,
@@ -53,15 +61,70 @@ class _LoginPageState extends State<LoginPage> {
               physics: const NeverScrollableScrollPhysics(),
               padding: const EdgeInsets.symmetric(horizontal: 16),
               children: [
+                SizedBox(
+                  height: 50,
+                ),
+                ValueListenableBuilder<Box<dynamic>>(
+                    valueListenable: locator
+                        .get<Box<dynamic>>(instanceName: BoxType.settings.name)
+                        .listenable(keys: [themeModeKey, dynamicThemeKey]),
+                    builder: (context, value, child) {
+                      final ThemeMode themeMode = ThemeMode.values[value.get(
+                        themeModeKey,
+                        defaultValue: 0,
+                      )];
+                      // int themeValue = value.get(themeModeKey, defaultValue: 0);
+                      // final bool isDynamic = value.get(
+                      //   dynamicThemeKey,
+                      //   defaultValue: false,
+                      // );
+                      final Brightness brightness =
+                          MediaQuery.of(context).platformBrightness;
+                      bool isDarkMode = brightness == Brightness.dark;
+                      return Padding(
+                        padding: const EdgeInsets.only(right: 8),
+                        child: SvgPicture.asset(
+                          themeMode == ThemeMode.dark
+                              ? Images.zmareIconWhite
+                              : themeMode == ThemeMode.light
+                                  ? Images.zmareIconBlack
+                                  : isDarkMode
+                                      ? Images.zmareIconWhite
+                                      : Images.zmareIconBlack,
+                          height: 80,
+                        ),
+                      );
+                    }),
+                SizedBox(
+                  height: 20,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      context.loc.login,
+                      style: context.titleLarge!.copyWith(fontSize: 26),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 10,
+                ),
                 ListTile(
+                  dense: true,
+                  minTileHeight: 20,
                   contentPadding: EdgeInsets.zero,
                   title: Text(
                     context.loc.emailOrUsername,
                     style: context.titleMedium!
-                        .copyWith(fontWeight: FontWeight.w700),
+                        .copyWith(fontWeight: FontWeight.w400, fontSize: 14),
                   ),
                 ),
                 KhmertracksTextField(
+                  prefixIcon: Icon(
+                    FluentIcons.person_12_filled,
+                    size: 20,
+                  ),
                   outlineInputBorder: true,
                   floatingLabelBehavior: FloatingLabelBehavior.never,
                   controller: userNameController,
@@ -74,14 +137,20 @@ class _LoginPageState extends State<LoginPage> {
                   },
                 ),
                 ListTile(
+                  dense: true,
+                  minTileHeight: 20,
                   contentPadding: EdgeInsets.zero,
                   title: Text(
                     context.loc.password,
                     style: context.titleMedium!
-                        .copyWith(fontWeight: FontWeight.w700),
+                        .copyWith(fontWeight: FontWeight.w400, fontSize: 14),
                   ),
                 ),
                 KhmertracksTextField(
+                  prefixIcon: Icon(
+                    FluentIcons.lock_closed_12_filled,
+                    size: 20,
+                  ),
                   outlineInputBorder: true,
                   floatingLabelBehavior: FloatingLabelBehavior.auto,
                   enableSuggestions: false,
@@ -105,9 +174,10 @@ class _LoginPageState extends State<LoginPage> {
                         _showPassword = !_showPassword;
                       });
                     },
-                    child: Icon(_showPassword
-                        ? Icons.visibility_off
-                        : Icons.visibility),
+                    child: Icon(
+                      _showPassword ? Icons.visibility_off : Icons.visibility,
+                      size: 20,
+                    ),
                   ),
                 ),
                 const SizedBox(
@@ -116,9 +186,11 @@ class _LoginPageState extends State<LoginPage> {
                 Center(
                   child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10)),
                         backgroundColor:
                             Theme.of(context).colorScheme.primaryContainer,
-                        minimumSize: const Size(120, 50),
+                        minimumSize: const Size(double.infinity, 50),
                       ),
                       onPressed: () {
                         if (_formLogin.currentState!.validate()) {

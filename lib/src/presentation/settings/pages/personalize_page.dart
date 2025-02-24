@@ -4,7 +4,6 @@ import 'package:zmare/src/app/routes.dart';
 import 'package:zmare/src/utils/ext/common.dart';
 import 'package:zmare/src/core/enum/grid_type.dart';
 import 'package:zmare/src/presentation/settings/widgets/extra_controls_widget.dart';
-import 'package:zmare/src/presentation/settings/widgets/setting_option.dart';
 import 'package:zmare/src/presentation/settings/widgets/settings_group_card.dart';
 import 'package:zmare/src/presentation/widgets/khmertracks_text.dart';
 import 'package:zmare/src/presentation/widgets/texts/khmertracks_title.dart';

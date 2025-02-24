@@ -44,7 +44,7 @@ class _AllProductionPageState extends State<AllProductionPage> {
       backgroundColor: Theme.of(context).colorScheme.primaryContainer,
       strokeWidth: 2.0,
       onRefresh: () async {
-        explorerBloc.add(const GetAllProductionEvent(1));
+        // explorerBloc.add(const GetAllProductionEvent(1));
         _pagingController.refresh();
         return Future<void>.delayed(const Duration(seconds: 1));
       },
