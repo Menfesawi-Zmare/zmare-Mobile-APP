@@ -28,11 +28,16 @@ class PlayScreen extends StatefulWidget {
   State<PlayScreen> createState() => _PlayScreenState();
 }
 
-class _PlayScreenState extends State<PlayScreen> {
+class _PlayScreenState extends State<PlayScreen>
+    with SingleTickerProviderStateMixin {
   final ValueNotifier<List<Color?>?> gradientColor =
       ValueNotifier(defaultGradientColor);
   final AudioPlayerHandler audioHandler = locator<AudioPlayerHandler>();
   GlobalKey<FlipCardState> cardKey = GlobalKey<FlipCardState>();
+  late AnimationController controller;
+  late Animation<Alignment> topAlignmentAnimation;
+  late Animation<Alignment> bottomAlignmentAnimation;
+  late bool isPlaying = false;
 
   void updateBackgroundColors(List<Color?> value) {
     gradientColor.value = value;
@@ -41,6 +46,68 @@ class _PlayScreenState extends State<PlayScreen> {
 
   String format(String msg) {
     return '${msg[0].toUpperCase()}${msg.substring(1)}: '.replaceAll('_', ' ');
+  }
+
+  @override
+  void initState() {
+    controller =
+        AnimationController(vsync: this, duration: const Duration(seconds: 27));
+    topAlignmentAnimation = TweenSequence<Alignment>([
+      TweenSequenceItem<Alignment>(
+          tween: Tween<Alignment>(
+            begin: Alignment.topLeft,
+            end: Alignment.topRight,
+          ),
+          weight: 1),
+      TweenSequenceItem<Alignment>(
+          tween: Tween<Alignment>(
+            begin: Alignment.topRight,
+            end: Alignment.bottomRight,
+          ),
+          weight: 1),
+      TweenSequenceItem<Alignment>(
+          tween: Tween<Alignment>(
+            begin: Alignment.bottomRight,
+            end: Alignment.bottomLeft,
+          ),
+          weight: 1),
+      TweenSequenceItem<Alignment>(
+          tween: Tween<Alignment>(
+            begin: Alignment.bottomLeft,
+            end: Alignment.topLeft,
+          ),
+          weight: 1),
+    ]).animate(controller);
+
+    bottomAlignmentAnimation = TweenSequence<Alignment>([
+      TweenSequenceItem<Alignment>(
+          tween: Tween<Alignment>(
+            begin: Alignment.bottomRight,
+            end: Alignment.bottomLeft,
+          ),
+          weight: 1),
+      TweenSequenceItem<Alignment>(
+          tween: Tween<Alignment>(
+            begin: Alignment.bottomLeft,
+            end: Alignment.topLeft,
+          ),
+          weight: 1),
+      TweenSequenceItem<Alignment>(
+          tween: Tween<Alignment>(
+            begin: Alignment.topLeft,
+            end: Alignment.topRight,
+          ),
+          weight: 1),
+      TweenSequenceItem<Alignment>(
+          tween: Tween<Alignment>(
+            begin: Alignment.topRight,
+            end: Alignment.bottomRight,
+          ),
+          weight: 1),
+    ]).animate(controller);
+
+    controller.repeat();
+    super.initState();
   }
 
   @override
@@ -116,6 +183,7 @@ class _PlayScreenState extends State<PlayScreen> {
                           // title and controls
                           NameNControls(
                             cardKey: cardKey,
+                            animationController: controller,
                             mediaItem: mediaItem,
                             offline: offline,
                             width: constraints.maxWidth / 2,
@@ -140,6 +208,7 @@ class _PlayScreenState extends State<PlayScreen> {
                         NameNControls(
                           cardKey: cardKey,
                           mediaItem: mediaItem,
+                          animationController: controller,
                           offline: offline,
                           width: constraints.maxWidth,
                           height: constraints.maxHeight -
@@ -155,23 +224,28 @@ class _PlayScreenState extends State<PlayScreen> {
             ),
             builder:
                 (BuildContext context, List<Color?>? value, Widget? child) {
-              return AnimatedContainer(
-                duration: const Duration(milliseconds: 600),
-                decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        colors: Theme.of(context).brightness == Brightness.dark
-                            ? [
-                                value?[0] ?? const Color(0xff2e2a33),
-                                value?[1] ?? const Color(0xff141216)
-                              ]
-                            : [
-                                value?[0] ?? const Color(0xff2e2a33),
-                                Colors.white,
-                              ])),
-                child: child,
-              );
+              return AnimatedBuilder(
+                  animation: controller,
+                  builder: (context, _) {
+                    return Container(
+                      // duration: const Duration(milliseconds: 600),
+                      decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                              begin: topAlignmentAnimation.value,
+                              end: bottomAlignmentAnimation.value,
+                              colors: Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? [
+                                      value?[0] ?? const Color(0xff2e2a33),
+                                      value?[1] ?? const Color(0xff141216)
+                                    ]
+                                  : [
+                                      value?[0] ?? const Color(0xff2e2a33),
+                                      Colors.white,
+                                    ])),
+                      child: child,
+                    );
+                  });
             },
           );
         },
@@ -221,42 +295,71 @@ class QueueState {
       shuffleIndices ?? List.generate(queue.length, (i) => i);
 }
 
-class ControlButtons extends StatelessWidget {
+class ControlButtons extends StatefulWidget {
   final AudioPlayerHandler audioHandler;
   final bool shuffle;
   final bool miniplayer;
   final List buttons;
   final Color? dominantColor;
-
-  const ControlButtons(
+  AnimationController? animationController;
+  ControlButtons(
     this.audioHandler, {
     super.key,
     this.shuffle = false,
     this.miniplayer = false,
     this.buttons = const ['Previous', 'Play/Pause', 'Next'],
     this.dominantColor,
+    this.animationController,
   });
-  Stream<Duration> get _bufferedPositionStream => audioHandler.playbackState
-      .map((state) => state.bufferedPosition)
-      .distinct();
+
+  @override
+  State<ControlButtons> createState() => _ControlButtonsState();
+}
+
+class _ControlButtonsState extends State<ControlButtons> {
+  Stream<Duration> get _bufferedPositionStream =>
+      widget.audioHandler.playbackState
+          .map((state) => state.bufferedPosition)
+          .distinct();
+
   Stream<PositionData> get _positionDataStream =>
       Rx.combineLatest3<Duration, Duration, Duration?, PositionData>(
         AudioService.position,
         _bufferedPositionStream,
-        audioHandler.durationState,
+        widget.audioHandler.durationState,
         (position, bufferedPosition, duration) =>
             PositionData(position, bufferedPosition, duration ?? Duration.zero),
       );
 
+  bool isPlaying = false;
+  void _resetAnimation() {
+    if (widget.animationController != null) {
+      widget.animationController!.reset();
+      if (isPlaying) {
+        widget.animationController!.forward();
+      }
+    }
+  }
+
+  @override
+  void initState() {
+    widget.audioHandler.mediaItem.listen((mediaItem) {
+      if (mediaItem != null) {
+        _resetAnimation();
+      }
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final MediaItem mediaItem = audioHandler.mediaItem.value!;
+    final MediaItem mediaItem = widget.audioHandler.mediaItem.value!;
     final bool online = mediaItem.extras!['url'].toString().startsWith('http');
     const min = 0.001;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       mainAxisSize: MainAxisSize.min,
-      children: buttons.map((e) {
+      children: widget.buttons.map((e) {
         switch (e) {
           case 'Like':
             return !online
@@ -267,41 +370,62 @@ class ControlButtons extends StatelessWidget {
                   );
           case 'Previous':
             return StreamBuilder<QueueState>(
-              stream: audioHandler.queueState,
+              stream: widget.audioHandler.queueState,
               builder: (context, snapshot) {
                 final queueState = snapshot.data;
+                if (!widget.miniplayer) {
+                  isPlaying
+                      ? widget.animationController!.forward()
+                      : widget.animationController!.stop();
+                }
                 return Padding(
-                  padding: EdgeInsets.only(right: miniplayer ? 0.0 : 16.0),
+                  padding:
+                      EdgeInsets.only(right: widget.miniplayer ? 0.0 : 16.0),
                   child: IconButton(
                     icon: const Icon(Icons.skip_previous_rounded),
-                    iconSize: miniplayer ? 32.0 : 36.0,
+                    iconSize: widget.miniplayer ? 32.0 : 36.0,
                     tooltip: context.loc.skipPrevious,
                     color: Theme.of(context).colorScheme.onSurface,
-                    onPressed: queueState?.hasPrevious ?? true
-                        ? audioHandler.skipToPrevious
-                        : null,
+                    onPressed: () {
+                      if (queueState?.hasPrevious ?? true) {
+                        widget.audioHandler.skipToNext().then(
+                          (_) {
+                            _resetAnimation();
+                          },
+                        );
+                      } else {
+                        return null;
+                      }
+                    },
                   ),
                 );
               },
             );
           case 'Play/Pause':
             return SizedBox(
-              height: miniplayer ? 65.0 : 65.0,
-              width: miniplayer ? 40.0 : 65.0,
+              height: widget.miniplayer ? 65.0 : 65.0,
+              width: widget.miniplayer ? 40.0 : 65.0,
               child: StreamBuilder<PlaybackState>(
-                stream: audioHandler.playbackState,
+                stream: widget.audioHandler.playbackState,
                 builder: (context, snapshot) {
                   final playbackState = snapshot.data;
                   final processingState = playbackState?.processingState;
                   final playing = playbackState?.playing ?? true;
+                  isPlaying = playing;
+                  if (!widget.miniplayer) {
+                    playing
+                        ? widget.animationController!.forward()
+                        : widget.animationController!.stop();
+                  }
+
                   return Stack(
                     children: [
                       if (processingState == AudioProcessingState.loading ||
                           processingState == AudioProcessingState.buffering)
                         Center(
                           child: SizedBox(
-                            height: miniplayer ? 40.0 : 65.0,
-                            width: miniplayer ? 40.0 : 65.0,
+                            height: widget.miniplayer ? 40.0 : 65.0,
+                            width: widget.miniplayer ? 40.0 : 65.0,
                             child: CircularProgressIndicator(
                               valueColor: AlwaysStoppedAnimation<Color>(
                                 Theme.of(context).colorScheme.primary,
@@ -309,7 +433,7 @@ class ControlButtons extends StatelessWidget {
                             ),
                           ),
                         ),
-                      if (miniplayer)
+                      if (widget.miniplayer)
                         StreamBuilder<PositionData>(
                             stream: _positionDataStream,
                             builder: (context, snapshot) {
@@ -334,7 +458,7 @@ class ControlButtons extends StatelessWidget {
                                   center: playing
                                       ? IconButton(
                                           tooltip: context.loc.pause,
-                                          onPressed: audioHandler.pause,
+                                          onPressed: widget.audioHandler.pause,
                                           icon: const Icon(
                                             Icons.pause_rounded,
                                           ),
@@ -343,7 +467,7 @@ class ControlButtons extends StatelessWidget {
                                         )
                                       : IconButton(
                                           tooltip: context.loc.play,
-                                          onPressed: audioHandler.play,
+                                          onPressed: widget.audioHandler.play,
                                           icon: const Icon(
                                               Icons.play_arrow_rounded),
                                           color:
@@ -386,7 +510,8 @@ class ControlButtons extends StatelessWidget {
                                                     Theme.of(context)
                                                         .colorScheme
                                                         .primary,
-                                                onPressed: audioHandler.pause,
+                                                onPressed:
+                                                    widget.audioHandler.pause,
                                                 child: Icon(
                                                   Icons.pause_rounded,
                                                   color: Theme.of(context)
@@ -402,7 +527,8 @@ class ControlButtons extends StatelessWidget {
                                                     Theme.of(context)
                                                         .colorScheme
                                                         .primary,
-                                                onPressed: audioHandler.play,
+                                                onPressed:
+                                                    widget.audioHandler.play,
                                                 child: Icon(
                                                   Icons.play_arrow_rounded,
                                                   color: Theme.of(context)
@@ -437,7 +563,8 @@ class ControlButtons extends StatelessWidget {
                                                     Theme.of(context)
                                                         .colorScheme
                                                         .primary,
-                                                onPressed: audioHandler.pause,
+                                                onPressed:
+                                                    widget.audioHandler.pause,
                                                 child: Icon(
                                                   Icons.pause_rounded,
                                                   color: Theme.of(context)
@@ -452,7 +579,8 @@ class ControlButtons extends StatelessWidget {
                                                     Theme.of(context)
                                                         .colorScheme
                                                         .primary,
-                                                onPressed: audioHandler.play,
+                                                onPressed:
+                                                    widget.audioHandler.play,
                                                 child: Icon(
                                                   Icons.play_arrow_rounded,
                                                   color: Theme.of(context)
@@ -473,19 +601,34 @@ class ControlButtons extends StatelessWidget {
             );
           case 'Next':
             return StreamBuilder<QueueState>(
-              stream: audioHandler.queueState,
+              stream: widget.audioHandler.queueState,
               builder: (context, snapshot) {
                 final queueState = snapshot.data;
+
+                if (!widget.miniplayer) {
+                  isPlaying
+                      ? widget.animationController!.forward()
+                      : widget.animationController!.stop();
+                }
                 return Padding(
-                  padding: EdgeInsets.only(left: miniplayer ? 0.0 : 16.0),
+                  padding:
+                      EdgeInsets.only(left: widget.miniplayer ? 0.0 : 16.0),
                   child: IconButton(
                     icon: const Icon(Icons.skip_next_rounded),
-                    iconSize: miniplayer ? 32.0 : 36.0,
+                    iconSize: widget.miniplayer ? 32.0 : 36.0,
                     tooltip: context.loc.skipNext,
                     color: Theme.of(context).colorScheme.onSurface,
-                    onPressed: queueState?.hasNext ?? true
-                        ? audioHandler.skipToNext
-                        : null,
+                    onPressed: () {
+                      if (queueState?.hasNext ?? true) {
+                        widget.audioHandler.skipToNext().then(
+                          (_) {
+                            _resetAnimation();
+                          },
+                        );
+                      } else {
+                        return null;
+                      }
+                    },
                   ),
                 );
               },
