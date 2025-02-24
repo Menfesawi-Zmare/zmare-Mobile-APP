@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:flutter_music_pro/src/utils/ext/common.dart';
-import 'package:flutter_music_pro/src/data/song/model/item_song_model.dart';
-import 'package:flutter_music_pro/src/presentation/profile/bloc/profile_bloc.dart';
-import 'package:flutter_music_pro/src/presentation/widgets/item_list_big.dart';
+import 'package:zmare/src/utils/ext/common.dart';
+import 'package:zmare/src/data/song/model/item_song_model.dart';
+import 'package:zmare/src/presentation/profile/bloc/profile_bloc.dart';
+import 'package:zmare/src/presentation/widgets/item_list_big.dart';
 
-import 'package:flutter_music_pro/src/service_locator.dart';
+import 'package:zmare/src/service_locator.dart';
 
 class LikesTracks extends StatefulWidget {
   const LikesTracks({super.key, required this.profileId});

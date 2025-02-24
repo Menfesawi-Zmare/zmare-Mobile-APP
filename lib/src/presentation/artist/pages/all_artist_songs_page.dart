@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_music_pro/src/utils/ext/common.dart';
-import 'package:flutter_music_pro/src/data/artist/model/artist.dart';
-import 'package:flutter_music_pro/src/data/song/model/item_song_model.dart';
-import 'package:flutter_music_pro/src/presentation/artist/bloc/artist_bloc.dart';
-import 'package:flutter_music_pro/src/presentation/modal/modal_filter.dart';
-import 'package:flutter_music_pro/src/presentation/widgets/item_list_big.dart';
-import 'package:flutter_music_pro/src/service_locator.dart';
+import 'package:zmare/src/utils/ext/common.dart';
+import 'package:zmare/src/data/artist/model/artist.dart';
+import 'package:zmare/src/data/song/model/item_song_model.dart';
+import 'package:zmare/src/presentation/artist/bloc/artist_bloc.dart';
+import 'package:zmare/src/presentation/modal/modal_filter.dart';
+import 'package:zmare/src/presentation/widgets/item_list_big.dart';
+import 'package:zmare/src/service_locator.dart';
 
 class AllArtistSongPage extends StatefulWidget {
   const AllArtistSongPage({super.key, required this.artist});
@@ -72,8 +72,7 @@ class _AllArtistSongPageState extends State<AllArtistSongPage> {
             selectedFilter = 1;
           });
           allSong = [];
-          artistBloc
-              .add(GetArtistAllTrackListsEvent(widget.artist.id!, 'all'));
+          artistBloc.add(GetArtistAllTrackListsEvent(widget.artist.id!, 'all'));
           return Future<void>.delayed(const Duration(seconds: 1));
         },
         child: BlocProvider(
@@ -116,7 +115,7 @@ class _AllArtistSongPageState extends State<AllArtistSongPage> {
             },
           ),
         ),
-      ),      
+      ),
     );
   }
 }

@@ -1,8 +1,8 @@
 import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_music_pro/src/presentation/library/pages/nowplaying.dart';
-import 'package:flutter_music_pro/src/presentation/player/pages/audioplayer.dart';
-import 'package:flutter_music_pro/src/utils/ext/common.dart';
+import 'package:zmare/src/presentation/library/pages/nowplaying.dart';
+import 'package:zmare/src/presentation/player/pages/audioplayer.dart';
+import 'package:zmare/src/utils/ext/common.dart';
 
 class NextSong extends StatelessWidget {
   const NextSong({super.key, required this.audioHandler});

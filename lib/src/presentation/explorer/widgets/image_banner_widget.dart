@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_music_pro/src/presentation/widgets/khmertracks_image.dart';
+import 'package:zmare/src/presentation/widgets/khmertracks_image.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ImageBannerWidget extends StatelessWidget {

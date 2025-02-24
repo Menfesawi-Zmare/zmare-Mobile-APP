@@ -1,12 +1,12 @@
 import 'package:dartz/dartz.dart';
-import 'package:flutter_music_pro/src/core/api/api.dart';
-import 'package:flutter_music_pro/src/core/error/error.dart';
-import 'package:flutter_music_pro/src/data/album/model/album_list.dart';
-import 'package:flutter_music_pro/src/data/artist/model/artist_list.dart';
-import 'package:flutter_music_pro/src/data/playlist/model/playlist_list.dart';
-import 'package:flutter_music_pro/src/data/profile/model/profile_list.dart';
-import 'package:flutter_music_pro/src/data/suggestion/model.suggestion_list.dart';
-import 'package:flutter_music_pro/src/data/track/model/track_list_model.dart';
+import 'package:zmare/src/core/api/api.dart';
+import 'package:zmare/src/core/error/error.dart';
+import 'package:zmare/src/data/album/model/album_list.dart';
+import 'package:zmare/src/data/artist/model/artist_list.dart';
+import 'package:zmare/src/data/playlist/model/playlist_list.dart';
+import 'package:zmare/src/data/profile/model/profile_list.dart';
+import 'package:zmare/src/data/suggestion/model.suggestion_list.dart';
+import 'package:zmare/src/data/track/model/track_list_model.dart';
 
 abstract class ISearchDataSources {
   Future<Either<Failure, TrackList>> fetchSongSearchResults(

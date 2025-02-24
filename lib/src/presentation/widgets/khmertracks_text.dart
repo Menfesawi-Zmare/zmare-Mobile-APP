@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_music_pro/src/utils/ext/common.dart';
+import 'package:zmare/src/utils/ext/common.dart';
 
 class KhmertracksText extends StatelessWidget {
   const KhmertracksText(
@@ -16,7 +16,7 @@ class KhmertracksText extends StatelessWidget {
         style: context.titleLarge?.copyWith(
             fontWeight: isBold ? FontWeight.w600 : FontWeight.normal,
             fontSize: isSmall
-                ? context .titleMedium!.fontSize
+                ? context.titleMedium!.fontSize
                 : context.titleLarge!.fontSize));
   }
 }

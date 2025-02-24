@@ -1,9 +1,9 @@
 import 'package:audio_service/audio_service.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_music_pro/src/utils/ext/common.dart';
+import 'package:zmare/src/utils/ext/common.dart';
 import 'package:get_it/get_it.dart';
-import 'package:flutter_music_pro/src/presentation/player/pages/audioplayer.dart';
-import 'package:flutter_music_pro/src/service_locator.dart';
+import 'package:zmare/src/presentation/player/pages/audioplayer.dart';
+import 'package:zmare/src/service_locator.dart';
 
 void addToNowPlaying({
   required BuildContext context,

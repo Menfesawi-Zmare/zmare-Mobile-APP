@@ -1,11 +1,11 @@
 import 'dart:ui';
 
-const String baseUrl = 'http://192.168.100.164:8000';
+const String baseUrl = 'http://192.168.1.2:8000';
 //Font
 const defaultFontName = 'Ubuntu';
 
-const String androidNotificationChannelName = 'Hura Music';
-const String androidNotificationChannelId = 'com.flutter.music.pro';
+const String androidNotificationChannelName = 'zmare';
+const String androidNotificationChannelId = 'com.zmare.pro';
 
 const String themeModeKey = 'key_theme_mode';
 const String appColorKey = 'key_app_color';

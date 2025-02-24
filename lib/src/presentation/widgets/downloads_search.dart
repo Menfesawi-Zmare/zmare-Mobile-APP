@@ -1,13 +1,13 @@
 import 'dart:io';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_music_pro/src/core/resources/resources.dart';
-import 'package:flutter_music_pro/src/utils/ext/common.dart';
-import 'package:flutter_music_pro/src/utils/services/audio/player_service.dart';
-import 'package:flutter_music_pro/src/presentation/widgets/download_button.dart';
-import 'package:flutter_music_pro/src/presentation/widgets/khmertracks_image.dart';
-import 'package:flutter_music_pro/src/presentation/widgets/texts/khmertracks_subtitle.dart';
-import 'package:flutter_music_pro/src/presentation/widgets/texts/khmertracks_title.dart';
+import 'package:zmare/src/core/resources/resources.dart';
+import 'package:zmare/src/utils/ext/common.dart';
+import 'package:zmare/src/utils/services/audio/player_service.dart';
+import 'package:zmare/src/presentation/widgets/download_button.dart';
+import 'package:zmare/src/presentation/widgets/khmertracks_image.dart';
+import 'package:zmare/src/presentation/widgets/texts/khmertracks_subtitle.dart';
+import 'package:zmare/src/presentation/widgets/texts/khmertracks_title.dart';
 
 class DownloadsSearch extends SearchDelegate {
   final bool isDowns;

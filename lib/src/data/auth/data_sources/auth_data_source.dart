@@ -2,24 +2,24 @@ import 'dart:io';
 
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter_music_pro/src/core/api/api.dart';
-import 'package:flutter_music_pro/src/core/enum/profile_image_type.dart';
-import 'package:flutter_music_pro/src/core/error/error.dart';
-import 'package:flutter_music_pro/src/data/account/model/account.dart';
-import 'package:flutter_music_pro/src/data/auth/model/auth_profile.dart';
-import 'package:flutter_music_pro/src/data/auth/model/login_response.dart';
-import 'package:flutter_music_pro/src/data/auth/model/logout_model.dart';
-import 'package:flutter_music_pro/src/data/auth/model/update_account_response.dart';
-import 'package:flutter_music_pro/src/data/like/model/like_dislike.dart';
-import 'package:flutter_music_pro/src/data/playlist/model/add_to_playlist_response.dart';
-import 'package:flutter_music_pro/src/data/playlist/model/create_playlist_model.dart';
-import 'package:flutter_music_pro/src/data/playlist/model/playlist_list.dart';
-import 'package:flutter_music_pro/src/data/playlist/model/playlist_update_request_model.dart';
-import 'package:flutter_music_pro/src/data/playlist/model/playlists_request_model.dart';
-import 'package:flutter_music_pro/src/data/playlist/model/response/create_playlist_response.dart';
-import 'package:flutter_music_pro/src/data/register/model/register_response.dart';
-import 'package:flutter_music_pro/src/data/register/model/register_social_request.dart';
-import 'package:flutter_music_pro/src/data/setting/model/setting.dart';
+import 'package:zmare/src/core/api/api.dart';
+import 'package:zmare/src/core/enum/profile_image_type.dart';
+import 'package:zmare/src/core/error/error.dart';
+import 'package:zmare/src/data/account/model/account.dart';
+import 'package:zmare/src/data/auth/model/auth_profile.dart';
+import 'package:zmare/src/data/auth/model/login_response.dart';
+import 'package:zmare/src/data/auth/model/logout_model.dart';
+import 'package:zmare/src/data/auth/model/update_account_response.dart';
+import 'package:zmare/src/data/like/model/like_dislike.dart';
+import 'package:zmare/src/data/playlist/model/add_to_playlist_response.dart';
+import 'package:zmare/src/data/playlist/model/create_playlist_model.dart';
+import 'package:zmare/src/data/playlist/model/playlist_list.dart';
+import 'package:zmare/src/data/playlist/model/playlist_update_request_model.dart';
+import 'package:zmare/src/data/playlist/model/playlists_request_model.dart';
+import 'package:zmare/src/data/playlist/model/response/create_playlist_response.dart';
+import 'package:zmare/src/data/register/model/register_response.dart';
+import 'package:zmare/src/data/register/model/register_social_request.dart';
+import 'package:zmare/src/data/setting/model/setting.dart';
 
 abstract class IAuthDataSource {
   Future<Either<Failure, RegisterResponse>> loginWithSocial(
@@ -32,7 +32,8 @@ abstract class IAuthDataSource {
   Future<Either<Failure, UpdateAccountResponse>> updateBio(ProfileData profile);
   Future<Either<Failure, UpdateAccountResponse>> updateSocial(
       ProfileData profile);
-  Future<Either<Failure, UpdateAccountResponse>> updateImage(File file, String imageType);
+  Future<Either<Failure, UpdateAccountResponse>> updateImage(
+      File file, String imageType);
   Future<Either<Failure, UpdateAccountResponse>> updatePassword(
       String currentPassword, String newPassword, String repeatPassword);
   Future<Either<Failure, bool>> checkSubscribe(int profileId, String type);
@@ -114,7 +115,9 @@ class AuthDataSource extends IAuthDataSource {
           await MultipartFile.fromFile(file.path, filename: fileName),
     });
     final response = await _client.postRequest(
-      imageType == ProfileImageType.avatar.name ? ListAPI.updateAvatar : ListAPI.updateCover,
+      imageType == ProfileImageType.avatar.name
+          ? ListAPI.updateAvatar
+          : ListAPI.updateCover,
       data: formData,
       converter: (response) => UpdateAccountResponse.fromJson(response),
     );

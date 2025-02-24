@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:flutter_music_pro/src/app/routes.dart';
-import 'package:flutter_music_pro/src/utils/ext/common.dart';
-import 'package:flutter_music_pro/src/core/enum/grid_type.dart';
-import 'package:flutter_music_pro/src/presentation/settings/widgets/extra_controls_widget.dart';
-import 'package:flutter_music_pro/src/presentation/settings/widgets/setting_option.dart';
-import 'package:flutter_music_pro/src/presentation/settings/widgets/settings_group_card.dart';
-import 'package:flutter_music_pro/src/presentation/widgets/khmertracks_text.dart';
-import 'package:flutter_music_pro/src/presentation/widgets/texts/khmertracks_title.dart';
+import 'package:zmare/src/app/routes.dart';
+import 'package:zmare/src/utils/ext/common.dart';
+import 'package:zmare/src/core/enum/grid_type.dart';
+import 'package:zmare/src/presentation/settings/widgets/extra_controls_widget.dart';
+import 'package:zmare/src/presentation/settings/widgets/setting_option.dart';
+import 'package:zmare/src/presentation/settings/widgets/settings_group_card.dart';
+import 'package:zmare/src/presentation/widgets/khmertracks_text.dart';
+import 'package:zmare/src/presentation/widgets/texts/khmertracks_title.dart';
 
 class PersonalizePage extends StatefulWidget {
   const PersonalizePage({super.key});
@@ -85,38 +85,38 @@ class _PersonalizePageState extends State<PersonalizePage> {
       body: ListView(
         shrinkWrap: true,
         children: [
-          SettingsGroup(
-            title: context.loc.home,
-            options: [
-              SettingsOption(
-                  icon: Icons.person_outline_rounded,
-                  title: context.loc.artistGrid,
-                  subtitle: GridType.values[artistGridIndex].name(context),
-                  onTap: () => chooseGridStyle(
-                      context.loc.artistGrid, artistGridIndex, 0)),
-              Divider(color: Colors.grey.withOpacity(0.2)),
-              SettingsOption(
-                  icon: Icons.featured_play_list_outlined,
-                  title: context.loc.playlistGrid,
-                  subtitle: GridType.values[playlistGridIndex].name(context),
-                  onTap: () => chooseGridStyle(
-                      context.loc.playlistGrid, playlistGridIndex, 1)),
-              Divider(color: Colors.grey.withOpacity(0.2)),
-              SettingsOption(
-                  icon: Icons.album_outlined,
-                  title: context.loc.albumGrid,
-                  subtitle: GridType.values[albumGridIndex].name(context),
-                  onTap: () => chooseGridStyle(
-                      context.loc.albumGrid, albumGridIndex, 2)),
-              Divider(color: Colors.grey.withOpacity(0.2)),
-              SettingsOption(
-                  icon: Icons.library_music_outlined,
-                  title: context.loc.productionGrid,
-                  subtitle: GridType.values[productionGridIndex].name(context),
-                  onTap: () => chooseGridStyle(
-                      context.loc.productionGrid, productionGridIndex, 3))
-            ],
-          ),
+          // SettingsGroup(
+          //   title: context.loc.home,
+          //   options: [
+          //     SettingsOption(
+          //         icon: Icons.person_outline_rounded,
+          //         title: context.loc.artistGrid,
+          //         subtitle: GridType.values[artistGridIndex].name(context),
+          //         onTap: () => chooseGridStyle(
+          //             context.loc.artistGrid, artistGridIndex, 0)),
+          //     Divider(color: Colors.grey.withOpacity(0.2)),
+          //     SettingsOption(
+          //         icon: Icons.featured_play_list_outlined,
+          //         title: context.loc.playlistGrid,
+          //         subtitle: GridType.values[playlistGridIndex].name(context),
+          //         onTap: () => chooseGridStyle(
+          //             context.loc.playlistGrid, playlistGridIndex, 1)),
+          //     Divider(color: Colors.grey.withOpacity(0.2)),
+          //     SettingsOption(
+          //         icon: Icons.album_outlined,
+          //         title: context.loc.albumGrid,
+          //         subtitle: GridType.values[albumGridIndex].name(context),
+          //         onTap: () => chooseGridStyle(
+          //             context.loc.albumGrid, albumGridIndex, 2)),
+          //     Divider(color: Colors.grey.withOpacity(0.2)),
+          //     SettingsOption(
+          //         icon: Icons.library_music_outlined,
+          //         title: context.loc.productionGrid,
+          //         subtitle: GridType.values[productionGridIndex].name(context),
+          //         onTap: () => chooseGridStyle(
+          //             context.loc.productionGrid, productionGridIndex, 3))
+          //   ],
+          // ),
           SettingsGroup(
               title: context.loc.miniPlayer,
               options: const [ExtraControlsWidget()])

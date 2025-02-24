@@ -1,8 +1,8 @@
 import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_music_pro/src/presentation/player/pages/audioplayer.dart';
-import 'package:flutter_music_pro/src/presentation/widgets/playback_control.dart';
-import 'package:flutter_music_pro/src/utils/ext/color_extension.dart';
+import 'package:zmare/src/presentation/player/pages/audioplayer.dart';
+import 'package:zmare/src/presentation/widgets/playback_control.dart';
+import 'package:zmare/src/utils/ext/color_extension.dart';
 import 'package:rxdart/rxdart.dart';
 
 class QueueControlBar extends StatelessWidget {

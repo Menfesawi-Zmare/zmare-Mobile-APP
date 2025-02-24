@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_music_pro/src/utils/ext/common.dart';
+import 'package:zmare/src/utils/ext/common.dart';
 
 enum GridType {
-circular,
-coloredCard,
-card,
-tinyCard,
-squareCard;
-int get toIndex {
+  circular,
+  coloredCard,
+  card,
+  tinyCard,
+  squareCard;
+
+  int get toIndex {
     switch (this) {
       case GridType.circular:
         return 0;

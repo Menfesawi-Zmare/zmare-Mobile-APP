@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_music_pro/src/presentation/widgets/download_button.dart';
-import 'package:flutter_music_pro/src/presentation/widgets/song_list_tile.dart';
-import 'package:flutter_music_pro/src/presentation/player/pages/audioplayer.dart';
-import 'package:flutter_music_pro/src/utils/helper/mediaitem_converter.dart';
+import 'package:zmare/src/presentation/widgets/download_button.dart';
+import 'package:zmare/src/presentation/widgets/song_list_tile.dart';
+import 'package:zmare/src/presentation/player/pages/audioplayer.dart';
+import 'package:zmare/src/utils/helper/mediaitem_converter.dart';
 
 class NowPlayingStream extends StatelessWidget {
   final AudioPlayerHandler audioHandler;
@@ -32,8 +32,7 @@ class NowPlayingStream extends StatelessWidget {
           milliseconds: 350,
         ),
       );
-    } 
-    else if (queuePosition < 10 && queueLength > 10) {
+    } else if (queuePosition < 10 && queueLength > 10) {
       scrollController?.animateTo(
         (queueLength - 10) * 72,
         curve: Curves.linear,

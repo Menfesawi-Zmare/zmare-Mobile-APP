@@ -1,13 +1,13 @@
 // ignore: depend_on_referenced_packages
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter_music_pro/src/core/error/error.dart';
-import 'package:flutter_music_pro/src/data/album/model/album_list.dart';
-import 'package:flutter_music_pro/src/data/artist/model/artist_detail.dart';
-import 'package:flutter_music_pro/src/data/artist/model/artist_list.dart';
-import 'package:flutter_music_pro/src/data/artist/model/artist_song_list.dart';
-import 'package:flutter_music_pro/src/data/profile/model/profile_list.dart';
-import 'package:flutter_music_pro/src/domain/artist/repository/artist_repository.dart';
+import 'package:zmare/src/core/error/error.dart';
+import 'package:zmare/src/data/album/model/album_list.dart';
+import 'package:zmare/src/data/artist/model/artist_detail.dart';
+import 'package:zmare/src/data/artist/model/artist_list.dart';
+import 'package:zmare/src/data/artist/model/artist_song_list.dart';
+import 'package:zmare/src/data/profile/model/profile_list.dart';
+import 'package:zmare/src/domain/artist/repository/artist_repository.dart';
 
 part 'artist_event.dart';
 part 'artist_state.dart';
@@ -27,8 +27,8 @@ class ArtistBloc extends Bloc<ArtistEvent, ArtistState> {
   void _loadArtistSubsribers(
       GetArtistSubscribers event, Emitter<ArtistState> emit) async {
     emit(ArtistLoading());
-    final data = await iArtistRepository.getSubscribers(
-        event.profileId, event.page);
+    final data =
+        await iArtistRepository.getSubscribers(event.profileId, event.page);
     data.fold((l) {
       if (l is ServerFailure) {
         emit(ArtistFailed(l.message ?? ""));
@@ -54,6 +54,7 @@ class ArtistBloc extends Bloc<ArtistEvent, ArtistState> {
       emit(ArtistAlbumsLoaded(r));
     });
   }
+
   //Load with Pagination
   void _loadArtistTracks(
       GetArtistTrackListsEvent event, Emitter<ArtistState> emit) async {
@@ -68,12 +69,13 @@ class ArtistBloc extends Bloc<ArtistEvent, ArtistState> {
       emit(ArtistTrackLoaded(r));
     });
   }
+
   //Load All Tracks
   void _loadArtistAllTracks(
       GetArtistAllTrackListsEvent event, Emitter<ArtistState> emit) async {
     emit(ArtistLoading());
-    final data =
-        await iArtistRepository.getArtistAllTracks(event.artistId, event.filter);
+    final data = await iArtistRepository.getArtistAllTracks(
+        event.artistId, event.filter);
     data.fold((l) {
       if (l is ServerFailure) {
         emit(ArtistFailed(l.message ?? ""));
