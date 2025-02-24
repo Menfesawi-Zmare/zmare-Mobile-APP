@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:zmare/src/core/resources/resources.dart';
@@ -51,7 +53,7 @@ class _AllArtistPageState extends State<AllArtistPage> {
           backgroundColor: Theme.of(context).colorScheme.primaryContainer,
           strokeWidth: 2.0,
           onRefresh: () async {
-            artistBloc.add(const GetAllArtistEvent(1, ''));
+            // artistBloc.add(const GetAllArtistEvent(1, ''));
             _pagingController.refresh();
             return Future<void>.delayed(const Duration(seconds: 1));
           },
@@ -62,8 +64,10 @@ class _AllArtistPageState extends State<AllArtistPage> {
                 listener: (context, state) {
                   if (state is ArtistLoaded) {
                     listArtists = state.artistList.artistList!;
-                    final isLastPage = listArtists.length <
-                        state.artistList.pagination!.perPage!;
+                    final isLastPage =
+                        state.artistList.pagination!.currentPage! >=
+                            state.artistList.pagination!.totalPages!;
+
                     if (isLastPage) {
                       _pagingController.appendLastPage(listArtists);
                     } else {
@@ -82,7 +86,7 @@ class _AllArtistPageState extends State<AllArtistPage> {
                         crossAxisCount: 2,
                         crossAxisSpacing: 16.0,
                         mainAxisSpacing: 16.0,
-                        childAspectRatio: 0.8,
+                        childAspectRatio: 3.2,
                       ),
                       padding: const EdgeInsets.all(16),
                       pagingController: _pagingController,
@@ -94,29 +98,60 @@ class _AllArtistPageState extends State<AllArtistPage> {
                           itemBuilder: (context, item, index) => InkWell(
                                 onTap: () =>
                                     context.pushNamed(artistPath, extra: item),
-                                child: Column(
-                                  children: [
-                                    AspectRatio(
-                                      aspectRatio: 1 / 1,
-                                      child: ClipOval(
-                                          child: KhmertracksImage(
-                                        imageUrl: item.image!,
-                                        placeholderImage:
-                                            Images.defalultArtistCover,
-                                      )),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 8),
-                                      child: Text(
-                                        item.name!,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .titleMedium
-                                            ?.copyWith(
-                                                fontWeight: FontWeight.bold),
+                                child: Container(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 5, vertical: 3),
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(5),
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onSurface
+                                          .withOpacity(0.2)),
+                                  child: Row(
+                                    children: [
+                                      AspectRatio(
+                                        aspectRatio: 1 / 1,
+                                        child: ClipOval(
+                                            child: KhmertracksImage(
+                                          imageUrl: item.image!,
+                                          placeholderImage:
+                                              Images.defalultArtistCover,
+                                        )),
                                       ),
-                                    ),
-                                  ],
+                                      SizedBox(
+                                        width: 10,
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(top: 8),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              item.name!,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .titleMedium
+                                                  ?.copyWith(
+                                                      fontSize: 12,
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                            ),
+                                            Text(
+                                              "${item.subscribers} followers",
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .titleMedium
+                                                  ?.copyWith(
+                                                      fontSize: 10,
+                                                      fontWeight:
+                                                          FontWeight.normal),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               )));
                 },

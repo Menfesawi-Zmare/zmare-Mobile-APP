@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'dart:io';
 
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
