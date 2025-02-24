@@ -1,8 +1,8 @@
-import 'package:flutter_music_pro/src/data/album/model/album.dart';
-import 'package:flutter_music_pro/src/data/artist/model/artist.dart';
-import 'package:flutter_music_pro/src/data/playlist/model/playlist.dart';
-import 'package:flutter_music_pro/src/data/production/model/production.dart';
-// import 'package:flutter_music_pro/src/data/song/model/item_song_model.dart';
+import 'package:zmare/src/data/album/model/album.dart';
+import 'package:zmare/src/data/artist/model/artist.dart';
+import 'package:zmare/src/data/playlist/model/playlist.dart';
+import 'package:zmare/src/data/production/model/production.dart';
+// import 'package:zmare/src/data/song/model/item_song_model.dart';
 
 class ExplorerModel {
   List<Data>? data;

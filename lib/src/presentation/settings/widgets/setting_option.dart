@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_music_pro/src/presentation/widgets/texts/khmertracks_subtitle.dart';
-import 'package:flutter_music_pro/src/presentation/widgets/texts/khmertracks_title.dart';
+import 'package:zmare/src/presentation/widgets/texts/khmertracks_subtitle.dart';
+import 'package:zmare/src/presentation/widgets/texts/khmertracks_title.dart';
 
 class SettingsOption extends StatelessWidget {
   const SettingsOption({

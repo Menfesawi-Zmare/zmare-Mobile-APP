@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_music_pro/src/core/resources/resources.dart';
+import 'package:zmare/src/core/resources/resources.dart';
 import 'package:go_router/go_router.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:flutter_music_pro/src/utils/ext/common.dart';
-import 'package:flutter_music_pro/src/data/album/model/album.dart';
-import 'package:flutter_music_pro/src/presentation/album/bloc/album_bloc.dart';
-import 'package:flutter_music_pro/src/presentation/widgets/khmertracks_image.dart';
+import 'package:zmare/src/utils/ext/common.dart';
+import 'package:zmare/src/data/album/model/album.dart';
+import 'package:zmare/src/presentation/album/bloc/album_bloc.dart';
+import 'package:zmare/src/presentation/widgets/khmertracks_image.dart';
 
-import 'package:flutter_music_pro/src/presentation/widgets/texts/khmertracks_title.dart';
-import 'package:flutter_music_pro/src/service_locator.dart';
+import 'package:zmare/src/presentation/widgets/texts/khmertracks_title.dart';
+import 'package:zmare/src/service_locator.dart';
 
 class AllAlbumPage extends StatefulWidget {
   const AllAlbumPage({super.key});
@@ -62,7 +62,8 @@ class _AllAlbumPageState extends State<AllAlbumPage> {
               listener: (context, state) {
                 if (state is AllAlbum) {
                   listAlbum = state.all.albumList;
-                  final isLastPage = listAlbum!.length < state.all.pagination!.perPage!;
+                  final isLastPage =
+                      listAlbum!.length < state.all.pagination!.perPage!;
                   if (isLastPage) {
                     _pagingController.appendLastPage(listAlbum!);
                   } else {
@@ -115,7 +116,6 @@ class _AllAlbumPageState extends State<AllAlbumPage> {
               ),
             ),
           )),
-      
     );
   }
 }

@@ -1,10 +1,10 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_music_pro/src/presentation/widgets/mini_player.dart';
+import 'package:zmare/src/presentation/widgets/mini_player.dart';
 import 'package:go_router/go_router.dart';
-import 'package:flutter_music_pro/src/presentation/home/widgets/android_navigation.dart';
-import 'package:flutter_music_pro/src/presentation/home/widgets/ios_navigation.dart';
+import 'package:zmare/src/presentation/home/widgets/android_navigation.dart';
+import 'package:zmare/src/presentation/home/widgets/ios_navigation.dart';
 
 class HomeMobilePage extends StatelessWidget {
   const HomeMobilePage({
@@ -22,7 +22,10 @@ class HomeMobilePage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             MiniPlayer(),
-            if (Platform.isIOS) IosNavigation(navigationShell: navigationShell) else AndroidNavigation(navigationShell: navigationShell)
+            if (Platform.isIOS)
+              IosNavigation(navigationShell: navigationShell)
+            else
+              AndroidNavigation(navigationShell: navigationShell)
           ],
         ));
   }

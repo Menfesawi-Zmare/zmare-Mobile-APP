@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_music_pro/src/utils/ext/common.dart';
-import 'package:flutter_music_pro/src/presentation/widgets/khmertracks_text_field.dart';
+import 'package:zmare/src/utils/ext/common.dart';
+import 'package:zmare/src/presentation/widgets/khmertracks_text_field.dart';
 
 Future<void> showTextInputDialog({
   required BuildContext context,

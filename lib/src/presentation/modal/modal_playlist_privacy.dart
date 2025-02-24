@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:flutter_music_pro/src/utils/ext/common.dart';
-import 'package:flutter_music_pro/src/core/enum/playlist_privacy_type.dart';
+import 'package:zmare/src/utils/ext/common.dart';
+import 'package:zmare/src/core/enum/playlist_privacy_type.dart';
 
 class ModalPlaylistPrivacy extends StatelessWidget {
   const ModalPlaylistPrivacy(

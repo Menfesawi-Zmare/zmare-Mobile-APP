@@ -1,15 +1,15 @@
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_music_pro/src/data/playlist/model/playlist.dart';
+import 'package:zmare/src/data/playlist/model/playlist.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:flutter_music_pro/src/app/routes.dart';
-import 'package:flutter_music_pro/src/utils/ext/common.dart';
-import 'package:flutter_music_pro/src/core/enum/box_types.dart';
-import 'package:flutter_music_pro/src/core/enum/grid_type.dart';
-import 'package:flutter_music_pro/src/utils/helper/ad_helper.dart';
-import 'package:flutter_music_pro/src/presentation/widgets/dynamic_grid.dart';
-import 'package:flutter_music_pro/src/service_locator.dart';
+import 'package:zmare/src/app/routes.dart';
+import 'package:zmare/src/utils/ext/common.dart';
+import 'package:zmare/src/core/enum/box_types.dart';
+import 'package:zmare/src/core/enum/grid_type.dart';
+import 'package:zmare/src/utils/helper/ad_helper.dart';
+import 'package:zmare/src/presentation/widgets/dynamic_grid.dart';
+import 'package:zmare/src/service_locator.dart';
 
 class PlaylistsWidget extends StatefulWidget {
   const PlaylistsWidget(

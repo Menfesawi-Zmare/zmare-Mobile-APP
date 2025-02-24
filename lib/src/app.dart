@@ -5,12 +5,12 @@ import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'package:flutter_music_pro/src/utils/ext/common.dart';
-import 'package:flutter_music_pro/src/utils/helper/app_lifecycle_reactor.dart';
-import 'package:flutter_music_pro/src/utils/helper/app_open_ad_manager.dart';
+import 'package:zmare/src/utils/ext/common.dart';
+import 'package:zmare/src/utils/helper/app_lifecycle_reactor.dart';
+import 'package:zmare/src/utils/helper/app_open_ad_manager.dart';
 
 import '../src/app/routes.dart';
-import 'core/theme/flutter_music_pro_theme.dart';
+import 'core/theme/zmare_theme.dart';
 import 'presentation/widgets/khmertracks_annotate_region_widget.dart';
 
 class FlutterMusicPro extends StatefulWidget {

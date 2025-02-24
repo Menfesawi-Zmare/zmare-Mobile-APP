@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_music_pro/src/core/resources/resources.dart';
-import 'package:flutter_music_pro/src/utils/ext/common.dart';
-import 'package:flutter_music_pro/src/data/album/model/album.dart';
-import 'package:flutter_music_pro/src/presentation/widgets/khmertracks_image.dart';
+import 'package:zmare/src/core/resources/resources.dart';
+import 'package:zmare/src/utils/ext/common.dart';
+import 'package:zmare/src/data/album/model/album.dart';
+import 'package:zmare/src/presentation/widgets/khmertracks_image.dart';
 
 import 'package:go_router/go_router.dart';
 
@@ -55,7 +55,6 @@ class CustomAlbumPage extends StatelessWidget {
               ),
             );
           }),
-      
     );
   }
 }

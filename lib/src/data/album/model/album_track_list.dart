@@ -1,4 +1,4 @@
-import 'package:flutter_music_pro/src/data/song/model/item_song_model.dart';
+import 'package:zmare/src/data/song/model/item_song_model.dart';
 
 class AlbumTrackListModel {
   List<ItemSongModel>? songList;

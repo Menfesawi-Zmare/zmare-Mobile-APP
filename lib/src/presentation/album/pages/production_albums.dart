@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:flutter_music_pro/src/utils/ext/common.dart';
-import 'package:flutter_music_pro/src/data/album/model/album.dart';
-import 'package:flutter_music_pro/src/data/production/model/production.dart';
-import 'package:flutter_music_pro/src/presentation/album/bloc/album_bloc.dart';
-import 'package:flutter_music_pro/src/presentation/widgets/item_production_album.dart';
+import 'package:zmare/src/utils/ext/common.dart';
+import 'package:zmare/src/data/album/model/album.dart';
+import 'package:zmare/src/data/production/model/production.dart';
+import 'package:zmare/src/presentation/album/bloc/album_bloc.dart';
+import 'package:zmare/src/presentation/widgets/item_production_album.dart';
 
-import 'package:flutter_music_pro/src/presentation/widgets/no_result_widget.dart';
-import 'package:flutter_music_pro/src/service_locator.dart';
+import 'package:zmare/src/presentation/widgets/no_result_widget.dart';
+import 'package:zmare/src/service_locator.dart';
 
 class ProductionAlbumsPage extends StatefulWidget {
   const ProductionAlbumsPage({super.key, required this.productions});
@@ -45,7 +45,6 @@ class _ProductionAlbumsPageState extends State<ProductionAlbumsPage> {
       appBar: context.materialYouAppBar(
         widget.productions.name!,
       ),
-      
       body: RefreshIndicator(
         key: _refreshIndicatorKey,
         backgroundColor: Theme.of(context).colorScheme.primaryContainer,
@@ -62,13 +61,13 @@ class _ProductionAlbumsPageState extends State<ProductionAlbumsPage> {
             listener: (context, state) {
               if (state is ProductionAlbumsLoaded) {
                 albumlist = state.productionAlbums.albumList!;
-                final isLastPage =
-                    albumlist.length < state.productionAlbums.pagination!.perPage!;
+                final isLastPage = albumlist.length <
+                    state.productionAlbums.pagination!.perPage!;
                 if (isLastPage) {
                   _pagingController.appendLastPage(albumlist);
                 } else {
-                  _pagingController.appendPage(
-                      albumlist, state.productionAlbums.pagination!.currentPage! + 1);
+                  _pagingController.appendPage(albumlist,
+                      state.productionAlbums.pagination!.currentPage! + 1);
                 }
               }
               if (state is AlbumLoadFailed) {
@@ -88,7 +87,9 @@ class _ProductionAlbumsPageState extends State<ProductionAlbumsPage> {
                       padding: const EdgeInsets.all(16),
                       pagingController: _pagingController,
                       builderDelegate: PagedChildBuilderDelegate<Album>(
-                        noItemsFoundIndicatorBuilder: (context) => NoResultWidget(onTap: () => _pagingController.refresh()),
+                          noItemsFoundIndicatorBuilder: (context) =>
+                              NoResultWidget(
+                                  onTap: () => _pagingController.refresh()),
                           itemBuilder: (context, item, index) =>
                               ItemProductionAlbum(item: item)),
                     )),

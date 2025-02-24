@@ -2,12 +2,12 @@ import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_music_pro/src/core/resources/resources.dart';
+import 'package:zmare/src/core/resources/resources.dart';
 import 'package:image_cropper/image_cropper.dart';
-import 'package:flutter_music_pro/src/utils/ext/common.dart';
-import 'package:flutter_music_pro/src/data/profile/model/profile.dart';
-import 'package:flutter_music_pro/src/presentation/widgets/khmertracks_image.dart';
-import 'package:flutter_music_pro/src/presentation/widgets/khmertracks_text.dart';
+import 'package:zmare/src/utils/ext/common.dart';
+import 'package:zmare/src/data/profile/model/profile.dart';
+import 'package:zmare/src/presentation/widgets/khmertracks_image.dart';
+import 'package:zmare/src/presentation/widgets/khmertracks_text.dart';
 
 // ignore: must_be_immutable
 class CoverPhoto extends StatelessWidget {

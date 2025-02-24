@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_music_pro/src/utils/ext/text_style_extension.dart';
+import 'package:zmare/src/utils/ext/text_style_extension.dart';
 
 class KhmertracksTextSmall extends StatelessWidget {
   const KhmertracksTextSmall({super.key, required this.text});

@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_music_pro/src/core/resources/resources.dart';
-import 'package:flutter_music_pro/src/utils/services/audio/download.dart';
-import 'package:flutter_music_pro/src/utils/ext/common.dart';
-import 'package:flutter_music_pro/src/utils/services/audio/player_service.dart';
-import 'package:flutter_music_pro/src/data/song/model/item_song_model.dart';
-import 'package:flutter_music_pro/src/presentation/modal/modal_more.dart';
-import 'package:flutter_music_pro/src/presentation/widgets/khmertracks_image.dart';
-import 'package:flutter_music_pro/src/presentation/widgets/texts/khmertracks_subtitle.dart';
-import 'package:flutter_music_pro/src/presentation/widgets/texts/khmertracks_title.dart';
+import 'package:zmare/src/core/resources/resources.dart';
+import 'package:zmare/src/utils/services/audio/download.dart';
+import 'package:zmare/src/utils/ext/common.dart';
+import 'package:zmare/src/utils/services/audio/player_service.dart';
+import 'package:zmare/src/data/song/model/item_song_model.dart';
+import 'package:zmare/src/presentation/modal/modal_more.dart';
+import 'package:zmare/src/presentation/widgets/khmertracks_image.dart';
+import 'package:zmare/src/presentation/widgets/texts/khmertracks_subtitle.dart';
+import 'package:zmare/src/presentation/widgets/texts/khmertracks_title.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class ItemListBig extends StatefulWidget {

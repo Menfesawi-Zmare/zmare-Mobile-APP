@@ -1,6 +1,6 @@
-import 'package:flutter_music_pro/src/data/artist/model/artist.dart';
-import 'package:flutter_music_pro/src/data/pagination/pagination_model.dart';
-import 'package:flutter_music_pro/src/data/profile/model/profile.dart';
+import 'package:zmare/src/data/artist/model/artist.dart';
+import 'package:zmare/src/data/pagination/pagination_model.dart';
+import 'package:zmare/src/data/profile/model/profile.dart';
 
 class FollowResponseModel {
   List<Follow>? data;
@@ -40,8 +40,7 @@ class Follow {
 
   Follow.fromJson(Map<String, dynamic> json) {
     user = json['user'] != null ? Profile.fromJson(json['user']) : null;
-    artist =
-        json['artist'] != null ? Artist.fromJson(json['artist']) : null;
+    artist = json['artist'] != null ? Artist.fromJson(json['artist']) : null;
   }
 
   Map<String, dynamic> toJson() {

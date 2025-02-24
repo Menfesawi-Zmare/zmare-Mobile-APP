@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_music_pro/src/core/resources/resources.dart';
-import 'package:flutter_music_pro/src/data/playlist/model/playlist.dart';
-import 'package:flutter_music_pro/src/utils/ext/common.dart';
+import 'package:zmare/src/core/resources/resources.dart';
+import 'package:zmare/src/data/playlist/model/playlist.dart';
+import 'package:zmare/src/utils/ext/common.dart';
 import 'package:go_router/go_router.dart';
-import 'package:flutter_music_pro/src/presentation/widgets/khmertracks_image.dart';
-import 'package:flutter_music_pro/src/presentation/widgets/texts/khmertracks_title.dart';
+import 'package:zmare/src/presentation/widgets/khmertracks_image.dart';
+import 'package:zmare/src/presentation/widgets/texts/khmertracks_title.dart';
 
 class ItemExplorerPlaylist extends StatelessWidget {
   const ItemExplorerPlaylist({super.key, required this.playlist});

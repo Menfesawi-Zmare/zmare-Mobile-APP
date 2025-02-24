@@ -1,5 +1,5 @@
-import 'package:flutter_music_pro/src/data/pagination/pagination_model.dart';
-import 'package:flutter_music_pro/src/data/song/model/item_song_model.dart';
+import 'package:zmare/src/data/pagination/pagination_model.dart';
+import 'package:zmare/src/data/song/model/item_song_model.dart';
 
 class TrackList {
   List<ItemSongModel>? songList;
