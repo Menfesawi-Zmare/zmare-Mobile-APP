@@ -19,6 +19,9 @@ class Images {
   static const String instagramIcon = 'assets/instagram.png';
   static const String gmailIcon = 'assets/gmail.png';
   static const String appleIcon = 'assets/apple.png';
+  static const String angleBlackIcon = "assets/angle.svg";
+  static const String angleWhiteIcon = "assets/angle-white.svg";
+  static const String man = "assets/man.svg";
 }
 
 ImageProvider getAlbumImage(String? albumArtPath) {
