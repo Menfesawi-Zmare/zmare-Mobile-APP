@@ -16,13 +16,13 @@ class AndroidNavigation extends StatelessWidget {
         destinations: [
           NavigationDestination(
             label: context.loc.explorerLabel,
-            icon: const Icon(FluentIcons.compass_northwest_16_regular),
-            selectedIcon: const Icon(FluentIcons.compass_northwest_16_filled),
+            icon: const Icon(FluentIcons.home_12_regular),
+            selectedIcon: const Icon(FluentIcons.home_12_filled),
           ),
           NavigationDestination(
             label: context.loc.latestLabel,
-            icon: const Icon(FluentIcons.music_note_2_16_regular),
-            selectedIcon: const Icon(FluentIcons.music_note_2_16_filled),
+            icon: const Icon(Icons.church_outlined),
+            selectedIcon: const Icon(Icons.church_rounded),
           ),
           NavigationDestination(
             label: context.loc.popularLabel,

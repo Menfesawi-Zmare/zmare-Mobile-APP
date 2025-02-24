@@ -1,5 +1,8 @@
+// ignore: unused_import
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:zmare/src/core/resources/images.dart';
 import 'package:zmare/src/utils/ext/common.dart';
 import 'package:zmare/src/presentation/widgets/khmertracks_text.dart';
 
@@ -15,10 +18,14 @@ class NoResultWidget extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        const Icon(
-          Icons.sentiment_very_satisfied_rounded,
-          size: 72,
+        SvgPicture.asset(
+          Images.man,
+          height: 72,
         ),
+        // const Icon(
+        //   Icons.sentiment_very_satisfied_rounded,
+        //   size: 72,
+        // ),
         KhmertracksText(
           text: context.loc.resultsNotFound,
           isBold: true,
@@ -29,11 +36,7 @@ class NoResultWidget extends StatelessWidget {
                 const EdgeInsets.only(left: 16, right: 16, bottom: 16, top: 20),
             child: OutlinedButton.icon(
               onPressed: onTap,
-              icon: Icon(
-                FluentIcons.arrow_sync_24_regular,
-                color: Theme.of(context).colorScheme.onSurface,
-                size: 26,
-              ),
+              icon: Icon(Icons.refresh),
               label: Text(
                 context.loc.refresh,
                 style: context.titleSmall!.copyWith(
