@@ -27,6 +27,7 @@ class NameNControls extends StatelessWidget {
   final GlobalKey<FlipCardState> cardKey;
   final MediaItem mediaItem;
   final bool offline;
+  final AnimationController? animationController;
   final double width;
   final double height;
   final AudioPlayerHandler audioHandler;
@@ -39,6 +40,7 @@ class NameNControls extends StatelessWidget {
     required this.mediaItem,
     required this.audioHandler,
     this.offline = false,
+    required this.animationController,
   });
 
   Stream<Duration> get _bufferedPositionStream => audioHandler.playbackState
@@ -204,6 +206,7 @@ class NameNControls extends StatelessWidget {
                             ],
                           ),
                           ControlButtons(
+                            animationController: animationController,
                             audioHandler,
                           ),
                           Column(
