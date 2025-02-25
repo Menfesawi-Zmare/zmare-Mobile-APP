@@ -50,7 +50,7 @@ dependencies:
   flutter_lyric: ^2.0.4+6
   sign_in_with_apple: ^6.1.4
   google_sign_in: ^6.0.2
-  firebase_auth: ^5.3.4
+  firebase_auth: ^5.3.4 
   firebase_core: ^3.9.0
   firebase_storage: ^12.3.7
 
@@ -72,6 +72,7 @@ dependencies:
   video_player: ^2.9.2
   chewie: ^1.9.0
   flutter_svg: ^2.0.17
+  rive_animated_icon: ^2.0.3
   
   
 
@@ -87,38 +88,37 @@ dev_dependencies:
   flutter_launcher_icons: ^0.14.2
 flutter_launcher_icons:
 
-  image_path_android: "assets/images/icon.png"
-  image_path_ios: "assets/images/icon.png"
+  image_path: "assets/icon/splash-logo.png"
   android: true 
   ios: true 
-  # adaptive_icon_background: "assets/images/icon.png"
-  # adaptive_icon_foreground: "assets/images/icon.png" 
+  adaptive_icon_foreground: "assets/icon/splash-logo.png"
+  adaptive_icon_background: "#FFFFFF"  
+  adaptive_icon_background_dark: "#889AC7" 
   adaptive_icon_foreground_inset: 16 
-  adaptive_icon_monochrome: "assets/images/icon.png"
+  adaptive_icon_monochrome: "assets/icon/splash-logo.png"
   min_sdk_android: 21
   android_icon_size: 60  
   ios_icon_size: 180
   remove_alpha_ios: true
-  background_color_ios: "#ffffff"
+
 
 flutter_native_splash:
   color: "#ffffff"
-  image: assets/images/icon.png
+  image: assets/icon/splash-logo.png
   color_dark: "#121212"
   android: true
   ios: true
   android_12:
-    image: assets/images/icon.png
+    image: assets/icon/splash-logo.png
     icon_background_color: "#ffffff"
-    image_dark: assets/images/icon.png
+    image_dark: assets/icon/splash-logo.png
     icon_background_color_dark: "#121212"
-# dependency_overrides:
-#   image_cropper_for_web: ^5.1.0
-#   web: ^1.0.0
+
 flutter:
   uses-material-design: true
   generate: true
   assets:
     - assets/
     - assets/images/
+    
     

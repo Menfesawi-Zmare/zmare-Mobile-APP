@@ -157,7 +157,15 @@ class _IntroPageState extends State<IntroPage> {
                           FirebaseService service = FirebaseService();
                           try {
                             UserCredential? userCredential =
-                                await service.signInwithGoogle();
+                                await service.signInwithGoogle().then(
+                              (value) {
+                                ScaffoldMessenger(
+                                    child: SnackBar(
+                                        content: value != null
+                                            ? Text(value.user!.displayName!)
+                                            : Text("")));
+                              },
+                            );
                             if (userCredential != null) {
                               authBloc.add(LoginWithSocial(
                                   RegisterSocialRequest(
