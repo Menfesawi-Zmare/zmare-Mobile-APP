@@ -21,11 +21,11 @@ class NextSong extends StatelessWidget {
             song = queue[queueStateIndex + 1];
             return GestureDetector(
               onTap: () => {
-                Navigator.of(context).push(MaterialPageRoute<void>(
-                    builder: (BuildContext context) {
-                      return const NowPlaying();
-                    },
-                    fullscreenDialog: true))
+                // Navigator.of(context).push(MaterialPageRoute<void>(
+                //     builder: (BuildContext context) {
+                //       return const NowPlaying();
+                //     },
+                //     fullscreenDialog: true))
               },
               child: Container(
                 height: 56.0,
@@ -38,25 +38,30 @@ class NextSong extends StatelessWidget {
                       context.loc.upNext.toUpperCase(),
                       style: context.bodySmall,
                     ),
-                    RichText(
-                      maxLines: 2,
-                      textAlign: TextAlign.center,
-                      text: TextSpan(
-                        style: context.bodySmall
-                            ?.copyWith(fontWeight: FontWeight.w200),
-                        children: [
-                          TextSpan(
-                            text: song.title,
-                            style: context.bodySmall
-                                ?.copyWith(fontWeight: FontWeight.w300),
-                          ),
-                          const TextSpan(text: ' • '),
-                          TextSpan(
-                            text: song.artist,
-                            style: context.bodySmall
-                                ?.copyWith(fontWeight: FontWeight.w300),
-                          ),
-                        ],
+                    Container(
+                      width: 170,
+                      // color: Colors.black,
+                      child: RichText(
+                        maxLines: 2,
+                        textAlign: TextAlign.center,
+                        overflow: TextOverflow.fade,
+                        text: TextSpan(
+                          style: context.bodySmall
+                              ?.copyWith(fontWeight: FontWeight.w200),
+                          children: [
+                            TextSpan(
+                              text: song.title,
+                              style: context.bodySmall
+                                  ?.copyWith(fontWeight: FontWeight.w300),
+                            ),
+                            const TextSpan(text: ' • '),
+                            TextSpan(
+                              text: song.artist,
+                              style: context.bodySmall
+                                  ?.copyWith(fontWeight: FontWeight.w300),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ],

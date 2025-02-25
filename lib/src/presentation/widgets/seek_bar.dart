@@ -51,82 +51,101 @@ class _SeekBarState extends State<SeekBar> {
     if (_dragValue != null && !_dragging) {
       _dragValue = null;
     }
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisSize: MainAxisSize.max,
-      children: [
-        SizedBox(
-          width: 56,
-          child: Text(
-            RegExp(r'((^0*[1-9]\d*:)?\d{2}:\d{2})\.\d+$')
-                    .firstMatch('$_position')
-                    ?.group(1) ??
-                '$_position',
-          ),
-        ),
-        Expanded(
-          child: Stack(
-            children: [
-              SliderTheme(
-                data: _sliderThemeData.copyWith(
-                  thumbShape: HiddenThumbComponentShape(),
-                  activeTrackColor:
-                      Theme.of(context).iconTheme.color!.withOpacity(0.5),
-                  inactiveTrackColor:
-                      Theme.of(context).iconTheme.color!.withOpacity(0.3),
-                  trackShape: const RectangularSliderTrackShape(),
-                ),
-                child: ExcludeSemantics(
-                  child: Slider(
-                    max: widget.duration.inMilliseconds.toDouble(),
-                    value: min(
-                      widget.bufferedPosition.inMilliseconds.toDouble(),
-                      widget.duration.inMilliseconds.toDouble(),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8),
+      child: Column(
+        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          // SizedBox(
+          //   width: 56,
+          //   child: Text(
+          //     RegExp(r'((^0*[1-9]\d*:)?\d{2}:\d{2})\.\d+$')
+          //             .firstMatch('$_position')
+          //             ?.group(1) ??
+          //         '$_position',
+          //   ),
+          // ),
+          SizedBox(
+            height: 30.0,
+            child: Stack(
+              children: [
+                SliderTheme(
+                  data: _sliderThemeData.copyWith(
+                    thumbShape: HiddenThumbComponentShape(),
+                    activeTrackColor:
+                        Theme.of(context).iconTheme.color!.withOpacity(0.5),
+                    inactiveTrackColor:
+                        Theme.of(context).iconTheme.color!.withOpacity(0.3),
+                    trackShape: const RectangularSliderTrackShape(),
+                  ),
+                  child: ExcludeSemantics(
+                    child: Slider(
+                      max: widget.duration.inMilliseconds.toDouble(),
+                      value: min(
+                        widget.bufferedPosition.inMilliseconds.toDouble(),
+                        widget.duration.inMilliseconds.toDouble(),
+                      ),
+                      onChanged: (value) {},
                     ),
-                    onChanged: (value) {},
                   ),
                 ),
+                SliderTheme(
+                  data: _sliderThemeData.copyWith(
+                    inactiveTrackColor: Theme.of(context).colorScheme.secondary,
+                    activeTrackColor: Theme.of(context).colorScheme.primary,
+                    thumbColor: Theme.of(context).colorScheme.primary,
+                  ),
+                  child: Slider(
+                    max: widget.duration.inMilliseconds.toDouble(),
+                    value: value,
+                    onChanged: (value) {
+                      if (!_dragging) {
+                        _dragging = true;
+                      }
+                      setState(() {
+                        _dragValue = value;
+                      });
+                      widget.onChanged
+                          ?.call(Duration(milliseconds: value.round()));
+                    },
+                    onChangeEnd: (value) {
+                      widget.onChangeEnd
+                          ?.call(Duration(milliseconds: value.round()));
+                      _dragging = false;
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                width: 56,
+                child: Text(
+                  RegExp(r'((^0*[1-9]\d*:)?\d{2}:\d{2})\.\d+$')
+                          .firstMatch('$_position')
+                          ?.group(1) ??
+                      '$_position',
+                ),
               ),
-              SliderTheme(
-                data: _sliderThemeData.copyWith(
-                  inactiveTrackColor: Theme.of(context).colorScheme.secondary,
-                  activeTrackColor: Theme.of(context).colorScheme.primary,
-                  thumbColor: Theme.of(context).colorScheme.primary,
-                ),
-                child: Slider(
-                  max: widget.duration.inMilliseconds.toDouble(),
-                  value: value,
-                  onChanged: (value) {
-                    if (!_dragging) {
-                      _dragging = true;
-                    }
-                    setState(() {
-                      _dragValue = value;
-                    });
-                    widget.onChanged
-                        ?.call(Duration(milliseconds: value.round()));
-                  },
-                  onChangeEnd: (value) {
-                    widget.onChangeEnd
-                        ?.call(Duration(milliseconds: value.round()));
-                    _dragging = false;
-                  },
-                ),
+              SizedBox(
+                width: 56,
+                child: Text(
+                    RegExp(r'((^0*[1-9]\d*:)?\d{2}:\d{2})\.\d+$')
+                            .firstMatch('$_duration')
+                            ?.group(1) ??
+                        '$_duration',
+                    textAlign: TextAlign.right),
               ),
             ],
           ),
-        ),
-        SizedBox(
-          width: 56,
-          child: Text(
-              RegExp(r'((^0*[1-9]\d*:)?\d{2}:\d{2})\.\d+$')
-                      .firstMatch('$_duration')
-                      ?.group(1) ??
-                  '$_duration',
-              textAlign: TextAlign.right),
-        ),
-      ],
+        ],
+      ),
     );
   }
 

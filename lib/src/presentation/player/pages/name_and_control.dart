@@ -5,6 +5,7 @@ import 'package:flip_card/flip_card.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:zmare/src/presentation/modal/modal_comment.dart';
 import 'package:go_router/go_router.dart';
@@ -31,6 +32,8 @@ class NameNControls extends StatelessWidget {
   final double width;
   final double height;
   final AudioPlayerHandler audioHandler;
+  final VoidCallback openPlayList;
+  final bool playistOpened;
 
   const NameNControls({
     super.key,
@@ -38,9 +41,11 @@ class NameNControls extends StatelessWidget {
     required this.width,
     required this.height,
     required this.mediaItem,
+    required this.openPlayList,
     required this.audioHandler,
     this.offline = false,
     required this.animationController,
+    required this.playistOpened,
   });
 
   Stream<Duration> get _bufferedPositionStream => audioHandler.playbackState
@@ -72,15 +77,164 @@ class NameNControls extends StatelessWidget {
     final double nowplayingBoxHeight = min(70, height * 0.15);
     return SizedBox(
       width: width,
-      height: height,
+      height: playistOpened ? height * 1.2 : height,
       child: Stack(
         children: [
           Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
+              SizedBox(
+                height: 10.0,
+              ),
+
+              /// Title and subtitle
+              Padding(
+                padding: const EdgeInsets.only(left: 16.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    if (playistOpened &&
+                        MediaQuery.of(context).orientation ==
+                            Orientation.portrait)
+                      SizedBox.shrink()
+                    else
+                      Expanded(
+                        child: AnimatedText(
+                          text: mediaItem.title
+                              .split(' (')[0]
+                              .split('|')[0]
+                              .trim(),
+                          pauseAfterRound: const Duration(seconds: 3),
+                          showFadingOnlyWhenScrolling: true,
+                          fadingEdgeEndFraction: 0.1,
+                          fadingEdgeStartFraction: 0.1,
+                          startAfter: const Duration(seconds: 2),
+                          defaultAlignment: TextAlign.left,
+                          style: context.headlineSmall
+                              ?.copyWith(fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    if (audioHandler.mediaItem.value!.artUri
+                        .toString()
+                        .startsWith('http'))
+                      IconButton(
+                        onPressed: () {
+                          HapticFeedback.mediumImpact();
+                          showModalBottomSheet(
+                            context: context,
+                            shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.vertical(
+                                top: Radius.circular(25.0),
+                              ),
+                            ),
+                            builder: (context) => ModalMore(
+                                offline: offline,
+                                isPlayingPage: true,
+                                songList: ItemSongModel(
+                                    id: int.parse(
+                                        audioHandler.mediaItem.value!.id),
+                                    image: audioHandler.mediaItem.value!.artUri
+                                        .toString(),
+                                    album: audioHandler.mediaItem.value!.album,
+                                    albumCover: audioHandler.mediaItem.value!
+                                        .extras?['album_cover'],
+                                    albumId: offline == true
+                                        ? int.parse(audioHandler.mediaItem
+                                            .value!.extras?['album_id'])
+                                        : audioHandler.mediaItem.value!
+                                            .extras?['album_id'],
+                                    title: audioHandler.mediaItem.value!.title,
+                                    artist:
+                                        audioHandler.mediaItem.value!.artist,
+                                    artistId: audioHandler
+                                        .mediaItem.value!.extras?['artist_id'],
+                                    url: audioHandler.mediaItem.value!.extras?['url'],
+                                    link: audioHandler.mediaItem.value!.extras?['link'])),
+                          );
+                        },
+                        icon: const Icon(FluentIcons.more_vertical_24_regular),
+                        color: Theme.of(context).colorScheme.secondary,
+                      ),
+                  ],
+                ),
+              ),
+
+              if (playistOpened &&
+                  MediaQuery.of(context).orientation == Orientation.portrait)
+                SizedBox.shrink()
+              else
+                Padding(
+                  padding: const EdgeInsets.only(left: 16.0, top: 1.0),
+                  child: AnimatedText(
+                      text: (mediaItem.album ?? '').isEmpty
+                          ? '${(mediaItem.artist ?? "").isEmpty ? "Unknown" : mediaItem.artist}'
+                          : '${(mediaItem.artist ?? "").isEmpty ? "Unknown" : mediaItem.artist} • ${mediaItem.album}',
+                      pauseAfterRound: const Duration(seconds: 3),
+                      showFadingOnlyWhenScrolling: false,
+                      fadingEdgeEndFraction: 0.1,
+                      defaultAlignment: TextAlign.left,
+                      fadingEdgeStartFraction: 0.1,
+                      startAfter: const Duration(seconds: 2),
+                      style: context.bodyLarge
+                          ?.copyWith(color: context.bodySmall!.color)),
+                ),
+              SizedBox(
+                height: 13.0,
+              ),
+              SizedBox(
+                width: width * 0.97,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    FutureBuilder<String>(
+                        future: offline
+                            ? Lyrics.getOffLyrics(
+                                mediaItem.extras!['url'].toString())
+                            : null,
+                        builder: (context, snapshot) {
+                          return Visibility(
+                            visible: snapshot.data != null &&
+                                    snapshot.data!.isNotEmpty ||
+                                audioHandler.mediaItem.value!
+                                            .extras?['lyrics'] !=
+                                        null &&
+                                    audioHandler.mediaItem.value!
+                                            .extras?['lyrics'] !=
+                                        '',
+                            child: Align(
+                                alignment: Alignment.bottomLeft,
+                                child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      IconButton(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 16),
+                                        onPressed: () =>
+                                            cardKey.currentState!.toggleCard(),
+                                        icon: const Icon(Icons.lyrics_outlined,
+                                            size: 25),
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .secondary,
+                                      ),
+                                    ])),
+                          );
+                        }),
+                    if (!offline) LikeButton(mediaItem: mediaItem, size: 25.0),
+                    IconButton(
+                        onPressed: openPlayList,
+                        icon: Icon(
+                          Icons.queue_music_outlined,
+                          size: 25,
+                        ))
+                  ],
+                ),
+              ),
+
               /// Seekbar starts from here
               SizedBox(
-                height: seekBoxHeight,
+                // height: seekBoxHeight,
                 width: width * 0.9,
                 child: StreamBuilder<PositionData>(
                   stream: _positionDataStream,
@@ -101,46 +255,9 @@ class NameNControls extends StatelessWidget {
                 ),
               ),
 
-              /// Title and subtitle
-              SizedBox(
-                height: titleBoxHeight,
-                child: Center(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      /// Title container
-                      AnimatedText(
-                        text:
-                            mediaItem.title.split(' (')[0].split('|')[0].trim(),
-                        pauseAfterRound: const Duration(seconds: 3),
-                        showFadingOnlyWhenScrolling: false,
-                        fadingEdgeEndFraction: 0.1,
-                        fadingEdgeStartFraction: 0.1,
-                        startAfter: const Duration(seconds: 2),
-                        style: context.headlineSmall
-                            ?.copyWith(fontWeight: FontWeight.bold),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              SizedBox(
-                child: AnimatedText(
-                    text: (mediaItem.album ?? '').isEmpty
-                        ? '${(mediaItem.artist ?? "").isEmpty ? "Unknown" : mediaItem.artist}'
-                        : '${(mediaItem.artist ?? "").isEmpty ? "Unknown" : mediaItem.artist} • ${mediaItem.album}',
-                    pauseAfterRound: const Duration(seconds: 3),
-                    showFadingOnlyWhenScrolling: false,
-                    fadingEdgeEndFraction: 0.1,
-                    fadingEdgeStartFraction: 0.1,
-                    startAfter: const Duration(seconds: 2),
-                    style: context.bodyLarge
-                        ?.copyWith(color: context.bodySmall!.color)),
-              ),
-
               /// Final row starts from here
               SizedBox(
-                height: controlBoxHeight,
+                // height: controlBoxHeight,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 5.0),
                   child: Center(
@@ -257,177 +374,183 @@ class NameNControls extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(
-                height: nowplayingBoxHeight,
-              ),
+              // SizedBox(
+              //   height: playistOpened
+              //       ? nowplayingBoxHeight + 97
+              //       : nowplayingBoxHeight,
+              // ),
             ],
           ),
-          FutureBuilder<String>(
-              future: offline
-                  ? Lyrics.getOffLyrics(mediaItem.extras!['url'].toString())
-                  : null,
-              builder: (context, snapshot) {
-                return Visibility(
-                  visible: snapshot.data != null && snapshot.data!.isNotEmpty ||
-                      audioHandler.mediaItem.value!.extras?['lyrics'] != null &&
-                          audioHandler.mediaItem.value!.extras?['lyrics'] != '',
-                  child: Align(
-                      alignment: Alignment.bottomLeft,
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            IconButton(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 16),
-                              onPressed: () =>
-                                  cardKey.currentState!.toggleCard(),
-                              icon: const Icon(FluentIcons.subtitles_24_regular,
-                                  size: 28),
-                              color: Theme.of(context).colorScheme.secondary,
-                            ),
-                          ])),
-                );
-              }),
-          Align(
-            alignment: Alignment.bottomRight,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                if (!offline && mediaItem.extras!['download'] == true)
-                  DownloadButton(
-                    size: 24.0,
-                    data: MediaItemConverter.mediaItemToMap(
-                      mediaItem,
+          // FutureBuilder<String>(
+          //     future: offline
+          //         ? Lyrics.getOffLyrics(mediaItem.extras!['url'].toString())
+          //         : null,
+          //     builder: (context, snapshot) {
+          //       return Visibility(
+          //         visible: snapshot.data != null && snapshot.data!.isNotEmpty ||
+          //             audioHandler.mediaItem.value!.extras?['lyrics'] != null &&
+          //                 audioHandler.mediaItem.value!.extras?['lyrics'] != '',
+          //         child: Align(
+          //             alignment: Alignment.bottomLeft,
+          //             child: Row(
+          //                 mainAxisAlignment: MainAxisAlignment.start,
+          //                 children: [
+          //                   IconButton(
+          //                     padding:
+          //                         const EdgeInsets.symmetric(horizontal: 16),
+          //                     onPressed: () =>
+          //                         cardKey.currentState!.toggleCard(),
+          //                     icon: const Icon(FluentIcons.subtitles_24_regular,
+          //                         size: 28),
+          //                     color: Theme.of(context).colorScheme.secondary,
+          //                   ),
+          //                 ])),
+          //       );
+          //     }),
+          if (playistOpened)
+            SizedBox.shrink()
+          else
+            Align(
+              alignment: Alignment.bottomRight,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  if (!offline && mediaItem.extras!['download'] == true)
+                    DownloadButton(
+                      size: 24.0,
+                      data: MediaItemConverter.mediaItemToMap(
+                        mediaItem,
+                      ),
                     ),
-                  ),
-                if (!offline)
-                  IconButton(
-                    onPressed: () {
-                      Navigator.of(context).push(MaterialPageRoute<void>(
-                          builder: (BuildContext context) {
-                        return ModalComment(
-                            track: ItemSongModel(
-                                id: int.parse(audioHandler.mediaItem.value!.id),
-                                image: audioHandler.mediaItem.value!.artUri
-                                    .toString(),
-                                album: audioHandler.mediaItem.value!.album,
-                                albumCover: audioHandler
-                                    .mediaItem.value!.extras?['album_cover'],
-                                albumId: offline == true
-                                    ? int.parse(audioHandler
-                                        .mediaItem.value!.extras?['album_id'])
-                                    : audioHandler
-                                        .mediaItem.value!.extras?['album_id'],
-                                title: audioHandler.mediaItem.value!.title,
-                                artist: audioHandler.mediaItem.value!.artist,
-                                artistId: audioHandler
-                                    .mediaItem.value!.extras?['artist_id'],
-                                url: audioHandler
-                                    .mediaItem.value!.extras?['url']));
-                      }));
-                    },
-                    icon: const Icon(FluentIcons.comment_24_regular),
-                    color: Theme.of(context).colorScheme.secondary,
-                  ),
-                if (!offline) LikeButton(mediaItem: mediaItem, size: 24.0),
-                IconButton(
-                  onPressed: () {
-                    showDialog(
-                      context: context,
-                      builder: (context) {
-                        return SimpleDialog(
-                          title: Text(
-                            context.loc.sleepTimer,
-                            style: context.titleLarge
-                                ?.copyWith(fontWeight: FontWeight.bold),
-                          ),
-                          contentPadding: const EdgeInsets.all(10.0),
-                          children: [
-                            const Divider(),
-                            ListTile(
-                              title: Text(
-                                context.loc.sleepDur,
-                                style: context.bodyLarge,
-                              ),
-                              subtitle: Text(
-                                context.loc.sleepDurSub,
-                                style: context.bodySmall,
-                              ),
-                              dense: true,
-                              onTap: () {
-                                Navigator.pop(context);
-                                setTimer(
-                                  context,
-                                  time,
-                                );
-                              },
-                            ),
-                            ListTile(
-                              title: Text(
-                                context.loc.sleepAfter,
-                                style: context.bodyLarge,
-                              ),
-                              subtitle: Text(context.loc.sleepAfterSub,
-                                  style: context.bodySmall),
-                              dense: true,
-                              isThreeLine: true,
-                              onTap: () {
-                                Navigator.pop(context);
-                                setCounter(context);
-                              },
-                            ),
-                          ],
-                        );
+                  if (!offline)
+                    IconButton(
+                      onPressed: () {
+                        Navigator.of(context).push(MaterialPageRoute<void>(
+                            builder: (BuildContext context) {
+                          return ModalComment(
+                              track: ItemSongModel(
+                                  id: int.parse(
+                                      audioHandler.mediaItem.value!.id),
+                                  image: audioHandler.mediaItem.value!.artUri
+                                      .toString(),
+                                  album: audioHandler.mediaItem.value!.album,
+                                  albumCover: audioHandler
+                                      .mediaItem.value!.extras?['album_cover'],
+                                  albumId: offline == true
+                                      ? int.parse(audioHandler
+                                          .mediaItem.value!.extras?['album_id'])
+                                      : audioHandler
+                                          .mediaItem.value!.extras?['album_id'],
+                                  title: audioHandler.mediaItem.value!.title,
+                                  artist: audioHandler.mediaItem.value!.artist,
+                                  artistId: audioHandler
+                                      .mediaItem.value!.extras?['artist_id'],
+                                  url: audioHandler
+                                      .mediaItem.value!.extras?['url']));
+                        }));
                       },
-                    );
-                  },
-                  icon: const Icon(FluentIcons.sleep_20_regular),
-                  color: Theme.of(context).colorScheme.secondary,
-                ),
-                if (audioHandler.mediaItem.value!.artUri
-                    .toString()
-                    .startsWith('http'))
+                      icon: const Icon(FluentIcons.comment_24_regular),
+                      color: Theme.of(context).colorScheme.secondary,
+                    ),
+                  // if (!offline) LikeButton(mediaItem: mediaItem, size: 24.0),
                   IconButton(
                     onPressed: () {
-                      HapticFeedback.mediumImpact();
-                      showModalBottomSheet(
+                      showDialog(
                         context: context,
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.vertical(
-                            top: Radius.circular(25.0),
-                          ),
-                        ),
-                        builder: (context) => ModalMore(
-                            offline: offline,
-                            isPlayingPage: true,
-                            songList: ItemSongModel(
-                                id: int.parse(audioHandler.mediaItem.value!.id),
-                                image: audioHandler.mediaItem.value!.artUri
-                                    .toString(),
-                                album: audioHandler.mediaItem.value!.album,
-                                albumCover: audioHandler
-                                    .mediaItem.value!.extras?['album_cover'],
-                                albumId: offline == true
-                                    ? int.parse(audioHandler
-                                        .mediaItem.value!.extras?['album_id'])
-                                    : audioHandler
-                                        .mediaItem.value!.extras?['album_id'],
-                                title: audioHandler.mediaItem.value!.title,
-                                artist: audioHandler.mediaItem.value!.artist,
-                                artistId: audioHandler
-                                    .mediaItem.value!.extras?['artist_id'],
-                                url: audioHandler
-                                    .mediaItem.value!.extras?['url'],
-                                link: audioHandler
-                                    .mediaItem.value!.extras?['link'])),
+                        builder: (context) {
+                          return SimpleDialog(
+                            title: Text(
+                              context.loc.sleepTimer,
+                              style: context.titleLarge
+                                  ?.copyWith(fontWeight: FontWeight.bold),
+                            ),
+                            contentPadding: const EdgeInsets.all(10.0),
+                            children: [
+                              const Divider(),
+                              ListTile(
+                                title: Text(
+                                  context.loc.sleepDur,
+                                  style: context.bodyLarge,
+                                ),
+                                subtitle: Text(
+                                  context.loc.sleepDurSub,
+                                  style: context.bodySmall,
+                                ),
+                                dense: true,
+                                onTap: () {
+                                  Navigator.pop(context);
+                                  setTimer(
+                                    context,
+                                    time,
+                                  );
+                                },
+                              ),
+                              ListTile(
+                                title: Text(
+                                  context.loc.sleepAfter,
+                                  style: context.bodyLarge,
+                                ),
+                                subtitle: Text(context.loc.sleepAfterSub,
+                                    style: context.bodySmall),
+                                dense: true,
+                                isThreeLine: true,
+                                onTap: () {
+                                  Navigator.pop(context);
+                                  setCounter(context);
+                                },
+                              ),
+                            ],
+                          );
+                        },
                       );
                     },
-                    icon: const Icon(FluentIcons.more_vertical_24_regular),
+                    icon: const Icon(FluentIcons.sleep_20_regular),
                     color: Theme.of(context).colorScheme.secondary,
-                  )
-              ],
-            ),
-          )
+                  ),
+                  // if (audioHandler.mediaItem.value!.artUri
+                  //     .toString()
+                  //     .startsWith('http'))
+                  //   IconButton(
+                  //     onPressed: () {
+                  //       HapticFeedback.mediumImpact();
+                  //       showModalBottomSheet(
+                  //         context: context,
+                  //         shape: const RoundedRectangleBorder(
+                  //           borderRadius: BorderRadius.vertical(
+                  //             top: Radius.circular(25.0),
+                  //           ),
+                  //         ),
+                  //         builder: (context) => ModalMore(
+                  //             offline: offline,
+                  //             isPlayingPage: true,
+                  //             songList: ItemSongModel(
+                  //                 id: int.parse(audioHandler.mediaItem.value!.id),
+                  //                 image: audioHandler.mediaItem.value!.artUri
+                  //                     .toString(),
+                  //                 album: audioHandler.mediaItem.value!.album,
+                  //                 albumCover: audioHandler
+                  //                     .mediaItem.value!.extras?['album_cover'],
+                  //                 albumId: offline == true
+                  //                     ? int.parse(audioHandler
+                  //                         .mediaItem.value!.extras?['album_id'])
+                  //                     : audioHandler
+                  //                         .mediaItem.value!.extras?['album_id'],
+                  //                 title: audioHandler.mediaItem.value!.title,
+                  //                 artist: audioHandler.mediaItem.value!.artist,
+                  //                 artistId: audioHandler
+                  //                     .mediaItem.value!.extras?['artist_id'],
+                  //                 url: audioHandler
+                  //                     .mediaItem.value!.extras?['url'],
+                  //                 link: audioHandler
+                  //                     .mediaItem.value!.extras?['link'])),
+                  //       );
+                  //     },
+                  //     icon: const Icon(FluentIcons.more_vertical_24_regular),
+                  //     color: Theme.of(context).colorScheme.secondary,
+                  //   )
+                ],
+              ),
+            )
         ],
       ),
     );
