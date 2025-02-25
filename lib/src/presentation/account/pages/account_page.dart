@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'dart:convert';
 
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
@@ -56,7 +58,7 @@ class _AccountPageState extends State<AccountPage>
             removeBottom: true,
             child: Scaffold(
               appBar: context.materialYouAppBar(
-                realName(profile.username, profile.firstName, profile.lastName),
+                "",
                 actions: [
                   IconButton(
                     icon: Icon(
@@ -118,49 +120,108 @@ class _AccountPageState extends State<AccountPage>
                               background: SingleChildScrollView(
                                 child: Column(
                                   children: [
-                                    SizedBox(
-                                        width: double.infinity,
-                                        height: 120,
-                                        child: KhmertracksImage(
-                                          imageUrl: profile.cover!,
-                                          placeholderImage:
-                                              Images.defalultArtistCover,
-                                        )),
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 10),
-                                      child: ClipRRect(
-                                        borderRadius:
-                                            BorderRadius.circular(100),
-                                        child: SizedBox(
-                                            width: 80,
-                                            height: 80,
+                                    Stack(
+                                      children: [
+                                        Container(
+                                            padding:
+                                                EdgeInsets.only(bottom: 30),
+                                            width: double.infinity,
+                                            height: 250,
                                             child: KhmertracksImage(
-                                              imageUrl: profile.image!,
+                                              imageUrl: profile.cover!,
                                               placeholderImage:
                                                   Images.defalultArtistCover,
                                             )),
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      height: 16,
-                                    ),
-                                    Text(
-                                      realName(profile.username!,
-                                          profile.firstName, profile.lastName),
-                                      style: context.headlineSmall!.copyWith(
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    Text(
-                                      "@${profile.username}",
-                                      style: context.labelMedium?.copyWith(
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .onSurface),
+                                        Container(
+                                          height: 250,
+                                          decoration: BoxDecoration(
+                                              gradient: LinearGradient(
+                                                  end: Alignment.topCenter,
+                                                  begin: Alignment.bottomCenter,
+                                                  stops: [
+                                                0.12,
+                                                1.0,
+                                              ],
+                                                  colors: [
+                                                Theme.of(context)
+                                                    .colorScheme
+                                                    .surface,
+                                                Theme.of(context)
+                                                    .colorScheme
+                                                    .surface
+                                                    .withOpacity(0.5),
+                                                // Colors.transparent
+                                              ])),
+                                        ),
+                                        Positioned(
+                                          bottom: 0,
+                                          child: Padding(
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: 20),
+                                            child: Row(
+                                              children: [
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          top: 10),
+                                                  child: ClipRRect(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            100),
+                                                    child: SizedBox(
+                                                        width: 60,
+                                                        height: 60,
+                                                        child: KhmertracksImage(
+                                                          imageUrl:
+                                                              profile.image!,
+                                                          placeholderImage: Images
+                                                              .defalultArtistCover,
+                                                        )),
+                                                  ),
+                                                ),
+                                                const SizedBox(
+                                                  width: 16,
+                                                ),
+                                                Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      realName(
+                                                          profile.username!,
+                                                          profile.firstName,
+                                                          profile.lastName),
+                                                      style: context
+                                                          .headlineSmall!
+                                                          .copyWith(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              fontSize: 20),
+                                                    ),
+                                                    Text(
+                                                      "@${profile.username}",
+                                                      style: context.labelMedium
+                                                          ?.copyWith(
+                                                              color: Theme.of(
+                                                                      context)
+                                                                  .colorScheme
+                                                                  .onSurface,
+                                                              fontSize: 12),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                     SizedBox(
                                       width: double.infinity,
                                       child: Padding(
-                                        padding: const EdgeInsets.all(10.0),
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 10.0, vertical: 20),
                                         child: ElevatedButton.icon(
                                             icon: Icon(
                                               FluentIcons.edit_48_regular,

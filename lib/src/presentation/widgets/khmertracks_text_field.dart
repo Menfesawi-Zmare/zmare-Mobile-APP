@@ -1,5 +1,9 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+// ignore: unused_import
+import 'package:zmare/src/utils/ext/text_style_extension.dart';
 
 class KhmertracksTextField extends StatelessWidget {
   const KhmertracksTextField(
@@ -79,8 +83,21 @@ class KhmertracksTextField extends StatelessWidget {
         textInputAction: textInputAction ?? TextInputAction.next,
         keyboardType: keyboardType ?? TextInputType.text,
         decoration: InputDecoration(
+          fillColor: Theme.of(context).colorScheme.tertiary.withOpacity(0.1),
+          contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+          focusedBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                  color:
+                      Theme.of(context).colorScheme.primary.withOpacity(0.6)),
+              borderRadius: BorderRadius.all(
+                Radius.circular(10),
+              )),
           border: outlineInputBorder
-              ? const OutlineInputBorder(borderSide: BorderSide.none)
+              ? const OutlineInputBorder(
+                  borderSide: BorderSide.none,
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(10),
+                  ))
               : const UnderlineInputBorder(),
           floatingLabelBehavior: floatingLabelBehavior,
           hintText: hintText,

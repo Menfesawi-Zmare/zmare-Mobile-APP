@@ -22,6 +22,14 @@
           }
         },
         {
+          "client_id": "1098387068225-u72751a0im3m4h3l0hdelvjvvvtpjo7f.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.zmare.zmare",
+            "certificate_hash": "df15c432c814ebc4ede48ba1194209558824091a"
+          }
+        },
+        {
           "client_id": "1098387068225-pqt57lgkss4gf4rv7f8knk1igfdr6s4p.apps.googleusercontent.com",
           "client_type": 3
         }
