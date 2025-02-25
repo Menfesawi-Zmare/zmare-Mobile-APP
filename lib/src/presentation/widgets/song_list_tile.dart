@@ -29,27 +29,36 @@ class SongListTile extends StatelessWidget {
     return ListTile(
         contentPadding: const EdgeInsets.only(left: 16),
         minVerticalPadding: 8.0,
-        leading: SizedBox(
+        leading: Container(
             height: 56,
             width: 56,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(11),
+            ),
             child: offline
-                ? Image(
-                    fit: BoxFit.cover,
-                    image: FileImage(
-                      File(
-                        song.artUri!.toFilePath(),
+                ? ClipRRect(
+                    borderRadius: BorderRadius.circular(11),
+                    child: Image(
+                      fit: BoxFit.cover,
+                      image: FileImage(
+                        File(
+                          song.artUri!.toFilePath(),
+                        ),
                       ),
+                      errorBuilder: (context, exception, stackTrace) {
+                        return const Image(
+                          fit: BoxFit.cover,
+                          image: AssetImage(Images.defalutCover),
+                        );
+                      },
                     ),
-                    errorBuilder: (context, exception, stackTrace) {
-                      return const Image(
-                        fit: BoxFit.cover,
-                        image: AssetImage(Images.defalutCover),
-                      );
-                    },
                   )
-                : KhmertracksImage(
-                    imageUrl: song.artUri.toString(),
-                    placeholderImage: Images.defalutSongCover,
+                : ClipRRect(
+                    borderRadius: BorderRadius.circular(11),
+                    child: KhmertracksImage(
+                      imageUrl: song.artUri.toString(),
+                      placeholderImage: Images.defalutSongCover,
+                    ),
                   )),
         title: KhmertracksTitle(song.title),
         subtitle: KhmertracksSubTitle('${song.artist} • ${song.album}'),
