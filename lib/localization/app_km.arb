@@ -1,10 +1,10 @@
 {
-    "appTitle": "Flutter Music Pro",
+    "appTitle": "ዝማሬ",
     "@appTitle": {
-        "description": "Flutter Music Pro"
+        "description": "ዝማሬ"
     },
     "appDescription": "កម្មវិធីចាក់តន្ត្រីឥតគិតថ្លៃ",
-    "explorerLabel": "រុករក",
+    "explorerLabel": "መነሻ",
     "latestLabel": "បទថ្មី",
     "popularLabel": "ពេញនិយម",
     "randomLabel": "ឆ្លាស់",

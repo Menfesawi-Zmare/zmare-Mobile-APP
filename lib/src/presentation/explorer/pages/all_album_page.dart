@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:zmare/src/core/resources/resources.dart';
 import 'package:go_router/go_router.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:zmare/src/presentation/widgets/texts/khmertracks_subtitle.dart';
 import 'package:zmare/src/utils/ext/common.dart';
 import 'package:zmare/src/data/album/model/album.dart';
 import 'package:zmare/src/presentation/album/bloc/album_bloc.dart';
@@ -51,7 +52,7 @@ class _AllAlbumPageState extends State<AllAlbumPage> {
           backgroundColor: Theme.of(context).colorScheme.primaryContainer,
           strokeWidth: 2.0,
           onRefresh: () async {
-            albumBloc.add(const GetAllAlbumEvent(1));
+            // albumBloc.add(const GetAllAlbumEvent(1));
             _pagingController.refresh();
             return Future<void>.delayed(const Duration(seconds: 1));
           },
@@ -80,20 +81,20 @@ class _AllAlbumPageState extends State<AllAlbumPage> {
                   crossAxisCount: 2,
                   crossAxisSpacing: 16.0,
                   mainAxisSpacing: 16.0,
-                  childAspectRatio: 0.87,
+                  childAspectRatio: 3,
                 ),
                 padding: const EdgeInsets.all(16),
                 pagingController: _pagingController,
                 showNewPageProgressIndicatorAsGridChild: false,
                 builderDelegate: PagedChildBuilderDelegate<Album>(
-                  itemBuilder: (context, item, index) => Column(
-                    children: [
-                      InkWell(
-                        borderRadius: BorderRadius.circular(16.0),
-                        onTap: () {
-                          context.pushNamed(albumSongsPath, extra: item);
-                        },
-                        child: AspectRatio(
+                  itemBuilder: (context, item, index) => InkWell(
+                    borderRadius: BorderRadius.circular(16.0),
+                    onTap: () {
+                      context.pushNamed(albumSongsPath, extra: item);
+                    },
+                    child: Row(
+                      children: [
+                        AspectRatio(
                           aspectRatio: 1 / 1,
                           child: ClipRRect(
                               borderRadius: BorderRadius.circular(16),
@@ -102,15 +103,24 @@ class _AllAlbumPageState extends State<AllAlbumPage> {
                                 placeholderImage: Images.defalutAlbumCover,
                               )),
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 4),
-                        child: KhmertracksTitle(
-                          item.name!,
-                          maxLines: 1,
+                        SizedBox(
+                          width: 5,
                         ),
-                      ),
-                    ],
+                        Padding(
+                          padding: const EdgeInsets.only(top: 4),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              KhmertracksTitle(
+                                item.name!,
+                                maxLines: 1,
+                              ),
+                              KhmertracksSubTitle("${item.trackTotal} hymns")
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),

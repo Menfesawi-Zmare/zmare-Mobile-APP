@@ -1,8 +1,11 @@
+// ignore_for_file: deprecated_member_use
+
 import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:zmare/src/core/resources/resources.dart';
 import 'package:zmare/src/utils/services/firebase/authenticate.dart';
 import 'package:go_router/go_router.dart';
@@ -51,179 +54,122 @@ class _IntroPageState extends State<IntroPage> {
           }
         },
         child: Scaffold(
-          extendBody: true,
-          extendBodyBehindAppBar: widget.showBackButton ? true : false,
-          appBar: AppBar(
-              backgroundColor: Colors.transparent,
-              toolbarHeight: widget.showBackButton ? null : 0,
-              leading: widget.showBackButton
-                  ? IconButton(
-                      color: Theme.of(context).colorScheme.primary,
-                      onPressed: () {
-                        context.pop();
-                      },
-                      icon: Icon(Platform.isIOS
-                          ? Icons.arrow_back_ios
-                          : Icons.arrow_back))
-                  : null),
-          body: Stack(
-            children: [
-              Center(
-                child: SizedBox(
-                  child: widget.controller.value.isInitialized
-                      ? AspectRatio(
-                          aspectRatio: widget.controller.value.aspectRatio,
-                          child: VideoPlayer(widget.controller),
-                        )
-                      : Container(color: Palette.black15),
+          // extendBody: true,
+          // extendBodyBehindAppBar: widget.showBackButton ? true : false,
+          // appBar: AppBar(
+          //     backgroundColor: Colors.transparent,
+          //     toolbarHeight: widget.showBackButton ? null : 0,
+          //     leading: widget.showBackButton
+          // ? IconButton(
+          //     color: Theme.of(context).colorScheme.primary,
+          //     onPressed: () {
+          //       context.pop();
+          //     },
+          //     icon: Icon(Platform.isIOS
+          //         ? Icons.arrow_back_ios
+          //         : Icons.arrow_back))
+          // : null),
+          body: SafeArea(
+            child: Stack(
+              children: [
+                Center(
+                  child: SizedBox(
+                    height: double.maxFinite,
+                    width: double.infinity,
+                    child: widget.controller.value.isInitialized
+                        ? AspectRatio(
+                            aspectRatio: widget.controller.value.aspectRatio,
+                            child: VideoPlayer(widget.controller),
+                          )
+                        : Container(color: Palette.black15),
+                  ),
                 ),
-              ),
-              SizedBox(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Center(
-                      child: Image.asset(
-                        Images.transparentIcon,
+                Container(
+                  color: context.colorScheme.onPrimary.withOpacity(0.9),
+                ),
+                Positioned(
+                    top: 20,
+                    child: IconButton(
+                        color: Theme.of(context).colorScheme.primary,
+                        onPressed: () {
+                          context.pop();
+                        },
+                        icon: Icon(Platform.isIOS
+                            ? Icons.arrow_back_ios
+                            : Icons.arrow_back))),
+                SizedBox(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Center(
+                          child: SvgPicture.asset(
+                        Images.zmareIconWhite,
                         width: 150.0,
                         height: 140.0,
-                        fit: BoxFit.cover,
+                      )),
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            left: 16, top: 20, right: 16, bottom: 8),
+                        child: Text(
+                          context.loc.appTitle,
+                          textAlign: TextAlign.center,
+                          style: context.headlineMedium?.copyWith(
+                              color: Palette.white,
+                              fontWeight: FontWeight.bold),
+                        ),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                          left: 16, top: 0, right: 16, bottom: 8),
-                      child: Text(
-                        context.loc.appTitle,
-                        textAlign: TextAlign.center,
-                        style: context.headlineMedium?.copyWith(
-                            color: Palette.white, fontWeight: FontWeight.bold),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 40,
+                        ),
+                        child: Text(context.loc.appDescription,
+                            style: context.titleMedium
+                                ?.copyWith(color: Palette.white),
+                            textAlign: TextAlign.center),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 40,
-                      ),
-                      child: Text(context.loc.appDescription,
-                          style: context.titleMedium
-                              ?.copyWith(color: Palette.white),
-                          textAlign: TextAlign.center),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                          right: 20.0, left: 20.0, top: 40, bottom: 10),
-                      child: TextButton(
-                        onPressed: () {
-                          context.pushNamed(signUpName);
-                        },
-                        style: ButtonStyle(
-                          padding: WidgetStateProperty.all<EdgeInsetsGeometry>(
-                            const EdgeInsets.only(top: 12, bottom: 12),
-                          ),
-                          shape: WidgetStateProperty.all<OutlinedBorder>(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(25.0),
-                              side: BorderSide(
-                                color: Palette.white,
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            right: 20.0, left: 20.0, top: 40, bottom: 10),
+                        child: TextButton(
+                          onPressed: () {
+                            context.pushNamed(signUpName);
+                          },
+                          style: ButtonStyle(
+                            padding:
+                                WidgetStateProperty.all<EdgeInsetsGeometry>(
+                              const EdgeInsets.only(top: 12, bottom: 12),
+                            ),
+                            shape: WidgetStateProperty.all<OutlinedBorder>(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(25.0),
+                                side: BorderSide(
+                                  color: Palette.white,
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                        child: Text(context.loc.signUp,
-                            style: context.titleMedium?.copyWith(
-                                color: Palette.white,
-                                fontWeight: FontWeight.bold)),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                          right: 20.0, left: 20.0, bottom: 10),
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          padding: const EdgeInsets.symmetric(vertical: 12),
-                          backgroundColor: const Color(gmailColor),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(25.0),
-                            side: const BorderSide(
-                              color: Color(gmailColor),
-                            ),
-                          ),
-                        ),
-                        onPressed: () async {
-                          setState(() {
-                            isLoading = true;
-                          });
-                          FirebaseService service = FirebaseService();
-                          try {
-                            UserCredential? userCredential =
-                                await service.signInwithGoogle().then(
-                              (value) {
-                                ScaffoldMessenger(
-                                    child: SnackBar(
-                                        content: value != null
-                                            ? Text(value.user!.displayName!)
-                                            : Text("")));
-                              },
-                            );
-                            if (userCredential != null) {
-                              authBloc.add(LoginWithSocial(
-                                  RegisterSocialRequest(
-                                      firstName:
-                                          userCredential.user!.displayName,
-                                      lastName: '',
-                                      username: '',
-                                      email: userCredential.user!.email!,
-                                      image: userCredential.user!.photoURL!
-                                          .replaceAll('s96-c', 's1024-c'),
-                                      type: LoginType.google.name)));
-                            }
-                          } catch (e) {
-                            if (e is FirebaseAuthException) {
-                              context.showMaterialSnackBar(e.message!);
-                            }
-                            GoogleSignIn().signOut();
-                            context.showMaterialSnackBar(
-                                context.loc.pleaseTryAgain);
-                          }
-                          setState(() {
-                            isLoading = false;
-                          });
-                        },
-                        child: Stack(children: [
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: 16),
-                              child: Image.asset(
-                                Images.gmailIcon,
-                                height: 24,
-                                width: 24,
-                              ),
-                            ),
-                          ),
-                          Align(
-                            alignment: Alignment.center,
-                            child: Text(
-                              context.loc.continueWithGmail,
-                              textAlign: TextAlign.center,
+                          child: Text(context.loc.signUp,
                               style: context.titleMedium?.copyWith(
-                                  color: context.onSurface,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                        ]),
+                                  color: Palette.white,
+                                  fontWeight: FontWeight.bold)),
+                        ),
                       ),
-                    ),
-                    if (Platform.isIOS)
                       Padding(
                         padding: const EdgeInsets.only(
                             right: 20.0, left: 20.0, bottom: 10),
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                              padding: const EdgeInsets.symmetric(vertical: 12),
-                              backgroundColor:
-                                  Theme.of(context).colorScheme.onSurface),
+                            padding: const EdgeInsets.symmetric(vertical: 12),
+                            backgroundColor:
+                                const Color.fromARGB(255, 158, 8, 3),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(25.0),
+                              side: const BorderSide(
+                                color: Color(gmailColor),
+                              ),
+                            ),
+                          ),
                           onPressed: () async {
                             setState(() {
                               isLoading = true;
@@ -231,7 +177,8 @@ class _IntroPageState extends State<IntroPage> {
                             FirebaseService service = FirebaseService();
                             try {
                               UserCredential? userCredential =
-                                  await service.signInWithApple();
+                                  await service.signInwithGoogle();
+
                               if (userCredential != null) {
                                 authBloc.add(LoginWithSocial(
                                     RegisterSocialRequest(
@@ -240,8 +187,9 @@ class _IntroPageState extends State<IntroPage> {
                                         lastName: '',
                                         username: '',
                                         email: userCredential.user!.email!,
-                                        image: '',
-                                        type: LoginType.apple.name)));
+                                        image: userCredential.user!.photoURL!
+                                            .replaceAll('s96-c', 's1024-c'),
+                                        type: LoginType.google.name)));
                               }
                             } catch (e) {
                               if (e is FirebaseAuthException) {
@@ -249,51 +197,123 @@ class _IntroPageState extends State<IntroPage> {
                               }
                               GoogleSignIn().signOut();
                               context.showMaterialSnackBar(
-                                  context.loc.pleaseTryAgain);
+                                  "Try again later please!");
                             }
                             setState(() {
                               isLoading = false;
                             });
                           },
-                          child: Stack(children: [
-                            Align(
-                              alignment: Alignment.centerLeft,
-                              child: Padding(
-                                padding: const EdgeInsets.only(left: 16),
-                                child: Image.asset(
-                                  Images.appleIcon,
-                                  height: 24,
-                                  width: 24,
+                          child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(left: 16),
+                                    child: Image.asset(
+                                      Images.gmailIcon,
+                                      height: 24,
+                                      width: 24,
+                                    ),
+                                  ),
                                 ),
-                              ),
-                            ),
-                            Align(
-                              alignment: Alignment.center,
-                              child: Text(
-                                context.loc.continueWithApple,
-                                textAlign: TextAlign.center,
-                                style: context.titleMedium?.copyWith(
-                                    color: context.colorScheme.surface,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                          ]),
+                                SizedBox(
+                                  width: 20,
+                                ),
+                                Align(
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    context.loc.continueWithGmail,
+                                    textAlign: TextAlign.center,
+                                    style: context.titleMedium?.copyWith(
+                                        color: context.onSurface,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                              ]),
                         ),
                       ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                          right: 20.0, left: 20.0, bottom: 10),
-                      child: TextButton(
-                          onPressed: () => context.pushNamed(signInName),
-                          child: Text(context.loc.login,
-                              style: context.titleMedium?.copyWith(
-                                  color: context.onSurface,
-                                  fontWeight: FontWeight.bold))),
-                    ),
-                  ],
+                      if (Platform.isIOS)
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              right: 20.0, left: 20.0, bottom: 10),
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 12),
+                                backgroundColor:
+                                    Theme.of(context).colorScheme.onSurface),
+                            onPressed: () async {
+                              setState(() {
+                                isLoading = true;
+                              });
+                              FirebaseService service = FirebaseService();
+                              try {
+                                UserCredential? userCredential =
+                                    await service.signInWithApple();
+                                if (userCredential != null) {
+                                  authBloc.add(LoginWithSocial(
+                                      RegisterSocialRequest(
+                                          firstName:
+                                              userCredential.user!.displayName,
+                                          lastName: '',
+                                          username: '',
+                                          email: userCredential.user!.email!,
+                                          image: '',
+                                          type: LoginType.apple.name)));
+                                }
+                              } catch (e) {
+                                if (e is FirebaseAuthException) {
+                                  context.showMaterialSnackBar(e.message!);
+                                }
+                                GoogleSignIn().signOut();
+                                context.showMaterialSnackBar(
+                                    context.loc.pleaseTryAgain);
+                              }
+                              setState(() {
+                                isLoading = false;
+                              });
+                            },
+                            child: Stack(children: [
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(left: 16),
+                                  child: Image.asset(
+                                    Images.appleIcon,
+                                    height: 24,
+                                    width: 24,
+                                  ),
+                                ),
+                              ),
+                              Align(
+                                alignment: Alignment.center,
+                                child: Text(
+                                  context.loc.continueWithApple,
+                                  textAlign: TextAlign.center,
+                                  style: context.titleMedium?.copyWith(
+                                      color: context.colorScheme.surface,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                            ]),
+                          ),
+                        ),
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            right: 20.0, left: 20.0, bottom: 10),
+                        child: TextButton(
+                            onPressed: () => context.pushNamed(signInName),
+                            child: Text(context.loc.login,
+                                style: context.titleMedium?.copyWith(
+                                    color: context.onSurface,
+                                    fontWeight: FontWeight.bold))),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

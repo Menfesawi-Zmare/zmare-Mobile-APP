@@ -66,12 +66,27 @@ class _CarouselWidgetState extends State<CarouselWidget> {
                                     ),
                                     padding: const EdgeInsets.symmetric(
                                         vertical: 10.0, horizontal: 20.0),
-                                    child: Text(
-                                      '', // item.title!,'
-                                      overflow: TextOverflow.ellipsis,
-                                      style: context.titleMedium!.copyWith(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          '${item.title}', // item.title!,'
+                                          overflow: TextOverflow.ellipsis,
+                                          style: context.titleMedium!.copyWith(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        Text(
+                                          '${item.description}', // item.title!,'
+                                          overflow: TextOverflow.ellipsis,
+                                          maxLines: 3,
+                                          style: context.titleMedium!.copyWith(
+                                              color: Colors.white,
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w300),
+                                        ),
+                                      ],
                                     )),
                               ),
                             ],
@@ -84,7 +99,7 @@ class _CarouselWidgetState extends State<CarouselWidget> {
         options: CarouselOptions(
           autoPlay: true,
           enlargeCenterPage: true, // Keep this true for smooth scaling effect
-          aspectRatio: 2.45, // Adjust to your desired aspect ratio
+          aspectRatio: 3.0, // Adjust to your desired aspect ratio
           viewportFraction: 1.0, // Ensures one slide takes up the full viewport
           onPageChanged: (index, reason) {
             setState(() {});

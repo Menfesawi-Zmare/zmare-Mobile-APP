@@ -65,8 +65,7 @@ class _ProfilePageState extends State<ProfilePage>
             removeBottom: true,
             child: Scaffold(
               appBar: context.materialYouAppBar(
-                realName(widget.profile.username, widget.profile.firstName,
-                    widget.profile.lastName),
+                "",
                 actions: [
                   IconButton(
                     icon: Icon(
@@ -116,49 +115,118 @@ class _ProfilePageState extends State<ProfilePage>
                                   children: [
                                     if (!widget.profile.cover!
                                         .contains('default.png'))
-                                      SizedBox(
-                                          width: double.infinity,
-                                          height: 120,
-                                          child: KhmertracksImage(
-                                            imageUrl: widget.profile.cover!,
-                                            placeholderImage:
-                                                Images.defalultArtistCover,
-                                          )),
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 10),
-                                      child: ClipRRect(
-                                        borderRadius:
-                                            BorderRadius.circular(100),
-                                        child: SizedBox(
-                                            width: 80,
-                                            height: 80,
-                                            child: KhmertracksImage(
-                                              imageUrl: widget.profile.image!,
-                                              placeholderImage:
-                                                  Images.defalultArtistCover,
-                                            )),
+                                      Stack(
+                                        children: [
+                                          Container(
+                                              padding:
+                                                  EdgeInsets.only(bottom: 30),
+                                              width: double.infinity,
+                                              height: 250,
+                                              child: KhmertracksImage(
+                                                imageUrl: widget.profile.cover!,
+                                                placeholderImage:
+                                                    Images.defalultArtistCover,
+                                              )),
+                                          Container(
+                                            height: 250,
+                                            decoration: BoxDecoration(
+                                                gradient: LinearGradient(
+                                                    end: Alignment.topCenter,
+                                                    begin:
+                                                        Alignment.bottomCenter,
+                                                    stops: [
+                                                  0.12,
+                                                  1.0,
+                                                ],
+                                                    colors: [
+                                                  Theme.of(context)
+                                                      .colorScheme
+                                                      .surface,
+                                                  Theme.of(context)
+                                                      .colorScheme
+                                                      .surface
+                                                      .withOpacity(0.5),
+                                                  // Colors.transparent
+                                                ])),
+                                          ),
+                                          Positioned(
+                                            bottom: 0,
+                                            child: Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 20),
+                                              child: Row(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                children: [
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            top: 10),
+                                                    child: ClipRRect(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              100),
+                                                      child: SizedBox(
+                                                          width: 60,
+                                                          height: 60,
+                                                          child:
+                                                              KhmertracksImage(
+                                                            imageUrl: widget
+                                                                .profile.image!,
+                                                            placeholderImage: Images
+                                                                .defalultArtistCover,
+                                                          )),
+                                                    ),
+                                                  ),
+                                                  const SizedBox(
+                                                    width: 16,
+                                                  ),
+                                                  Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Text(
+                                                        realName(
+                                                            widget.profile
+                                                                .username!,
+                                                            widget.profile
+                                                                .firstName,
+                                                            widget.profile
+                                                                .lastName),
+                                                        style: context
+                                                            .headlineSmall!
+                                                            .copyWith(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                fontSize: 20),
+                                                      ),
+                                                      Text(
+                                                        "@${widget.profile.username}",
+                                                        style: context
+                                                            .labelMedium
+                                                            ?.copyWith(
+                                                                color: Theme.of(
+                                                                        context)
+                                                                    .colorScheme
+                                                                    .onSurface,
+                                                                fontSize: 12),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ],
                                       ),
-                                    ),
-                                    Text(
-                                      realName(
-                                          widget.profile.username,
-                                          widget.profile.firstName,
-                                          widget.profile.lastName),
-                                      style: context.headlineSmall?.copyWith(
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    Text(
-                                      "@${widget.profile.username}",
-                                      style: context.titleSmall?.copyWith(
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .onSurfaceVariant),
-                                    ),
                                     if (accountJson != '')
                                       SizedBox(
                                         width: double.infinity,
                                         child: Padding(
-                                          padding: const EdgeInsets.all(10.0),
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 10.0, vertical: 20),
                                           child: ElevatedButton.icon(
                                               icon: Icon(
                                                 isSubscribe
