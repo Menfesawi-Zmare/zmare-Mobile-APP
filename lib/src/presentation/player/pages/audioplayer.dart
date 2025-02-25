@@ -5,6 +5,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:zmare/src/presentation/player/pages/now_play.dart';
 import 'package:zmare/src/presentation/widgets/next_song.dart';
 import 'package:zmare/src/presentation/widgets/report_button.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -37,8 +39,10 @@ class _PlayScreenState extends State<PlayScreen>
   late AnimationController controller;
   late Animation<Alignment> topAlignmentAnimation;
   late Animation<Alignment> bottomAlignmentAnimation;
+  late Animation<double> rotationAnimation;
   late bool isPlaying = false;
-
+  bool isMusicQueueOpened = false;
+  final ScrollController _scrollController = ScrollController();
   void updateBackgroundColors(List<Color?> value) {
     gradientColor.value = value;
     return;
@@ -52,6 +56,8 @@ class _PlayScreenState extends State<PlayScreen>
   void initState() {
     controller =
         AnimationController(vsync: this, duration: const Duration(seconds: 27));
+    // Initialize the animation controller
+
     topAlignmentAnimation = TweenSequence<Alignment>([
       TweenSequenceItem<Alignment>(
           tween: Tween<Alignment>(
@@ -157,7 +163,10 @@ class _PlayScreenState extends State<PlayScreen>
                       Navigator.pop(context);
                     },
                   ),
-                  actions: [if (!offline) ReportButton(mediaItem: mediaItem)],
+                  actions: [
+                    if (!offline) ReportButton(mediaItem: mediaItem),
+                    SvgPicture.asset("assets/")
+                  ],
                 ),
                 body: LayoutBuilder(
                   builder: (
@@ -169,19 +178,44 @@ class _PlayScreenState extends State<PlayScreen>
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           // Artwork
-                          ArtWorkWidget(
-                            cardKey: cardKey,
-                            mediaItem: mediaItem,
-                            width: min(
-                              constraints.maxHeight / 0.9,
-                              constraints.maxWidth / 1.8,
+                          if (isMusicQueueOpened)
+                            Container(
+                              height: constraints.maxWidth * 1.3,
+                              width: constraints.maxWidth * 0.45,
+                              color: Colors.transparent,
+                              child: StreamBuilder<MediaItem?>(
+                                stream: audioHandler.mediaItem,
+                                builder: (context, snapshot) {
+                                  final mediaItem = snapshot.data;
+                                  return mediaItem == null
+                                      ? const SizedBox()
+                                      : NowPlayingStream(
+                                          scrollController: _scrollController,
+                                          audioHandler: audioHandler,
+                                        );
+                                },
+                              ),
+                            )
+                          else
+                            ArtWorkWidget(
+                              cardKey: cardKey,
+                              mediaItem: mediaItem,
+                              width: min(
+                                constraints.maxHeight / 0.9,
+                                constraints.maxWidth / 1.8,
+                              ),
+                              audioHandler: audioHandler,
+                              offline: offline,
                             ),
-                            audioHandler: audioHandler,
-                            offline: offline,
-                          ),
 
                           // title and controls
                           NameNControls(
+                            openPlayList: () {
+                              setState(() {
+                                isMusicQueueOpened = !isMusicQueueOpened;
+                              });
+                            },
+                            playistOpened: isMusicQueueOpened,
                             cardKey: cardKey,
                             animationController: controller,
                             mediaItem: mediaItem,
@@ -193,29 +227,57 @@ class _PlayScreenState extends State<PlayScreen>
                         ],
                       );
                     }
-                    return Column(
-                      children: [
-                        // Artwork
-                        ArtWorkWidget(
-                          cardKey: cardKey,
-                          mediaItem: mediaItem,
-                          width: constraints.maxWidth,
-                          audioHandler: audioHandler,
-                          offline: offline,
-                        ),
+                    return SingleChildScrollView(
+                      physics: NeverScrollableScrollPhysics(),
+                      child: Column(
+                        children: [
+                          // Artwork
+                          if (isMusicQueueOpened)
+                            Container(
+                              height: constraints.maxWidth * 1.3,
+                              width: constraints.maxWidth,
+                              color: Colors.transparent,
+                              child: StreamBuilder<MediaItem?>(
+                                stream: audioHandler.mediaItem,
+                                builder: (context, snapshot) {
+                                  final mediaItem = snapshot.data;
+                                  return mediaItem == null
+                                      ? const SizedBox()
+                                      : NowPlayingStream(
+                                          scrollController: _scrollController,
+                                          audioHandler: audioHandler,
+                                        );
+                                },
+                              ),
+                            )
+                          else
+                            ArtWorkWidget(
+                              cardKey: cardKey,
+                              mediaItem: mediaItem,
+                              width: constraints.maxWidth,
+                              audioHandler: audioHandler,
+                              offline: offline,
+                            ),
 
-                        // title and controls
-                        NameNControls(
-                          cardKey: cardKey,
-                          mediaItem: mediaItem,
-                          animationController: controller,
-                          offline: offline,
-                          width: constraints.maxWidth,
-                          height: constraints.maxHeight -
-                              (constraints.maxWidth * 0.95),
-                          audioHandler: audioHandler,
-                        ),
-                      ],
+                          // title and controls
+                          NameNControls(
+                            openPlayList: () {
+                              setState(() {
+                                isMusicQueueOpened = !isMusicQueueOpened;
+                              });
+                            },
+                            playistOpened: isMusicQueueOpened,
+                            cardKey: cardKey,
+                            mediaItem: mediaItem,
+                            animationController: controller,
+                            offline: offline,
+                            width: constraints.maxWidth,
+                            height: constraints.maxHeight -
+                                (constraints.maxWidth * 0.95),
+                            audioHandler: audioHandler,
+                          ),
+                        ],
+                      ),
                     );
                   },
                 ),
@@ -228,6 +290,7 @@ class _PlayScreenState extends State<PlayScreen>
                   animation: controller,
                   builder: (context, _) {
                     return Container(
+                      height: double.maxFinite,
                       // duration: const Duration(milliseconds: 600),
                       decoration: BoxDecoration(
                           gradient: LinearGradient(
@@ -295,6 +358,7 @@ class QueueState {
       shuffleIndices ?? List.generate(queue.length, (i) => i);
 }
 
+// ignore: must_be_immutable
 class ControlButtons extends StatefulWidget {
   final AudioPlayerHandler audioHandler;
   final bool shuffle;
