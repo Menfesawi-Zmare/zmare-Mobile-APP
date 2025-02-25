@@ -12,7 +12,20 @@
           "package_name": "com.zmare.zmare"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "1098387068225-1hidul21itb2scq214p2ksc4l4jbpjhg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.zmare.zmare",
+            "certificate_hash": "e0f0991a570334744aafc2e25b137c28e11e32d2"
+          }
+        },
+        {
+          "client_id": "1098387068225-pqt57lgkss4gf4rv7f8knk1igfdr6s4p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyBP48FqdHe9_Tgi2Vn-QQs_LeIZxVY0Ys0"
@@ -20,7 +33,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1098387068225-pqt57lgkss4gf4rv7f8knk1igfdr6s4p.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1098387068225-b6s7kipdes8qcvihc5p3ie72d4f9pjdv.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.zmare.zmare"
+              }
+            }
+          ]
         }
       }
     }
