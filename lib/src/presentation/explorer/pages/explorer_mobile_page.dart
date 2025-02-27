@@ -16,6 +16,7 @@ import 'package:zmare/src/presentation/explorer/widgets/productions_widget.dart'
 import 'package:zmare/src/presentation/player/pages/audioplayer.dart';
 import 'package:zmare/src/presentation/widgets/no_result_widget.dart';
 import 'package:zmare/src/service_locator.dart';
+import 'package:zmare/src/utils/ext/build_context_extension.dart';
 import '../../../data/explorer/model/explorer_model.dart';
 import '../widgets/playlists_widget.dart';
 
@@ -101,25 +102,25 @@ class _ExplorerMobilePageState extends State<ExplorerMobilePage> {
                             is List<Artist>) {
                           return ArtistsWidget(
                               artists: explorerModel?.data![i].artists,
-                              title: explorerModel!.data![i].title!,
+                              title: context.loc.artists,
                               type: "0");
                         } else if (explorerModel?.data![i].albums
                             is List<Album>) {
                           return AlbumsWidget(
                               albums: explorerModel?.data![i].albums,
-                              title: explorerModel!.data![i].title!,
+                              title: context.loc.albums,
                               type: "1");
                         } else if (explorerModel?.data![i].playlists
                             is List<Playlist>) {
                           return PlaylistsWidget(
                             playlists: explorerModel?.data![i].playlists,
-                            title: explorerModel!.data![i].title!,
+                            title: context.loc.playlist,
                           );
                         } else if (explorerModel?.data![i].productions
                             is List<Production>) {
                           return ProductionsWidget(
                               productions: explorerModel?.data![i].productions,
-                              title: explorerModel!.data![i].title!,
+                              title: context.loc.productionLabel,
                               type: "2");
                         } else if (explorerModel?.data![i].banners is Banners) {
                           return ImageBannerWidget(
