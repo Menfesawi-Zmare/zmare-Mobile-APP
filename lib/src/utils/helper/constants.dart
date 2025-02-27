@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-const String baseUrl = 'http://192.168.100.199:8000';
+const String baseUrl = 'http://192.168.1.3:8000';
 //Font
 const defaultFontName = 'Ubuntu';
 
@@ -63,6 +63,7 @@ const List<Color?> defaultGradientColor = [
   Color(0xff2e2a33),
   Color(0xff141216)
 ];
+
 //Route
 const homePagePath = '/homepage';
 const latestPagePath = '/latest';
