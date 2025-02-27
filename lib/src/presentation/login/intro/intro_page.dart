@@ -85,7 +85,7 @@ class _IntroPageState extends State<IntroPage> {
                   ),
                 ),
                 Container(
-                  color: context.colorScheme.onPrimary.withOpacity(0.8),
+                  color: context.colorScheme.onPrimary.withOpacity(0.9),
                 ),
                 Positioned(
                     top: 20,

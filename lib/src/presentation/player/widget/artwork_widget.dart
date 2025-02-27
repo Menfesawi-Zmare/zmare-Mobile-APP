@@ -234,7 +234,7 @@ class _ArtWorkWidgetState extends State<ArtWorkWidget> {
                   alignment: Alignment.center,
                   children: [
                     Card(
-                      // elevation: 10.0,
+                      elevation: 0.0,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(22.0),
                       ),

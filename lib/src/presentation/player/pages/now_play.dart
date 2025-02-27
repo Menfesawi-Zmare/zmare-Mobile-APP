@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:rive_animated_icon/rive_animated_icon.dart';
 import 'package:zmare/src/presentation/widgets/download_button.dart';
 import 'package:zmare/src/presentation/widgets/song_list_tile.dart';
 import 'package:zmare/src/presentation/player/pages/audioplayer.dart';
@@ -113,7 +115,10 @@ class NowPlayingStream extends StatelessWidget {
                     : false,
                 song: queue[index],
                 highlight: index == queueState.queueIndex,
-                onTap: () => audioHandler.skipToQueueItem(index),
+                onTap: () {
+                  audioHandler.skipToQueueItem(index);
+                  audioHandler.play();
+                },
                 trailingWidget: Padding(
                   padding: const EdgeInsets.only(right: 16),
                   child: Row(mainAxisSize: MainAxisSize.min, children: [
@@ -132,8 +137,29 @@ class NowPlayingStream extends StatelessWidget {
                       key: Key(queue[index].id),
                       index: index,
                       enabled: index != queueState.queueIndex,
-                      child: Icon(Icons.drag_handle_rounded,
-                          color: Theme.of(context).colorScheme.secondary),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          if (index == queueState.queueIndex)
+                            RiveAnimatedIcon(
+                                riveIcon: RiveIcon.sound,
+                                width: 24,
+                                height: 24,
+                                color: Colors.white,
+                                strokeWidth: 6,
+                                loopAnimation: true,
+                                onTap: () {},
+                                onHover: (value) {}),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          SizedBox(
+                            height: 24,
+                            child: SvgPicture.asset(
+                                "assets/images/reorder_icon.svg"),
+                          ),
+                        ],
+                      ),
                     ),
                   ]),
                 ),

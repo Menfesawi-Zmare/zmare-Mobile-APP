@@ -63,6 +63,7 @@ const List<Color?> defaultGradientColor = [
   Color(0xff2e2a33),
   Color(0xff141216)
 ];
+
 //Route
 const homePagePath = '/homepage';
 const latestPagePath = '/latest';
