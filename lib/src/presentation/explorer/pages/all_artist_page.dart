@@ -138,7 +138,7 @@ class _AllArtistPageState extends State<AllArtistPage> {
                                                           FontWeight.bold),
                                             ),
                                             Text(
-                                              "${item.subscribers} followers",
+                                              "${item.subscribers} ${context.loc.followersLables}",
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .titleMedium

@@ -142,6 +142,6 @@ class Languages {
 
   static const languages = [
     LanguageEntity(code: 'en', value: 'English'),
-    LanguageEntity(code: 'km', value: 'Khmer'),
+    LanguageEntity(code: 'am', value: 'አማርኛ'),
   ];
 }
