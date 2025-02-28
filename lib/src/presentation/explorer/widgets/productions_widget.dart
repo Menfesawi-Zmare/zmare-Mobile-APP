@@ -54,7 +54,7 @@ class _ProductionsWidgetState extends State<ProductionsWidget> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      Text("See All",
+                      Text(context.loc.seeAllLables,
                           textAlign: TextAlign.start,
                           style: context.titleMedium?.copyWith(
                               color: context.colorScheme.onSurface,

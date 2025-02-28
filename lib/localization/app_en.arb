@@ -17,6 +17,9 @@
     "artistsLabel": "Artists",
     "playlistsLabel": "Playlists",
     "doneLabel": "Done",
+    "seeAllLables": "See All",
+    "followersLables": "Followers",
+    "mezmursLables": "Mezmurs",
     "@doneLabel": {
         "description": "Done label"
     },
@@ -540,7 +543,7 @@
     "saveToPlaylist" : "Save to playlist",
     "goToAlbum" : "Go to album",
     "goToArtist" : "Go to artist",
-    "saveMusicTo" : "Save music to...",
+    "saveMusicTo" : "Save mezmur to...",
     "noPlaylists" : "No Playlists",
     "done": "Done",
     "totalSong": "{total} songs",
@@ -561,7 +564,7 @@
             }
         }
     },
-    "recommendedMusics" : "Recommended musics",
+    "recommendedMusics" : "Recommended mezmurs",
     "refresh": "Refresh",
     "comment": "Comment",
     "noComment": "No Comment",
@@ -592,7 +595,7 @@
     "pleaseWait" : "Please wait",
     "history" : "History",
     "playlistCreated" : "Playlist created",
-    "listNoTracks" : "This list has no musics.",
+    "listNoTracks" : "This list has no mezmurs.",
     "listNotPlaylists" : "This list has no playlists.",
     "recentlyPlayed" : "Recently Played",
     "addTracks" : "Add tracks",
@@ -662,8 +665,8 @@
     "stream": "Stream",
     "all" : "All",
     "allSubscriptions": "All subscriptions",
-    "newMusicsRightToYou": "New musics right to you",
-    "newMusicsRightToYouSub": "Subscribe to get the latest musics from artists you love.",
+    "newMusicsRightToYou": "New mezmurs right to you",
+    "newMusicsRightToYouSub": "Subscribe to get the latest mezmurs from artists you love.",
     "tos": "Term of use",
     "agreement" : "By creating an account you agree to our\n",
     "user_menu_delete" : "Delete Account",
