@@ -41,23 +41,26 @@ class FlutterMusicProLyricUI extends LyricUI {
         );
 
   @override
-  TextStyle getPlayingExtTextStyle() =>
-      textStyle!.copyWith(color: Colors.grey[300], fontSize: defaultExtSize);
+  TextStyle getPlayingExtTextStyle() => textStyle!.copyWith(
+        color: Colors.grey[300],
+        fontSize: defaultExtSize,
+        fontFamily: 'Hidase',
+      );
 
   @override
   TextStyle getOtherExtTextStyle() => textStyle!.copyWith(
-        color: Colors.grey[300],
-        fontSize: defaultExtSize,
-      );
+      color: Colors.grey[300], fontSize: defaultExtSize, fontFamily: 'Hidase');
 
   @override
   TextStyle getOtherMainTextStyle() =>
-      textStyle!.copyWith(fontSize: otherMainSize);
+      textStyle!.copyWith(fontSize: otherMainSize, fontFamily: 'Hidase');
 
   @override
   TextStyle getPlayingMainTextStyle() => textStyle!.copyWith(
-        fontSize: defaultSize,
-      );
+      fontSize: defaultSize,
+      fontFamily: 'Hidase',
+      fontWeight: FontWeight.w900,
+      color: Colors.amber);
   @override
   bool initAnimation() => true;
 

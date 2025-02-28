@@ -42,7 +42,7 @@ class KhmertracksIconTitle extends StatelessWidget {
                           ? Images.zmareIconBlack
                           : isDarkMode
                               ? Images.zmareIconWhite
-                              : Images.zmareIconBlack,
+                              : Images.zmareIconWhite,
                   height: 32,
                 ),
               );

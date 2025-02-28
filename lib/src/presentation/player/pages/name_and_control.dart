@@ -34,10 +34,12 @@ class NameNControls extends StatelessWidget {
   final AudioPlayerHandler audioHandler;
   final VoidCallback openPlayList;
   final bool playistOpened;
+  final Color dominantColor;
 
   const NameNControls({
     super.key,
     required this.cardKey,
+    required this.dominantColor,
     required this.width,
     required this.height,
     required this.mediaItem,
@@ -111,13 +113,16 @@ class NameNControls extends StatelessWidget {
                           fadingEdgeStartFraction: 0.1,
                           startAfter: const Duration(seconds: 2),
                           defaultAlignment: TextAlign.left,
-                          style: context.headlineSmall
-                              ?.copyWith(fontWeight: FontWeight.bold),
+                          style: context.headlineSmall?.copyWith(
+                            fontWeight: FontWeight.w400,
+                            fontFamily: 'Washera',
+                          ),
                         ),
                       ),
                     if (audioHandler.mediaItem.value!.artUri
-                        .toString()
-                        .startsWith('http'))
+                            .toString()
+                            .startsWith('http') &&
+                        !playistOpened)
                       IconButton(
                         onPressed: () {
                           HapticFeedback.mediumImpact();
@@ -176,8 +181,11 @@ class NameNControls extends StatelessWidget {
                       defaultAlignment: TextAlign.left,
                       fadingEdgeStartFraction: 0.1,
                       startAfter: const Duration(seconds: 2),
-                      style: context.bodyLarge
-                          ?.copyWith(color: context.bodySmall!.color)),
+                      style: context.bodyLarge?.copyWith(
+                        color: context.bodySmall!.color,
+                        fontWeight: FontWeight.w400,
+                        fontFamily: 'Washera',
+                      )),
                 ),
               SizedBox(
                 height: 13.0,
@@ -241,6 +249,7 @@ class NameNControls extends StatelessWidget {
                   builder: (context, snapshot) {
                     final positionData = snapshot.data;
                     return SeekBar(
+                      dominantColor: dominantColor,
                       duration: positionData?.duration ?? Duration.zero,
                       position: positionData?.position ?? Duration.zero,
                       bufferedPosition:
@@ -323,6 +332,7 @@ class NameNControls extends StatelessWidget {
                             ],
                           ),
                           ControlButtons(
+                            dominantColor: dominantColor,
                             animationController: animationController,
                             audioHandler,
                           ),
