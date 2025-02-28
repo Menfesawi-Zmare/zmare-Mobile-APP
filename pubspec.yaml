@@ -120,5 +120,18 @@ flutter:
   assets:
     - assets/
     - assets/images/
-    
+
+  fonts:
+    - family: Hidase
+      fonts:
+        - asset: assets/fonts/Bela Hidase-Bold.ttf
+          weight: 800
+        - asset: assets/fonts/Bela Hidase-ExtraBold.ttf
+          weight: 900
+        - asset: assets/fonts/Bela Hidase-Regular.ttf 
+    - family: Washera
+      fonts:
+        - asset: assets/fonts/washrab.ttf
+         
+
     

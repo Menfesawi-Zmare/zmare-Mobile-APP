@@ -122,6 +122,16 @@ class NowPlayingStream extends StatelessWidget {
                 trailingWidget: Padding(
                   padding: const EdgeInsets.only(right: 16),
                   child: Row(mainAxisSize: MainAxisSize.min, children: [
+                    if (index == queueState.queueIndex)
+                      RiveAnimatedIcon(
+                          riveIcon: RiveIcon.sound,
+                          width: 24,
+                          height: 24,
+                          color: Colors.white,
+                          strokeWidth: 6,
+                          loopAnimation: true,
+                          onTap: () {},
+                          onHover: (value) {}),
                     if (queue[index]
                             .extras!['url']
                             .toString()
@@ -140,16 +150,6 @@ class NowPlayingStream extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          if (index == queueState.queueIndex)
-                            RiveAnimatedIcon(
-                                riveIcon: RiveIcon.sound,
-                                width: 24,
-                                height: 24,
-                                color: Colors.white,
-                                strokeWidth: 6,
-                                loopAnimation: true,
-                                onTap: () {},
-                                onHover: (value) {}),
                           SizedBox(
                             width: 10,
                           ),

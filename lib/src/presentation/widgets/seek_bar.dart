@@ -10,12 +10,14 @@ class SeekBar extends StatefulWidget {
   final bool offline;
   final ValueChanged<Duration>? onChanged;
   final ValueChanged<Duration>? onChangeEnd;
+  final Color dominantColor;
 
   const SeekBar({
     super.key,
     required this.duration,
     required this.position,
     required this.offline,
+    required this.dominantColor,
     required this.audioHandler,
     this.bufferedPosition = Duration.zero,
     this.onChanged,
@@ -35,7 +37,7 @@ class _SeekBarState extends State<SeekBar> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     _sliderThemeData = SliderTheme.of(context).copyWith(
-      trackHeight: 2.0,
+      trackHeight: 3.0,
       rangeTrackShape: const RoundedRectRangeSliderTrackShape(),
       thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 6.0),
       trackShape: CustomTrackShape(),
@@ -74,8 +76,8 @@ class _SeekBarState extends State<SeekBar> {
                 SliderTheme(
                   data: _sliderThemeData.copyWith(
                     thumbShape: HiddenThumbComponentShape(),
-                    activeTrackColor:
-                        Theme.of(context).iconTheme.color!.withOpacity(0.5),
+                    activeTrackColor: widget.dominantColor,
+                    // Theme.of(context).iconTheme.color!.withOpacity(0.5),
                     inactiveTrackColor:
                         Theme.of(context).iconTheme.color!.withOpacity(0.3),
                     trackShape: const RectangularSliderTrackShape(),
@@ -93,10 +95,13 @@ class _SeekBarState extends State<SeekBar> {
                 ),
                 SliderTheme(
                   data: _sliderThemeData.copyWith(
-                    inactiveTrackColor: Theme.of(context).colorScheme.secondary,
-                    activeTrackColor: Theme.of(context).colorScheme.primary,
-                    thumbColor: Theme.of(context).colorScheme.primary,
-                  ),
+                      inactiveTrackColor:
+                          Theme.of(context).colorScheme.secondary,
+                      activeTrackColor: widget.dominantColor,
+                      // activeTrackColor: Theme.of(context).colorScheme.primary,
+                      thumbColor: widget.dominantColor
+                      // thumbColor: Theme.of(context).colorScheme.primary,
+                      ),
                   child: Slider(
                     max: widget.duration.inMilliseconds.toDouble(),
                     value: value,

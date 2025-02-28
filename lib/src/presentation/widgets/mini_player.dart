@@ -34,8 +34,12 @@ class _MiniPlayerState extends State<MiniPlayer> {
   Box<dynamic> playerSettings = locator.get(
     instanceName: BoxType.settings.name,
   );
+  Color dominantColor = Colors.black;
   void updateBackgroundColors(List<Color?> value) {
-    gradientColor.value = value;
+    setState(() {
+      gradientColor.value = value;
+    });
+
     return;
   }
 
@@ -72,10 +76,11 @@ class _MiniPlayerState extends State<MiniPlayer> {
               valueListenable: playerSettings.listenable(),
               builder: (BuildContext context, Box box1, Widget? child) {
                 final bool extraControls =
-                    box1.get(extraControlsKey, defaultValue: false);
+                    box1.get(extraControlsKey, defaultValue: true);
                 return ValueListenableBuilder(
                     valueListenable: gradientColor,
                     builder: (context, value, child) {
+                      dominantColor = value?[0] ?? const Color(0xff2e2a33);
                       return Padding(
                         padding: EdgeInsets.symmetric(horizontal: 7),
                         child: AnimatedContainer(
@@ -135,7 +140,10 @@ class _MiniPlayerState extends State<MiniPlayer> {
                                         showFadingOnlyWhenScrolling: false,
                                         fadingEdgeEndFraction: 0.1,
                                         fadingEdgeStartFraction: 0.1,
-                                        style: context.titleMedium),
+                                        style: context.titleMedium?.copyWith(
+                                          fontWeight: FontWeight.w400,
+                                          fontFamily: 'Washera',
+                                        )),
                                     leading: Hero(
                                       tag: 'currentArtwork',
                                       child: Padding(
@@ -181,6 +189,7 @@ class _MiniPlayerState extends State<MiniPlayer> {
                                       padding: EdgeInsets.symmetric(
                                           horizontal: extraControls ? 0 : 10),
                                       child: ControlButtons(audioHandler,
+                                          dominantColor: dominantColor,
                                           miniplayer: true,
                                           buttons: extraControls
                                               ? [

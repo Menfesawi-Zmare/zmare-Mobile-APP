@@ -14,7 +14,8 @@ class KhmertracksText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(text,
         style: context.titleLarge?.copyWith(
-            fontWeight: isBold ? FontWeight.w600 : FontWeight.normal,
+            fontFamily: 'Hidase',
+            fontWeight: isBold ? FontWeight.w800 : FontWeight.normal,
             fontSize: isSmall
                 ? context.titleMedium!.fontSize
                 : context.titleLarge!.fontSize));
