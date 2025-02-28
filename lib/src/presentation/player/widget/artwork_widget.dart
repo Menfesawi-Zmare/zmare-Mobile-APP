@@ -5,6 +5,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_lyric/lyrics_reader.dart';
+import 'package:rxdart/rxdart.dart';
 import 'package:zmare/src/core/resources/resources.dart';
 import 'package:zmare/src/presentation/player/lyric/lyric_ui.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -36,6 +37,7 @@ class ArtWorkWidget extends StatefulWidget {
 }
 
 class _ArtWorkWidgetState extends State<ArtWorkWidget> {
+  final ValueNotifier<Duration> positionNotifier = ValueNotifier(Duration.zero);
   final ValueNotifier<bool> dragging = ValueNotifier<bool>(false);
   final ValueNotifier<bool> tapped = ValueNotifier<bool>(false);
   final ValueNotifier<int> doubletapped = ValueNotifier<int>(0);
@@ -82,14 +84,26 @@ class _ArtWorkWidgetState extends State<ArtWorkWidget> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    AudioService.position
+        .throttleTime(const Duration(milliseconds: 100))
+        .listen((position) {
+      positionNotifier.value = position;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     var lyricUI = FlutterMusicProLyricUI(
         textStyle: context.titleMedium,
         highlight: false,
         defaultSize: 22.0,
         defaultExtSize: 20.0,
+        highlightDirection: HighlightDirection.LTR,
+        bias: 0.5,
         lyricBaseLine: LyricBaseLine.CENTER,
-        lyricAlign: LyricAlign.LEFT);
+        lyricAlign: LyricAlign.CENTER);
 
     if (flipped && lyrics['id'] != widget.mediaItem.id) {
       fetchLyrics();
@@ -145,6 +159,9 @@ class _ArtWorkWidgetState extends State<ArtWorkWidget> {
                             bool value,
                             Widget? child,
                           ) {
+                            if (!value) {
+                              return const CircularProgressIndicator();
+                            }
                             return value
                                 ? lyrics['lyrics'] == '' ||
                                         lyrics['lyrics'] == null
@@ -156,38 +173,27 @@ class _ArtWorkWidgetState extends State<ArtWorkWidget> {
                                               text: context.loc.noLyrics),
                                         ),
                                       )
-                                    : StreamBuilder<Duration>(
-                                        stream: AudioService.position,
-                                        builder: (context, snapshot) {
-                                          final position =
-                                              snapshot.data ?? Duration.zero;
-                                          return LayoutBuilder(
-                                              builder: (context, constraints) {
-                                            return LyricsReader(
-                                              padding: EdgeInsets.zero,
-                                              model: LyricsModelBuilder.create()
-                                                  .bindLyricToMain(
-                                                      lyrics['lyrics'])
-                                                  .getModel(),
-                                              position: position.inMilliseconds,
-                                              lyricUi: lyricUI,
-                                              playing: true,
-                                              size: Size(
-                                                widget.width * 0.9,
-                                                widget.width * 0.9,
-                                              ),
-                                              emptyBuilder: () => SizedBox(
-                                                width: widget.width * 0.9,
-                                                height: widget.width * 0.9,
-                                                child: Center(
-                                                  child: KhmertracksText(
-                                                      text:
-                                                          context.loc.noLyrics),
-                                                ),
-                                              ),
-                                            );
-                                          });
-                                        })
+                                    : ValueListenableBuilder<Duration>(
+                                        valueListenable: positionNotifier,
+                                        builder: (context, position, child) {
+                                          return LyricsReader(
+                                            padding: EdgeInsets.zero,
+                                            model: LyricsModelBuilder.create()
+                                                .bindLyricToMain(
+                                                    lyrics['lyrics'])
+                                                .getModel(),
+                                            position: position.inMilliseconds,
+                                            lyricUi: lyricUI,
+                                            playing: true,
+                                            size: Size(widget.width * 0.9,
+                                                widget.width * 0.9),
+                                            emptyBuilder: () => Center(
+                                              child: KhmertracksText(
+                                                  text: context.loc.noLyrics),
+                                            ),
+                                          );
+                                        },
+                                      )
                                 : child!;
                           }),
                     ),

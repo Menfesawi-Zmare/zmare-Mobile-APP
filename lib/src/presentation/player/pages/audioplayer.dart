@@ -5,7 +5,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:palette_generator/palette_generator.dart';
+
 import 'package:zmare/src/presentation/player/pages/now_play.dart';
 import 'package:zmare/src/presentation/widgets/next_song.dart';
 import 'package:zmare/src/presentation/widgets/report_button.dart';
@@ -42,6 +43,8 @@ class _PlayScreenState extends State<PlayScreen>
   late Animation<double> rotationAnimation;
   late bool isPlaying = false;
   bool isMusicQueueOpened = false;
+  Color dominantColor = Colors.black;
+
   final ScrollController _scrollController = ScrollController();
   void updateBackgroundColors(List<Color?> value) {
     gradientColor.value = value;
@@ -117,6 +120,21 @@ class _PlayScreenState extends State<PlayScreen>
   }
 
   @override
+  void dispose() {
+    controller.stop();
+    super.dispose();
+  }
+
+  void extractPrimaryColor(ImageProvider imageProvider) async {
+    final PaletteGenerator paletteGenerator =
+        await PaletteGenerator.fromImageProvider(imageProvider);
+
+    setState(() {
+      dominantColor = paletteGenerator.dominantColor?.color ?? Colors.black;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Dismissible(
       direction: DismissDirection.down,
@@ -129,22 +147,40 @@ class _PlayScreenState extends State<PlayScreen>
         stream: audioHandler.mediaItem,
         builder: (context, snapshot) {
           final MediaItem? mediaItem = snapshot.data;
+
           if (mediaItem == null) return const SizedBox();
           final offline =
               !mediaItem.extras!['url'].toString().startsWith('http');
-          mediaItem.artUri.toString().startsWith('file')
-              ? getColors(
-                  imageProvider: FileImage(
-                    File(
-                      mediaItem.artUri!.toFilePath(),
+          if (mediaItem.artUri == null || mediaItem.artUri.toString().isEmpty) {
+            extractPrimaryColor(
+              AssetImage("assets/song.png"),
+            );
+            getColors(
+              imageProvider: AssetImage("assets/song.png"),
+            ).then((value) => updateBackgroundColors(value));
+          } else {
+            mediaItem.artUri.toString().startsWith('file')
+                ? getColors(
+                    imageProvider: FileImage(
+                      File(
+                        mediaItem.artUri!.toFilePath(),
+                      ),
                     ),
-                  ),
-                ).then((value) => updateBackgroundColors(value))
-              : getColors(
-                  imageProvider: CachedNetworkImageProvider(
-                    mediaItem.artUri.toString(),
-                  ),
-                ).then((value) => updateBackgroundColors(value));
+                  ).then((value) => updateBackgroundColors(value))
+                : getColors(
+                    imageProvider: CachedNetworkImageProvider(
+                      mediaItem.artUri.toString(),
+                    ),
+                  ).then((value) => updateBackgroundColors(value));
+          }
+
+          if (mediaItem.artUri.toString().startsWith('file')) {
+            extractPrimaryColor(
+                FileImage(File(mediaItem.artUri!.toFilePath())));
+          } else {
+            extractPrimaryColor(
+                CachedNetworkImageProvider(mediaItem.artUri.toString()));
+          }
           return ValueListenableBuilder(
             valueListenable: gradientColor,
             child: SafeArea(
@@ -165,7 +201,6 @@ class _PlayScreenState extends State<PlayScreen>
                   ),
                   actions: [
                     if (!offline) ReportButton(mediaItem: mediaItem),
-                    SvgPicture.asset("assets/")
                   ],
                 ),
                 body: LayoutBuilder(
@@ -215,6 +250,7 @@ class _PlayScreenState extends State<PlayScreen>
                                 isMusicQueueOpened = !isMusicQueueOpened;
                               });
                             },
+                            dominantColor: dominantColor,
                             playistOpened: isMusicQueueOpened,
                             cardKey: cardKey,
                             animationController: controller,
@@ -261,6 +297,7 @@ class _PlayScreenState extends State<PlayScreen>
 
                           // title and controls
                           NameNControls(
+                            dominantColor: dominantColor,
                             openPlayList: () {
                               setState(() {
                                 isMusicQueueOpened = !isMusicQueueOpened;
@@ -492,6 +529,7 @@ class _ControlButtonsState extends State<ControlButtons> {
                             width: widget.miniplayer ? 40.0 : 65.0,
                             child: CircularProgressIndicator(
                               valueColor: AlwaysStoppedAnimation<Color>(
+                                // widget.dominantColor!,
                                 Theme.of(context).colorScheme.primary,
                               ),
                             ),
@@ -516,8 +554,8 @@ class _ControlButtonsState extends State<ControlButtons> {
                                   radius: 20,
                                   lineWidth: 4.0,
                                   circularStrokeCap: CircularStrokeCap.round,
-                                  progressColor:
-                                      Theme.of(context).colorScheme.primary,
+                                  progressColor: widget.dominantColor,
+                                  // Theme.of(context).colorScheme.primary,
                                   backgroundColor: Colors.transparent,
                                   center: playing
                                       ? IconButton(
@@ -535,6 +573,7 @@ class _ControlButtonsState extends State<ControlButtons> {
                                           icon: const Icon(
                                               Icons.play_arrow_rounded),
                                           color:
+                                              //  widget.dominantColor,
                                               Theme.of(context).iconTheme.color,
                                         ),
                                 ),
@@ -568,36 +607,32 @@ class _ControlButtonsState extends State<ControlButtons> {
                                         child: playing
                                             ? FloatingActionButton(
                                                 shape: const CircleBorder(),
-                                                elevation: 10,
+                                                elevation: 2,
                                                 tooltip: context.loc.pause,
                                                 backgroundColor:
-                                                    Theme.of(context)
-                                                        .colorScheme
-                                                        .primary,
+                                                    widget.dominantColor,
                                                 onPressed:
                                                     widget.audioHandler.pause,
                                                 child: Icon(
                                                   Icons.pause_rounded,
                                                   color: Theme.of(context)
                                                       .colorScheme
-                                                      .surface,
+                                                      .onSurface,
                                                 ),
                                               )
                                             : FloatingActionButton(
                                                 shape: const CircleBorder(),
-                                                elevation: 10,
+                                                elevation: 2,
                                                 tooltip: context.loc.play,
                                                 backgroundColor:
-                                                    Theme.of(context)
-                                                        .colorScheme
-                                                        .primary,
+                                                    widget.dominantColor,
                                                 onPressed:
                                                     widget.audioHandler.play,
                                                 child: Icon(
                                                   Icons.play_arrow_rounded,
                                                   color: Theme.of(context)
                                                       .colorScheme
-                                                      .surface,
+                                                      .onSurface,
                                                 ),
                                               ),
                                       ),
@@ -621,41 +656,96 @@ class _ControlButtonsState extends State<ControlButtons> {
                                       child: Center(
                                         child: playing
                                             ? FloatingActionButton(
-                                                elevation: 10,
+                                                shape: const CircleBorder(),
+                                                elevation: 2,
                                                 tooltip: context.loc.pause,
                                                 backgroundColor:
-                                                    Theme.of(context)
-                                                        .colorScheme
-                                                        .primary,
+                                                    widget.dominantColor,
+                                                // Theme.of(context)
+                                                //     .colorScheme
+                                                //     .primary,
                                                 onPressed:
                                                     widget.audioHandler.pause,
                                                 child: Icon(
                                                   Icons.pause_rounded,
                                                   color: Theme.of(context)
                                                       .colorScheme
-                                                      .surface,
+                                                      .onSurface,
                                                 ),
                                               )
                                             : FloatingActionButton(
-                                                elevation: 10,
+                                                shape: const CircleBorder(),
+                                                elevation: 2,
                                                 tooltip: context.loc.play,
                                                 backgroundColor:
-                                                    Theme.of(context)
-                                                        .colorScheme
-                                                        .primary,
+                                                    widget.dominantColor,
+                                                // Theme.of(context)
+                                                //     .colorScheme
+                                                //     .primary,
                                                 onPressed:
                                                     widget.audioHandler.play,
                                                 child: Icon(
                                                   Icons.play_arrow_rounded,
                                                   color: Theme.of(context)
                                                       .colorScheme
-                                                      .surface,
+                                                      .onSurface,
                                                 ),
                                               ),
                                       ),
                                     ),
                                   ),
                                 );
+                                // return ZoomTapAnimation(
+                                //   begin: 1.0,
+                                //   end: 0.9,
+                                //   beginDuration:
+                                //       const Duration(milliseconds: 20),
+                                //   endDuration:
+                                //       const Duration(milliseconds: 120),
+                                //   beginCurve: Curves.decelerate,
+                                //   endCurve: Curves.fastOutSlowIn,
+                                //   child: Center(
+                                //     child: SizedBox(
+                                //       height: 59,
+                                //       width: 59,
+                                //       child: Center(
+                                //         child: playing
+                                //             ? FloatingActionButton(
+                                //                 elevation: 10,
+                                //                 tooltip: context.loc.pause,
+                                //                 backgroundColor:
+                                //                     Theme.of(context)
+                                //                         .colorScheme
+                                //                         .primary,
+                                //                 onPressed:
+                                //                     widget.audioHandler.pause,
+                                //                 child: Icon(
+                                //                   Icons.pause_rounded,
+                                //                   color: Theme.of(context)
+                                //                       .colorScheme
+                                //                       .surface,
+                                //                 ),
+                                //               )
+                                //             : FloatingActionButton(
+                                //                 elevation: 10,
+                                //                 tooltip: context.loc.play,
+                                //                 backgroundColor:
+                                //                     Theme.of(context)
+                                //                         .colorScheme
+                                //                         .primary,
+                                //                 onPressed:
+                                //                     widget.audioHandler.play,
+                                //                 child: Icon(
+                                //                   Icons.play_arrow_rounded,
+                                //                   color: Theme.of(context)
+                                //                       .colorScheme
+                                //                       .surface,
+                                //                 ),
+                                //               ),
+                                //       ),
+                                //     ),
+                                //   ),
+                                // );
                               }
                             })
                     ],

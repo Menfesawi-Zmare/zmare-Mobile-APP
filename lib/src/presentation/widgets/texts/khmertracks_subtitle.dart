@@ -13,6 +13,10 @@ class KhmertracksSubTitle extends StatelessWidget {
         overflow: TextOverflow.ellipsis,
         maxLines: maxLines,
         textAlign: center ? TextAlign.center : TextAlign.start,
-        style: context.bodySmall?.copyWith(fontSize: 14));
+        style: context.bodySmall?.copyWith(
+          fontSize: 14,
+          fontWeight: FontWeight.w400,
+          fontFamily: 'Washera',
+        ));
   }
 }

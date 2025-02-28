@@ -14,6 +14,11 @@ class KhmertracksTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(title!,
-        overflow: overflow, maxLines: maxLines, style: context.bodyMedium);
+        overflow: overflow,
+        maxLines: maxLines,
+        style: context.bodyMedium?.copyWith(
+          fontWeight: FontWeight.w400,
+          fontFamily: 'Washera',
+        ));
   }
 }
