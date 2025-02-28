@@ -53,7 +53,7 @@ class _ArtistsWidgetState extends State<ArtistsWidget> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      Text("See All",
+                      Text(context.loc.seeAllLables,
                           textAlign: TextAlign.start,
                           style: context.titleMedium?.copyWith(
                               color: context.colorScheme.onSurface,
