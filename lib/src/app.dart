@@ -63,7 +63,7 @@ class _FlutterMusicProState extends State<FlutterMusicPro> {
           );
           final ThemeMode themeMode = ThemeMode.values[value.get(
             themeModeKey,
-            defaultValue: 0,
+            defaultValue: 2,
           )];
           final int color = value.get(
             appColorKey,

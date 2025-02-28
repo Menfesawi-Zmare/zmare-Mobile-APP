@@ -53,55 +53,55 @@ class _SettingsPageState extends State<SettingsPage> {
       body: ListView(
         shrinkWrap: true,
         children: [
-          SettingsGroup(
-            title: context.loc.colorsUI,
-            options: [
-              SettingsColorPickerWidget(settings: settings),
-              Divider(color: Colors.grey.withOpacity(0.2)),
-              SettingsOption(
-                icon: FluentIcons.dark_theme_24_regular,
-                title: context.loc.chooseTheme,
-                subtitle: currentTheme.themeName(context),
-                onTap: () {
-                  showModalBottomSheet(
-                    useRootNavigator: true,
-                    constraints: BoxConstraints(
-                      maxWidth: MediaQuery.of(context).size.width >= 700
-                          ? 700
-                          : double.infinity,
-                    ),
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(16),
-                        topRight: Radius.circular(16),
-                      ),
-                    ),
-                    context: context,
-                    builder: (_) => ChooseThemeModeWidget(
-                      currentTheme: currentTheme,
-                    ),
-                  );
-                },
-              ),
-              Divider(color: Colors.grey.withOpacity(0.2)),
-              const CircularPlayButtonWidget(),
-              Divider(color: Colors.grey.withOpacity(0.2)),
-              SettingsOption(
-                  icon: Icons.hdr_strong_rounded,
-                  title: context.loc.personalize,
-                  subtitle: context.loc.personalizeDes,
-                  onTap: () =>
-                      Navigator.of(context).push(MaterialPageRoute<void>(
-                          builder: (BuildContext context) {
-                            return const PersonalizePage();
-                          },
-                          fullscreenDialog: true)))
-            ],
-          ),
+          // SettingsGroup(
+          //   title: context.loc.colorsUI,
+          //   options: [
+          //     SettingsColorPickerWidget(settings: settings),
+          //     Divider(color: Colors.grey.withOpacity(0.2)),
+          //     SettingsOption(
+          //       icon: FluentIcons.dark_theme_24_regular,
+          //       title: context.loc.chooseTheme,
+          //       subtitle: currentTheme.themeName(context),
+          //       onTap: () {
+          //         showModalBottomSheet(
+          //           useRootNavigator: true,
+          //           constraints: BoxConstraints(
+          //             maxWidth: MediaQuery.of(context).size.width >= 700
+          //                 ? 700
+          //                 : double.infinity,
+          //           ),
+          //           shape: const RoundedRectangleBorder(
+          //             borderRadius: BorderRadius.only(
+          //               topLeft: Radius.circular(16),
+          //               topRight: Radius.circular(16),
+          //             ),
+          //           ),
+          //           context: context,
+          //           builder: (_) => ChooseThemeModeWidget(
+          //             currentTheme: currentTheme,
+          //           ),
+          //         );
+          //       },
+          //     ),
+          //     Divider(color: Colors.grey.withOpacity(0.2)),
+          //     const CircularPlayButtonWidget(),
+          //     Divider(color: Colors.grey.withOpacity(0.2)),
+          //     SettingsOption(
+          //         icon: Icons.hdr_strong_rounded,
+          //         title: context.loc.personalize,
+          //         subtitle: context.loc.personalizeDes,
+          //         onTap: () =>
+          //             Navigator.of(context).push(MaterialPageRoute<void>(
+          //                 builder: (BuildContext context) {
+          //                   return const PersonalizePage();
+          //                 },
+          //                 fullscreenDialog: true)))
+          //   ],
+          // ),
           SettingsGroup(title: context.loc.langAndFont, options: [
             AppLanguageChanger(settings: settings),
-            const Divider(),
-            AppFontChanger(settings: settings),
+            // const Divider(),
+            // AppFontChanger(settings: settings),
           ]),
           Visibility(
             visible: appUrl != null ? true : false,
