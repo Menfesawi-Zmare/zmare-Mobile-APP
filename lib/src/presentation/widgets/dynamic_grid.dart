@@ -95,7 +95,7 @@ class DynamicGrid extends StatelessWidget {
             if (subscribers != null)
               SizedBox(
                 width: 100,
-                child: Text("$subscribers followers",
+                child: Text("$subscribers ${context.loc.followersLables}",
                     maxLines: 1,
                     textAlign: TextAlign.start,
                     style: context.titleMedium?.copyWith(
@@ -169,7 +169,7 @@ class DynamicGrid extends StatelessWidget {
                                   fontSize: 12,
                                   fontWeight: FontWeight.bold)),
                           if (tracksInAlbum != null)
-                            Text("$tracksInAlbum hymns",
+                            Text("$tracksInAlbum ${context.loc.mezmursLables}",
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                                 textAlign: TextAlign.left,

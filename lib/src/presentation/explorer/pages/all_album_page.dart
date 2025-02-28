@@ -115,7 +115,8 @@ class _AllAlbumPageState extends State<AllAlbumPage> {
                                 item.name!,
                                 maxLines: 1,
                               ),
-                              KhmertracksSubTitle("${item.trackTotal} hymns")
+                              KhmertracksSubTitle(
+                                  "${item.trackTotal} ${context.loc.mezmursLables}")
                             ],
                           ),
                         ),
