@@ -1,11 +1,11 @@
 // ignore_for_file: deprecated_member_use
 
 import 'dart:io';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:gif/gif.dart';
 import 'package:zmare/src/core/resources/resources.dart';
 import 'package:zmare/src/utils/services/firebase/authenticate.dart';
 import 'package:go_router/go_router.dart';
@@ -15,19 +15,29 @@ import 'package:zmare/src/core/enum/login_type.dart';
 import 'package:zmare/src/data/register/model/register_social_request.dart';
 import 'package:zmare/src/presentation/login/bloc/auth_bloc.dart';
 import 'package:zmare/src/service_locator.dart';
-import 'package:video_player/video_player.dart';
 
 class IntroPage extends StatefulWidget {
-  const IntroPage(
-      {super.key, this.showBackButton = false, required this.controller});
+  const IntroPage({super.key, this.showBackButton = false});
   final bool showBackButton;
-  final VideoPlayerController controller;
   @override
   State<IntroPage> createState() => _IntroPageState();
 }
 
-class _IntroPageState extends State<IntroPage> {
+class _IntroPageState extends State<IntroPage> with TickerProviderStateMixin {
   bool isLoading = false;
+  late GifController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = GifController(vsync: this); // vsync should be this
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   late AuthBloc authBloc = locator.get<AuthBloc>();
 
@@ -74,18 +84,22 @@ class _IntroPageState extends State<IntroPage> {
               children: [
                 Center(
                   child: SizedBox(
-                    height: double.maxFinite,
-                    width: double.infinity,
-                    child: widget.controller.value.isInitialized
-                        ? AspectRatio(
-                            aspectRatio: widget.controller.value.aspectRatio,
-                            child: VideoPlayer(widget.controller),
-                          )
-                        : Container(color: Palette.black15),
-                  ),
+                      height: double.maxFinite,
+                      width: double.infinity,
+                      child: Gif(
+                        // fps: 10,
+                        autostart: Autostart.loop,
+                        repeat: ImageRepeat.repeat,
+                        duration: Duration(seconds: 15),
+                        colorBlendMode: BlendMode.color,
+                        // placeholder: (context) =>
+                        //     const Center(child: CircularProgressIndicator()),
+                        image: AssetImage('assets/images/hura.gif'),
+                        fit: BoxFit.cover,
+                      )),
                 ),
                 Container(
-                  color: context.colorScheme.onPrimary.withOpacity(0.9),
+                  color: context.colorScheme.onPrimary.withOpacity(0.7),
                 ),
                 Positioned(
                     top: 20,
