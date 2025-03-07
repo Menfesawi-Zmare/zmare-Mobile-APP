@@ -47,7 +47,7 @@ import 'package:zmare/src/presentation/search/pages/search_page.dart';
 import 'package:zmare/src/presentation/settings/pages/personalize_page.dart';
 import 'package:zmare/src/presentation/settings/pages/setting_page.dart';
 import 'package:on_audio_query/on_audio_query.dart';
-import 'package:video_player/video_player.dart';
+
 import '../core/enum/box_types.dart';
 import '../data/playlist/model/playlist.dart';
 import '../presentation/home/pages/home_page.dart';
@@ -76,11 +76,9 @@ final GoRouter goRouter = GoRouter(
       parentNavigatorKey: _rootNavigatorKey,
       builder: (context, state) {
         final extras = state.extra as Map<String, dynamic>;
-        final videoPlayerController =
-            extras['videoPlayerController'] as VideoPlayerController;
+
         final isLoggedIn = extras['isLoggedIn'] as bool;
         return IntroPage(
-          controller: videoPlayerController,
           showBackButton: isLoggedIn,
         );
       },

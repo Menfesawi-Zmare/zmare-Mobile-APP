@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:zmare/src/presentation/settings/widgets/app_font_changer.dart';
 import 'package:zmare/src/presentation/settings/widgets/app_language_changer.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -17,6 +18,7 @@ import 'package:zmare/src/service_locator.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../../core/resources/images.dart';
 import '../widgets/choose_theme_mode_widget.dart';
 import '../widgets/setting_option.dart';
 import '../widgets/settings_group_card.dart';
@@ -233,9 +235,26 @@ class _SettingsPageState extends State<SettingsPage> {
             const VersionWidget(),
             Divider(color: Colors.grey.withOpacity(0.2)),
             Center(
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: KhmertracksTitle(context.loc.appTitle),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SvgPicture.asset(
+                    Images.zmareIconWhite,
+                    height: 25,
+                  ),
+                  Padding(
+                    padding:
+                        const EdgeInsets.only(top: 13.0, left: 10, bottom: 5),
+                    child: Text(
+                      context.loc.appTitle,
+                      style: TextStyle(
+                          fontFamily: "Hidase",
+                          fontWeight: FontWeight.w900,
+                          fontSize: 20),
+                    ),
+                  ),
+                ],
               ),
             ),
           ]),

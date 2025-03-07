@@ -23,6 +23,7 @@ import 'package:zmare/src/service_locator.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:rxdart/rxdart.dart';
 
+import '../../../app/routes.dart';
 import '../widget/artwork_widget.dart';
 
 class PlayScreen extends StatefulWidget {
@@ -41,7 +42,9 @@ class _PlayScreenState extends State<PlayScreen>
   late Animation<Alignment> topAlignmentAnimation;
   late Animation<Alignment> bottomAlignmentAnimation;
   late Animation<double> rotationAnimation;
+  final accountJson = account.get(accountDetail, defaultValue: '');
   late bool isPlaying = false;
+  bool isSignedUp = false;
   bool isMusicQueueOpened = false;
   Color dominantColor = Colors.black;
 
@@ -57,6 +60,9 @@ class _PlayScreenState extends State<PlayScreen>
 
   @override
   void initState() {
+    if (accountJson != '') {
+      isSignedUp = true;
+    }
     controller =
         AnimationController(vsync: this, duration: const Duration(seconds: 27));
     // Initialize the animation controller
@@ -121,7 +127,7 @@ class _PlayScreenState extends State<PlayScreen>
 
   @override
   void dispose() {
-    controller.stop();
+    controller.dispose();
     super.dispose();
   }
 
@@ -245,6 +251,7 @@ class _PlayScreenState extends State<PlayScreen>
 
                           // title and controls
                           NameNControls(
+                            isSignedUp: isSignedUp,
                             openPlayList: () {
                               setState(() {
                                 isMusicQueueOpened = !isMusicQueueOpened;
@@ -297,6 +304,7 @@ class _PlayScreenState extends State<PlayScreen>
 
                           // title and controls
                           NameNControls(
+                            isSignedUp: isSignedUp,
                             dominantColor: dominantColor,
                             openPlayList: () {
                               setState(() {
@@ -401,6 +409,7 @@ class ControlButtons extends StatefulWidget {
   final bool shuffle;
   final bool miniplayer;
   final List buttons;
+  final bool? isSignedUp;
   final Color? dominantColor;
   AnimationController? animationController;
   ControlButtons(
@@ -411,6 +420,7 @@ class ControlButtons extends StatefulWidget {
     this.buttons = const ['Previous', 'Play/Pause', 'Next'],
     this.dominantColor,
     this.animationController,
+    this.isSignedUp,
   });
 
   @override
@@ -615,9 +625,13 @@ class _ControlButtonsState extends State<ControlButtons> {
                                                     widget.audioHandler.pause,
                                                 child: Icon(
                                                   Icons.pause_rounded,
-                                                  color: Theme.of(context)
-                                                      .colorScheme
-                                                      .onSurface,
+                                                  color: widget.dominantColor!
+                                                              .computeLuminance() >
+                                                          0.5
+                                                      ? Colors.black
+                                                      : Theme.of(context)
+                                                          .colorScheme
+                                                          .onSurface,
                                                 ),
                                               )
                                             : FloatingActionButton(
@@ -630,9 +644,13 @@ class _ControlButtonsState extends State<ControlButtons> {
                                                     widget.audioHandler.play,
                                                 child: Icon(
                                                   Icons.play_arrow_rounded,
-                                                  color: Theme.of(context)
-                                                      .colorScheme
-                                                      .onSurface,
+                                                  color: widget.dominantColor!
+                                                              .computeLuminance() >
+                                                          0.5
+                                                      ? Colors.black
+                                                      : Theme.of(context)
+                                                          .colorScheme
+                                                          .onSurface,
                                                 ),
                                               ),
                                       ),
@@ -668,9 +686,13 @@ class _ControlButtonsState extends State<ControlButtons> {
                                                     widget.audioHandler.pause,
                                                 child: Icon(
                                                   Icons.pause_rounded,
-                                                  color: Theme.of(context)
-                                                      .colorScheme
-                                                      .onSurface,
+                                                  color: widget.dominantColor!
+                                                              .computeLuminance() >
+                                                          0.5
+                                                      ? Colors.black
+                                                      : Theme.of(context)
+                                                          .colorScheme
+                                                          .onSurface,
                                                 ),
                                               )
                                             : FloatingActionButton(
@@ -686,9 +708,13 @@ class _ControlButtonsState extends State<ControlButtons> {
                                                     widget.audioHandler.play,
                                                 child: Icon(
                                                   Icons.play_arrow_rounded,
-                                                  color: Theme.of(context)
-                                                      .colorScheme
-                                                      .onSurface,
+                                                  color: widget.dominantColor!
+                                                              .computeLuminance() >
+                                                          0.5
+                                                      ? Colors.black
+                                                      : Theme.of(context)
+                                                          .colorScheme
+                                                          .onSurface,
                                                 ),
                                               ),
                                       ),

@@ -7,18 +7,30 @@ import 'package:zmare/src/presentation/track/pages/track_page.dart';
 import 'package:zmare/src/presentation/widgets/khmertracks_icon_title.dart';
 import 'package:zmare/src/presentation/widgets/search_button.dart';
 
-class ContentWidget extends StatelessWidget {
+class ContentWidget extends StatefulWidget {
   ContentWidget({
     super.key,
     required this.currentPage,
   });
+
   final int currentPage;
+
+  @override
+  State<ContentWidget> createState() => _ContentWidgetState();
+}
+
+class _ContentWidgetState extends State<ContentWidget>
+    with AutomaticKeepAliveClientMixin {
   final Map<int, Widget> pages = {
     0: const ExplorerPage(),
     1: TrackPage(type: HomepageTrackType.latest.toName),
     2: TrackPage(type: HomepageTrackType.popular.toName),
     3: const LibraryPage(),
   };
+
+  @override
+  bool get wantKeepAlive => true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,6 +43,6 @@ class ContentWidget extends StatelessWidget {
             SizedBox(width: 8),
           ],
         ),
-        body: pages[currentPage]);
+        body: pages[widget.currentPage]);
   }
 }
