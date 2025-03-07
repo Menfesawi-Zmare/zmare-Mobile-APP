@@ -1,5 +1,6 @@
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:zmare/src/utils/ext/common.dart';
 import 'package:go_router/go_router.dart';
 
@@ -16,8 +17,24 @@ class AndroidNavigation extends StatelessWidget {
         destinations: [
           NavigationDestination(
             label: context.loc.explorerLabel,
-            icon: const Icon(FluentIcons.home_12_regular),
-            selectedIcon: const Icon(FluentIcons.home_12_filled),
+            icon: SvgPicture.asset(
+              height: 23,
+              fit: BoxFit.cover,
+              // ignore: deprecated_member_use
+              colorBlendMode: BlendMode.srcIn,
+              "assets/images/home.svg",
+              // ignore: deprecated_member_use
+              color: Colors.white,
+            ),
+            selectedIcon: SvgPicture.asset(
+              height: 23,
+              fit: BoxFit.cover,
+              // ignore: deprecated_member_use
+              colorBlendMode: BlendMode.srcIn,
+              "assets/images/home_filled.svg",
+              // ignore: deprecated_member_use
+              color: Colors.white,
+            ),
           ),
           NavigationDestination(
             label: context.loc.latestLabel,
@@ -25,10 +42,24 @@ class AndroidNavigation extends StatelessWidget {
             selectedIcon: const Icon(Icons.church_rounded),
           ),
           NavigationDestination(
-            label: context.loc.popularLabel,
-            icon: const Icon(FluentIcons.arrow_trending_12_regular),
-            selectedIcon: const Icon(FluentIcons.arrow_trending_12_filled),
-          ),
+              label: context.loc.popularLabel,
+              icon: SvgPicture.asset(
+                "assets/images/mekwamya.svg",
+                height: 28,
+                fit: BoxFit.cover,
+                colorFilter:
+                    const ColorFilter.mode(Colors.white, BlendMode.srcIn),
+              ),
+              selectedIcon: SvgPicture.asset(
+                "assets/images/mekuamya_filled.svg",
+                height: 28,
+                fit: BoxFit.cover,
+                color: Colors.white,
+              )
+
+              // icon: const Icon(FluentIcons.arrow_trending_12_regular),
+              // selectedIcon: const Icon(FluentIcons.arrow_trending_12_filled),
+              ),
           // NavigationDestination(
           //   label: context.loc.randomLabel,
           //   icon: const Icon(FluentIcons.arrow_repeat_all_16_regular),

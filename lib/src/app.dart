@@ -67,7 +67,7 @@ class _FlutterMusicProState extends State<FlutterMusicPro> {
           )];
           final int color = value.get(
             appColorKey,
-            defaultValue: 0xFF066346,
+            defaultValue: 0xFF121212,
           );
           final Color primaryColor = Color(color);
           final Locale locale =
@@ -86,8 +86,9 @@ class _FlutterMusicProState extends State<FlutterMusicPro> {
                   seedColor: primaryColor,
                 );
                 darkColorScheme = ColorScheme.fromSeed(
-                  seedColor: primaryColor,
+                  seedColor: Color(0xFF121212),
                   brightness: Brightness.dark,
+                  background: Color(0xFF121212),
                 );
               }
               final lightTextTheme = GoogleFonts.getTextTheme(

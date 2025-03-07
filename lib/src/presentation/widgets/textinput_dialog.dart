@@ -14,6 +14,10 @@ Future<void> showTextInputDialog({
     builder: (BuildContext ctxt) {
       final controller = TextEditingController(text: initialText);
       return AlertDialog(
+        icon: Icon(
+          Icons.music_off_sharp,
+          size: 24,
+        ),
         title: Text(title,
             style: context.titleLarge!.copyWith(fontWeight: FontWeight.bold)),
         content: Column(
@@ -22,7 +26,7 @@ Future<void> showTextInputDialog({
             KhmertracksTextField(
               autofocus: true,
               controller: controller,
-              labelText: context.loc.title,
+              labelText: 'Number',
               onFieldSubmitted: (value) {
                 onSubmitted(value);
               },
@@ -37,15 +41,14 @@ Future<void> showTextInputDialog({
             child: Text(context.loc.cancel),
           ),
           TextButton(
-            style: TextButton.styleFrom(
-              backgroundColor: context.colorScheme.primary,
-            ),
             onPressed: () {
               Navigator.pop(ctxt);
               onSubmitted(controller.text.trim());
             },
             child: Text(context.loc.ok,
-                style: TextStyle(color: context.colorScheme.onPrimary)),
+                style: TextStyle(
+                    color: context.colorScheme.primary,
+                    fontWeight: FontWeight.bold)),
           ),
         ],
       );

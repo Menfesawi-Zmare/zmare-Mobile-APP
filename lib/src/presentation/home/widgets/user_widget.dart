@@ -25,18 +25,6 @@ class UserWidget extends StatefulWidget {
 }
 
 class _UserWidgetState extends State<UserWidget> {
-  late VideoPlayerController _controller;
-  @override
-  void initState() {
-    super.initState();
-    _controller = VideoPlayerController.asset('assets/images/hura.mp4')
-      ..initialize().then((_) {
-        _controller.setLooping(true);
-        _controller.play();
-        setState(() {});
-      });
-  }
-
   @override
   Widget build(BuildContext context) {
     return ScreenTypeLayout.builder(
@@ -72,7 +60,6 @@ class _UserWidgetState extends State<UserWidget> {
                     loginName,
                     extra: {
                       'isLoggedIn': true,
-                      'videoPlayerController': _controller,
                     },
                   ),
                   child: Padding(
