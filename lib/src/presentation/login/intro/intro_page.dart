@@ -18,18 +18,34 @@ import 'package:zmare/src/service_locator.dart';
 import 'package:video_player/video_player.dart';
 
 class IntroPage extends StatefulWidget {
-  const IntroPage(
-      {super.key, this.showBackButton = false, required this.controller});
+  const IntroPage({super.key, this.showBackButton = false});
   final bool showBackButton;
-  final VideoPlayerController controller;
+
   @override
   State<IntroPage> createState() => _IntroPageState();
 }
 
 class _IntroPageState extends State<IntroPage> {
   bool isLoading = false;
-
+  late VideoPlayerController controller;
   late AuthBloc authBloc = locator.get<AuthBloc>();
+  @override
+  void initState() {
+    super.initState();
+    controller = VideoPlayerController.asset('assets/images/hura.mp4')
+      ..initialize().then((_) {
+        controller.setLooping(true);
+        controller.play();
+
+        setState(() {});
+      });
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,21 +70,21 @@ class _IntroPageState extends State<IntroPage> {
           }
         },
         child: Scaffold(
-          // extendBody: true,
+          extendBody: true,
           // extendBodyBehindAppBar: widget.showBackButton ? true : false,
           // appBar: AppBar(
           //     backgroundColor: Colors.transparent,
           //     toolbarHeight: widget.showBackButton ? null : 0,
           //     leading: widget.showBackButton
-          // ? IconButton(
-          //     color: Theme.of(context).colorScheme.primary,
-          //     onPressed: () {
-          //       context.pop();
-          //     },
-          //     icon: Icon(Platform.isIOS
-          //         ? Icons.arrow_back_ios
-          //         : Icons.arrow_back))
-          // : null),
+          //         ? IconButton(
+          //             color: Theme.of(context).colorScheme.primary,
+          //             onPressed: () {
+          //               context.pop();
+          //             },
+          //             icon: Icon(Platform.isIOS
+          //                 ? Icons.arrow_back_ios
+          //                 : Icons.arrow_back))
+          //         : null),
           body: SafeArea(
             child: Stack(
               children: [
@@ -76,16 +92,24 @@ class _IntroPageState extends State<IntroPage> {
                   child: SizedBox(
                     height: double.maxFinite,
                     width: double.infinity,
-                    child: widget.controller.value.isInitialized
+                    child: controller.value.isInitialized
                         ? AspectRatio(
-                            aspectRatio: widget.controller.value.aspectRatio,
-                            child: VideoPlayer(widget.controller),
+                            aspectRatio: controller.value.aspectRatio,
+                            child: VideoPlayer(controller),
                           )
-                        : Container(color: Palette.black15),
+                        : Container(
+                            color: Palette.black15,
+                            child: Center(
+                              child: Image.asset(
+                                'assets/images/placeholder.png', // Replace with your actual image path
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
                   ),
                 ),
                 Container(
-                  color: context.colorScheme.onPrimary.withOpacity(0.9),
+                  color: context.colorScheme.onPrimary.withOpacity(0.6),
                 ),
                 Positioned(
                     top: 20,
@@ -116,7 +140,9 @@ class _IntroPageState extends State<IntroPage> {
                           textAlign: TextAlign.center,
                           style: context.headlineMedium?.copyWith(
                               color: Palette.white,
-                              fontWeight: FontWeight.bold),
+                              fontSize: 44,
+                              fontFamily: 'Hidase',
+                              fontWeight: FontWeight.w900),
                         ),
                       ),
                       Padding(

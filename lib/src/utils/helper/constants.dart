@@ -1,8 +1,8 @@
 import 'dart:ui';
 
-const String baseUrl = 'http://192.168.1.3:8000';
+const String baseUrl = 'http://192.168.100.199:8000';
 //Font
-const defaultFontName = 'Ubuntu';
+const defaultFontName = 'Roboto';
 
 const String androidNotificationChannelName = 'zmare';
 const String androidNotificationChannelId = 'com.zmare.pro';

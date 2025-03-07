@@ -7,6 +7,7 @@ import 'package:zmare/src/presentation/modal/modal_report.dart';
 
 class ReportButton extends StatefulWidget {
   const ReportButton({super.key, required this.mediaItem});
+
   final MediaItem mediaItem;
   @override
   State<ReportButton> createState() => _ReportButtonState();

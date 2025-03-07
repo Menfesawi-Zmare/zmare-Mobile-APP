@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:zmare/src/utils/ext/common.dart';
 
 enum SearchType {
+  // all,
   songs,
   artists,
   albums,
@@ -10,6 +11,8 @@ enum SearchType {
 
   int get toIndex {
     switch (this) {
+      // case SearchType.all:
+      //   return 0;
       case SearchType.songs:
         return 0;
       case SearchType.artists:
@@ -25,6 +28,8 @@ enum SearchType {
 
   String name(BuildContext context) {
     switch (this) {
+      // case SearchType.all:
+      //   return context.loc.all;
       case SearchType.songs:
         return context.loc.tracks;
       case SearchType.artists:
