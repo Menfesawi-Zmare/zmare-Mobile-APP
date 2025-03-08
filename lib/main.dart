@@ -7,7 +7,6 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:zmare/src/app.dart';
 import 'package:zmare/src/service_locator.dart';
 import 'package:hive/hive.dart';
-
 import 'src/core/enum/box_types.dart';
 
 final getIt = GetIt.instance;
@@ -16,6 +15,7 @@ Future<void> main() async {
   MobileAds.instance.initialize();
 
   await FirebaseServices.init();
+
   await setupLocator();
   if (Platform.isAndroid) {
     setOptimalDisplayMode();

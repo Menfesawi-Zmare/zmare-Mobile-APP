@@ -77,7 +77,7 @@ class _TrackMobilePageState extends State<TrackMobilePage>
                 _pagingController.itemList = [];
               }
             },
-            child: PagedListView<int, ItemSongModel>.separated(
+            child: PagedListView<int, ItemSongModel>(
               pagingController: _pagingController,
               builderDelegate: PagedChildBuilderDelegate<ItemSongModel>(
                   noItemsFoundIndicatorBuilder: (context) => NoResultWidget(
@@ -87,12 +87,12 @@ class _TrackMobilePageState extends State<TrackMobilePage>
                     return ItemListBig(
                         songList: item, listItemSong: totalTracks);
                   }),
-              separatorBuilder: (BuildContext context, int index) {
-                return const Divider(
-                  indent: 78,
-                  height: 0,
-                );
-              },
+              // separatorBuilder: (BuildContext context, int index) {
+              //   return const Divider(
+              //     indent: 78,
+              //     height: 0,
+              //   );
+              // },
             ),
           ),
         ));

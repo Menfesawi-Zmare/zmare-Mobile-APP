@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:zmare/src/utils/ext/text_style_extension.dart';
 
 class KhmertracksSubTitle extends StatelessWidget {
@@ -14,9 +15,8 @@ class KhmertracksSubTitle extends StatelessWidget {
         maxLines: maxLines,
         textAlign: center ? TextAlign.center : TextAlign.start,
         style: context.bodySmall?.copyWith(
-          fontSize: 14,
-          fontWeight: FontWeight.w400,
-          fontFamily: 'Washera',
-        ));
+            fontSize: 14,
+            fontWeight: FontWeight.w400,
+            fontFamily: GoogleFonts.notoSansEthiopic().fontFamily));
   }
 }

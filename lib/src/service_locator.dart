@@ -51,7 +51,11 @@ final locator = GetIt.instance;
 
 Future<void> setupLocator() async {
   await _setupHive();
-  await _startAudioService();
+  if (!locator.isRegistered<AudioPlayerHandler>()) {
+    final AudioPlayerHandler audioHandler = await _startAudioService();
+    locator.registerSingleton<AudioPlayerHandler>(audioHandler);
+  }
+
   _setupDataDependencies();
   _setupRepository();
   _setupBloc();
@@ -92,11 +96,17 @@ Future<void> _setupHive() async {
   final boxGrid = await Hive.openBox(BoxType.grid.name);
   locator.registerLazySingleton<Box<dynamic>>(() => boxGrid,
       instanceName: BoxType.grid.name);
+  final boxOnboarding = await Hive.openBox('onboarding');
+  locator.registerSingleton<Box<dynamic>>(
+    boxOnboarding,
+    instanceName: BoxType.onboarding.name,
+  );
 }
 
-Future<void> _startAudioService() async {
+Future<AudioPlayerHandler> _startAudioService() async {
   initializeLogging();
   MetadataGod.initialize();
+
   final AudioPlayerHandler audioHandler = await AudioService.init(
     builder: () => AudioPlayerHandlerImpl(),
     config: AudioServiceConfig(
@@ -108,7 +118,8 @@ Future<void> _startAudioService() async {
       notificationColor: Colors.grey[900],
     ),
   );
-  locator.registerSingleton<AudioPlayerHandler>(audioHandler);
+
+  return audioHandler; // Return the initialized handler
 }
 
 Future<void> initializeLogging() async {

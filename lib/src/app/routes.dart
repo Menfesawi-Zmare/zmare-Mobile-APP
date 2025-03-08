@@ -6,6 +6,8 @@ import 'package:zmare/src/presentation/library/pages/show_songs.dart';
 import 'package:zmare/src/presentation/explorer/pages/custom_album_page.dart';
 import 'package:zmare/src/presentation/explorer/pages/custom_artist_page.dart';
 import 'package:zmare/src/presentation/explorer/pages/custom_production_page.dart';
+import 'package:zmare/src/presentation/onboarding/pages/on_boarding_screen.dart';
+import 'package:zmare/src/service_locator.dart';
 import 'package:zmare/src/utils/helper/constants.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hive_flutter/adapters.dart';
@@ -47,13 +49,18 @@ import 'package:zmare/src/presentation/search/pages/search_page.dart';
 import 'package:zmare/src/presentation/settings/pages/personalize_page.dart';
 import 'package:zmare/src/presentation/settings/pages/setting_page.dart';
 import 'package:on_audio_query/on_audio_query.dart';
+import 'package:video_player/video_player.dart';
 import '../core/enum/box_types.dart';
 import '../data/playlist/model/playlist.dart';
 import '../presentation/home/pages/home_page.dart';
 
 final settings = Hive.box(BoxType.settings.name);
 final account = Hive.box(BoxType.account.name);
-
+final onBoarding = locator.get<Box<dynamic>>(
+  instanceName: BoxType.onboarding.name,
+);
+bool isOnboardingShown =
+    onBoarding.get('isOnboardingShown', defaultValue: false);
 final GlobalKey<NavigatorState> _rootNavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: 'root');
 final GlobalKey<NavigatorState> _sectionANavigatorKey =
@@ -61,7 +68,7 @@ final GlobalKey<NavigatorState> _sectionANavigatorKey =
 
 final GoRouter goRouter = GoRouter(
   navigatorKey: _rootNavigatorKey,
-  initialLocation: homePagePath,
+  initialLocation: isOnboardingShown ? homePagePath : onboardingPath,
   errorBuilder: (context, state) => Center(
     child: Text(state.error.toString()),
   ),
@@ -70,11 +77,22 @@ final GoRouter goRouter = GoRouter(
   debugLogDiagnostics: true,
   routes: [
     GoRoute(
+      path: onboardingPath,
+      name: onboardingName,
+      builder: (context, state) => const OnBoardingScreen(),
+    ),
+    // GoRoute(
+    //   path: homePagePath,
+    //   name: homePageName,
+    //   builder: (context, state) => const HomePage(navigationShell: ,),
+    // ),
+    GoRoute(
       name: loginName,
       path: loginPath,
       parentNavigatorKey: _rootNavigatorKey,
       builder: (context, state) {
         final extras = state.extra as Map<String, dynamic>;
+
         final isLoggedIn = extras['isLoggedIn'] as bool;
         return IntroPage(
           showBackButton: isLoggedIn,

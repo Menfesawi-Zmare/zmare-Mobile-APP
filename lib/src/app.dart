@@ -11,6 +11,7 @@ import 'package:zmare/src/utils/helper/app_open_ad_manager.dart';
 
 import '../src/app/routes.dart';
 import 'core/theme/zmare_theme.dart';
+import 'presentation/onboarding/pages/on_boarding_screen.dart';
 import 'presentation/widgets/khmertracks_annotate_region_widget.dart';
 
 class FlutterMusicPro extends StatefulWidget {
@@ -67,7 +68,7 @@ class _FlutterMusicProState extends State<FlutterMusicPro> {
           )];
           final int color = value.get(
             appColorKey,
-            defaultValue: 0xFF066346,
+            defaultValue: 0xFF121212,
           );
           final Color primaryColor = Color(color);
           final Locale locale =
@@ -86,8 +87,9 @@ class _FlutterMusicProState extends State<FlutterMusicPro> {
                   seedColor: primaryColor,
                 );
                 darkColorScheme = ColorScheme.fromSeed(
-                  seedColor: primaryColor,
+                  seedColor: Color.fromARGB(255, 1, 63, 26),
                   brightness: Brightness.dark,
+                  background: Color(0xFF121212),
                 );
               }
               final lightTextTheme = GoogleFonts.getTextTheme(
@@ -101,6 +103,7 @@ class _FlutterMusicProState extends State<FlutterMusicPro> {
               return MaterialApp.router(
                 locale: locale,
                 routerConfig: goRouter,
+                // home: OnBoardingScreen(),
                 debugShowCheckedModeBanner: false,
                 themeMode: themeMode,
                 localizationsDelegates: AppLocalizations.localizationsDelegates,
