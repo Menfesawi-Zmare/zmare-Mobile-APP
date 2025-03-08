@@ -24,7 +24,7 @@ class SettingsColorPickerWidget extends StatelessWidget {
     if (isDynamic) {
       return Theme.of(context).colorScheme.primary.value;
     }
-    return value.get(appColorKey, defaultValue: 0xFF795548);
+    return value.get(appColorKey, defaultValue: 0xFFD9D9D9);
   }
 
   @override

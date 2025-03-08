@@ -1,5 +1,19 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:hive_flutter/adapters.dart';
 import 'package:responsive_builder/responsive_builder.dart';
+import 'package:url_launcher/url_launcher.dart';
+import '../../../core/enum/box_types.dart';
+import '../../../core/resources/images.dart';
+
+import '../../../service_locator.dart';
+import '../../../utils/ext/common.dart';
+import '../../../utils/helper/app_info.dart';
+
 import 'explorer_mobile_page.dart';
 
 class ExplorerPage extends StatefulWidget {
@@ -9,11 +23,132 @@ class ExplorerPage extends StatefulWidget {
   State<ExplorerPage> createState() => _ExplorerPageState();
 }
 
-class _ExplorerPageState extends State<ExplorerPage> {
+class _ExplorerPageState extends State<ExplorerPage>
+    with WidgetsBindingObserver {
+  bool _hasShownUpdateDialog = false;
+  @override
+  void initState() {
+    WidgetsBinding.instance.addObserver(this);
+    _checkAppVersion();
+    super.initState();
+  }
+
+  String? appUrl;
+  String? localVersion;
+  bool? isMandatory;
+
+  void _checkAppVersion() async {
+    final settings = locator.get<Box<dynamic>>(
+      instanceName: BoxType.settings.name,
+    );
+
+    appUrl = settings.get(Platform.isAndroid ? playStoreUrl : appStoreUrl,
+        defaultValue: null);
+
+    localVersion = await AppInfoService.getCurrentAppVersion();
+
+    final latestVersion = settings.get('latestVersion');
+
+    isMandatory = settings.get('isMandatory') ?? false;
+
+    // Compare versions
+    if (AppInfoService.isNewVersionAvailable(localVersion!, latestVersion)) {
+      _showUpdateDialog(context, isMandatory!, latestVersion);
+    }
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      if (isMandatory ?? false) _checkAppVersion();
+    } else if (state == AppLifecycleState.inactive) {
+      if (isMandatory ?? false) _checkAppVersion();
+    } else if (state == AppLifecycleState.paused) {
+      if (isMandatory ?? false) _checkAppVersion();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return ScreenTypeLayout.builder(
       mobile: (p0) => const ExplorerMobilePage(),
     );
+  }
+
+  void _showUpdateDialog(
+      BuildContext context, bool isMandatory, String? latestVersion) {
+    showDialog(
+      context: context,
+
+      barrierDismissible: false,
+      //  !isMandatory, // Prevent closing if mandatory
+      builder: (BuildContext context) {
+        return PopScope(
+          onPopInvokedWithResult: (didPop, result) {
+            SystemNavigator.pop();
+          },
+          child: AlertDialog(
+            content: Container(
+              height: 250, // Set the desired height
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SvgPicture.asset(
+                    Images.zmareIconWhite,
+                    height: 100,
+                  ),
+                  SizedBox(
+                    height: 50,
+                  ),
+                  Text(
+                    'Update Required',
+                    style: context.headlineLarge?.copyWith(fontSize: 25),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    'A new version ${latestVersion} is available. Please update the app to continue.',
+                    textAlign: TextAlign.center,
+                  ),
+                ],
+              ),
+            ),
+            actions: <Widget>[
+              Row(
+                mainAxisAlignment: isMandatory
+                    ? MainAxisAlignment.center
+                    : MainAxisAlignment.end,
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  if (!isMandatory)
+                    TextButton(
+                      child: Text('Later'),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                  OutlinedButton(
+                    child: Text('Update Now'),
+                    onPressed: () {
+                      _launchAppStore();
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ],
+              )
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  void _launchAppStore() async {
+    if (await canLaunchUrl(Uri.parse(appUrl!))) {
+      await launchUrl(Uri.parse(appUrl!));
+    } else {
+      throw 'Could not launch $appUrl';
+    }
   }
 }
