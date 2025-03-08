@@ -2,15 +2,19 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:dynamic_color/dynamic_color.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/adapters.dart';
+
 import 'package:zmare/src/utils/ext/common.dart';
 import 'package:zmare/src/utils/helper/app_lifecycle_reactor.dart';
 import 'package:zmare/src/utils/helper/app_open_ad_manager.dart';
 
 import '../src/app/routes.dart';
+
 import 'core/theme/zmare_theme.dart';
+
 import 'presentation/widgets/khmertracks_annotate_region_widget.dart';
 
 class FlutterMusicPro extends StatefulWidget {
@@ -67,9 +71,9 @@ class _FlutterMusicProState extends State<FlutterMusicPro> {
           )];
           final int color = value.get(
             appColorKey,
-            defaultValue: 0xFF121212,
+            defaultValue: 0xFFD9D9D9,
           );
-          final Color primaryColor = Color(color);
+          final Color primaryColor = Color(0xFFD9D9D9);
           final Locale locale =
               Locale(value.get(appLanguageKey, defaultValue: 'en'));
           final String fontPreference =
@@ -83,10 +87,10 @@ class _FlutterMusicProState extends State<FlutterMusicPro> {
                 darkColorScheme = darkDynamic.harmonized();
               } else {
                 lightColorScheme = ColorScheme.fromSeed(
-                  seedColor: primaryColor,
+                  seedColor: Color(0xFFD9D9D9),
                 );
                 darkColorScheme = ColorScheme.fromSeed(
-                  seedColor: Color(0xFF121212),
+                  seedColor: Color(0xFFD9D9D9),
                   brightness: Brightness.dark,
                   background: Color(0xFF121212),
                 );
