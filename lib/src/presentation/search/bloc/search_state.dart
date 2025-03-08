@@ -44,6 +44,24 @@ class SearchProfile extends SearchState {
   const SearchProfile(this.profileList);
 }
 
+class SearchAll extends SearchState {
+  final TrackList songList;
+  final ArtistList artistList;
+  final AlbumList albumList;
+  final PlaylistList playlistList;
+  final ProfileList profileList;
+  final Pagination? pagination;
+
+  SearchAll({
+    required this.songList,
+    required this.artistList,
+    required this.albumList,
+    required this.playlistList,
+    required this.profileList,
+    this.pagination,
+  });
+}
+
 class SearchSuggestion extends SearchState {
   final SuggestionList suggestionList;
 

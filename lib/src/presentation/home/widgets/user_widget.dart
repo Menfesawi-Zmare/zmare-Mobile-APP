@@ -26,11 +26,6 @@ class UserWidget extends StatefulWidget {
 
 class _UserWidgetState extends State<UserWidget> {
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return ScreenTypeLayout.builder(
         mobile: (p0) => ValueListenableBuilder(

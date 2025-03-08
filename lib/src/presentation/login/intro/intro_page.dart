@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gif/gif.dart';
+import 'package:video_player/video_player.dart';
 import 'package:zmare/src/core/resources/resources.dart';
 import 'package:zmare/src/utils/services/firebase/authenticate.dart';
 import 'package:go_router/go_router.dart';
@@ -19,27 +20,32 @@ import 'package:zmare/src/service_locator.dart';
 class IntroPage extends StatefulWidget {
   const IntroPage({super.key, this.showBackButton = false});
   final bool showBackButton;
+
   @override
   State<IntroPage> createState() => _IntroPageState();
 }
 
 class _IntroPageState extends State<IntroPage> with TickerProviderStateMixin {
   bool isLoading = false;
-  late GifController _controller;
-
+  late VideoPlayerController controller;
+  late AuthBloc authBloc = locator.get<AuthBloc>();
   @override
   void initState() {
     super.initState();
-    _controller = GifController(vsync: this); // vsync should be this
+    controller = VideoPlayerController.asset('assets/images/hura.mp4')
+      ..initialize().then((_) {
+        controller.setLooping(true);
+        controller.play();
+
+        setState(() {});
+      });
   }
 
   @override
   void dispose() {
-    _controller.dispose();
+    controller.dispose();
     super.dispose();
   }
-
-  late AuthBloc authBloc = locator.get<AuthBloc>();
 
   @override
   Widget build(BuildContext context) {
@@ -64,42 +70,47 @@ class _IntroPageState extends State<IntroPage> with TickerProviderStateMixin {
           }
         },
         child: Scaffold(
-          // extendBody: true,
+          extendBody: true,
           // extendBodyBehindAppBar: widget.showBackButton ? true : false,
           // appBar: AppBar(
           //     backgroundColor: Colors.transparent,
           //     toolbarHeight: widget.showBackButton ? null : 0,
           //     leading: widget.showBackButton
-          // ? IconButton(
-          //     color: Theme.of(context).colorScheme.primary,
-          //     onPressed: () {
-          //       context.pop();
-          //     },
-          //     icon: Icon(Platform.isIOS
-          //         ? Icons.arrow_back_ios
-          //         : Icons.arrow_back))
-          // : null),
+          //         ? IconButton(
+          //             color: Theme.of(context).colorScheme.primary,
+          //             onPressed: () {
+          //               context.pop();
+          //             },
+          //             icon: Icon(Platform.isIOS
+          //                 ? Icons.arrow_back_ios
+          //                 : Icons.arrow_back))
+          //         : null),
           body: SafeArea(
             child: Stack(
               children: [
                 Center(
                   child: SizedBox(
-                      height: double.maxFinite,
-                      width: double.infinity,
-                      child: Gif(
-                        // fps: 10,
-                        autostart: Autostart.loop,
-                        repeat: ImageRepeat.repeat,
-                        duration: Duration(seconds: 15),
-                        colorBlendMode: BlendMode.color,
-                        // placeholder: (context) =>
-                        //     const Center(child: CircularProgressIndicator()),
-                        image: AssetImage('assets/images/hura.gif'),
-                        fit: BoxFit.cover,
-                      )),
+                    height: double.maxFinite,
+                    width: double.infinity,
+                    child: controller.value.isInitialized
+                        ? AspectRatio(
+                            aspectRatio: controller.value.aspectRatio,
+                            child: VideoPlayer(controller),
+                          )
+                        : Container(
+                            color: Palette.black15,
+                            child: Center(
+                              child: Image.asset(
+                                height: MediaQuery.of(context).size.height,
+                                'assets/images/placeholder.png',
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                  ),
                 ),
                 Container(
-                  color: context.colorScheme.onPrimary.withOpacity(0.7),
+                  color: context.colorScheme.onPrimary.withOpacity(0.6),
                 ),
                 Positioned(
                     top: 20,
@@ -130,7 +141,9 @@ class _IntroPageState extends State<IntroPage> with TickerProviderStateMixin {
                           textAlign: TextAlign.center,
                           style: context.headlineMedium?.copyWith(
                               color: Palette.white,
-                              fontWeight: FontWeight.bold),
+                              fontSize: 44,
+                              fontFamily: 'Hidase',
+                              fontWeight: FontWeight.w900),
                         ),
                       ),
                       Padding(

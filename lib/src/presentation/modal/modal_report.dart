@@ -15,6 +15,7 @@ import 'package:go_router/go_router.dart';
 class ModalReport extends StatefulWidget {
   const ModalReport({super.key, required this.mediaItem});
   final MediaItem mediaItem;
+
   @override
   State<ModalReport> createState() => _ModalReportState();
 }
@@ -27,50 +28,84 @@ class _ModalReportState extends State<ModalReport> {
   bool checkboxValue1 = false;
   bool checkboxValue2 = false;
   bool checkboxValue3 = false;
-  ReportReason? seletedReason = ReportReason.copyright;
+  ReportReason? selectedReason = ReportReason.copyright;
+
   @override
   void dispose() {
     descriptionController.dispose();
+    signatureController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: context.materialYouAppBar(
-        context.loc.reportTrack(widget.mediaItem.title),
-        leadingWidget: IconButton(
-            onPressed: () => context.pop(), icon: const Icon(Icons.close)),
+      appBar: AppBar(
+        title: Text(
+          context.loc.reportTrack(widget.mediaItem.title),
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.onPrimary,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        leading: IconButton(
+          icon: const Icon(Icons.close),
+          onPressed: () => context.pop(),
+        ),
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Theme.of(context).colorScheme.primary,
+                Theme.of(context).colorScheme.secondary,
+              ],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+          ),
+        ),
       ),
       body: BlocProvider(
         create: (context) => trackBloc,
         child: BlocListener(
-            bloc: trackBloc,
-            listener: (context, state) {
-              if (state is TrackLoading) {
-                context.show();
-              }
-              if (state is TrackReportState) {
-                context.dismiss();
-                context.pop();
-                context.showMaterialSnackBar(context.loc.report_added);
-              }
-              if (state is TrackReportFaildState) {
-                context.dismiss();
-                context.pop();
-                context.showMaterialSnackBar(state.message);
-              }
-            },
+          bloc: trackBloc,
+          listener: (context, state) {
+            if (state is TrackLoading) {
+              context.show();
+            }
+            if (state is TrackReportState) {
+              context.dismiss();
+              context.pop();
+              context.showMaterialSnackBar(context.loc.report_added);
+            }
+            if (state is TrackReportFaildState) {
+              context.dismiss();
+              context.pop();
+              context.showMaterialSnackBar(state.message);
+            }
+          },
+          child: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  Theme.of(context).colorScheme.background,
+                  Theme.of(context).colorScheme.surface,
+                ],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+              ),
+            ),
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Form(
                 key: _formReport,
                 child: ListView(
                   children: [
+                    const SizedBox(height: 16),
                     DropdownButton(
                       onCallBack: (ReportReason value) {
                         setState(() {
-                          seletedReason = value;
+                          selectedReason = value;
                           checkboxValue1 = false;
                           checkboxValue2 = false;
                           checkboxValue3 = false;
@@ -79,133 +114,165 @@ class _ModalReportState extends State<ModalReport> {
                         });
                       },
                     ),
-                    const Divider(height: 16),
-                    KhmertracksTextField(
-                        labelText: context.loc.report_description,
-                        hintText: context.loc.ttlDescription,
-                        minLine: 6,
-                        maxLine: 12,
-                        controller: descriptionController,
-                        keyboardType: TextInputType.multiline,
-                        validator: (value) {
-                          if (value!.trim().isEmpty) {
-                            return context.loc.all_fields;
-                          }
-                          return null;
-                        }),
-                    Visibility(
-                      visible: seletedReason == ReportReason.copyright
-                          ? true
-                          : false,
-                      child: Column(
-                        children: [
-                          const Divider(height: 16),
-                          CheckboxListTile(
-                            contentPadding: EdgeInsets.zero,
-                            controlAffinity: ListTileControlAffinity.leading,
-                            value: checkboxValue1,
-                            onChanged: (bool? value) {
-                              setState(() {
-                                checkboxValue1 = value!;
-                              });
-                            },
-                            title: KhmertracksTextSmall(
-                              text: context.loc.report2,
-                            ),
-                          ),
-                          const Divider(height: 0),
-                          CheckboxListTile(
-                            contentPadding: EdgeInsets.zero,
-                            controlAffinity: ListTileControlAffinity.leading,
-                            value: checkboxValue2,
-                            onChanged: (bool? value) {
-                              setState(() {
-                                checkboxValue2 = value!;
-                              });
-                            },
-                            title: KhmertracksTextSmall(
-                              text: context.loc.report2,
-                            ),
-                          ),
-                          const Divider(height: 0),
-                          CheckboxListTile(
-                            contentPadding: EdgeInsets.zero,
-                            controlAffinity: ListTileControlAffinity.leading,
-                            value: checkboxValue3,
-                            onChanged: (bool? value) {
-                              setState(() {
-                                checkboxValue3 = value!;
-                              });
-                            },
-                            title: KhmertracksTextSmall(
-                              text: context.loc.report3,
-                            ),
-                          ),
-                          const Divider(height: 16),
-                          KhmertracksTextField(
-                              controller: signatureController,
-                              hintText: context.loc.signature,
-                              labelText: context.loc.subSignature,
-                              textInputAction: TextInputAction.newline,
-                              validator: (value) {
-                                if (value!.trim().isEmpty) {
-                                  return context.loc.all_fields;
-                                }
-                                return null;
-                              }),
-                        ],
+                    const SizedBox(height: 16),
+                    Card(
+                      elevation: 4,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(16),
+                        child: KhmertracksTextField(
+                          labelText: context.loc.report_description,
+                          hintText: context.loc.ttlDescription,
+                          minLine: 6,
+                          maxLine: 12,
+                          outlineInputBorder: false,
+                          controller: descriptionController,
+                          keyboardType: TextInputType.multiline,
+                          validator: (value) {
+                            if (value!.trim().isEmpty) {
+                              return context.loc.all_fields;
+                            }
+                            return null;
+                          },
+                        ),
                       ),
                     ),
+                    if (selectedReason == ReportReason.copyright)
+                      Column(
+                        children: [
+                          const SizedBox(height: 16),
+                          Card(
+                            elevation: 4,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: Column(
+                              children: [
+                                CheckboxListTile(
+                                  contentPadding: EdgeInsets.zero,
+                                  controlAffinity:
+                                      ListTileControlAffinity.leading,
+                                  value: checkboxValue1,
+                                  onChanged: (bool? value) {
+                                    setState(() {
+                                      checkboxValue1 = value!;
+                                    });
+                                  },
+                                  title: KhmertracksTextSmall(
+                                    text: context.loc.report2,
+                                  ),
+                                ),
+                                const Divider(height: 0),
+                                CheckboxListTile(
+                                  contentPadding: EdgeInsets.zero,
+                                  controlAffinity:
+                                      ListTileControlAffinity.leading,
+                                  value: checkboxValue2,
+                                  onChanged: (bool? value) {
+                                    setState(() {
+                                      checkboxValue2 = value!;
+                                    });
+                                  },
+                                  title: KhmertracksTextSmall(
+                                    text: context.loc.report2,
+                                  ),
+                                ),
+                                const Divider(height: 0),
+                                CheckboxListTile(
+                                  contentPadding: EdgeInsets.zero,
+                                  controlAffinity:
+                                      ListTileControlAffinity.leading,
+                                  value: checkboxValue3,
+                                  onChanged: (bool? value) {
+                                    setState(() {
+                                      checkboxValue3 = value!;
+                                    });
+                                  },
+                                  title: KhmertracksTextSmall(
+                                    text: context.loc.report3,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(height: 16),
+                          Card(
+                            elevation: 4,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(16),
+                              child: KhmertracksTextField(
+                                controller: signatureController,
+                                hintText: context.loc.signature,
+                                labelText: context.loc.subSignature,
+                                textInputAction: TextInputAction.newline,
+                                validator: (value) {
+                                  if (value!.trim().isEmpty) {
+                                    return context.loc.all_fields;
+                                  }
+                                  return null;
+                                },
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                   ],
                 ),
               ),
-            )),
+            ),
+          ),
+        ),
       ),
       bottomNavigationBar: Padding(
-        padding: const EdgeInsets.only(left: 16, right: 16, bottom: 30),
+        padding: const EdgeInsets.all(16),
         child: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-                backgroundColor: context.primaryContainer),
-            onPressed: () => {
-                  if (_formReport.currentState!.validate())
-                    {
-                      if (seletedReason == ReportReason.copyright)
-                        {
-                          if (checkboxValue1 == true &&
-                              checkboxValue2 == true &&
-                              checkboxValue3 == true)
-                            {
-                              trackBloc.add(TrackReportEvent(
-                                  TrackReportRequestModel(
-                                      description: descriptionController.text,
-                                      reason: seletedReason!.toIndex,
-                                      signature: signatureController.text,
-                                      type: ReportType.track.toIndex),
-                                  int.parse(widget.mediaItem.id)))
-                            }
-                          else
-                            {
-                              context
-                                  .showMaterialSnackBar(context.loc.all_fields)
-                            }
-                        }
-                      else
-                        {
-                          trackBloc.add(TrackReportEvent(
-                              TrackReportRequestModel(
-                                  description: descriptionController.text,
-                                  reason: seletedReason!.toIndex,
-                                  signature: '',
-                                  type: ReportType.track.toIndex),
-                              int.parse(widget.mediaItem.id)))
-                        }
-                    }
-                },
-            child: KhmertracksText(
-              text: context.loc.send,
-              isBold: true,
-              isSmall: true,
-            )),
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Theme.of(context).colorScheme.primary,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+            padding: const EdgeInsets.symmetric(vertical: 16),
+          ),
+          onPressed: () {
+            if (_formReport.currentState!.validate()) {
+              if (selectedReason == ReportReason.copyright) {
+                if (checkboxValue1 && checkboxValue2 && checkboxValue3) {
+                  trackBloc.add(TrackReportEvent(
+                    TrackReportRequestModel(
+                      description: descriptionController.text,
+                      reason: selectedReason!.toIndex,
+                      signature: signatureController.text,
+                      type: ReportType.track.toIndex,
+                    ),
+                    int.parse(widget.mediaItem.id),
+                  ));
+                } else {
+                  context.showMaterialSnackBar(context.loc.all_fields);
+                }
+              } else {
+                trackBloc.add(TrackReportEvent(
+                  TrackReportRequestModel(
+                    description: descriptionController.text,
+                    reason: selectedReason!.toIndex,
+                    signature: '',
+                    type: ReportType.track.toIndex,
+                  ),
+                  int.parse(widget.mediaItem.id),
+                ));
+              }
+            }
+          },
+          child: KhmertracksText(
+            text: context.loc.send,
+            isBold: true,
+            isSmall: true,
+          ),
+        ),
       ),
     );
   }
@@ -224,9 +291,11 @@ class _DropdownButtonState extends State<DropdownButton> {
     return DropdownButtonFormField<ReportReason>(
       decoration: InputDecoration(
         enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
           borderSide: BorderSide(color: context.primary, width: 1),
         ),
         focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
           borderSide: BorderSide(color: context.primary, width: 1),
         ),
         filled: true,

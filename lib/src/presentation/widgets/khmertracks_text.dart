@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:zmare/src/utils/ext/common.dart';
 
 class KhmertracksText extends StatelessWidget {
@@ -14,7 +15,7 @@ class KhmertracksText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(text,
         style: context.titleLarge?.copyWith(
-            fontFamily: 'Hidase',
+            fontFamily: GoogleFonts.notoSansEthiopic().fontFamily,
             fontWeight: isBold ? FontWeight.w800 : FontWeight.normal,
             fontSize: isSmall
                 ? context.titleMedium!.fontSize

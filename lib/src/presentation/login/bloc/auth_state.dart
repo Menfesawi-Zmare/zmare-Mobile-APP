@@ -7,7 +7,6 @@ class Loading extends AuthState {}
 // ignore: must_be_immutable
 class Authenticated extends AuthState {
   AuthProfile account;
-
   Authenticated(this.account);
 }
 
@@ -98,6 +97,7 @@ class DeleteAccountState extends AuthState {
   final bool result;
   DeleteAccountState(this.result);
 }
+
 class AddDownloadState extends AuthState {
   AddDownloadState();
 }
@@ -105,10 +105,12 @@ class AddDownloadState extends AuthState {
 class AddViewState extends AuthState {
   AddViewState();
 }
+
 class CheckFavoriteState extends AuthState {
   final bool favorite;
   CheckFavoriteState(this.favorite);
 }
+
 class LikeState extends AuthState {
   final bool result;
   LikeState(this.result);
@@ -123,9 +125,11 @@ class RegisterNormalState extends AuthState {
 
   RegisterNormalState(this.registerResponse);
 }
+
 class EulaToggleState extends AuthState {
   bool eulaAccepted;
 
   EulaToggleState(this.eulaAccepted);
 }
+
 class ValidFields extends AuthState {}
