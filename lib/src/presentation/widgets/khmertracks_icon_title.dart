@@ -15,6 +15,8 @@ class KhmertracksIconTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         ValueListenableBuilder<Box<dynamic>>(
             valueListenable: locator
@@ -47,11 +49,16 @@ class KhmertracksIconTitle extends StatelessWidget {
                 ),
               );
             }),
-        Text(
-          context.loc.appTitle,
-          style: context.titleMedium?.copyWith(
-            color: context.onBackground,
-            fontWeight: FontWeight.bold,
+        Padding(
+          padding: const EdgeInsets.only(top: 10),
+          child: Text(
+            context.loc.appTitle,
+            style: context.titleMedium?.copyWith(
+                color: context.onBackground,
+                fontWeight: FontWeight.w900,
+                fontSize: 22,
+                letterSpacing: 0.75,
+                fontFamily: 'Hidase'),
           ),
         ),
       ],

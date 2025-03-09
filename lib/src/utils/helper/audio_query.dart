@@ -171,27 +171,30 @@ class OfflineAudioQuery {
       ),
       builder: (context, item) {
         if (item.data != null && item.data!.isNotEmpty) {
-          return Image(
-            image: FileImage(
-              File(
-                item.data!,
+          return ClipRRect(
+            borderRadius: BorderRadius.circular(9),
+            child: Image(
+              image: FileImage(
+                File(
+                  item.data!,
+                ),
               ),
+              gaplessPlayback: gaplessPlayback,
+              repeat: imageRepeat,
+              width: width,
+              height: height,
+              fit: fit,
+              filterQuality: filterQuality,
+              errorBuilder: (context, exception, stackTrace) {
+                return errorWidget ??
+                    Image(
+                      fit: BoxFit.cover,
+                      height: height,
+                      width: width,
+                      image: const AssetImage(Images.defalutCover),
+                    );
+              },
             ),
-            gaplessPlayback: gaplessPlayback,
-            repeat: imageRepeat,
-            width: width,
-            height: height,
-            fit: fit,
-            filterQuality: filterQuality,
-            errorBuilder: (context, exception, stackTrace) {
-              return errorWidget ??
-                  Image(
-                    fit: BoxFit.cover,
-                    height: height,
-                    width: width,
-                    image: const AssetImage(Images.defalutCover),
-                  );
-            },
           );
         }
         return placeholder ??

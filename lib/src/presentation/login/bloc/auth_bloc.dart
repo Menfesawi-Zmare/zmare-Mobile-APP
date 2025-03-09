@@ -401,6 +401,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         settings.put(androidInterstitialStatus, r.androidInterstitialStatus);
         settings.put(iosInterstitialStatus, r.iosInterstitialStatus);
         settings.put(iosAppOpenStatus, r.iosAppOpenStatus);
+        settings.put(latestVersion, r.latestVersion);
+        settings.put(minRequiredVersion, r.minRequiredVersion);
+        settings.put(isMandatory, r.isMandatory);
       });
     });
   }
