@@ -47,3 +47,10 @@ class FetchSearchSuggestionEvent extends SearchEvent {
 
   const FetchSearchSuggestionEvent(this.query);
 }
+
+class FetchAllSearchEvent extends SearchEvent {
+  final String query;
+  final int page;
+
+  const FetchAllSearchEvent(this.query, this.page);
+}

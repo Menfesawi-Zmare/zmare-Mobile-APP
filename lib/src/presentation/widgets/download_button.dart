@@ -1,16 +1,24 @@
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:go_router/go_router.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:zmare/src/presentation/widgets/snackbar.dart';
 import 'package:zmare/src/utils/services/audio/download.dart';
 import 'package:hive/hive.dart';
 import 'package:zmare/src/core/enum/box_types.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
+import '../../app/routes.dart';
+import '../../service_locator.dart';
+import '../../utils/helper/constants.dart';
+
 class DownloadButton extends StatefulWidget {
   final Map data;
   final String? icon;
   final double? size;
-  const DownloadButton({
+
+  DownloadButton({
     super.key,
     required this.data,
     this.icon,
@@ -25,10 +33,15 @@ class _DownloadButtonState extends State<DownloadButton> {
   late Download down;
   final Box downloadsBox = Hive.box(BoxType.downloads.name);
   final ValueNotifier<bool> showStopButton = ValueNotifier<bool>(false);
+  final accountJson = account.get(accountDetail, defaultValue: '');
+  bool isSignedUp = false;
 
   @override
   void initState() {
     super.initState();
+    if (accountJson != '') {
+      isSignedUp = true;
+    }
     down = Download(widget.data['id'].toString());
     down.addListener(() {
       if (mounted) {
@@ -39,101 +52,138 @@ class _DownloadButtonState extends State<DownloadButton> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox.square(
-      dimension: 50,
-      child: Center(
-        child: (downloadsBox.containsKey(widget.data['id']))
-            ? IconButton(
-                icon: Icon(MdiIcons.checkAll),
-                tooltip: 'Download Done',
-                color: Theme.of(context).colorScheme.secondary,
-                iconSize: widget.size ?? 24.0,
-                onPressed: () {
-                  down.prepareDownload(context, widget.data);
-                },
-              )
-            : down.progress == 0
-                ? IconButton(
-                    icon: Icon(
-                      widget.icon == 'download'
-                          ? FluentIcons.arrow_download_16_regular
-                          : FluentIcons.arrow_download_16_regular,
-                    ),
-                    iconSize: widget.size ?? 24.0,
-                    color: Theme.of(context).colorScheme.secondary,
-                    tooltip: 'Download',
-                    onPressed: () {
-                      down.prepareDownload(context, widget.data);
-                    },
-                  )
-                : GestureDetector(
-                    child: Stack(
-                      children: [
-                        Center(
-                          child: CircularProgressIndicator(
-                            value: down.progress == 1 ? null : down.progress,
-                          ),
-                        ),
-                        Center(
-                          child: ValueListenableBuilder(
-                            valueListenable: showStopButton,
-                            child: Center(
-                              child: IconButton(
-                                icon: const Icon(
-                                  Icons.close_rounded,
-                                ),
-                                iconSize: 25.0,
-                                color: Theme.of(context).iconTheme.color,
-                                tooltip: AppLocalizations.of(
-                                  context,
-                                )!
-                                    .stopDown,
-                                onPressed: () {
-                                  down.download = false;
-                                },
-                              ),
-                            ),
-                            builder: (
-                              BuildContext context,
-                              bool showValue,
-                              Widget? child,
-                            ) {
-                              return AnimatedContainer(
-                                duration: const Duration(milliseconds: 200),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Visibility(
-                                      visible: !showValue,
-                                      child: Center(
-                                        child: Text(
-                                          down.progress == null
-                                              ? '0%'
-                                              : '${(100 * down.progress!).round()}%',
-                                        ),
-                                      ),
-                                    ),
-                                    Visibility(
-                                      visible: showValue,
-                                      child: child!,
-                                    ),
-                                  ],
-                                ),
-                              );
+    return ValueListenableBuilder(
+        valueListenable: locator
+            .get<Box<dynamic>>(instanceName: BoxType.account.name)
+            .listenable(
+          keys: [accountDetail],
+        ),
+        builder: (BuildContext context, value, Widget? child) {
+          final accountJson = value.get(accountDetail, defaultValue: '');
+          return SizedBox.square(
+            dimension: 50,
+            child: Center(
+              child: (downloadsBox.containsKey(widget.data['id']))
+                  ? IconButton(
+                      icon: Icon(MdiIcons.checkAll),
+                      tooltip: 'Download Done',
+                      color: Theme.of(context).colorScheme.secondary,
+                      iconSize: widget.size ?? 24.0,
+                      onPressed: () {
+                        if (accountJson.isNotEmpty) {
+                          down.prepareDownload(context, widget.data);
+                        } else {
+                          ShowSnackBar().showSnackBar(
+                              context, "Please sign up to download ",
+                              duration: Duration(seconds: 3));
+                          context.pushNamed(
+                            loginName,
+                            extra: {
+                              'isLoggedIn': true,
                             },
+                          );
+                        }
+                      },
+                    )
+                  : down.progress == 0
+                      ? IconButton(
+                          icon: Icon(
+                            widget.icon == 'download'
+                                ? FluentIcons.arrow_download_16_regular
+                                : FluentIcons.arrow_download_16_regular,
                           ),
+                          iconSize: widget.size ?? 24.0,
+                          color: Theme.of(context).colorScheme.secondary,
+                          tooltip: 'Download',
+                          onPressed: () {
+                            if (accountJson.isNotEmpty) {
+                              down.prepareDownload(context, widget.data);
+                            } else {
+                              ShowSnackBar().showSnackBar(
+                                  context, "Please sign up to download ",
+                                  duration: Duration(seconds: 3));
+                              context.pushNamed(
+                                loginName,
+                                extra: {
+                                  'isLoggedIn': true,
+                                },
+                              );
+                            }
+                          },
                         )
-                      ],
-                    ),
-                    onTap: () {
-                      showStopButton.value = true;
-                      Future.delayed(const Duration(seconds: 2), () async {
-                        showStopButton.value = false;
-                      });
-                    },
-                  ),
-      ),
-    );
+                      : GestureDetector(
+                          child: Stack(
+                            children: [
+                              Center(
+                                child: CircularProgressIndicator(
+                                  value:
+                                      down.progress == 1 ? null : down.progress,
+                                ),
+                              ),
+                              Center(
+                                child: ValueListenableBuilder(
+                                  valueListenable: showStopButton,
+                                  child: Center(
+                                    child: IconButton(
+                                      icon: const Icon(
+                                        Icons.close_rounded,
+                                      ),
+                                      iconSize: 25.0,
+                                      color: Theme.of(context).iconTheme.color,
+                                      tooltip: AppLocalizations.of(
+                                        context,
+                                      )!
+                                          .stopDown,
+                                      onPressed: () {
+                                        down.download = false;
+                                      },
+                                    ),
+                                  ),
+                                  builder: (
+                                    BuildContext context,
+                                    bool showValue,
+                                    Widget? child,
+                                  ) {
+                                    return AnimatedContainer(
+                                      duration:
+                                          const Duration(milliseconds: 200),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Visibility(
+                                            visible: !showValue,
+                                            child: Center(
+                                              child: Text(
+                                                down.progress == null
+                                                    ? '0%'
+                                                    : '${(100 * down.progress!).round()}%',
+                                              ),
+                                            ),
+                                          ),
+                                          Visibility(
+                                            visible: showValue,
+                                            child: child!,
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  },
+                                ),
+                              )
+                            ],
+                          ),
+                          onTap: () {
+                            showStopButton.value = true;
+                            Future.delayed(const Duration(seconds: 2),
+                                () async {
+                              showStopButton.value = false;
+                            });
+                          },
+                        ),
+            ),
+          );
+        });
   }
 }
 

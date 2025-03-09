@@ -7,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:zmare/src/presentation/modal/modal_comment.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -24,6 +25,9 @@ import 'package:zmare/src/presentation/widgets/seek_bar.dart';
 import 'package:zmare/src/presentation/widgets/textinput_dialog.dart';
 import 'package:rxdart/rxdart.dart';
 
+import '../../../service_locator.dart';
+import '../../widgets/snackbar.dart';
+
 class NameNControls extends StatelessWidget {
   final GlobalKey<FlipCardState> cardKey;
   final MediaItem mediaItem;
@@ -34,6 +38,7 @@ class NameNControls extends StatelessWidget {
   final AudioPlayerHandler audioHandler;
   final VoidCallback openPlayList;
   final bool playistOpened;
+  final bool isSignedUp;
   final Color dominantColor;
 
   const NameNControls({
@@ -48,6 +53,7 @@ class NameNControls extends StatelessWidget {
     this.offline = false,
     required this.animationController,
     required this.playistOpened,
+    required this.isSignedUp,
   });
 
   Stream<Duration> get _bufferedPositionStream => audioHandler.playbackState
@@ -114,9 +120,9 @@ class NameNControls extends StatelessWidget {
                           startAfter: const Duration(seconds: 2),
                           defaultAlignment: TextAlign.left,
                           style: context.headlineSmall?.copyWith(
-                            fontWeight: FontWeight.w400,
-                            fontFamily: 'Washera',
-                          ),
+                              fontWeight: FontWeight.w400,
+                              fontFamily:
+                                  GoogleFonts.notoSansEthiopic().fontFamily),
                         ),
                       ),
                     if (audioHandler.mediaItem.value!.artUri
@@ -184,7 +190,7 @@ class NameNControls extends StatelessWidget {
                       style: context.bodyLarge?.copyWith(
                         color: context.bodySmall!.color,
                         fontWeight: FontWeight.w400,
-                        fontFamily: 'Washera',
+                        fontFamily: GoogleFonts.notoSansEthiopic().fontFamily,
                       )),
                 ),
               SizedBox(
@@ -332,6 +338,7 @@ class NameNControls extends StatelessWidget {
                             ],
                           ),
                           ControlButtons(
+                            isSignedUp: isSignedUp,
                             dominantColor: dominantColor,
                             animationController: animationController,
                             audioHandler,
@@ -420,147 +427,210 @@ class NameNControls extends StatelessWidget {
           if (playistOpened)
             SizedBox.shrink()
           else
-            Align(
-              alignment: Alignment.bottomRight,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  if (!offline && mediaItem.extras!['download'] == true)
-                    DownloadButton(
-                      size: 24.0,
-                      data: MediaItemConverter.mediaItemToMap(
-                        mediaItem,
-                      ),
-                    ),
-                  if (!offline)
-                    IconButton(
-                      onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute<void>(
-                            builder: (BuildContext context) {
-                          return ModalComment(
-                              track: ItemSongModel(
-                                  id: int.parse(
-                                      audioHandler.mediaItem.value!.id),
-                                  image: audioHandler.mediaItem.value!.artUri
-                                      .toString(),
-                                  album: audioHandler.mediaItem.value!.album,
-                                  albumCover: audioHandler
-                                      .mediaItem.value!.extras?['album_cover'],
-                                  albumId: offline == true
-                                      ? int.parse(audioHandler
-                                          .mediaItem.value!.extras?['album_id'])
-                                      : audioHandler
-                                          .mediaItem.value!.extras?['album_id'],
-                                  title: audioHandler.mediaItem.value!.title,
-                                  artist: audioHandler.mediaItem.value!.artist,
-                                  artistId: audioHandler
-                                      .mediaItem.value!.extras?['artist_id'],
-                                  url: audioHandler
-                                      .mediaItem.value!.extras?['url']));
-                        }));
-                      },
-                      icon: const Icon(FluentIcons.comment_24_regular),
-                      color: Theme.of(context).colorScheme.secondary,
-                    ),
-                  // if (!offline) LikeButton(mediaItem: mediaItem, size: 24.0),
-                  IconButton(
-                    onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (context) {
-                          return SimpleDialog(
-                            title: Text(
-                              context.loc.sleepTimer,
-                              style: context.titleLarge
-                                  ?.copyWith(fontWeight: FontWeight.bold),
+            ValueListenableBuilder(
+                valueListenable: locator
+                    .get<Box<dynamic>>(instanceName: BoxType.account.name)
+                    .listenable(
+                  keys: [accountDetail],
+                ),
+                builder: (BuildContext context, value, Widget? child) {
+                  final accountJson =
+                      value.get(accountDetail, defaultValue: '');
+                  return Align(
+                    alignment: Alignment.bottomRight,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        if (!offline && mediaItem.extras!['download'] == true)
+                          DownloadButton(
+                            size: 24.0,
+                            data: MediaItemConverter.mediaItemToMap(
+                              mediaItem,
                             ),
-                            contentPadding: const EdgeInsets.all(10.0),
-                            children: [
-                              const Divider(),
-                              ListTile(
-                                title: Text(
-                                  context.loc.sleepDur,
-                                  style: context.bodyLarge,
-                                ),
-                                subtitle: Text(
-                                  context.loc.sleepDurSub,
-                                  style: context.bodySmall,
-                                ),
-                                dense: true,
-                                onTap: () {
-                                  Navigator.pop(context);
-                                  setTimer(
-                                    context,
-                                    time,
-                                  );
-                                },
-                              ),
-                              ListTile(
-                                title: Text(
-                                  context.loc.sleepAfter,
-                                  style: context.bodyLarge,
-                                ),
-                                subtitle: Text(context.loc.sleepAfterSub,
-                                    style: context.bodySmall),
-                                dense: true,
-                                isThreeLine: true,
-                                onTap: () {
-                                  Navigator.pop(context);
-                                  setCounter(context);
-                                },
-                              ),
-                            ],
-                          );
-                        },
-                      );
-                    },
-                    icon: const Icon(FluentIcons.sleep_20_regular),
-                    color: Theme.of(context).colorScheme.secondary,
-                  ),
-                  // if (audioHandler.mediaItem.value!.artUri
-                  //     .toString()
-                  //     .startsWith('http'))
-                  //   IconButton(
-                  //     onPressed: () {
-                  //       HapticFeedback.mediumImpact();
-                  //       showModalBottomSheet(
-                  //         context: context,
-                  //         shape: const RoundedRectangleBorder(
-                  //           borderRadius: BorderRadius.vertical(
-                  //             top: Radius.circular(25.0),
-                  //           ),
-                  //         ),
-                  //         builder: (context) => ModalMore(
-                  //             offline: offline,
-                  //             isPlayingPage: true,
-                  //             songList: ItemSongModel(
-                  //                 id: int.parse(audioHandler.mediaItem.value!.id),
-                  //                 image: audioHandler.mediaItem.value!.artUri
-                  //                     .toString(),
-                  //                 album: audioHandler.mediaItem.value!.album,
-                  //                 albumCover: audioHandler
-                  //                     .mediaItem.value!.extras?['album_cover'],
-                  //                 albumId: offline == true
-                  //                     ? int.parse(audioHandler
-                  //                         .mediaItem.value!.extras?['album_id'])
-                  //                     : audioHandler
-                  //                         .mediaItem.value!.extras?['album_id'],
-                  //                 title: audioHandler.mediaItem.value!.title,
-                  //                 artist: audioHandler.mediaItem.value!.artist,
-                  //                 artistId: audioHandler
-                  //                     .mediaItem.value!.extras?['artist_id'],
-                  //                 url: audioHandler
-                  //                     .mediaItem.value!.extras?['url'],
-                  //                 link: audioHandler
-                  //                     .mediaItem.value!.extras?['link'])),
-                  //       );
-                  //     },
-                  //     icon: const Icon(FluentIcons.more_vertical_24_regular),
-                  //     color: Theme.of(context).colorScheme.secondary,
-                  //   )
-                ],
-              ),
-            )
+                          ),
+                        if (!offline)
+                          IconButton(
+                            onPressed: () {
+                              if (accountJson.isNotEmpty) {
+                                Navigator.of(context).push(
+                                    MaterialPageRoute<void>(
+                                        builder: (BuildContext context) {
+                                  return ModalComment(
+                                      track: ItemSongModel(
+                                          id: int.parse(
+                                              audioHandler.mediaItem.value!.id),
+                                          image: audioHandler
+                                              .mediaItem.value!.artUri
+                                              .toString(),
+                                          album: audioHandler
+                                              .mediaItem.value!.album,
+                                          albumCover: audioHandler.mediaItem
+                                              .value!.extras?['album_cover'],
+                                          albumId: offline == true
+                                              ? int.parse(audioHandler.mediaItem
+                                                  .value!.extras?['album_id'])
+                                              : audioHandler.mediaItem.value!
+                                                  .extras?['album_id'],
+                                          title: audioHandler
+                                              .mediaItem.value!.title,
+                                          artist: audioHandler.mediaItem.value!.artist,
+                                          artistId: audioHandler.mediaItem.value!.extras?['artist_id'],
+                                          url: audioHandler.mediaItem.value!.extras?['url']));
+                                }));
+                              } else {
+                                ShowSnackBar().showSnackBar(context,
+                                    "Please sign up to comment on the hymn ",
+                                    duration: Duration(seconds: 3));
+                                context.pushNamed(
+                                  loginName,
+                                  extra: {
+                                    'isLoggedIn': true,
+                                  },
+                                );
+                              }
+                            },
+                            icon: const Icon(FluentIcons.comment_24_regular),
+                            color: Theme.of(context).colorScheme.secondary,
+                          ),
+                        // if (!offline) LikeButton(mediaItem: mediaItem, size: 24.0),
+                        IconButton(
+                          onPressed: () {
+                            showDialog(
+                              context: context,
+                              builder: (context) {
+                                return SimpleDialog(
+                                  title: Text(
+                                    context.loc.sleepTimer,
+                                    style: context.titleLarge?.copyWith(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  contentPadding: const EdgeInsets.all(16.0),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(16.0),
+                                  ),
+
+                                  elevation:
+                                      8.0, // Adds shadow for a more elevated look
+                                  backgroundColor:
+                                      Theme.of(context).colorScheme.surface,
+                                  children: [
+                                    const Divider(
+                                      height: 1,
+                                      thickness: 1,
+                                      color: Colors
+                                          .grey, // Customize the divider color
+                                    ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    ListTile(
+                                      title: Text(
+                                        context.loc.sleepDur,
+                                        style: context.bodyLarge?.copyWith(
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.w800),
+                                      ),
+                                      subtitle: Text(context.loc.sleepDurSub,
+                                          style: context.bodySmall),
+                                      dense: true,
+                                      contentPadding:
+                                          const EdgeInsets.symmetric(
+                                              horizontal: 16.0, vertical: 8.0),
+                                      onTap: () {
+                                        Navigator.pop(context);
+                                        setTimer(context, time);
+                                      },
+                                      tileColor: Theme.of(context)
+                                          .colorScheme
+                                          .surfaceVariant
+                                          .withOpacity(0.3),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(8.0),
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                        height:
+                                            8.0), // Add spacing between ListTiles
+                                    ListTile(
+                                      title: Text(context.loc.sleepAfter,
+                                          style: context.bodyLarge?.copyWith(
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.w800)),
+                                      subtitle: Text(context.loc.sleepAfterSub,
+                                          style: context.bodySmall),
+                                      dense: true,
+                                      isThreeLine: true,
+                                      contentPadding:
+                                          const EdgeInsets.symmetric(
+                                              horizontal: 16.0, vertical: 8.0),
+                                      onTap: () {
+                                        Navigator.pop(context);
+                                        setCounter(context);
+                                      },
+                                      tileColor: Theme.of(context)
+                                          .colorScheme
+                                          .surfaceVariant
+                                          .withOpacity(0.3),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(8.0),
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          },
+                          icon: const Icon(FluentIcons.sleep_20_regular),
+                          color: Theme.of(context).colorScheme.secondary,
+                        ),
+                        // if (audioHandler.mediaItem.value!.artUri
+                        //     .toString()
+                        //     .startsWith('http'))
+                        //   IconButton(
+                        //     onPressed: () {
+                        //       HapticFeedback.mediumImpact();
+                        //       showModalBottomSheet(
+                        //         context: context,
+                        //         shape: const RoundedRectangleBorder(
+                        //           borderRadius: BorderRadius.vertical(
+                        //             top: Radius.circular(25.0),
+                        //           ),
+                        //         ),
+                        //         builder: (context) => ModalMore(
+                        //             offline: offline,
+                        //             isPlayingPage: true,
+                        //             songList: ItemSongModel(
+                        //                 id: int.parse(audioHandler.mediaItem.value!.id),
+                        //                 image: audioHandler.mediaItem.value!.artUri
+                        //                     .toString(),
+                        //                 album: audioHandler.mediaItem.value!.album,
+                        //                 albumCover: audioHandler
+                        //                     .mediaItem.value!.extras?['album_cover'],
+                        //                 albumId: offline == true
+                        //                     ? int.parse(audioHandler
+                        //                         .mediaItem.value!.extras?['album_id'])
+                        //                     : audioHandler
+                        //                         .mediaItem.value!.extras?['album_id'],
+                        //                 title: audioHandler.mediaItem.value!.title,
+                        //                 artist: audioHandler.mediaItem.value!.artist,
+                        //                 artistId: audioHandler
+                        //                     .mediaItem.value!.extras?['artist_id'],
+                        //                 url: audioHandler
+                        //                     .mediaItem.value!.extras?['url'],
+                        //                 link: audioHandler
+                        //                     .mediaItem.value!.extras?['link'])),
+                        //       );
+                        //     },
+                        //     icon: const Icon(FluentIcons.more_vertical_24_regular),
+                        //     color: Theme.of(context).colorScheme.secondary,
+                        //   )
+                      ],
+                    ),
+                  );
+                }),
         ],
       ),
     );
@@ -600,9 +670,22 @@ class NameNControls extends StatelessWidget {
       builder: (context) {
         return SimpleDialog(
           title: Center(
-            child: Text(
-              context.loc.selectDur,
-              style: context.titleLarge?.copyWith(fontWeight: FontWeight.bold),
+            child: Column(
+              children: [
+                Icon(
+                  Icons.timer_outlined,
+                  color: context.primary,
+                  size: 24,
+                ),
+                SizedBox(
+                  height: 4,
+                ),
+                Text(
+                  context.loc.selectDur,
+                  style:
+                      context.titleLarge?.copyWith(fontWeight: FontWeight.bold),
+                ),
+              ],
             ),
           ),
           children: [
@@ -643,12 +726,12 @@ class NameNControls extends StatelessWidget {
                   child: Text(context.loc.cancel),
                 ),
                 const SizedBox(
-                  width: 10,
+                  width: 5,
                 ),
                 TextButton(
-                  style: TextButton.styleFrom(
-                    backgroundColor: Theme.of(context).colorScheme.primary,
-                  ),
+                  // style: TextButton.styleFrom(
+                  //   backgroundColor: Theme.of(context).colorScheme.primary,
+                  // ),
                   onPressed: () {
                     sleepTimer(time!.inMinutes);
                     Navigator.pop(context);
@@ -657,7 +740,8 @@ class NameNControls extends StatelessWidget {
                   },
                   child: Text(context.loc.ok,
                       style: TextStyle(
-                          color: Theme.of(context).colorScheme.onPrimary)),
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).colorScheme.primary)),
                 ),
                 const SizedBox(
                   width: 20,
