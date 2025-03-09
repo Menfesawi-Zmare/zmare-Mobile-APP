@@ -29,6 +29,9 @@ class AppSetting {
   dynamic cookieUrl;
   dynamic psUrl;
   dynamic asUrl;
+  dynamic latestVersion;
+  dynamic minRequiredVersion;
+  dynamic isMandatory;
 
   AppSetting(
       {this.title,
@@ -59,7 +62,10 @@ class AppSetting {
       this.tosUrl,
       this.privacyUrl,
       this.psUrl,
-      this.asUrl});
+      this.asUrl,
+      this.latestVersion,
+      this.minRequiredVersion,
+      this.isMandatory});
 
   AppSetting.fromJson(Map<String, dynamic> json) {
     title = json['title'];
@@ -92,5 +98,8 @@ class AppSetting {
     cookieUrl = json['cookie_url'];
     psUrl = json['ps_url'];
     asUrl = json['as_url'];
+    latestVersion = json['latestVersion'];
+    minRequiredVersion = json['minRequiredVersion'];
+    isMandatory = json['isMandatory'];
   }
 }

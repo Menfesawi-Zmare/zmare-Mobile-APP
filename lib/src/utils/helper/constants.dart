@@ -51,6 +51,9 @@ const String iosExplorerStatus = 'key_ios_explorer_status';
 const String androidInterstitialStatus = 'key_android_interstitial_status';
 const String iosInterstitialStatus = 'key_ios_interstitial_status';
 const String iosAppOpenStatus = 'key_ios_app_open_status';
+const String latestVersion = 'Key_latestVersion';
+const String isMandatory = 'Key_isMandatory';
+const String minRequiredVersion = 'Key_minRequiredVersion';
 
 //Player
 const String playerRepeatMode = 'repeatMode';
