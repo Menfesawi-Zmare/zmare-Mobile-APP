@@ -1,4 +1,5 @@
 enum BoxType {
+  onboarding('onboarding'),
   explorer('explorer'),
   latest('latest'),
   popular('popular'),
@@ -15,6 +16,7 @@ enum BoxType {
   downloadSettings('downloadSettings'),
   account('account'),
   grid('grid');
+
   final String name;
 
   const BoxType(this.name);

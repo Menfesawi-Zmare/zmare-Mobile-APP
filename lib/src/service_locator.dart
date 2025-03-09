@@ -97,6 +97,11 @@ Future<void> _setupHive() async {
   final boxGrid = await Hive.openBox(BoxType.grid.name);
   locator.registerLazySingleton<Box<dynamic>>(() => boxGrid,
       instanceName: BoxType.grid.name);
+  final boxOnboarding = await Hive.openBox('onboarding');
+  locator.registerSingleton<Box<dynamic>>(
+    boxOnboarding,
+    instanceName: BoxType.onboarding.name,
+  );
 }
 
 Future<AudioPlayerHandler> _startAudioService() async {
