@@ -101,8 +101,7 @@ class _IntroPageState extends State<IntroPage> with TickerProviderStateMixin {
                             color: Palette.black15,
                             child: Center(
                               child: Image.asset(
-                                height: MediaQuery.of(context).size.height,
-                                'assets/images/placeholder.png',
+                                'assets/images/placeholder.png', // Replace with your actual image path
                                 fit: BoxFit.cover,
                               ),
                             ),
