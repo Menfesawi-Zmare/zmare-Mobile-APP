@@ -18,7 +18,7 @@ class OnBoardingCard extends StatelessWidget {
     return Container(
       width: MediaQuery.of(context).size.width - 40,
       padding: const EdgeInsets.all(20),
-      margin: const EdgeInsets.only(top: 60),
+      // margin: const EdgeInsets.only(top: 60),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
         gradient: const LinearGradient(
@@ -31,6 +31,7 @@ class OnBoardingCard extends StatelessWidget {
         ),
       ),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
@@ -61,7 +62,7 @@ class OnBoardingCard extends StatelessWidget {
                   onHover: (value) {}),
             ],
           ),
-          const SizedBox(height: 10),
+          const SizedBox(height: 6),
           Text(
             maxLines: 3,
             overflow: TextOverflow.ellipsis,
@@ -72,7 +73,11 @@ class OnBoardingCard extends StatelessWidget {
               color: Colors.white,
             ),
           ),
-          const SizedBox(height: 30),
+          if (MediaQuery.of(context).size.width >
+              MediaQuery.of(context).size.height)
+            const SizedBox()
+          else
+            const SizedBox(height: 30),
           Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
