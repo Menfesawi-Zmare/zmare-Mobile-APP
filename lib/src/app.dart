@@ -106,6 +106,7 @@ class _FlutterMusicProState extends State<FlutterMusicPro> {
               return MaterialApp.router(
                 locale: locale,
                 routerConfig: goRouter,
+                // home: OnBoardingScreen(),
                 debugShowCheckedModeBanner: false,
                 themeMode: themeMode,
                 localizationsDelegates: AppLocalizations.localizationsDelegates,
