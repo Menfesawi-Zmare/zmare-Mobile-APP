@@ -1,5 +1,6 @@
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:zmare/src/core/resources/resources.dart';
 import 'package:zmare/src/data/profile/model/profile.dart';
 import 'package:zmare/src/data/track/model/response/load_comment_response.dart';
@@ -28,6 +29,7 @@ class ItemComment extends StatefulWidget {
 class _ItemCommentState extends State<ItemComment> {
   final accountJson = account.get(accountDetail, defaultValue: '');
   Profile? profile = Profile();
+
   @override
   void initState() {
     if (accountJson != '') {
@@ -39,76 +41,166 @@ class _ItemCommentState extends State<ItemComment> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8),
-        child: ListTile(
-          dense: true,
-          contentPadding: const EdgeInsets.only(left: 10.0, right: 0.0),
-          visualDensity: const VisualDensity(vertical: 4),
-          minVerticalPadding: 0,
-          leading: Column(
-            children: [
-              SizedBox(
-                width: 40,
-                height: 40,
-                child: ClipOval(
-                  child: KhmertracksImage(
-                    imageUrl: widget.comment.user!.image!,
-                    placeholderImage: Images.defalultArtistCover,
-                  ),
-                ),
-              ),
-            ],
-          ),
-          title: Column(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+        child: Row(
+            mainAxisAlignment: profile!.id == widget.comment.user!.id
+                ? MainAxisAlignment.end
+                : MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(Dimens.cornerRadius),
-                child: Container(
-                    color: Theme.of(context).colorScheme.primaryContainer,
-                    child: Padding(
-                      padding: const EdgeInsets.all(12.0),
-                      child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            KhmertracksTitle(realName(
-                                widget.comment.user!.username,
-                                widget.comment.user!.firstName,
-                                widget.comment.user!.lastName)),
-                            const SizedBox(
-                              height: 8,
+            spacing: 10,
+            children: profile!.id == widget.comment.user!.id
+                ? [
+                    Column(
+                      crossAxisAlignment: profile!.id == widget.comment.user!.id
+                          ? CrossAxisAlignment.end
+                          : CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Text(
+                          realName(
+                              widget.comment.user!.username,
+                              widget.comment.user!.firstName,
+                              widget.comment.user!.lastName),
+                          style: context.titleSmall!.copyWith(fontSize: 12),
+                        ),
+                        ClipRRect(
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(10),
+                            bottomRight: Radius.circular(10),
+                            topRight: Radius.circular(
+                                profile!.id == widget.comment.user!.id
+                                    ? 0
+                                    : 10),
+                            topLeft: Radius.circular(
+                                profile!.id == widget.comment.user!.id
+                                    ? 10
+                                    : 0),
+                          ),
+                          child: Container(
+                              color: profile!.id != widget.comment.user!.id
+                                  ? Theme.of(context)
+                                      .colorScheme
+                                      .primary
+                                      .withOpacity(0.7)
+                                  : Theme.of(context)
+                                      .colorScheme
+                                      .primaryContainer,
+                              child: Padding(
+                                padding: const EdgeInsets.all(12.0),
+                                child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      KhmertracksTitle(
+                                        widget.comment.message,
+                                        maxLines: 10,
+                                      ),
+                                      SizedBox(
+                                        height: 8,
+                                      ),
+                                      Text(
+                                        date(widget.comment.time!),
+                                        style: TextStyle(
+                                            color: context.onSurface,
+                                            fontSize: 10),
+                                      )
+                                    ]),
+                              )),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      width: 40,
+                      height: 40,
+                      child: ClipOval(
+                        child: KhmertracksImage(
+                          imageUrl: widget.comment.user!.image!,
+                          placeholderImage: "../../../../assets/artist.png",
+                        ),
+                      ),
+                    ),
+                  ]
+                : [
+                    Column(
+                      children: [
+                        SizedBox(
+                          width: 40,
+                          height: 40,
+                          child: ClipOval(
+                            child: KhmertracksImage(
+                              imageUrl: widget.comment.user!.image!,
+                              placeholderImage: "../../../../assets/artist.png",
                             ),
-                            KhmertracksTitle(
-                              widget.comment.message,
-                              maxLines: 10,
-                            )
-                          ]),
-                    )),
-              ),
-            ],
-          ),
-          trailing: profile!.id == widget.comment.user!.id
-              ? Wrap(
-                  children: [
-                    IconButton(
-                        onPressed: () => showTextInputDialog(
-                              context: context,
-                              keyboardType: TextInputType.text,
-                              title: context.loc.edit,
-                              initialText: widget.comment.message,
-                              onSubmitted: (String value) async {
-                                widget.onEditCallBack(widget.itemIndex, value);
-                              },
-                            ),
-                        icon: const Icon(FluentIcons.edit_24_regular)),
-                    IconButton(
-                        onPressed: () =>
-                            widget.onDeleteCallBack(widget.itemIndex),
-                        icon: const Icon(FluentIcons.delete_24_regular))
-                  ],
-                )
-              : const SizedBox(),
-        ));
+                          ),
+                        ),
+                      ],
+                    ),
+                    Column(
+                      crossAxisAlignment: profile!.id == widget.comment.user!.id
+                          ? CrossAxisAlignment.end
+                          : CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Text(
+                          realName(
+                              widget.comment.user!.username,
+                              widget.comment.user!.firstName,
+                              widget.comment.user!.lastName),
+                          style: context.titleSmall!.copyWith(fontSize: 12),
+                        ),
+                        // const SizedBox(
+                        //   height: 8,
+                        // ),
+                        ClipRRect(
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(10),
+                            bottomRight: Radius.circular(10),
+                            topRight: Radius.circular(
+                                profile!.id == widget.comment.user!.id
+                                    ? 0
+                                    : 10),
+                            topLeft: Radius.circular(
+                                profile!.id == widget.comment.user!.id
+                                    ? 10
+                                    : 0),
+                          ),
+                          child: Container(
+                              color: profile!.id != widget.comment.user!.id
+                                  ? Theme.of(context)
+                                      .colorScheme
+                                      .primary
+                                      .withOpacity(0.7)
+                                  : Theme.of(context)
+                                      .colorScheme
+                                      .primaryContainer,
+                              child: Padding(
+                                padding: const EdgeInsets.all(12.0),
+                                child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      KhmertracksTitle(
+                                        widget.comment.message,
+                                        maxLines: 10,
+                                      ),
+                                      SizedBox(
+                                        height: 8,
+                                      ),
+                                      Text(
+                                        date(widget.comment.time!),
+                                        style: TextStyle(
+                                            color: context.onSurface,
+                                            fontSize: 10),
+                                      )
+                                    ]),
+                              )),
+                        ),
+                      ],
+                    ),
+                  ]));
+  }
+
+  String date(String date) {
+    return DateFormat("d, MMM yyyy").format(DateTime.parse(date).toLocal());
   }
 }

@@ -76,6 +76,7 @@ dependencies:
   gif: ^2.3.0
   smooth_page_indicator: ^1.2.1
   flutter_animate: ^4.5.2
+  emoji_picker_flutter: ^4.3.0
   
   
 
