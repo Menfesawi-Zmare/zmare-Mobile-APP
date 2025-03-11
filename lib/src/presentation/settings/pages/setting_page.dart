@@ -58,7 +58,7 @@ class _SettingsPageState extends State<SettingsPage> {
           // SettingsGroup(
           //   title: context.loc.colorsUI,
           //   options: [
-          //     SettingsColorPickerWidget(settings: settings),
+          // SettingsColorPickerWidget(settings: settings),
           //     Divider(color: Colors.grey.withOpacity(0.2)),
           //     SettingsOption(
           //       icon: FluentIcons.dark_theme_24_regular,
