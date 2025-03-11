@@ -74,6 +74,9 @@ dependencies:
   flutter_svg: ^2.0.17
   rive_animated_icon: ^2.0.3
   gif: ^2.3.0
+  smooth_page_indicator: ^1.2.1
+  flutter_animate: ^4.5.2
+  emoji_picker_flutter: ^4.3.0
   
   
 

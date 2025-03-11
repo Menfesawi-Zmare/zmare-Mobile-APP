@@ -22,6 +22,14 @@ class Images {
   static const String angleBlackIcon = "assets/angle.svg";
   static const String angleWhiteIcon = "assets/angle-white.svg";
   static const String man = "assets/man.svg";
+  static const String onBoardingImg1 = "assets/zmare1.png";
+  static const String onBoardingImg2 = "assets/zmare2.png";
+  static const String onBoardingImg3 = "assets/zmare3.png";
+  static const String onBoardingImg4 = "assets/zmare4.png";
+  static const String onBoardingImg5 = "assets/zmare5.png";
+  static const String onBoardingImg6 = "assets/zmare6.png";
+  static const String onBoardingImg7 = "assets/zmare7.png";
+  static const String onBoardingImg8 = "assets/zmare8.png";
 }
 
 ImageProvider getAlbumImage(String? albumArtPath) {

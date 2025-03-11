@@ -68,7 +68,10 @@ const List<Color?> defaultGradientColor = [
 ];
 
 //Route
+const onboardingPath = '/onboarding';
+const onboardingName = 'onboarding';
 const homePagePath = '/homepage';
+const homePageName = 'homepage';
 const latestPagePath = '/latest';
 const popularPagePath = '/popular';
 const randomPagePath = '/random';
