@@ -19,17 +19,13 @@ class SettingsGroup extends StatelessWidget {
       color: Theme.of(context).colorScheme.surface,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12), // if you need this
-        side: BorderSide(
-          color: Colors.grey.withOpacity(0.2),
-          width: 1,
-        ),
       ),
       child: ListView(
         physics: const NeverScrollableScrollPhysics(),
         shrinkWrap: true,
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             child: Text(
               title,
               style: context.titleMedium?.copyWith(
