@@ -19,6 +19,10 @@ class SettingsGroup extends StatelessWidget {
       color: Theme.of(context).colorScheme.surface,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12), // if you need this
+        // side: BorderSide(
+        //   color: Colors.grey.withOpacity(0.2),
+        //   width: 1,
+        // ),
       ),
       child: ListView(
         physics: const NeverScrollableScrollPhysics(),

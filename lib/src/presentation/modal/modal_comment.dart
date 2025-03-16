@@ -95,7 +95,7 @@ class _ModalCommentState extends State<ModalComment> {
       padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        spacing: 10,
+        // spacing: 10,
         children: [
           InkWell(
             onTap: () {
@@ -109,7 +109,7 @@ class _ModalCommentState extends State<ModalComment> {
               setState(() => isLongPressed = false);
             },
             child: Row(
-              spacing: 10,
+              // spacing: 10,
               children: [
                 Icon(Icons.edit, size: 15),
                 Text("Edit"),
@@ -122,7 +122,7 @@ class _ModalCommentState extends State<ModalComment> {
               setState(() => isLongPressed = false);
             },
             child: Row(
-              spacing: 10,
+              // spacing: 10,
               children: [
                 Icon(Icons.delete, size: 15),
                 Text("Delete"),

@@ -66,7 +66,7 @@ class _SignUpPageState extends State<SignUpPage> {
               context.dismiss();
               if (state.registerResponse.status == true) {
                 authBloc.add(GetProfileEvent());
-                context.go(homePagePath);
+                context.go(verifyAccountPath, extra: emailController.text);
               }
             }
             if (state is Failure) {
@@ -142,7 +142,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 ),
                 KhmertracksTextField(
                   prefixIcon: Icon(
-                    FluentIcons.person_12_filled,
+                    Icons.person,
                     size: 20,
                   ),
                   outlineInputBorder: true,
@@ -166,6 +166,35 @@ class _SignUpPageState extends State<SignUpPage> {
                   minTileHeight: 20,
                   contentPadding: EdgeInsets.zero,
                   title: Text(
+                    context.loc.ttlEmail,
+                    style: context.titleMedium!
+                        .copyWith(fontWeight: FontWeight.w400, fontSize: 14),
+                  ),
+                ),
+                KhmertracksTextField(
+                  prefixIcon: Icon(
+                    Icons.email_outlined,
+                    size: 20,
+                  ),
+                  outlineInputBorder: true,
+                  floatingLabelBehavior: FloatingLabelBehavior.never,
+                  controller: emailController,
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return context.loc.requiredEmail;
+                    } else if (value.isValidEmail == false) {
+                      return context.loc.enterValidEmail;
+                    } else {
+                      return null;
+                    }
+                  },
+                ),
+                const SizedBox(height: 5),
+                ListTile(
+                  dense: true,
+                  minTileHeight: 20,
+                  contentPadding: EdgeInsets.zero,
+                  title: Text(
                     context.loc.password,
                     style: context.titleMedium!
                         .copyWith(fontWeight: FontWeight.w400, fontSize: 14),
@@ -173,7 +202,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 ),
                 KhmertracksTextField(
                   prefixIcon: Icon(
-                    FluentIcons.lock_closed_12_filled,
+                    FluentIcons.password_20_regular,
                     size: 20,
                   ),
                   outlineInputBorder: true,
@@ -208,35 +237,6 @@ class _SignUpPageState extends State<SignUpPage> {
                 ListTile(
                   dense: true,
                   minTileHeight: 20,
-                  contentPadding: EdgeInsets.zero,
-                  title: Text(
-                    context.loc.ttlEmail,
-                    style: context.titleMedium!
-                        .copyWith(fontWeight: FontWeight.w400, fontSize: 14),
-                  ),
-                ),
-                KhmertracksTextField(
-                  prefixIcon: Icon(
-                    FluentIcons.mail_12_filled,
-                    size: 20,
-                  ),
-                  outlineInputBorder: true,
-                  floatingLabelBehavior: FloatingLabelBehavior.never,
-                  controller: emailController,
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return context.loc.requiredEmail;
-                    } else if (value.isValidEmail == false) {
-                      return context.loc.enterValidEmail;
-                    } else {
-                      return null;
-                    }
-                  },
-                ),
-                const SizedBox(height: 5),
-                ListTile(
-                  dense: true,
-                  minTileHeight: 20,
                   trailing: BlocBuilder(
                     bloc: authBloc,
                     buildWhen: (old, current) =>
@@ -268,8 +268,8 @@ class _SignUpPageState extends State<SignUpPage> {
                           text: context.loc.agreement,
                         ),
                         TextSpan(
-                          style: const TextStyle(
-                              color: Colors.blueAccent, fontSize: 12),
+                          style:
+                              TextStyle(color: context.primary, fontSize: 12),
                           text: context.loc.tos,
                           recognizer: TapGestureRecognizer()
                             ..onTap = () async {
