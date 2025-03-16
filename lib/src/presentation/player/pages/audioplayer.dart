@@ -206,7 +206,11 @@ class _PlayScreenState extends State<PlayScreen>
                     },
                   ),
                   actions: [
-                    if (!offline) ReportButton(mediaItem: mediaItem),
+                    if (!offline)
+                      ReportButton(
+                        mediaItem: mediaItem,
+                        dominantColor: dominantColor,
+                      ),
                   ],
                 ),
                 body: LayoutBuilder(
@@ -499,7 +503,7 @@ class _ControlButtonsState extends State<ControlButtons> {
                     color: Theme.of(context).colorScheme.onSurface,
                     onPressed: () {
                       if (queueState?.hasPrevious ?? true) {
-                        widget.audioHandler.skipToNext().then(
+                        widget.audioHandler.skipToPrevious().then(
                           (_) {
                             _resetAnimation();
                           },

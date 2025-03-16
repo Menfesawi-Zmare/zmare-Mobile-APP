@@ -30,6 +30,7 @@ class Images {
   static const String onBoardingImg6 = "assets/zmare6.png";
   static const String onBoardingImg7 = "assets/zmare7.png";
   static const String onBoardingImg8 = "assets/zmare8.png";
+  static const String afroAygebamCross = "assets/images/afro_aygebam_cross.svg";
 }
 
 ImageProvider getAlbumImage(String? albumArtPath) {

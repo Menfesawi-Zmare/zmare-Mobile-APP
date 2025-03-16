@@ -7,6 +7,8 @@ import 'package:audiotagger/models/tag.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:zmare/src/core/resources/images.dart';
 import 'package:zmare/src/utils/services/audio/ext_storage_provider.dart';
 import 'package:hive/hive.dart';
 // ignore: depend_on_referenced_packages
@@ -54,20 +56,9 @@ class Download with ChangeNotifier {
   }) async {
     Logger.root.info('Preparing download for ${data['title']}');
     download = true;
-    if (Platform.isAndroid || Platform.isIOS) {
-      PermissionStatus status = await Permission.storage.status;
-      if (status.isDenied) {
-        await [
-          Permission.storage,
-          Permission.accessMediaLocation,
-          Permission.mediaLibrary,
-        ].request();
-      }
-      status = await Permission.storage.status;
-      if (status.isPermanentlyDenied) {
-        await openAppSettings();
-      }
-    }
+
+    // No need to request storage permissions for downloads since we're using the app's private directory
+
     final RegExp avoid = RegExp(r'[\.\\\*\:\"\?#/;\|]');
     data['title'] = data['title'].toString().split('(From')[0].trim();
 
@@ -81,25 +72,13 @@ class Download with ChangeNotifier {
     } else {
       filename = '${data["title"]}';
     }
-    String dlPath = '';
-    if (Platform.isAndroid) {
-      final deviceInfo = await DeviceInfoPlugin().androidInfo;
-      if (deviceInfo.version.sdkInt >= 33) {
-        dlPath = Hive.box(BoxType.downloadSettings.name).get('downloadPath',
-            defaultValue: Platform.isAndroid
-                ? '/storage/emulated/0/Documents'
-                : '') as String;
-      } else {
-        dlPath = Hive.box(BoxType.downloadSettings.name).get('downloadPath',
-            defaultValue: Platform.isAndroid
-                ? '/storage/emulated/0/Music'
-                : '') as String;
-      }
-    } else {
-      dlPath = '';
-    }
 
-    Logger.root.info('Cached Download path: $dlPath');
+    // Get the app's private directory for downloads
+    final Directory appDir = await getApplicationDocumentsDirectory();
+    String dlPath = appDir.path;
+
+    Logger.root.info('Download path: $dlPath');
+
     if (filename.length > 200) {
       final String temp = filename.substring(0, 200);
       final List tempList = temp.split(', ');
@@ -108,14 +87,6 @@ class Download with ChangeNotifier {
     }
 
     filename = '${filename.replaceAll(avoid, "").replaceAll("  ", " ")}.mp3';
-    if (dlPath == '') {
-      Logger.root.info('Cached Download path is empty, getting new path');
-      final String? temp = await ExtStorageProvider.getExtStorage(
-        dirName: 'Music',
-        writeAccess: true,
-      );
-      dlPath = temp!;
-    }
 
     if (createFolder && createDownloadFolder && folderName != null) {
       final String foldername = folderName.replaceAll(avoid, '');
@@ -161,95 +132,150 @@ class Download with ChangeNotifier {
               ),
             );
             return AlertDialog(
-              title: Text(
-                context.loc.alreadyExists,
-                style: const TextStyle(fontWeight: FontWeight.bold),
+              title: Center(
+                child: Column(
+                  children: [
+                    SvgPicture.asset(
+                      Images.zmareIconWhite,
+                      height: 25,
+                    ),
+                    SizedBox(
+                      height: 8,
+                    ),
+                    Text(
+                      textAlign: TextAlign.center,
+                      context.loc.alreadyExists,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).colorScheme.onSurface,
+                      ),
+                    ),
+                  ],
+                ),
               ),
               content: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
+                    textAlign: TextAlign.center,
                     '"${data['title']}" ${context.loc.downAgain}',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context)
+                          .colorScheme
+                          .onSurface
+                          .withOpacity(0.8),
+                    ),
                     softWrap: true,
                   ),
                 ],
               ),
               actions: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    ValueListenableBuilder(
-                      valueListenable: remember,
-                      builder: (
-                        BuildContext context,
-                        bool rememberValue,
-                        Widget? child,
-                      ) {
-                        return SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: Row(
-                            children: [
-                              Checkbox(
-                                activeColor:
-                                    Theme.of(context).colorScheme.secondary,
-                                value: rememberValue,
-                                onChanged: (bool? value) {
-                                  remember.value = value ?? false;
-                                },
-                              ),
-                              Text(
-                                context.loc.rememberChoice,
-                              ),
-                            ],
+                // Remember Choice Checkbox
+                ValueListenableBuilder(
+                  valueListenable: remember,
+                  builder: (BuildContext context, bool rememberValue,
+                      Widget? child) {
+                    return Row(
+                      children: [
+                        Checkbox(
+                          activeColor: Theme.of(context).colorScheme.secondary,
+                          value: rememberValue,
+                          onChanged: (bool? value) {
+                            remember.value = value ?? false;
+                          },
+                        ),
+                        Text(
+                          context.loc.rememberChoice,
+                          style: TextStyle(
+                            color: Theme.of(context)
+                                .colorScheme
+                                .onSurface
+                                .withOpacity(0.8),
                           ),
-                        );
-                      },
+                        ),
+                      ],
+                    );
+                  },
+                ),
+
+                // Replace Button
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: TextButton(
+                    onPressed: () async {
+                      Navigator.pop(context);
+                      Hive.box(BoxType.downloads.name).delete(data['id']);
+                      downloadSong(context, dlPath, filename, data);
+                      rememberOption = 1;
+                    },
+                    child: Text(
+                      context.loc.yesReplace,
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.error,
+                      ),
                     ),
-                    SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          textButton,
-                          TextButton(
-                            onPressed: () async {
-                              Navigator.pop(context);
-                              Hive.box(BoxType.downloads.name)
-                                  .delete(data['id']);
-                              downloadSong(context, dlPath, filename, data);
-                              rememberOption = 1;
-                            },
-                            child: Text(
-                              context.loc.yesReplace,
-                            ),
-                          ),
-                          const SizedBox(width: 5.0),
-                          TextButton(
-                            style: TextButton.styleFrom(
-                              foregroundColor: Colors.white,
-                              backgroundColor:
-                                  Theme.of(context).colorScheme.secondary,
-                            ),
-                            onPressed: () async {
-                              Navigator.pop(context);
-                              while (await File('$dlPath/$filename').exists()) {
-                                filename =
-                                    filename.replaceAll('.mp3', ' (1).mp3');
-                              }
-                              rememberOption = 2;
-                              downloadSong(context, dlPath, filename, data);
-                            },
-                            child: Text(
-                              context.loc.yes,
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: context.colorScheme.surface,
-                              ),
-                            ),
-                          ),
-                          const SizedBox(),
-                        ],
+                  ),
+                ),
+                // Buttons Row
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    // Cancel Button
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: Text(
+                        context.loc.cancel,
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.onSurface,
+                        ),
+                      ),
+                    ),
+
+                    const SizedBox(width: 8),
+
+                    // // Replace Button
+                    // TextButton(
+                    //   onPressed: () async {
+                    //     Navigator.pop(context);
+                    //     Hive.box(BoxType.downloads.name).delete(data['id']);
+                    //     downloadSong(context, dlPath, filename, data);
+                    //     rememberOption = 1;
+                    //   },
+                    //   child: Text(
+                    //     context.loc.yesReplace,
+                    //     style: TextStyle(
+                    //       color: Theme.of(context).colorScheme.error,
+                    //     ),
+                    //   ),
+                    // ),
+
+                    const SizedBox(width: 8),
+
+                    // Download Anyway Button
+                    OutlinedButton(
+                      // style: ElevatedButton.styleFrom(
+                      //   backgroundColor:
+                      //       Theme.of(context).colorScheme.secondary,
+                      //   foregroundColor:
+                      //       Theme.of(context).colorScheme.onSecondary,
+                      // ),
+                      onPressed: () async {
+                        Navigator.pop(context);
+                        while (await File('$dlPath/$filename').exists()) {
+                          filename = filename.replaceAll('.mp3', ' (1).mp3');
+                        }
+                        rememberOption = 2;
+                        downloadSong(context, dlPath, filename, data);
+                      },
+                      child: Text(
+                        context.loc.yes,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ],
@@ -278,15 +304,10 @@ class Download with ChangeNotifier {
     final List<int> bytes = [];
     String lyrics = '';
     final artname = fileName.replaceAll('.mp3', '.jpg');
-    if (!Platform.isWindows) {
-      appPath = Hive.box(BoxType.downloadSettings.name)
-          .get('tempDirPath')
-          ?.toString();
-      appPath ??= (await getTemporaryDirectory()).path;
-    } else {
-      final Directory? temp = await getDownloadsDirectory();
-      appPath = temp!.path;
-    }
+
+    // Get the app's private directory
+    final Directory appDir = await getApplicationDocumentsDirectory();
+    appPath = appDir.path;
 
     try {
       Logger.root.info('Creating audio file $dlPath/$fileName');
@@ -298,37 +319,10 @@ class Download with ChangeNotifier {
           .create(recursive: true)
           .then((value) => filepath2 = value.path);
     } catch (e) {
-      Logger.root
-          .info('Error creating files, requesting additional permission');
-      if (Platform.isAndroid) {
-        PermissionStatus status = await Permission.manageExternalStorage.status;
-        if (status.isDenied) {
-          Logger.root.info(
-            'ManageExternalStorage permission is denied, requesting permission',
-          );
-          await [
-            Permission.manageExternalStorage,
-          ].request();
-        }
-        status = await Permission.manageExternalStorage.status;
-        if (status.isPermanentlyDenied) {
-          Logger.root.info(
-            'ManageExternalStorage Request is permanently denied, opening settings',
-          );
-          await openAppSettings();
-        }
-      }
-      Logger.root.info('Retrying to create audio file');
-      await File('$dlPath/$fileName')
-          .create(recursive: true)
-          .then((value) => filepath = value.path);
-      Logger.root.info('Retrying to create image file');
-      await File('$appPath/$artname')
-          .create(recursive: true)
-          .then((value) => filepath2 = value.path);
+      Logger.root.info('Error creating files: $e');
+      return;
     }
-    // debugPrint('Audio path $filepath');
-    // debugPrint('Image path $filepath2');
+
     String kUrl = data['url'].toString();
 
     final client = Client();
@@ -346,7 +340,7 @@ class Download with ChangeNotifier {
           client.close();
         }
       } catch (e) {
-        Logger.root.info('Retrying to create image file');
+        Logger.root.info('Error updating progress: $e');
       }
     }).onDone(() async {
       if (download) {

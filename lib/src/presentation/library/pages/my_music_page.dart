@@ -321,33 +321,33 @@ class _MyMusicPageState extends State<MyMusicPage>
                         );
                       },
                     ),
-                    IconButton(
-                        icon: const Icon(FluentIcons.arrow_sort_28_regular),
-                        tooltip: context.loc.search,
-                        onPressed: () => showModalBottomSheet(
-                            useRootNavigator: true,
-                            context: context,
-                            shape: const RoundedRectangleBorder(
-                              borderRadius: BorderRadius.vertical(
-                                top: Radius.circular(25.0),
-                              ),
-                            ),
-                            builder: (context) => DownloadFilter(
-                                onCallBack: (int value) async {
-                                  if (value < 6) {
-                                    sortValue = value;
-                                    Hive.box(BoxType.myMusic.name)
-                                        .put('sortValue', value);
-                                  } else {
-                                    orderValue = value - 6;
-                                    Hive.box(BoxType.myMusic.name)
-                                        .put('orderValue', orderValue);
-                                  }
-                                  await sortSongs(sortValue, orderValue);
-                                  setState(() {});
-                                },
-                                sortValue: sortValue,
-                                orderValue: orderValue))),
+                    // IconButton(
+                    //     icon: const Icon(FluentIcons.arrow_sort_28_regular),
+                    //     tooltip: context.loc.search,
+                    //     onPressed: () => showModalBottomSheet(
+                    //         useRootNavigator: true,
+                    //         context: context,
+                    //         shape: const RoundedRectangleBorder(
+                    //           borderRadius: BorderRadius.vertical(
+                    //             top: Radius.circular(25.0),
+                    //           ),
+                    //         ),
+                    //         builder: (context) => DownloadFilter(
+                    //             onCallBack: (int value) async {
+                    //               if (value < 6) {
+                    //                 sortValue = value;
+                    //                 Hive.box(BoxType.myMusic.name)
+                    //                     .put('sortValue', value);
+                    //               } else {
+                    //                 orderValue = value - 6;
+                    //                 Hive.box(BoxType.myMusic.name)
+                    //                     .put('orderValue', orderValue);
+                    //               }
+                    //               await sortSongs(sortValue, orderValue);
+                    //               setState(() {});
+                    //             },
+                    //             sortValue: sortValue,
+                    //             orderValue: orderValue))),
                   ],
                   centerTitle: false,
                   elevation: 0,

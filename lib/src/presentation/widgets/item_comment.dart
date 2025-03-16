@@ -47,7 +47,7 @@ class _ItemCommentState extends State<ItemComment> {
                 ? MainAxisAlignment.end
                 : MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
-            spacing: 10,
+            // spacing: 10,
             children: profile!.id == widget.comment.user!.id
                 ? [
                     Column(

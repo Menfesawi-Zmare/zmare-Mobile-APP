@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:dynamic_color/dynamic_color.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/adapters.dart';
@@ -92,7 +92,6 @@ class _FlutterMusicProState extends State<FlutterMusicPro> {
                 darkColorScheme = ColorScheme.fromSeed(
                   seedColor: Color(0xFFD9D9D9),
                   brightness: Brightness.dark,
-                  background: Color(0xFF121212),
                 );
               }
               final lightTextTheme = GoogleFonts.getTextTheme(

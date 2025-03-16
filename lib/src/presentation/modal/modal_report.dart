@@ -13,9 +13,10 @@ import 'package:zmare/src/service_locator.dart';
 import 'package:go_router/go_router.dart';
 
 class ModalReport extends StatefulWidget {
-  const ModalReport({super.key, required this.mediaItem});
+  const ModalReport(
+      {super.key, required this.mediaItem, required this.dominantColor});
   final MediaItem mediaItem;
-
+  final Color dominantColor;
   @override
   State<ModalReport> createState() => _ModalReportState();
 }
@@ -44,25 +45,19 @@ class _ModalReportState extends State<ModalReport> {
         title: Text(
           context.loc.reportTrack(widget.mediaItem.title),
           style: TextStyle(
-            color: Theme.of(context).colorScheme.onPrimary,
+            color: Colors.white,
+            fontSize: 18,
             fontWeight: FontWeight.bold,
           ),
         ),
         leading: IconButton(
-          icon: const Icon(Icons.close),
-          onPressed: () => context.pop(),
-        ),
-        flexibleSpace: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                Theme.of(context).colorScheme.primary,
-                Theme.of(context).colorScheme.secondary,
-              ],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-            ),
+          icon: Icon(
+            Icons.close,
+            color: widget.dominantColor.computeLuminance() > 0.5
+                ? Colors.black
+                : Colors.white,
           ),
+          onPressed: () => context.pop(),
         ),
       ),
       body: BlocProvider(
@@ -231,48 +226,51 @@ class _ModalReportState extends State<ModalReport> {
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(16),
         child: ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Theme.of(context).colorScheme.primary,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+              padding: const EdgeInsets.symmetric(vertical: 16),
             ),
-            padding: const EdgeInsets.symmetric(vertical: 16),
-          ),
-          onPressed: () {
-            if (_formReport.currentState!.validate()) {
-              if (selectedReason == ReportReason.copyright) {
-                if (checkboxValue1 && checkboxValue2 && checkboxValue3) {
+            onPressed: () {
+              if (_formReport.currentState!.validate()) {
+                if (selectedReason == ReportReason.copyright) {
+                  if (checkboxValue1 && checkboxValue2 && checkboxValue3) {
+                    trackBloc.add(TrackReportEvent(
+                      TrackReportRequestModel(
+                        description: descriptionController.text,
+                        reason: selectedReason!.toIndex,
+                        signature: signatureController.text,
+                        type: ReportType.track.toIndex,
+                      ),
+                      int.parse(widget.mediaItem.id),
+                    ));
+                  } else {
+                    context.showMaterialSnackBar(context.loc.all_fields);
+                  }
+                } else {
                   trackBloc.add(TrackReportEvent(
                     TrackReportRequestModel(
                       description: descriptionController.text,
                       reason: selectedReason!.toIndex,
-                      signature: signatureController.text,
+                      signature: '',
                       type: ReportType.track.toIndex,
                     ),
                     int.parse(widget.mediaItem.id),
                   ));
-                } else {
-                  context.showMaterialSnackBar(context.loc.all_fields);
                 }
-              } else {
-                trackBloc.add(TrackReportEvent(
-                  TrackReportRequestModel(
-                    description: descriptionController.text,
-                    reason: selectedReason!.toIndex,
-                    signature: '',
-                    type: ReportType.track.toIndex,
-                  ),
-                  int.parse(widget.mediaItem.id),
-                ));
               }
-            }
-          },
-          child: KhmertracksText(
-            text: context.loc.send,
-            isBold: true,
-            isSmall: true,
-          ),
-        ),
+            },
+            child: Text(
+              context.loc.send,
+              style: TextStyle(
+                  color: widget.dominantColor.computeLuminance() > 0.5
+                      ? Colors.black
+                      : Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16),
+            )),
       ),
     );
   }

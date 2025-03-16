@@ -123,13 +123,6 @@ class _LibraryMobilePageState extends State<LibraryMobilePage> {
                             }),
                       ),
                       LibraryTile(
-                        title: context.loc.stream,
-                        icon: FluentIcons.drawer_play_24_regular,
-                        onTap: () {
-                          context.pushNamed(streamPath);
-                        },
-                      ),
-                      LibraryTile(
                         title: context.loc.likes,
                         icon: FluentIcons.heart_48_regular,
                         onTap: () {
@@ -137,8 +130,15 @@ class _LibraryMobilePageState extends State<LibraryMobilePage> {
                         },
                       ),
                       LibraryTile(
+                        title: context.loc.stream,
+                        icon: Icons.audiotrack_sharp,
+                        onTap: () {
+                          context.pushNamed(streamPath);
+                        },
+                      ),
+                      LibraryTile(
                         title: context.loc.down,
-                        icon: FluentIcons.arrow_download_16_regular,
+                        icon: FluentIcons.arrow_download_20_regular,
                         onTap: () {
                           context.pushNamed(downloadsPath);
                         },
@@ -146,7 +146,7 @@ class _LibraryMobilePageState extends State<LibraryMobilePage> {
                       if (Platform.isAndroid)
                         LibraryTile(
                           title: context.loc.myMusic,
-                          icon: FluentIcons.music_note_2_play_20_regular,
+                          icon: FluentIcons.music_note_2_play_20_filled,
                           onTap: () {
                             context.pushNamed(myMusicName);
                           },
@@ -161,7 +161,7 @@ class _LibraryMobilePageState extends State<LibraryMobilePage> {
                       Divider(color: Colors.grey.withOpacity(0.2)),
                       LibraryTile(
                         title: context.loc.logout,
-                        icon: FluentIcons.arrow_exit_20_regular,
+                        icon: Icons.logout_outlined,
                         onTap: () {
                           khmertracksAlertDialog(
                             context,
@@ -169,13 +169,13 @@ class _LibraryMobilePageState extends State<LibraryMobilePage> {
                               text: context.loc.logoutContent,
                             ),
                             child: const SizedBox.shrink(),
-                            confirmationButton: TextButton(
-                              style: TextButton.styleFrom(
-                                backgroundColor:
-                                    Theme.of(context).colorScheme.primary,
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 16),
-                              ),
+                            confirmationButton: OutlinedButton(
+                              // style: TextButton.styleFrom(
+                              //   // backgroundColor:
+                              //   //     Theme.of(context).colorScheme.primary,
+                              //   padding:
+                              //       const EdgeInsets.symmetric(horizontal: 16),
+                              // ),
                               onPressed: () {
                                 setState(() {
                                   showLogout = false;
@@ -186,7 +186,7 @@ class _LibraryMobilePageState extends State<LibraryMobilePage> {
                               },
                               child: Text(context.loc.logout,
                                   style: TextStyle(
-                                      color: context.colorScheme.onPrimary)),
+                                      color: context.colorScheme.primary)),
                             ),
                           );
                         },
@@ -234,22 +234,73 @@ class LibraryTile extends StatelessWidget {
     required this.icon,
     required this.title,
     required this.onTap,
+    this.backgroundColor,
+    this.iconColor,
+    this.textColor,
+    this.patternColor,
   });
 
   final String title;
   final IconData icon;
   final Function() onTap;
+  final Color? backgroundColor;
+  final Color? iconColor;
+  final Color? textColor;
+  final Color? patternColor;
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      title: Text(title,
-          style: context.titleMedium?.copyWith(fontWeight: FontWeight.w500)),
-      leading: Icon(
-        icon,
-        color: Theme.of(context).colorScheme.onSurface,
+    final theme = Theme.of(context);
+    final colorScheme = theme.colorScheme;
+
+    return Card(
+      margin: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12.0),
       ),
-      onTap: onTap,
+      child: InkWell(
+        borderRadius: BorderRadius.circular(12.0),
+        onTap: onTap,
+        child: Stack(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Row(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(12.0),
+                    decoration: BoxDecoration(
+                      color: iconColor ?? colorScheme.primary,
+                      shape: BoxShape.circle,
+                    ),
+                    child: Icon(
+                      icon,
+                      color: colorScheme.onPrimary,
+                      size: 20.0,
+                    ),
+                  ),
+                  const SizedBox(width: 16.0),
+                  Expanded(
+                    child: Text(
+                      title,
+                      style: theme.textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.w500,
+                        color: textColor ?? colorScheme.onSurface,
+                      ),
+                    ),
+                  ),
+                  Icon(
+                    Platform.isAndroid
+                        ? Icons.arrow_forward
+                        : Icons.arrow_forward_ios,
+                    color: colorScheme.onSurface.withOpacity(0.6),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

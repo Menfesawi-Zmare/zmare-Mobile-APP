@@ -1,5 +1,6 @@
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:zmare/src/utils/ext/common.dart';
 import 'package:zmare/src/presentation/widgets/khmertracks_text.dart';
 import 'package:zmare/src/presentation/widgets/texts/khmertracks_subtitle.dart';
@@ -15,12 +16,13 @@ class NoSubscribeWidget extends StatelessWidget {
       child: Center(
           child: Column(
         mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const Icon(
-            FluentIcons.music_note_2_24_regular,
-            size: 72,
+          SvgPicture.asset(
+            "assets/images/mesenko.svg",
+            // ignore: deprecated_member_use
+            color: Colors.white,
           ),
           KhmertracksText(
             text: context.loc.newMusicsRightToYou,

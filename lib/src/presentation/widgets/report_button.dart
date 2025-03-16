@@ -6,9 +6,11 @@ import 'package:zmare/src/utils/ext/common.dart';
 import 'package:zmare/src/presentation/modal/modal_report.dart';
 
 class ReportButton extends StatefulWidget {
-  const ReportButton({super.key, required this.mediaItem});
+  const ReportButton(
+      {super.key, required this.mediaItem, required this.dominantColor});
 
   final MediaItem mediaItem;
+  final Color dominantColor;
   @override
   State<ReportButton> createState() => _ReportButtonState();
 }
@@ -34,7 +36,10 @@ class _ReportButtonState extends State<ReportButton> {
             onPressed: () {
               Navigator.of(context).push(
                   MaterialPageRoute<void>(builder: (BuildContext context) {
-                return ModalReport(mediaItem: widget.mediaItem);
+                return ModalReport(
+                  mediaItem: widget.mediaItem,
+                  dominantColor: widget.dominantColor,
+                );
               }));
             },
           )

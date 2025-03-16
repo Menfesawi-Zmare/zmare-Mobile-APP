@@ -6,6 +6,7 @@ import 'package:zmare/src/presentation/library/pages/show_songs.dart';
 import 'package:zmare/src/presentation/explorer/pages/custom_album_page.dart';
 import 'package:zmare/src/presentation/explorer/pages/custom_artist_page.dart';
 import 'package:zmare/src/presentation/explorer/pages/custom_production_page.dart';
+import 'package:zmare/src/presentation/login/pages/verify_account.dart';
 import 'package:zmare/src/presentation/onboarding/pages/on_boarding_screen.dart';
 import 'package:zmare/src/service_locator.dart';
 import 'package:zmare/src/utils/helper/constants.dart';
@@ -49,7 +50,7 @@ import 'package:zmare/src/presentation/search/pages/search_page.dart';
 import 'package:zmare/src/presentation/settings/pages/personalize_page.dart';
 import 'package:zmare/src/presentation/settings/pages/setting_page.dart';
 import 'package:on_audio_query/on_audio_query.dart';
-import 'package:video_player/video_player.dart';
+
 import '../core/enum/box_types.dart';
 import '../data/playlist/model/playlist.dart';
 import '../presentation/home/pages/home_page.dart';
@@ -106,6 +107,16 @@ final GoRouter goRouter = GoRouter(
       builder: (context, state) => const LoginPage(),
     ),
     GoRoute(
+        path: verifyAccountPath,
+        name: verifyAccountName,
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state) {
+          final email = state.extra as String;
+          return VerifyAccount(
+            email: email,
+          );
+        }),
+    GoRoute(
       path: signUpPath,
       name: signUpName,
       parentNavigatorKey: _rootNavigatorKey,
@@ -158,6 +169,20 @@ final GoRouter goRouter = GoRouter(
                   path: libraryPagePath,
                   builder: (BuildContext context, GoRouterState state) =>
                       ContentWidget(currentPage: PageType.library.toIndex)),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: <RouteBase>[
+              GoRoute(
+                  path: loginPath,
+                  builder: (BuildContext context, GoRouterState state) {
+                    final extras = state.extra as Map<String, dynamic>;
+
+                    final isLoggedIn = extras['isLoggedIn'] as bool;
+                    return IntroPage(
+                      showBackButton: isLoggedIn,
+                    );
+                  }),
             ],
           ),
         ]),
