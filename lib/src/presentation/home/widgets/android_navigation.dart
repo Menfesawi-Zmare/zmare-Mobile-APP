@@ -70,6 +70,12 @@ class AndroidNavigation extends StatelessWidget {
             icon: const Icon(FluentIcons.library_16_regular),
             selectedIcon: const Icon(FluentIcons.library_16_filled),
           ),
+
+          NavigationDestination(
+            label: context.loc.profileLabel,
+            icon: const Icon(FluentIcons.person_12_regular),
+            selectedIcon: const Icon(FluentIcons.person_16_regular),
+          ),
         ],
       ),
     );

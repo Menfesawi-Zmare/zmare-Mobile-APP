@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hive/hive.dart';
+
 import 'package:hive_flutter/adapters.dart';
 import 'package:zmare/src/utils/ext/common.dart';
 import 'package:zmare/src/presentation/login/bloc/auth_bloc.dart';

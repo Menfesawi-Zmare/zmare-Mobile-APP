@@ -196,7 +196,7 @@ class ModalMore extends StatelessWidget {
                 title: Text(context.loc.share,
                     style: context.titleMedium?.copyWith(
                         color: context.onSurface, fontWeight: FontWeight.w500)),
-                leading: Icon(MdiIcons.exportVariant),
+                leading: Icon(MdiIcons.share),
                 onTap: () async {
                   GoRouter.of(context).pop();
                   Share.share(

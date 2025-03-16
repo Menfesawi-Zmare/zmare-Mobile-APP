@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:zmare/src/presentation/widgets/texts/khmertracks_subtitle.dart';
 import 'package:zmare/src/presentation/widgets/texts/khmertracks_title.dart';
+import 'package:zmare/src/utils/ext/color_extension.dart';
 
 class SettingsOption extends StatelessWidget {
   const SettingsOption({
@@ -20,22 +23,36 @@ class SettingsOption extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      leading: icon == null
-          ? null
-          : Icon(
-              icon,
-              color: Theme.of(context).colorScheme.onSurface,
-            ),
-      title: KhmertracksTitle(title),
-      subtitle: subtitle != null
-          ? KhmertracksSubTitle(
-              subtitle,
-              maxLines: 2,
-            )
-          : null,
-      onTap: onTap,
-      trailing: trailing,
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+      decoration: BoxDecoration(
+        color: context.surfaceVariant, // Custom background color
+        borderRadius: BorderRadius.circular(12), // Rounded corners
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            blurRadius: 6,
+            offset: const Offset(2, 4),
+          ),
+        ],
+      ),
+      child: ListTile(
+        leading: icon == null
+            ? null
+            : Icon(
+                icon,
+                color: Theme.of(context).colorScheme.primary,
+              ),
+        title: KhmertracksTitle(title),
+        subtitle: subtitle != null
+            ? KhmertracksSubTitle(
+                subtitle,
+                maxLines: 2,
+              )
+            : null,
+        onTap: onTap,
+        trailing: trailing,
+      ),
     );
   }
 }
