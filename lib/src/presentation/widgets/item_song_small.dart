@@ -75,7 +75,15 @@ class _ItemSongSmallState extends State<ItemSongSmall> {
                   VisualDensity(vertical: widget.showArtistName ? 0 : 4),
               horizontalTitleGap: 10.0,
               minVerticalPadding: 0,
-              leading: KhmertracksTitle(widget.number),
+              leading: Container(
+                width: 50,
+                height: 50,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(7),
+                    image: DecorationImage(
+                        image: NetworkImage(widget.songList.image!),
+                        fit: BoxFit.cover)),
+              ),
               title: KhmertracksTitle(widget.songList.title!),
               subtitle: widget.showArtistName
                   ? KhmertracksSubTitle(widget.songList.artist)

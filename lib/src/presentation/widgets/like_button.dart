@@ -35,21 +35,17 @@ class _LikeButtonState extends State<LikeButton>
   bool show = false;
   late AnimationController _controller;
   late Animation<double> _scale;
-  late Animation<double> _curve;
   final AuthBloc authBloc = locator.get<AuthBloc>();
   final accountJson = account.get(accountDetail, defaultValue: '');
+
   @override
   void initState() {
     super.initState();
-    if (accountJson != '') {
-      show = true;
-    }
+    show = accountJson != '';
     _controller = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 200),
     );
-
-    _curve = CurvedAnimation(parent: _controller, curve: Curves.slowMiddle);
 
     _scale = TweenSequence(<TweenSequenceItem<double>>[
       TweenSequenceItem(
@@ -60,7 +56,13 @@ class _LikeButtonState extends State<LikeButton>
         tween: Tween<double>(begin: 1.2, end: 1.0),
         weight: 50,
       ),
-    ]).animate(_curve);
+    ]).animate(CurvedAnimation(parent: _controller, curve: Curves.slowMiddle));
+
+    if (show) {
+      authBloc.add(CheckFavoriteEvent(int.parse(
+        widget.mediaItem?.id ?? widget.data!['id'].toString(),
+      )));
+    }
   }
 
   @override
@@ -71,30 +73,13 @@ class _LikeButtonState extends State<LikeButton>
 
   @override
   Widget build(BuildContext context) {
-    if (show) {
-      authBloc.add(CheckFavoriteEvent(int.parse(
-        widget.mediaItem == null
-            ? widget.data!['id'].toString()
-            : widget.mediaItem!.id,
-      )));
-    }
-    return BlocProvider(
-      create: (context) => authBloc,
-      child: BlocConsumer(
-        bloc: authBloc,
-        listener: (context, state) {
+    return BlocProvider.value(
+      value: authBloc,
+      child: BlocBuilder<AuthBloc, AuthState>(
+        builder: (context, state) {
           if (state is CheckFavoriteState) {
             liked = state.favorite;
           }
-          if (state is LikeState) {
-            authBloc.add(CheckFavoriteEvent(int.parse(
-              widget.mediaItem == null
-                  ? widget.data!['id'].toString()
-                  : widget.mediaItem!.id,
-            )));
-          }
-        },
-        builder: (context, state) {
           return Visibility(
             visible: show,
             child: ScaleTransition(
@@ -111,17 +96,14 @@ class _LikeButtonState extends State<LikeButton>
                 iconSize: widget.size ?? 24.0,
                 tooltip: liked ? context.loc.unlike : context.loc.like,
                 onPressed: () async {
-                  liked
-                      ? authBloc.add(LikeTrackEvent(LikeAndDislike(
-                          trackId: widget.mediaItem == null
-                              ? widget.data!['id'].toString()
-                              : widget.mediaItem!.id,
-                          type: FavoriteType.dislike.toInt)))
-                      : authBloc.add(LikeTrackEvent(LikeAndDislike(
-                          trackId: widget.mediaItem == null
-                              ? widget.data!['id'].toString()
-                              : widget.mediaItem!.id,
-                          type: FavoriteType.like.toInt)));
+                  final trackId =
+                      widget.mediaItem?.id ?? widget.data!['id'].toString();
+                  authBloc.add(LikeTrackEvent(LikeAndDislike(
+                    trackId: trackId,
+                    type: liked
+                        ? FavoriteType.dislike.toInt
+                        : FavoriteType.like.toInt,
+                  )));
 
                   if (!liked) {
                     _controller.forward();
@@ -131,6 +113,7 @@ class _LikeButtonState extends State<LikeButton>
                   setState(() {
                     liked = !liked;
                   });
+
                   if (widget.showSnack) {
                     ShowSnackBar().showSnackBar(
                       context,
@@ -141,22 +124,18 @@ class _LikeButtonState extends State<LikeButton>
                         textColor: Theme.of(context).colorScheme.secondary,
                         label: context.loc.undo,
                         onPressed: () {
-                          liked
-                              ? removeLiked(
-                                  widget.mediaItem == null
-                                      ? widget.data!['id'].toString()
-                                      : widget.mediaItem!.id,
-                                )
-                              : widget.mediaItem == null
-                                  ? addMapToPlaylist(
-                                      BoxType.favorite.name, widget.data!)
-                                  : addItemToPlaylist(
-                                      BoxType.favorite.name,
-                                      widget.mediaItem!,
-                                    );
-
-                          liked = !liked;
-                          setState(() {});
+                          if (liked) {
+                            removeLiked(trackId);
+                          } else {
+                            widget.mediaItem == null
+                                ? addMapToPlaylist(
+                                    BoxType.favorite.name, widget.data!)
+                                : addItemToPlaylist(
+                                    BoxType.favorite.name, widget.mediaItem!);
+                          }
+                          setState(() {
+                            liked = !liked;
+                          });
                         },
                       ),
                     );

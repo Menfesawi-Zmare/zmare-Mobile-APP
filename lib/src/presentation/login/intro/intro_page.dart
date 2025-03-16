@@ -5,9 +5,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:gif/gif.dart';
+
 import 'package:video_player/video_player.dart';
 import 'package:zmare/src/core/resources/resources.dart';
+import 'package:zmare/src/presentation/widgets/khmertracks_text.dart';
 import 'package:zmare/src/utils/services/firebase/authenticate.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -32,7 +33,7 @@ class _IntroPageState extends State<IntroPage> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    controller = VideoPlayerController.asset('assets/images/hura.mp4')
+    controller = VideoPlayerController.asset('assets/images/zmare.mp4')
       ..initialize().then((_) {
         controller.setLooping(true);
         controller.play();
@@ -111,21 +112,24 @@ class _IntroPageState extends State<IntroPage> with TickerProviderStateMixin {
                 Container(
                   color: context.colorScheme.onPrimary.withOpacity(0.6),
                 ),
-                Positioned(
-                    top: 20,
-                    child: IconButton(
-                        color: Theme.of(context).colorScheme.primary,
-                        onPressed: () {
-                          context.pop();
-                        },
-                        icon: Icon(Platform.isIOS
-                            ? Icons.arrow_back_ios
-                            : Icons.arrow_back))),
+                // Positioned(
+                //     top: 20,
+                //     child: IconButton(
+                //         color: Theme.of(context).colorScheme.primary,
+                //         onPressed: () {
+                //           context.pop();
+                //         },
+                //         icon: Icon(Platform.isIOS
+                //             ? Icons.arrow_back_ios
+                //             : Icons.arrow_back))),
                 SizedBox(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
+                      SizedBox(
+                        height: 160,
+                      ),
                       Center(
                           child: SvgPicture.asset(
                         Images.zmareIconWhite,
@@ -154,187 +158,344 @@ class _IntroPageState extends State<IntroPage> with TickerProviderStateMixin {
                                 ?.copyWith(color: Palette.white),
                             textAlign: TextAlign.center),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            right: 20.0, left: 20.0, top: 40, bottom: 10),
-                        child: TextButton(
-                          onPressed: () {
-                            context.pushNamed(signUpName);
-                          },
-                          style: ButtonStyle(
-                            padding:
-                                WidgetStateProperty.all<EdgeInsetsGeometry>(
-                              const EdgeInsets.only(top: 12, bottom: 12),
-                            ),
-                            shape: WidgetStateProperty.all<OutlinedBorder>(
-                              RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(25.0),
-                                side: BorderSide(
-                                  color: Palette.white,
-                                ),
-                              ),
-                            ),
-                          ),
-                          child: Text(context.loc.signUp,
-                              style: context.titleMedium?.copyWith(
-                                  color: Palette.white,
-                                  fontWeight: FontWeight.bold)),
-                        ),
+                      SizedBox(
+                        height: 40,
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(
-                            right: 20.0, left: 20.0, bottom: 10),
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            padding: const EdgeInsets.symmetric(vertical: 12),
-                            backgroundColor:
-                                const Color.fromARGB(255, 158, 8, 3),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(25.0),
-                              side: const BorderSide(
-                                color: Color(gmailColor),
-                              ),
-                            ),
-                          ),
-                          onPressed: () async {
-                            setState(() {
-                              isLoading = true;
-                            });
-                            FirebaseService service = FirebaseService();
-                            try {
-                              UserCredential? userCredential =
-                                  await service.signInwithGoogle();
-
-                              if (userCredential != null) {
-                                authBloc.add(LoginWithSocial(
-                                    RegisterSocialRequest(
-                                        firstName:
-                                            userCredential.user!.displayName,
-                                        lastName: '',
-                                        username: '',
-                                        email: userCredential.user!.email!,
-                                        image: userCredential.user!.photoURL!
-                                            .replaceAll('s96-c', 's1024-c'),
-                                        type: LoginType.google.name)));
-                              }
-                            } catch (e) {
-                              if (e is FirebaseAuthException) {
-                                context.showMaterialSnackBar(e.message!);
-                              }
-                              GoogleSignIn().signOut();
-                              context.showMaterialSnackBar(
-                                  "Try again later please!");
-                            }
-                            setState(() {
-                              isLoading = false;
-                            });
-                          },
-                          child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(left: 16),
-                                    child: Image.asset(
-                                      Images.gmailIcon,
-                                      height: 24,
-                                      width: 24,
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 20,
+                        ),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              flex: 1,
+                              child: TextButton(
+                                onPressed: () {
+                                  context.pushNamed(signUpName);
+                                },
+                                style: ButtonStyle(
+                                  padding: WidgetStateProperty.all<
+                                      EdgeInsetsGeometry>(
+                                    const EdgeInsets.only(top: 12, bottom: 12),
+                                  ),
+                                  backgroundColor: WidgetStatePropertyAll(
+                                      context.primaryContainer),
+                                  shape:
+                                      WidgetStateProperty.all<OutlinedBorder>(
+                                    RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(25.0),
+                                      side: BorderSide(
+                                        color: context.primary,
+                                      ),
                                     ),
                                   ),
                                 ),
-                                SizedBox(
-                                  width: 20,
-                                ),
-                                Align(
-                                  alignment: Alignment.center,
-                                  child: Text(
-                                    context.loc.continueWithGmail,
-                                    textAlign: TextAlign.center,
+                                child: Text(context.loc.signUp,
                                     style: context.titleMedium?.copyWith(
-                                        color: context.onSurface,
-                                        fontWeight: FontWeight.bold),
+                                        color: Palette.white,
+                                        fontWeight: FontWeight.bold)),
+                              ),
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Expanded(
+                              flex: 1,
+                              child: TextButton(
+                                onPressed: () {
+                                  context.pushNamed(signInName);
+                                },
+                                style: ButtonStyle(
+                                  padding: WidgetStateProperty.all<
+                                      EdgeInsetsGeometry>(
+                                    const EdgeInsets.only(top: 12, bottom: 12),
+                                  ),
+                                  shape:
+                                      WidgetStateProperty.all<OutlinedBorder>(
+                                    RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(25.0),
+                                      side: BorderSide(
+                                        color: Palette.white,
+                                      ),
+                                    ),
                                   ),
                                 ),
-                              ]),
+                                child: Text(context.loc.login,
+                                    style: context.titleMedium?.copyWith(
+                                        color: Palette.white,
+                                        fontWeight: FontWeight.bold)),
+                              ),
+                            ),
+
+                            // Padding(
+                            //   padding: const EdgeInsets.only(
+                            //       right: 20.0, left: 20.0, bottom: 10),
+                            //   child: TextButton(
+                            //       onPressed: () => context.pushNamed(signInName),
+                            //       child: Text(context.loc.login,
+                            //           style: context.titleMedium?.copyWith(
+                            //               color: context.onSurface,
+                            //               fontWeight: FontWeight.bold))),
+                            // ),
+                          ],
                         ),
                       ),
-                      if (Platform.isIOS)
-                        Padding(
-                          padding: const EdgeInsets.only(
-                              right: 20.0, left: 20.0, bottom: 10),
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 12),
-                                backgroundColor:
-                                    Theme.of(context).colorScheme.onSurface),
-                            onPressed: () async {
-                              setState(() {
-                                isLoading = true;
-                              });
-                              FirebaseService service = FirebaseService();
-                              try {
-                                UserCredential? userCredential =
-                                    await service.signInWithApple();
-                                if (userCredential != null) {
-                                  authBloc.add(LoginWithSocial(
-                                      RegisterSocialRequest(
-                                          firstName:
-                                              userCredential.user!.displayName,
-                                          lastName: '',
-                                          username: '',
-                                          email: userCredential.user!.email!,
-                                          image: '',
-                                          type: LoginType.apple.name)));
-                                }
-                              } catch (e) {
-                                if (e is FirebaseAuthException) {
-                                  context.showMaterialSnackBar(e.message!);
-                                }
-                                GoogleSignIn().signOut();
-                                context.showMaterialSnackBar(
-                                    context.loc.pleaseTryAgain);
-                              }
-                              setState(() {
-                                isLoading = false;
-                              });
-                            },
-                            child: Stack(children: [
-                              Align(
-                                alignment: Alignment.centerLeft,
-                                child: Padding(
-                                  padding: const EdgeInsets.only(left: 16),
-                                  child: Image.asset(
-                                    Images.appleIcon,
-                                    height: 24,
-                                    width: 24,
-                                  ),
-                                ),
-                              ),
-                              Align(
-                                alignment: Alignment.center,
-                                child: Text(
-                                  context.loc.continueWithApple,
-                                  textAlign: TextAlign.center,
-                                  style: context.titleMedium?.copyWith(
-                                      color: context.colorScheme.surface,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                            ]),
+
+                      Column(
+                        children: [
+                          SizedBox(
+                            height: 100,
                           ),
-                        ),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            right: 20.0, left: 20.0, bottom: 10),
-                        child: TextButton(
-                            onPressed: () => context.pushNamed(signInName),
-                            child: Text(context.loc.login,
-                                style: context.titleMedium?.copyWith(
-                                    color: context.onSurface,
-                                    fontWeight: FontWeight.bold))),
+                          Text(
+                            "Or via in social media",
+                            style: context.bodyMedium
+                                ?.copyWith(fontWeight: FontWeight.w600),
+                          ),
+                          SizedBox(
+                            height: 15,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SizedBox(
+                                height: 50,
+                                width: 50,
+                                child: Center(
+                                  child: ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 12),
+                                      backgroundColor: Colors.transparent,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                        side: BorderSide(
+                                          color: context.primary,
+                                        ),
+                                      ),
+                                    ),
+                                    onPressed: () async {
+                                      setState(() {
+                                        isLoading = true;
+                                      });
+                                      FirebaseService service =
+                                          FirebaseService();
+                                      try {
+                                        UserCredential? userCredential =
+                                            await service.signInwithGoogle();
+
+                                        if (userCredential != null) {
+                                          authBloc.add(LoginWithSocial(
+                                              RegisterSocialRequest(
+                                                  firstName: userCredential
+                                                      .user!.displayName,
+                                                  lastName: '',
+                                                  username: '',
+                                                  email: userCredential
+                                                      .user!.email!,
+                                                  image: userCredential
+                                                      .user!.photoURL!
+                                                      .replaceAll(
+                                                          's96-c', 's1024-c'),
+                                                  type:
+                                                      LoginType.google.name)));
+                                        }
+                                      } catch (e) {
+                                        if (e is FirebaseAuthException) {
+                                          context
+                                              .showMaterialSnackBar(e.message!);
+                                        }
+                                        GoogleSignIn().signOut();
+                                        context.showMaterialSnackBar(
+                                            "Try again later please!");
+                                      }
+                                      setState(() {
+                                        isLoading = false;
+                                      });
+                                    },
+                                    child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Align(
+                                            alignment: Alignment.center,
+                                            child: Image.asset(
+                                              Images.gmailIcon,
+                                              height: 24,
+                                              width: 24,
+                                            ),
+                                          ),
+                                          // SizedBox(
+                                          //   width: 20,
+                                          // ),
+                                          // Align(
+                                          //   alignment: Alignment.center,
+                                          //   child: Text(
+                                          //     context.loc.continueWithGmail,
+                                          //     textAlign: TextAlign.center,
+                                          //     style: context.titleMedium?.copyWith(
+                                          //         color: context.onSurface,
+                                          //         fontWeight: FontWeight.bold),
+                                          //   ),
+                                          // ),
+                                        ]),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              if (Platform.isIOS)
+                                SizedBox(
+                                  height: 50,
+                                  width: 50,
+                                  child: ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10.0),
+                                          side: BorderSide(
+                                            color: context.primary,
+                                          ),
+                                        ),
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 12),
+                                        backgroundColor: Colors.transparent),
+                                    onPressed: () async {
+                                      setState(() {
+                                        isLoading = true;
+                                      });
+                                      FirebaseService service =
+                                          FirebaseService();
+                                      try {
+                                        UserCredential? userCredential =
+                                            await service.signInWithApple();
+                                        if (userCredential != null) {
+                                          authBloc.add(LoginWithSocial(
+                                              RegisterSocialRequest(
+                                                  firstName: userCredential
+                                                      .user!.displayName,
+                                                  lastName: '',
+                                                  username: '',
+                                                  email: userCredential
+                                                      .user!.email!,
+                                                  image: '',
+                                                  type: LoginType.apple.name)));
+                                        }
+                                      } catch (e) {
+                                        if (e is FirebaseAuthException) {
+                                          context
+                                              .showMaterialSnackBar(e.message!);
+                                        }
+                                        GoogleSignIn().signOut();
+                                        context.showMaterialSnackBar(
+                                            context.loc.pleaseTryAgain);
+                                      }
+                                      setState(() {
+                                        isLoading = false;
+                                      });
+                                    },
+                                    child: Stack(children: [
+                                      Align(
+                                        alignment: Alignment.center,
+                                        child: Image.asset(
+                                          Images.appleIcon,
+                                          height: 24,
+                                          width: 24,
+                                        ),
+                                      ),
+                                      // Align(
+                                      //   alignment: Alignment.center,
+                                      //   child: Text(
+                                      //     context.loc.continueWithApple,
+                                      //     textAlign: TextAlign.center,
+                                      //     style: context.titleMedium?.copyWith(
+                                      //         color: context.colorScheme.surface,
+                                      //         fontWeight: FontWeight.bold),
+                                      //   ),
+                                      // ),
+                                    ]),
+                                  ),
+                                ),
+                            ],
+                          ),
+                        ],
                       ),
+                      // if (Platform.isIOS)
+                      // Padding(
+                      //   padding: const EdgeInsets.only(
+                      //       right: 20.0, left: 20.0, bottom: 10),
+                      //   child: ElevatedButton(
+                      //     style: ElevatedButton.styleFrom(
+                      //         padding: const EdgeInsets.symmetric(vertical: 12),
+                      //         backgroundColor:
+                      //             Theme.of(context).colorScheme.onSurface),
+                      //     onPressed: () async {
+                      //       setState(() {
+                      //         isLoading = true;
+                      //       });
+                      //       FirebaseService service = FirebaseService();
+                      //       try {
+                      //         UserCredential? userCredential =
+                      //             await service.signInWithApple();
+                      //         if (userCredential != null) {
+                      //           authBloc.add(LoginWithSocial(
+                      //               RegisterSocialRequest(
+                      //                   firstName:
+                      //                       userCredential.user!.displayName,
+                      //                   lastName: '',
+                      //                   username: '',
+                      //                   email: userCredential.user!.email!,
+                      //                   image: '',
+                      //                   type: LoginType.apple.name)));
+                      //         }
+                      //       } catch (e) {
+                      //         if (e is FirebaseAuthException) {
+                      //           context.showMaterialSnackBar(e.message!);
+                      //         }
+                      //         GoogleSignIn().signOut();
+                      //         context.showMaterialSnackBar(
+                      //             context.loc.pleaseTryAgain);
+                      //       }
+                      //       setState(() {
+                      //         isLoading = false;
+                      //       });
+                      //     },
+                      //     child: Stack(children: [
+                      //       Align(
+                      //         alignment: Alignment.centerLeft,
+                      //         child: Padding(
+                      //           padding: const EdgeInsets.only(left: 16),
+                      //           child: Image.asset(
+                      //             Images.appleIcon,
+                      //             height: 24,
+                      //             width: 24,
+                      //           ),
+                      //         ),
+                      //       ),
+                      //       Align(
+                      //         alignment: Alignment.center,
+                      //         child: Text(
+                      //           context.loc.continueWithApple,
+                      //           textAlign: TextAlign.center,
+                      //           style: context.titleMedium?.copyWith(
+                      //               color: context.colorScheme.surface,
+                      //               fontWeight: FontWeight.bold),
+                      //         ),
+                      //       ),
+                      //     ]),
+                      //   ),
+                      // ),
+                      // // Padding(
+                      //   padding: const EdgeInsets.only(
+                      //       right: 20.0, left: 20.0, bottom: 10),
+                      //   child: TextButton(
+                      //       onPressed: () => context.pushNamed(signInName),
+                      //       child: Text(context.loc.login,
+                      //           style: context.titleMedium?.copyWith(
+                      //               color: context.onSurface,
+                      //               fontWeight: FontWeight.bold))),
+                      // ),
                     ],
                   ),
                 ),

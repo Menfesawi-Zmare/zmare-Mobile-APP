@@ -70,10 +70,10 @@ class _TrackMobilePageState extends State<TrackMobilePage>
                       state.trackListModel.pagination!.currentPage! + 1);
                 }
               }
-              if (state is TrackFailedState) {
-                _pagingController.error = state;
-              }
-              if (state is TrackNoData) {
+              // if (state is TrackFailedState) {
+              //   _pagingController.error = state;
+              // }
+              else {
                 _pagingController.itemList = [];
               }
             },

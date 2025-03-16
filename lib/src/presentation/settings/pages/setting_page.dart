@@ -9,17 +9,13 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:zmare/src/utils/ext/common.dart';
 import 'package:zmare/src/core/enum/box_types.dart';
-import 'package:zmare/src/core/enum/theme_mode.dart';
-import 'package:zmare/src/presentation/settings/pages/personalize_page.dart';
-import 'package:zmare/src/presentation/settings/widgets/circular_play_button_widget.dart';
-import 'package:zmare/src/presentation/settings/widgets/settings_color_picker_widget.dart';
-import 'package:zmare/src/presentation/widgets/texts/khmertracks_title.dart';
+
 import 'package:zmare/src/service_locator.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../core/resources/images.dart';
-import '../widgets/choose_theme_mode_widget.dart';
+
 import '../widgets/setting_option.dart';
 import '../widgets/settings_group_card.dart';
 import '../widgets/version_widget.dart';
@@ -104,39 +100,73 @@ class _SettingsPageState extends State<SettingsPage> {
             AppLanguageChanger(settings: settings),
             // const Divider(),
             // AppFontChanger(settings: settings),
-          ]),
-          Visibility(
-            visible: appUrl != null ? true : false,
-            child: Column(
-              children: [
-                SettingsGroup(
-                  title: context.loc.supportDevelopment,
-                  options: [
-                    SettingsOption(
-                      icon: FluentIcons.star_24_regular,
-                      title: context.loc.appRateLabel,
-                      subtitle: Platform.isAndroid
-                          ? context.loc.androidAppRateDescLabel
-                          : context.loc.iOSAppRateDescLabel,
-                      onTap: () => launchUrl(
-                        Uri.parse(appUrl!),
-                        mode: LaunchMode.externalApplication,
-                      ),
+            Visibility(
+              visible: appUrl != null ? true : false,
+              child: Column(
+                children: [
+                  SettingsOption(
+                    icon: Icons.star_rate_outlined,
+                    title: context.loc.appRateLabel,
+                    subtitle: Platform.isAndroid
+                        ? context.loc.androidAppRateDescLabel
+                        : context.loc.iOSAppRateDescLabel,
+                    onTap: () => launchUrl(
+                      Uri.parse(appUrl!),
+                      mode: LaunchMode.externalApplication,
                     ),
-                    Divider(color: Colors.grey.withOpacity(0.2)),
-                    SettingsOption(
-                        icon: FluentIcons.share_24_regular,
-                        title: context.loc.share,
-                        subtitle: context.loc.shareAppSub,
-                        onTap: () => Share.share(
-                              '${context.loc.appTitle} • ${context.loc.shareAppSub} $appUrl',
-                              subject: context.loc.appTitle,
-                            ))
-                  ],
-                ),
-              ],
-            ),
-          ),
+                    trailing: Icon(Platform.isAndroid
+                        ? Icons.arrow_forward
+                        : Icons.arrow_forward_ios),
+                  ),
+                  // Divider(color: Colors.grey.withOpacity(0.2)),
+                  SettingsOption(
+                    icon: Icons.share_rounded,
+                    title: context.loc.share,
+                    subtitle: context.loc.shareAppSub,
+                    onTap: () => Share.share(
+                      '${context.loc.appTitle} • ${context.loc.shareAppSub} $appUrl',
+                      subject: context.loc.appTitle,
+                    ),
+                    trailing: Icon(Platform.isAndroid
+                        ? Icons.arrow_forward
+                        : Icons.arrow_forward_ios),
+                  )
+                ],
+              ),
+            )
+          ]),
+          // Visibility(
+          //   visible: appUrl != null ? true : false,
+          //   child: Column(
+          //     children: [
+          //       SettingsGroup(
+          //         title: context.loc.supportDevelopment,
+          //         options: [
+          //           SettingsOption(
+          //             icon: FluentIcons.star_24_regular,
+          //             title: context.loc.appRateLabel,
+          //             subtitle: Platform.isAndroid
+          //                 ? context.loc.androidAppRateDescLabel
+          //                 : context.loc.iOSAppRateDescLabel,
+          //             onTap: () => launchUrl(
+          //               Uri.parse(appUrl!),
+          //               mode: LaunchMode.externalApplication,
+          //             ),
+          //           ),
+          //           // Divider(color: Colors.grey.withOpacity(0.2)),
+          //           SettingsOption(
+          //               icon: FluentIcons.share_24_regular,
+          //               title: context.loc.share,
+          //               subtitle: context.loc.shareAppSub,
+          //               onTap: () => Share.share(
+          //                     '${context.loc.appTitle} • ${context.loc.shareAppSub} $appUrl',
+          //                     subject: context.loc.appTitle,
+          //                   ))
+          //         ],
+          //       ),
+          //     ],
+          //   ),
+          // ),
           Visibility(
             visible: ig == null &&
                     tg == null &&
@@ -149,6 +179,66 @@ class _SettingsPageState extends State<SettingsPage> {
               title: context.loc.socialLinksLabel,
               options: [
                 Visibility(
+                  visible: tw != null ? true : false,
+                  child: Column(
+                    children: [
+                      // Divider(color: Colors.grey.withOpacity(0.2)),
+                      SettingsOption(
+                        icon: FontAwesomeIcons.tiktok,
+                        title: context.loc.twitter,
+                        subtitle: context.loc.checkOutOurTwitter,
+                        onTap: () => launchUrl(
+                          Uri.parse(tw!),
+                          mode: LaunchMode.externalApplication,
+                        ),
+                        trailing: Icon(Platform.isAndroid
+                            ? Icons.arrow_forward
+                            : Icons.arrow_forward_ios),
+                      ),
+                    ],
+                  ),
+                ),
+                Visibility(
+                  visible: ig != null ? true : false,
+                  child: Column(
+                    children: [
+                      // Divider(color: Colors.grey.withOpacity(0.2)),
+                      SettingsOption(
+                        icon: FontAwesomeIcons.instagram,
+                        title: context.loc.instagram,
+                        subtitle: context.loc.checkOutOurInstagram,
+                        onTap: () => launchUrl(
+                          Uri.parse(ig!),
+                          mode: LaunchMode.externalApplication,
+                        ),
+                        trailing: Icon(Platform.isAndroid
+                            ? Icons.arrow_forward
+                            : Icons.arrow_forward_ios),
+                      ),
+                    ],
+                  ),
+                ),
+                Visibility(
+                  visible: yt != null ? true : false,
+                  child: Column(
+                    children: [
+                      // Divider(color: Colors.grey.withOpacity(0.2)),
+                      SettingsOption(
+                        icon: FontAwesomeIcons.youtube,
+                        title: context.loc.youTube,
+                        subtitle: context.loc.checkOutOurYoutube,
+                        onTap: () => launchUrl(
+                          Uri.parse(yt!),
+                          mode: LaunchMode.externalApplication,
+                        ),
+                        trailing: Icon(Platform.isAndroid
+                            ? Icons.arrow_forward
+                            : Icons.arrow_forward_ios),
+                      ),
+                    ],
+                  ),
+                ),
+                Visibility(
                   visible: fb != null ? true : false,
                   child: SettingsOption(
                     icon: FontAwesomeIcons.facebook,
@@ -158,64 +248,16 @@ class _SettingsPageState extends State<SettingsPage> {
                       Uri.parse(fb!),
                       mode: LaunchMode.externalApplication,
                     ),
-                  ),
-                ),
-                Visibility(
-                  visible: tw != null ? true : false,
-                  child: Column(
-                    children: [
-                      Divider(color: Colors.grey.withOpacity(0.2)),
-                      SettingsOption(
-                        icon: FontAwesomeIcons.twitter,
-                        title: context.loc.twitter,
-                        subtitle: context.loc.checkOutOurTwitter,
-                        onTap: () => launchUrl(
-                          Uri.parse(tw!),
-                          mode: LaunchMode.externalApplication,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Visibility(
-                  visible: ig != null ? true : false,
-                  child: Column(
-                    children: [
-                      Divider(color: Colors.grey.withOpacity(0.2)),
-                      SettingsOption(
-                        icon: FontAwesomeIcons.instagram,
-                        title: context.loc.instagram,
-                        subtitle: context.loc.checkOutOurInstagram,
-                        onTap: () => launchUrl(
-                          Uri.parse(ig!),
-                          mode: LaunchMode.externalApplication,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Visibility(
-                  visible: yt != null ? true : false,
-                  child: Column(
-                    children: [
-                      Divider(color: Colors.grey.withOpacity(0.2)),
-                      SettingsOption(
-                        icon: FontAwesomeIcons.youtube,
-                        title: context.loc.youTube,
-                        subtitle: context.loc.checkOutOurYoutube,
-                        onTap: () => launchUrl(
-                          Uri.parse(yt!),
-                          mode: LaunchMode.externalApplication,
-                        ),
-                      ),
-                    ],
+                    trailing: Icon(Platform.isAndroid
+                        ? Icons.arrow_forward
+                        : Icons.arrow_forward_ios),
                   ),
                 ),
                 Visibility(
                   visible: tg != null ? true : false,
                   child: Column(
                     children: [
-                      Divider(color: Colors.grey.withOpacity(0.2)),
+                      // Divider(color: Colors.grey.withOpacity(0.2)),
                       SettingsOption(
                         icon: FontAwesomeIcons.telegram,
                         title: context.loc.telegramLabel,
@@ -224,6 +266,9 @@ class _SettingsPageState extends State<SettingsPage> {
                           Uri.parse(tg!),
                           mode: LaunchMode.externalApplication,
                         ),
+                        trailing: Icon(Platform.isAndroid
+                            ? Icons.arrow_forward
+                            : Icons.arrow_forward_ios),
                       ),
                     ],
                   ),
@@ -233,7 +278,7 @@ class _SettingsPageState extends State<SettingsPage> {
           ),
           SettingsGroup(title: context.loc.othersLabel, options: [
             const VersionWidget(),
-            Divider(color: Colors.grey.withOpacity(0.2)),
+            // Divider(color: Colors.grey.withOpacity(0.2)),
             Center(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,

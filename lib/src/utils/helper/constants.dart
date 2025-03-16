@@ -1,8 +1,8 @@
 import 'dart:ui';
 
-const String baseUrl = 'http://192.168.1.3:8000';
+const String baseUrl = 'http://192.168.100.42:8000';
 //Font
-const defaultFontName = 'Roboto';
+const defaultFontName = 'Poppins';
 
 const String androidNotificationChannelName = 'zmare';
 const String androidNotificationChannelId = 'com.zmare.pro';
@@ -91,6 +91,8 @@ const libraryPath = 'library';
 const likesPath = 'likes';
 const signInPath = '/signin';
 const signInName = 'signin';
+const verifyAccountPath = '/verifyAccount';
+const verifyAccountName = 'verifyAccount';
 const signUpPath = '/signup';
 const signUpName = 'signup';
 const allArtistPath = 'all-artists';

@@ -65,7 +65,7 @@ class _DownloadButtonState extends State<DownloadButton> {
             child: Center(
               child: (downloadsBox.containsKey(widget.data['id']))
                   ? IconButton(
-                      icon: Icon(MdiIcons.checkAll),
+                      icon: Icon(MdiIcons.checkCircleOutline),
                       tooltip: 'Download Done',
                       color: Theme.of(context).colorScheme.secondary,
                       iconSize: widget.size ?? 24.0,
@@ -112,14 +112,9 @@ class _DownloadButtonState extends State<DownloadButton> {
                           },
                         )
                       : GestureDetector(
-                          child: Stack(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Center(
-                                child: CircularProgressIndicator(
-                                  value:
-                                      down.progress == 1 ? null : down.progress,
-                                ),
-                              ),
                               Center(
                                 child: ValueListenableBuilder(
                                   valueListenable: showStopButton,
@@ -128,7 +123,7 @@ class _DownloadButtonState extends State<DownloadButton> {
                                       icon: const Icon(
                                         Icons.close_rounded,
                                       ),
-                                      iconSize: 25.0,
+                                      iconSize: 22.0,
                                       color: Theme.of(context).iconTheme.color,
                                       tooltip: AppLocalizations.of(
                                         context,
@@ -149,7 +144,7 @@ class _DownloadButtonState extends State<DownloadButton> {
                                           const Duration(milliseconds: 200),
                                       child: Column(
                                         mainAxisAlignment:
-                                            MainAxisAlignment.center,
+                                            MainAxisAlignment.end,
                                         children: [
                                           Visibility(
                                             visible: !showValue,
@@ -161,9 +156,24 @@ class _DownloadButtonState extends State<DownloadButton> {
                                               ),
                                             ),
                                           ),
+                                          SizedBox(
+                                            height: 4,
+                                          ),
                                           Visibility(
                                             visible: showValue,
                                             child: child!,
+                                          ),
+                                          Center(
+                                            child: SizedBox(
+                                              width: 26,
+                                              child: LinearProgressIndicator(
+                                                borderRadius:
+                                                    BorderRadius.circular(7),
+                                                value: down.progress == 1
+                                                    ? null
+                                                    : down.progress,
+                                              ),
+                                            ),
                                           ),
                                         ],
                                       ),
@@ -263,7 +273,7 @@ class _MultiDownloadButtonState extends State<MultiDownloadButton> {
                         backgroundColor: Colors.grey),
                     child: const Icon(FluentIcons.arrow_download_16_regular,
                         color: Colors.white))
-                : Stack(
+                : Column(
                     children: [
                       Center(
                         child: Text(down.progress == null
@@ -274,7 +284,7 @@ class _MultiDownloadButtonState extends State<MultiDownloadButton> {
                         child: SizedBox(
                           height: 35,
                           width: 35,
-                          child: CircularProgressIndicator(
+                          child: LinearProgressIndicator(
                             value: down.progress == 1 ? null : down.progress,
                           ),
                         ),
@@ -283,7 +293,7 @@ class _MultiDownloadButtonState extends State<MultiDownloadButton> {
                         child: SizedBox(
                           height: 30,
                           width: 30,
-                          child: CircularProgressIndicator(
+                          child: LinearProgressIndicator(
                             value: done / widget.data.length,
                           ),
                         ),

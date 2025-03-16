@@ -83,6 +83,7 @@ class NameNControls extends StatelessWidget {
                 ? height * 0.2
                 : height * 0.3);
     final double nowplayingBoxHeight = min(70, height * 0.15);
+
     return SizedBox(
       width: width,
       height: playistOpened ? height * 1.2 : height,
@@ -198,51 +199,44 @@ class NameNControls extends StatelessWidget {
               ),
               SizedBox(
                 width: width * 0.97,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    FutureBuilder<String>(
-                        future: offline
-                            ? Lyrics.getOffLyrics(
-                                mediaItem.extras!['url'].toString())
-                            : null,
-                        builder: (context, snapshot) {
-                          return Visibility(
-                            visible: snapshot.data != null &&
-                                    snapshot.data!.isNotEmpty ||
-                                audioHandler.mediaItem.value!
-                                            .extras?['lyrics'] !=
-                                        null &&
-                                    audioHandler.mediaItem.value!
-                                            .extras?['lyrics'] !=
-                                        '',
-                            child: Align(
-                                alignment: Alignment.bottomLeft,
-                                child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      IconButton(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 16),
-                                        onPressed: () =>
-                                            cardKey.currentState!.toggleCard(),
-                                        icon: const Icon(Icons.lyrics_outlined,
-                                            size: 25),
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .secondary,
-                                      ),
-                                    ])),
-                          );
-                        }),
-                    if (!offline) LikeButton(mediaItem: mediaItem, size: 25.0),
-                    IconButton(
-                        onPressed: openPlayList,
-                        icon: Icon(
-                          Icons.queue_music_outlined,
-                          size: 25,
-                        ))
-                  ],
+                child: FutureBuilder<String>(
+                  future: offline
+                      ? Lyrics.getOffLyrics(mediaItem.extras!['url'].toString())
+                      : null,
+                  builder: (context, snapshot) {
+                    bool hasLyrics = (snapshot.data != null &&
+                            snapshot.data!.isNotEmpty) ||
+                        (audioHandler.mediaItem.value!.extras?['lyrics'] !=
+                                null &&
+                            audioHandler.mediaItem.value!.extras?['lyrics'] !=
+                                '');
+
+                    return Row(
+                      mainAxisAlignment: hasLyrics
+                          ? MainAxisAlignment.spaceBetween
+                          : MainAxisAlignment
+                              .start, // Align left when no lyrics
+                      children: [
+                        if (hasLyrics)
+                          IconButton(
+                            padding: const EdgeInsets.symmetric(horizontal: 16),
+                            onPressed: () => cardKey.currentState!.toggleCard(),
+                            icon: const Icon(Icons.lyrics_outlined, size: 25),
+                            color: Theme.of(context).colorScheme.secondary,
+                          ),
+                        LikeButton(mediaItem: mediaItem, size: 25.0),
+                        if (!hasLyrics)
+                          const Spacer(), // Push playlist button to the right
+                        IconButton(
+                          onPressed: openPlayList,
+                          icon: const Icon(
+                            Icons.queue_music_outlined,
+                            size: 25,
+                          ),
+                        ),
+                      ],
+                    );
+                  },
                 ),
               ),
 
