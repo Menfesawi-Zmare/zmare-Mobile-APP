@@ -1,5 +1,6 @@
 {
     "appTitle": "ምዕራፍ",
+    "appTitle": "ምዕራፍ",
     "@appTitle": {
         "description": "ምዕራፍ"
     },
@@ -432,7 +433,7 @@
     "@login": {},
     "logout": "ውጣ",
     "@logout": {},
-    "signUp": "ነፃ ለመመዝገብ",
+    "signUp": "ለመመዝገብ",
     "@signUp": {},
     "continueWithGmail": "በGmail ቀጥል",
     "@continueWithGmail": {},

@@ -275,7 +275,7 @@ class _PlaylistPageState extends State<PlaylistPage> {
                               ],
                             ),
                             Row(
-                              spacing: 10,
+                              // spacing: 10,
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
                                 // if (songList.isNotEmpty)

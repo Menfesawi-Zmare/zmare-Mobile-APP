@@ -12,6 +12,7 @@ class AndroidNavigation extends StatelessWidget {
     return Theme(
       data: Theme.of(context).copyWith(splashFactory: NoSplash.splashFactory),
       child: NavigationBar(
+        animationDuration: Duration(seconds: 2),
         selectedIndex: navigationShell.currentIndex,
         onDestinationSelected: (index) => _onTap(context, index),
         destinations: [
