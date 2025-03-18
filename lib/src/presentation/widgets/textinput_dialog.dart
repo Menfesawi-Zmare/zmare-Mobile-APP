@@ -14,19 +14,33 @@ Future<void> showTextInputDialog({
     builder: (BuildContext ctxt) {
       final controller = TextEditingController(text: initialText);
       return AlertDialog(
-        icon: Icon(
-          Icons.music_off_sharp,
-          size: 24,
+        backgroundColor: context.surface,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        elevation: 2,
+        title: Row(
+          children: [
+            Icon(
+              Icons.edit,
+              size: 15,
+              color: context.onSurface,
+            ),
+            SizedBox(
+              width: 5,
+            ),
+            Text(title,
+                style:
+                    context.titleMedium!.copyWith(fontWeight: FontWeight.bold)),
+          ],
         ),
-        title: Text(title,
-            style: context.titleLarge!.copyWith(fontWeight: FontWeight.bold)),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             KhmertracksTextField(
+              textInputAction: TextInputAction.none,
+              maxLine: 10,
               autofocus: true,
               controller: controller,
-              labelText: 'Number',
+              labelText: 'Comment',
               onFieldSubmitted: (value) {
                 onSubmitted(value);
               },

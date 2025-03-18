@@ -109,290 +109,285 @@ class _PlaylistPageState extends State<PlaylistPage> {
         },
         child: Scaffold(
           extendBodyBehindAppBar: true,
-          appBar: AppBar(
-            elevation: 0,
-            backgroundColor:
-                opacity < 0.6 ? Colors.transparent.withOpacity(opacity) : null,
-            title: Opacity(
-              opacity: opacity,
-              child: Text(playlist.name!,
-                  overflow: TextOverflow.ellipsis,
-                  style: context.titleLarge
-                      ?.copyWith(fontWeight: FontWeight.bold)),
-            ),
-            centerTitle: false,
-            actions: [
-              if (widget.action.toLowerCase() == 'true')
-                IconButton(
-                    onPressed: () => khmertracksAlertDialog(
-                          context,
-                          title: KhmertracksText(
-                            text: context.loc.deletePlaylist,
-                            isBold: true,
-                          ),
-                          child: const SizedBox.shrink(),
-                          confirmationButton: TextButton(
-                            style: TextButton.styleFrom(
-                              backgroundColor:
-                                  Theme.of(context).colorScheme.primary,
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 16),
-                            ),
-                            onPressed: () {
-                              authBloc.add(DeletePlaylistEvent(playlist.id!));
-                              context.pop();
-                            },
-                            child: Text(context.loc.delete,
-                                style: TextStyle(
-                                    color: context.colorScheme.onPrimary)),
-                          ),
-                        ),
-                    icon: Icon(
-                      FluentIcons.delete_12_regular,
-                      color: Theme.of(context).colorScheme.onSurface,
-                    ))
-              else
-                const SizedBox.shrink()
-            ],
-          ),
-          body: ListView(
-              controller: scrollController,
-              padding: const EdgeInsets.only(top: 0),
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    ValueListenableBuilder(
-                      valueListenable: gradientColor,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+          // appBar: AppBar(
+          //   elevation: 0,
+          //   backgroundColor:
+          //       opacity < 0.6 ? Colors.transparent.withOpacity(opacity) : null,
+          //   title: Opacity(
+          //     opacity: opacity,
+          //     child: Text(playlist.name!,
+          //         overflow: TextOverflow.ellipsis,
+          //         style: context.titleLarge
+          //             ?.copyWith(fontWeight: FontWeight.bold)),
+          //   ),
+          //   centerTitle: false,
+          //   actions: [
+          //     if (widget.action.toLowerCase() == 'true')
+          //       IconButton(
+          //           onPressed: () => khmertracksAlertDialog(
+          //                 context,
+          //                 title: KhmertracksText(
+          //                   text: context.loc.deletePlaylist,
+          //                   isBold: true,
+          //                 ),
+          //                 child: const SizedBox.shrink(),
+          //                 confirmationButton: TextButton(
+          //                   style: TextButton.styleFrom(
+          //                     backgroundColor:
+          //                         Theme.of(context).colorScheme.primary,
+          //                     padding:
+          //                         const EdgeInsets.symmetric(horizontal: 16),
+          //                   ),
+          //                   onPressed: () {
+          //                     authBloc.add(DeletePlaylistEvent(playlist.id!));
+          //                     context.pop();
+          //                   },
+          //                   child: Text(context.loc.delete,
+          //                       style: TextStyle(
+          //                           color: context.colorScheme.onPrimary)),
+          //                 ),
+          //               ),
+          //           icon: Icon(
+          //             FluentIcons.delete_12_regular,
+          //             color: Theme.of(context).colorScheme.onSurface,
+          //           ))
+          //     else
+          //       const SizedBox.shrink()
+          //   ],
+          // ),
+
+          body: CustomScrollView(
+            slivers: [
+              SliverAppBar(
+                expandedHeight: 350,
+                toolbarHeight: 40,
+                collapsedHeight: 50,
+                pinned: true,
+                flexibleSpace: LayoutBuilder(builder:
+                    (BuildContext context, BoxConstraints constraints) {
+                  // Calculate how much the app bar is collapsed
+                  double percentage = (constraints.maxHeight - kToolbarHeight) /
+                      (250 - kToolbarHeight);
+
+                  return FlexibleSpaceBar(
+                      expandedTitleScale: 1.3,
+                      titlePadding:
+                          EdgeInsets.only(left: percentage > 0.5 ? 0 : 30),
+                      background: Stack(
+                        fit: StackFit.expand,
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.only(
-                                left: 10, right: 10, top: kToolbarHeight * 1.9),
-                            child: SizedBox(
-                              width: double.infinity,
-                              height: 200,
-                              child: AspectRatio(
-                                  aspectRatio: 1 / 1,
-                                  child: Card(
-                                    elevation: 1,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(40.0),
-                                    ),
-                                    child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(12),
-                                        child: KhmertracksImage(
-                                          imageUrl: playlist.image!,
-                                          placeholderImage: Images.defalutCover,
-                                        )),
-                                  )),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(
-                                left: 16, right: 16, top: 10),
-                            child: KhmertracksText(
-                              text: playlist.name!,
-                              isBold: true,
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(
-                                left: 16, right: 16, bottom: 5),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    KhmertracksText(
-                                      text: context.loc
-                                          .createBy(playlist.ownerName ?? ""),
-                                      isSmall: true,
-                                      isBold: true,
-                                    ),
-                                    const SizedBox(height: 5),
-                                    RichText(
-                                      text: TextSpan(
-                                        children: [
-                                          TextSpan(
-                                            text:
-                                                '${songList.length.toString()} ${songList.length > 1 ? context.loc.songs : context.loc.song} ',
-                                            style: context.labelMedium!
-                                                .copyWith(
-                                                    color: context
-                                                        .bodySmall!.color),
-                                          ),
-                                          WidgetSpan(
-                                            child: playlist.public! == 1
-                                                ? Icon(
-                                                    FluentIcons
-                                                        .globe_24_regular,
-                                                    size: 14,
-                                                    color: Theme.of(context)
-                                                        .textTheme
-                                                        .bodySmall!
-                                                        .color)
-                                                : Icon(
-                                                    FluentIcons
-                                                        .lock_closed_24_regular,
-                                                    size: 14,
-                                                    color: Theme.of(context)
-                                                        .textTheme
-                                                        .bodySmall!
-                                                        .color),
-                                          ),
-                                          TextSpan(
-                                            text:
-                                                ' ${PlaylistPrivacyType.values.firstWhere((e) => e.toIndex == playlist.public!).name(context)}',
-                                            style: context.labelMedium!
-                                                .copyWith(
-                                                    color: Theme.of(context)
-                                                        .textTheme
-                                                        .bodySmall!
-                                                        .color),
-                                          ),
-                                        ],
-                                      ),
-                                    )
-                                  ],
-                                ),
-                                Wrap(children: <Widget>[
-                                  Visibility(
-                                    visible:
-                                        widget.action.toLowerCase() == 'true'
-                                            ? true
-                                            : false,
-                                    child: SizedBox(
-                                      width: 45,
-                                      child: ElevatedButton(
-                                          onPressed: () {
-                                            HapticFeedback.mediumImpact();
-                                            Navigator.of(context).push(
-                                                MaterialPageRoute<void>(
-                                                    builder:
-                                                        (BuildContext context) {
-                                                      return ModalUpdatePlaylist(
-                                                        playlist: playlist,
-                                                        bloc: authBloc,
-                                                        onCallBack:
-                                                            (Playlist updated) {
-                                                          setState(() {
-                                                            playlist = updated;
-                                                          });
-                                                          context.showMaterialSnackBar(
-                                                              context.loc
-                                                                  .playlistUpdated);
-                                                        },
-                                                      );
-                                                    },
-                                                    fullscreenDialog: true));
-                                          },
-                                          style: ElevatedButton.styleFrom(
-                                              shape: const CircleBorder(),
-                                              padding: const EdgeInsets.all(0),
-                                              backgroundColor: context.primary),
-                                          child: const Icon(
-                                              FluentIcons.edit_16_regular,
-                                              color: Colors.white)),
-                                    ),
-                                  ),
-                                  if (songList.isNotEmpty)
-                                    MultiDownloadButton(
-                                      data: songList
-                                          .map((e) => e.toJson())
-                                          .toList(),
-                                      playlistName: playlist.name!,
-                                    )
-                                  else
-                                    const SizedBox.shrink(),
-                                  // SizedBox(
-                                  //   width: 45,
-                                  //   child: ElevatedButton(
-                                  //       onPressed: () {
-                                  //         Share.share(
-                                  //           '${playlist.name} ${context.loc.createBy(playlist.ownerName!)} ${playlist.url}',
-                                  //           subject: playlist.name,
-                                  //         );
-                                  //       },
-                                  //       style: ElevatedButton.styleFrom(
-                                  //           shape: const CircleBorder(),
-                                  //           padding: EdgeInsets.zero,
-                                  //           backgroundColor: Colors.grey),
-                                  //       child: const Icon(
-                                  //           FluentIcons.share_16_regular,
-                                  //           color: Colors.white)),
-                                  // )
-                                ]),
-                              ],
-                            ),
-                          ),
-                          Visibility(
-                            visible:
-                                playlist.description != null ? true : false,
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 16),
-                              child: InkWell(
-                                onTap: () {
-                                  showModalBottomSheet(
-                                      context: context,
-                                      useRootNavigator: true,
-                                      shape: const RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.vertical(
-                                          top: Radius.circular(25.0),
-                                        ),
-                                      ),
-                                      builder: (context) =>
-                                          ModalPlaylistDescrition(
-                                              description:
-                                                  playlist.description ?? ''));
-                                },
-                                child: Text(
-                                  playlist.description ?? '',
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: context.titleMedium!,
-                                ),
-                              ),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 16,
-                          ),
-                          Visibility(
-                              visible: songList.isNotEmpty ? true : false,
-                              child: PlayAndShuffleButton(songList: songList)),
-                          const SizedBox(
-                            height: 16,
+                          AspectRatio(
+                              aspectRatio: 1 / 1,
+                              child: KhmertracksImage(
+                                imageUrl: playlist.image!,
+                                placeholderImage: Images.defalultArtistCover,
+                              )),
+                          Container(
+                            decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                    end: Alignment.topCenter,
+                                    begin: Alignment.bottomCenter,
+                                    stops: [
+                                  0.0,
+                                  1.0,
+                                ],
+                                    colors: [
+                                  Theme.of(context).colorScheme.surface,
+                                  Theme.of(context)
+                                      .colorScheme
+                                      .surface
+                                      .withOpacity(0.5),
+                                  // Colors.transparent
+                                ])),
                           ),
                         ],
                       ),
-                      builder: (BuildContext context, List<Color?>? value,
-                          Widget? child) {
-                        return AnimatedContainer(
-                          duration: const Duration(milliseconds: 600),
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
-                              colors: Theme.of(context).brightness ==
-                                      Brightness.dark
-                                  ? [
-                                      value?[1] ?? Colors.grey[900]!,
-                                      context.colorScheme.surface,
-                                    ]
-                                  : [
-                                      value?[1] ?? const Color(0xfff5f9ff),
-                                      context.colorScheme.surface,
-                                    ],
+                      // centerTitle: true,
+                      title: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 20.0, vertical: 5),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Text(playlist.name!,
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: context.headlineMedium?.copyWith(
+                                        color: context.onSurface,
+                                        fontSize: 24,
+                                        fontWeight: FontWeight.bold)),
+                                if (percentage > 0.5)
+                                  RichText(
+                                    text: TextSpan(
+                                      children: [
+                                        TextSpan(
+                                          text:
+                                              '${songList.length.toString()} ${songList.length > 1 ? context.loc.songs : context.loc.song} ',
+                                          style: context.labelMedium!.copyWith(
+                                              color: context.bodySmall!.color,
+                                              fontSize: 10),
+                                        ),
+                                        WidgetSpan(
+                                          child: playlist.public! == 1
+                                              ? Icon(
+                                                  FluentIcons.globe_24_regular,
+                                                  size: 14,
+                                                  color: Theme.of(context)
+                                                      .textTheme
+                                                      .bodySmall!
+                                                      .color)
+                                              : Icon(
+                                                  FluentIcons
+                                                      .lock_closed_24_regular,
+                                                  size: 14,
+                                                  color: Theme.of(context)
+                                                      .textTheme
+                                                      .bodySmall!
+                                                      .color),
+                                        ),
+                                        TextSpan(
+                                          text:
+                                              ' ${PlaylistPrivacyType.values.firstWhere((e) => e.toIndex == playlist.public!).name(context)}',
+                                          style: context.labelMedium!.copyWith(
+                                              color: Theme.of(context)
+                                                  .textTheme
+                                                  .bodySmall!
+                                                  .color,
+                                              fontSize: 10),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                if (percentage > 0.5)
+                                  Text(
+                                      context.loc
+                                          .createBy(playlist.ownerName ?? ""),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: context.headlineMedium?.copyWith(
+                                          color: context.onSurface,
+                                          fontSize: 10,
+                                          fontWeight: FontWeight.w300)),
+                              ],
+                            ),
+                            Row(
+                              // spacing: 10,
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                // if (songList.isNotEmpty)
+                                //   MultiDownloadButton(
+                                //     data: songList
+                                //         .map((e) => e.toJson())
+                                //         .toList(),
+                                //     playlistName: playlist.name!,
+                                //   )
+                                // else
+                                //   SizedBox.shrink(),
+                                SizedBox(
+                                  width: 35,
+                                  child: ElevatedButton(
+                                      onPressed: () {
+                                        HapticFeedback.mediumImpact();
+                                        Navigator.of(context).push(
+                                            MaterialPageRoute<void>(
+                                                builder:
+                                                    (BuildContext context) {
+                                                  return ModalUpdatePlaylist(
+                                                    playlist: playlist,
+                                                    bloc: authBloc,
+                                                    onCallBack:
+                                                        (Playlist updated) {
+                                                      setState(() {
+                                                        playlist = updated;
+                                                      });
+                                                      context.showMaterialSnackBar(
+                                                          context.loc
+                                                              .playlistUpdated);
+                                                    },
+                                                  );
+                                                },
+                                                fullscreenDialog: true));
+                                      },
+                                      style: ElevatedButton.styleFrom(
+                                          shape: const CircleBorder(),
+                                          padding: const EdgeInsets.all(0),
+                                          backgroundColor: Colors.grey),
+                                      child: const Icon(
+                                          FluentIcons.edit_16_regular,
+                                          color: Colors.white)),
+                                ),
+                              ],
+                            ),
+
+                            // SizedBox(
+                            //   width: 45,
+                            //   child: ElevatedButton(
+                            //       onPressed: () {
+                            //         Share.share(
+                            //           '${playlist.name} ${context.loc.createBy(playlist.ownerName!)} ${playlist.url}',
+                            //           subject: playlist.name,
+                            //         );
+                            //       },
+                            //       style: ElevatedButton.styleFrom(
+                            //           shape: const CircleBorder(),
+                            //           padding: EdgeInsets.zero,
+                            //           backgroundColor: Colors.grey),
+                            //       child: const Icon(
+                            //           FluentIcons.share_16_regular,
+                            //           color: Colors.white)),
+                            // )
+                          ],
+                        ),
+                      ));
+                }),
+              ),
+              SliverToBoxAdapter(
+                child: Column(
+                  children: [
+                    Visibility(
+                      visible: playlist.description != null ? true : false,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        child: InkWell(
+                          onTap: () {
+                            showModalBottomSheet(
+                                context: context,
+                                useRootNavigator: true,
+                                shape: const RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.vertical(
+                                    top: Radius.circular(25.0),
+                                  ),
+                                ),
+                                builder: (context) => ModalPlaylistDescrition(
+                                    description: playlist.description ?? ''));
+                          },
+                          child: Text(
+                            playlist.description ?? '',
+                            maxLines: 3,
+                            textAlign: TextAlign.left,
+                            overflow: TextOverflow.ellipsis,
+                            style: context.titleMedium!.copyWith(
+                              fontSize: 14,
                             ),
                           ),
-                          child: child,
-                        );
-                      },
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                      child: Visibility(
+                          visible: songList.isNotEmpty ? true : false,
+                          child: PlayAndShuffleButton(songList: songList)),
+                    ),
+                    const SizedBox(
+                      height: 16,
                     ),
                     BlocProvider(
                       create: (context) => playlistBloc,
@@ -414,9 +409,11 @@ class _PlaylistPageState extends State<PlaylistPage> {
                               padding: EdgeInsets.zero,
                               shrinkWrap: true,
                               itemCount: songList.length,
+                              // itemCount: 100,
                               physics: const NeverScrollableScrollPhysics(),
                               scrollDirection: Axis.vertical,
                               itemBuilder: (BuildContext context, int index) {
+                                // return Text("hello");
                                 return ItemSongSmall(
                                     showArtistName: true,
                                     songList: songList[index],
@@ -443,7 +440,299 @@ class _PlaylistPageState extends State<PlaylistPage> {
                     ),
                   ],
                 ),
-              ]),
+              ),
+            ],
+          ),
+          // body: ListView(
+          //     controller: scrollController,
+          //     padding: const EdgeInsets.only(top: 0),
+          //     children: [
+          //       Column(
+          //         crossAxisAlignment: CrossAxisAlignment.start,
+          //         children: [
+          //           ValueListenableBuilder(
+          //             valueListenable: gradientColor,
+          //             child: Column(
+          //               crossAxisAlignment: CrossAxisAlignment.start,
+          //               children: [
+          //                 Padding(
+          //                   padding: const EdgeInsets.only(
+          //                       left: 10, right: 10, top: kToolbarHeight * 1.9),
+          //                   child: SizedBox(
+          //                     width: double.infinity,
+          //                     height: 200,
+          //                     child: AspectRatio(
+          //                         aspectRatio: 1 / 1,
+          //                         child: Card(
+          //                           elevation: 1,
+          //                           shape: RoundedRectangleBorder(
+          //                             borderRadius: BorderRadius.circular(40.0),
+          //                           ),
+          //                           child: ClipRRect(
+          //                               borderRadius: BorderRadius.circular(12),
+          //                               child: KhmertracksImage(
+          //                                 imageUrl: playlist.image!,
+          //                                 placeholderImage: Images.defalutCover,
+          //                               )),
+          //                         )),
+          //                   ),
+          //                 ),
+          //                 Padding(
+          //                   padding: const EdgeInsets.only(
+          //                       left: 16, right: 16, top: 10),
+          //                   child: KhmertracksText(
+          //                     text: playlist.name!,
+          //                     isBold: true,
+          //                   ),
+          //                 ),
+          //                 Padding(
+          //                   padding: const EdgeInsets.only(
+          //                       left: 16, right: 16, bottom: 5),
+          //                   child: Row(
+          //                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //                     crossAxisAlignment: CrossAxisAlignment.center,
+          //                     children: [
+          //                       Column(
+          //                         crossAxisAlignment: CrossAxisAlignment.start,
+          //                         children: [
+          // KhmertracksText(
+          //   text: context.loc
+          //       .createBy(playlist.ownerName ?? ""),
+          //   isSmall: true,
+          //   isBold: true,
+          // ),
+          //                           const SizedBox(height: 5),
+          // RichText(
+          //   text: TextSpan(
+          //     children: [
+          //       TextSpan(
+          //         text:
+          //             '${songList.length.toString()} ${songList.length > 1 ? context.loc.songs : context.loc.song} ',
+          //         style: context.labelMedium!
+          //             .copyWith(
+          //                 color: context
+          //                     .bodySmall!.color),
+          //       ),
+          //       WidgetSpan(
+          //         child: playlist.public! == 1
+          //             ? Icon(
+          //                 FluentIcons
+          //                     .globe_24_regular,
+          //                 size: 14,
+          //                 color: Theme.of(context)
+          //                     .textTheme
+          //                     .bodySmall!
+          //                     .color)
+          //             : Icon(
+          //                 FluentIcons
+          //                     .lock_closed_24_regular,
+          //                 size: 14,
+          //                 color: Theme.of(context)
+          //                     .textTheme
+          //                     .bodySmall!
+          //                     .color),
+          //       ),
+          //       TextSpan(
+          //         text:
+          //             ' ${PlaylistPrivacyType.values.firstWhere((e) => e.toIndex == playlist.public!).name(context)}',
+          //         style: context.labelMedium!
+          //             .copyWith(
+          //                 color: Theme.of(context)
+          //                     .textTheme
+          //                     .bodySmall!
+          //                     .color),
+          //       ),
+          //     ],
+          //   ),
+          // )
+          //                         ],
+          //                       ),
+          //                       Wrap(children: <Widget>[
+          //                         Visibility(
+          //                           visible:
+          //                               widget.action.toLowerCase() == 'true'
+          //                                   ? true
+          //                                   : false,
+          // child: SizedBox(
+          //   width: 45,
+          //   child: ElevatedButton(
+          //       onPressed: () {
+          //         HapticFeedback.mediumImpact();
+          //         Navigator.of(context).push(
+          //             MaterialPageRoute<void>(
+          //                 builder:
+          //                     (BuildContext context) {
+          //                   return ModalUpdatePlaylist(
+          //                     playlist: playlist,
+          //                     bloc: authBloc,
+          //                     onCallBack:
+          //                         (Playlist updated) {
+          //                       setState(() {
+          //                         playlist = updated;
+          //                       });
+          //                       context.showMaterialSnackBar(
+          //                           context.loc
+          //                               .playlistUpdated);
+          //                     },
+          //                   );
+          //                 },
+          //                 fullscreenDialog: true));
+          //       },
+          //       style: ElevatedButton.styleFrom(
+          //           shape: const CircleBorder(),
+          //           padding: const EdgeInsets.all(0),
+          //           backgroundColor: Colors.grey),
+          //       child: const Icon(
+          //           FluentIcons.edit_16_regular,
+          //           color: Colors.white)),
+          // ),
+          //                         ),
+          // if (songList.isNotEmpty)
+          //   MultiDownloadButton(
+          //     data: songList
+          //         .map((e) => e.toJson())
+          //         .toList(),
+          //     playlistName: playlist.name!,
+          //   )
+          // else
+          //   const SizedBox.shrink(),
+          // SizedBox(
+          //   width: 45,
+          //   child: ElevatedButton(
+          //       onPressed: () {
+          //         Share.share(
+          //           '${playlist.name} ${context.loc.createBy(playlist.ownerName!)} ${playlist.url}',
+          //           subject: playlist.name,
+          //         );
+          //       },
+          //       style: ElevatedButton.styleFrom(
+          //           shape: const CircleBorder(),
+          //           padding: EdgeInsets.zero,
+          //           backgroundColor: Colors.grey),
+          //       child: const Icon(
+          //           FluentIcons.share_16_regular,
+          //           color: Colors.white)),
+          // )
+          //                       ]),
+          //                     ],
+          //                   ),
+          //                 ),
+          // Visibility(
+          //   visible:
+          //       playlist.description != null ? true : false,
+          //   child: Padding(
+          //     padding:
+          //         const EdgeInsets.symmetric(horizontal: 16),
+          //     child: InkWell(
+          //       onTap: () {
+          //         showModalBottomSheet(
+          //             context: context,
+          //             useRootNavigator: true,
+          //             shape: const RoundedRectangleBorder(
+          //               borderRadius: BorderRadius.vertical(
+          //                 top: Radius.circular(25.0),
+          //               ),
+          //             ),
+          //             builder: (context) =>
+          //                 ModalPlaylistDescrition(
+          //                     description:
+          //                         playlist.description ?? ''));
+          //       },
+          //       child: Text(
+          //         playlist.description ?? '',
+          //         maxLines: 2,
+          //         overflow: TextOverflow.ellipsis,
+          //         style: context.titleMedium!,
+          //       ),
+          //     ),
+          //   ),
+          // ),
+          //                 const SizedBox(
+          //                   height: 16,
+          //                 ),
+          // Visibility(
+          //     visible: songList.isNotEmpty ? true : false,
+          //     child: PlayAndShuffleButton(songList: songList)),
+          // const SizedBox(
+          //   height: 16,
+          // ),
+          //               ],
+          //             ),
+          //             builder: (BuildContext context, List<Color?>? value,
+          //                 Widget? child) {
+          //               return AnimatedContainer(
+          //                 duration: const Duration(milliseconds: 600),
+          //                 decoration: BoxDecoration(
+          //                   gradient: LinearGradient(
+          //                     begin: Alignment.topCenter,
+          //                     end: Alignment.bottomCenter,
+          //                     colors: Theme.of(context).brightness ==
+          //                             Brightness.dark
+          //                         ? [
+          //                             value?[1] ?? Colors.grey[900]!,
+          //                             context.colorScheme.surface,
+          //                           ]
+          //                         : [
+          //                             value?[1] ?? const Color(0xfff5f9ff),
+          //                             context.colorScheme.surface,
+          //                           ],
+          //                   ),
+          //                 ),
+          //                 child: child,
+          //               );
+          //             },
+          //           ),
+          // BlocProvider(
+          //   create: (context) => playlistBloc,
+          //   child: BlocConsumer<PlaylistBloc, PlaylistState>(
+          //     listener: (context, state) {
+          //       if (state is PlaylistLoaded) {
+          //         setState(() {
+          //           songList = state.trackList.songList!;
+          //         });
+          //       }
+          //     },
+          //     builder: (context, state) {
+          //       if (state is PlaylistLoading) {
+          //         return const Center(
+          //           child: CircularProgressIndicator(),
+          //         );
+          //       }
+          //       return ListView.builder(
+          //           padding: EdgeInsets.zero,
+          //           shrinkWrap: true,
+          //           itemCount: 100,
+          //           physics: const NeverScrollableScrollPhysics(),
+          //           scrollDirection: Axis.vertical,
+          //           itemBuilder: (BuildContext context, int index) {
+          //             return Text("hello");
+          //             // return ItemSongSmall(
+          //             //     showArtistName: true,
+          //             //     songList: songList[index],
+          //             //     number: (index + 1).toString(),
+          //             //     index: index,
+          //             //     listItemSong: songList,
+          //             //     action:
+          //             //         widget.action.toLowerCase() == 'true'
+          //             //             ? true
+          //             //             : false,
+          //             //     playlist: widget.playlist,
+          //             //     onRemoveCallBack: (Playlist playlist) {
+          //             //       setState(() {
+          //             //         addItemSong = songList[index];
+          //             //       });
+          //             //       authBloc.add(AddToPlaylistEvent(
+          //             //           PlaylistsRequestModel(
+          //             //               trackId: songList[index].id,
+          //             //               playlistId: playlist.id!)));
+          //             //     });
+          //           });
+          //     },
+          //   ),
+          // ),
+          //         ],
+          //       ),
+          //     ]),
         ),
       ),
     );

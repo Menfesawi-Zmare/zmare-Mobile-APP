@@ -1,3 +1,4 @@
+import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,6 +13,9 @@ import 'package:zmare/src/presentation/widgets/no_comment_widget.dart';
 import 'package:zmare/src/service_locator.dart';
 import 'package:go_router/go_router.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:flutter/foundation.dart' as foundation;
+
+import '../widgets/textinput_dialog.dart';
 
 class ModalComment extends StatefulWidget {
   const ModalComment({super.key, required this.track});
@@ -22,15 +26,20 @@ class ModalComment extends StatefulWidget {
 
 class _ModalCommentState extends State<ModalComment> {
   final TrackBloc trackBloc = locator.get<TrackBloc>();
-  List<Comment> listComment = [];
   final PagingController<int, Comment> _pagingController =
       PagingController(firstPageKey: 1);
   final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
       GlobalKey<RefreshIndicatorState>();
   final commentController = TextEditingController();
   final accountJson = account.get(accountDetail, defaultValue: '');
-  Profile? profile = Profile();
+  Profile? profile;
+  final _scrollController = ScrollController();
+  bool _emojiShowing = false;
   int? itemIndex;
+  bool isLongPressed = false;
+  late FocusNode _focusNode;
+  bool _isFocused = false;
+
   @override
   void initState() {
     if (accountJson != '') {
@@ -39,21 +48,212 @@ class _ModalCommentState extends State<ModalComment> {
     _pagingController.addPageRequestListener((pageKey) {
       trackBloc.add(LoadTrackCommentEvent(widget.track.id!, pageKey));
     });
+    _focusNode = FocusNode();
+
+    _focusNode.addListener(() {
+      setState(() {
+        if (_focusNode.hasFocus) {
+          if (_emojiShowing) {
+            FocusScope.of(context).unfocus();
+          }
+        }
+      });
+    });
     super.initState();
   }
 
   @override
   void dispose() {
     commentController.dispose();
+    _scrollController.dispose();
     super.dispose();
+  }
+
+  void _onCommentSubmitted() {
+    trackBloc
+        .add(AddTrackCommentEvent(widget.track.id!, commentController.text));
+  }
+
+  void _onEditComment(int index, String message) {
+    trackBloc.add(
+        EditTrackCommentEvent(_pagingController.itemList![index].id!, message));
+  }
+
+  void _onDeleteComment(int index) {
+    trackBloc
+        .add(DeleteTrackCommentEvent(_pagingController.itemList![index].id!));
+  }
+
+  Widget _buildCommentActions(int index, Comment item) {
+    return Container(
+      width: 110,
+      decoration: BoxDecoration(
+        color: context.onPrimary.withOpacity(0.5),
+        borderRadius: BorderRadius.circular(5),
+      ),
+      height: 100,
+      padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        // spacing: 10,
+        children: [
+          InkWell(
+            onTap: () {
+              showTextInputDialog(
+                context: context,
+                keyboardType: TextInputType.text,
+                title: context.loc.edit,
+                initialText: item.message,
+                onSubmitted: (String value) => _onEditComment(index, value),
+              );
+              setState(() => isLongPressed = false);
+            },
+            child: Row(
+              // spacing: 10,
+              children: [
+                Icon(Icons.edit, size: 15),
+                Text("Edit"),
+              ],
+            ),
+          ),
+          InkWell(
+            onTap: () {
+              _onDeleteComment(index);
+              setState(() => isLongPressed = false);
+            },
+            child: Row(
+              // spacing: 10,
+              children: [
+                Icon(Icons.delete, size: 15),
+                Text("Delete"),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildCommentInput(
+      FocusNode focusNode, bool isFocused, BuildContext ctx) {
+    return SizedBox(
+      width: 400,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Row(
+            children: [
+              Material(
+                color: Colors.transparent,
+                child: IconButton(
+                  onPressed: () {
+                    final isKeyboardVisible =
+                        MediaQuery.of(context).viewInsets.bottom > 0;
+
+                    if (isKeyboardVisible) {
+                      // Hide keyboard and show emoji picker
+                      FocusScope.of(context).unfocus();
+                      Future.delayed(const Duration(milliseconds: 300), () {
+                        setState(() {
+                          _emojiShowing = true;
+                        });
+                      });
+                    } else {
+                      // Toggle emoji visibility
+                      setState(() {
+                        _emojiShowing = !_emojiShowing;
+                      });
+
+                      if (_emojiShowing) {
+                        FocusScope.of(context).unfocus(); // Hide keyboard
+                      } else {
+                        FocusScope.of(context)
+                            .requestFocus(focusNode); // Show keyboard
+                      }
+                    }
+                  },
+                  icon: Icon(
+                    _emojiShowing ? Icons.keyboard : Icons.emoji_emotions,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+              Expanded(
+                child: TextField(
+                  focusNode: focusNode,
+                  controller: commentController,
+                  decoration: InputDecoration(
+                    contentPadding:
+                        const EdgeInsets.fromLTRB(16.0, 0.0, 18.0, 30.0),
+                    border: const OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                      borderSide:
+                          BorderSide(width: 1.5, color: Colors.transparent),
+                    ),
+                    suffixIcon: IconButton(
+                      icon: const Icon(FluentIcons.send_24_regular),
+                      onPressed: _onCommentSubmitted,
+                    ),
+                    hintText: context.loc.comment,
+                  ),
+                  keyboardType: TextInputType.text,
+                  textInputAction: TextInputAction.send,
+                  onSubmitted: (_) => _onCommentSubmitted(),
+                  onTap: () {
+                    setState(() {
+                      _emojiShowing =
+                          false; // Hide emoji when tapping the input
+                    });
+                  },
+                ),
+              ),
+            ],
+          ),
+          Offstage(
+            offstage: !_emojiShowing,
+            child: EmojiPicker(
+              textEditingController: commentController,
+              scrollController: _scrollController,
+              config: Config(
+                height: 256,
+                checkPlatformCompatibility: true,
+                viewOrderConfig: const ViewOrderConfig(),
+                emojiViewConfig: EmojiViewConfig(
+                  backgroundColor: ctx.surface,
+                  gridPadding: EdgeInsets.all(5),
+                  columns: 8,
+                  recentsLimit: 10,
+                  emojiSizeMax: 28 *
+                      (foundation.defaultTargetPlatform == TargetPlatform.iOS
+                          ? 1.2
+                          : 1.0),
+                ),
+                // emojiTextStyle: TextStyle(c),
+                skinToneConfig: SkinToneConfig(
+                    indicatorColor: ctx.onSurface, enabled: true),
+                categoryViewConfig: CategoryViewConfig(
+                    backgroundColor: ctx.surface,
+                    dividerColor: ctx.onSurface,
+                    indicatorColor: ctx.onSurface,
+                    iconColorSelected: ctx.onSurface),
+                bottomActionBarConfig: BottomActionBarConfig(
+                    backgroundColor: ctx.onPrimary, buttonColor: ctx.onPrimary),
+                searchViewConfig: SearchViewConfig(
+                  backgroundColor: ctx.onPrimary,
+                  buttonIconColor: ctx.onSurface,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return RefreshIndicator(
       key: _refreshIndicatorKey,
-      backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-      strokeWidth: 2.0,
       onRefresh: () async {
         trackBloc.add(LoadTrackCommentEvent(widget.track.id!, 1));
         _pagingController.refresh();
@@ -62,127 +262,84 @@ class _ModalCommentState extends State<ModalComment> {
         appBar: context.materialYouAppBar(
           context.loc.comment,
           leadingWidget: IconButton(
-              onPressed: () => context.pop(), icon: const Icon(Icons.close)),
+            onPressed: () => context.pop(),
+            icon: const Icon(Icons.close),
+          ),
         ),
         body: BlocProvider(
           create: (context) => trackBloc,
-          child: BlocListener(
-            bloc: trackBloc,
+          child: BlocListener<TrackBloc, TrackState>(
             listener: (context, state) {
               if (state is LoadTrackCommentState) {
-                listComment = state.loadCommentResponse.data!;
-                final isLastPage = listComment.length <
+                final isLastPage = state.loadCommentResponse.data!.length <
                     state.loadCommentResponse.pagination!.perPage!;
                 if (isLastPage) {
-                  _pagingController.appendLastPage(listComment);
+                  _pagingController
+                      .appendLastPage(state.loadCommentResponse.data!);
                 } else {
-                  _pagingController.appendPage(listComment,
+                  _pagingController.appendPage(state.loadCommentResponse.data!,
                       state.loadCommentResponse.pagination!.currentPage! + 1);
                 }
-              }
-              if (state is AddTrackCommentState) {
+              } else if (state is AddTrackCommentState) {
                 FocusScope.of(context).unfocus();
-                commentController.text = '';
+                commentController.clear();
                 _pagingController.refresh();
-              }
-              if (state is TrackFailedState) {
+              } else if (state is TrackFailedState) {
                 _pagingController.error = state;
-              }
-              if (state is TrackNoData) {
+              } else if (state is TrackNoData) {
                 _pagingController.itemList = [];
-              }
-              if (state is DeleteTrackCommentState) {
-                if (itemIndex != null && state.result == true) {
-                  setState(() {
-                    _pagingController.itemList!.removeAt(itemIndex!);
-                  });
-                }
-              }
-              if (state is EditTrackCommentState) {
-                if (itemIndex != null && state.commentResponse.status == true) {
-                  setState(() {
-                    _pagingController.itemList![itemIndex!].message =
-                        state.commentResponse.message!;
-                  });
-                }
+              } else if (state is DeleteTrackCommentState &&
+                  itemIndex != null &&
+                  state.result) {
+                setState(
+                    () => _pagingController.itemList!.removeAt(itemIndex!));
+              } else if (state is EditTrackCommentState &&
+                  itemIndex != null &&
+                  state.commentResponse.status!) {
+                setState(() => _pagingController.itemList![itemIndex!].message =
+                    state.commentResponse.message!);
               }
             },
-            child: PagedListView<int, Comment>(
-              pagingController: _pagingController,
-              builderDelegate: PagedChildBuilderDelegate<Comment>(
+            child: GestureDetector(
+              onTap: () => setState(() => isLongPressed = false),
+              child: PagedListView<int, Comment>(
+                pagingController: _pagingController,
+                builderDelegate: PagedChildBuilderDelegate<Comment>(
                   noItemsFoundIndicatorBuilder: (context) => Center(
-                      child: NoCommentWidget(
-                          onTap: () => _pagingController.refresh())),
+                    child: NoCommentWidget(
+                        onTap: () => _pagingController.refresh()),
+                  ),
                   itemBuilder: (context, item, index) {
-                    return ItemComment(
-                        comment: item,
-                        itemIndex: index,
-                        onDeleteCallBack: (int value) {
-                          trackBloc.add(DeleteTrackCommentEvent(
-                              _pagingController.itemList![value].id!));
-                          setState(() {
-                            itemIndex = value;
-                          });
-                        },
-                        onEditCallBack: (int value, String message) {
-                          trackBloc.add(EditTrackCommentEvent(
-                              _pagingController.itemList![value].id!, message));
-                          setState(() {
-                            itemIndex = value;
-                            _pagingController.itemList![itemIndex!].message =
-                                message;
-                          });
-                        });
-                  }),
+                    return Column(
+                      children: [
+                        InkWell(
+                          onLongPress: () => setState(() {
+                            isLongPressed = true;
+                            itemIndex = index;
+                          }),
+                          child: ItemComment(
+                            comment: item,
+                            itemIndex: index,
+                            onDeleteCallBack: _onDeleteComment,
+                            onEditCallBack: _onEditComment,
+                          ),
+                        ),
+                        if (itemIndex == index &&
+                            isLongPressed &&
+                            profile?.id == item.user?.id)
+                          _buildCommentActions(index, item),
+                      ],
+                    );
+                  },
+                ),
+              ),
             ),
           ),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         floatingActionButton: Visibility(
-          visible: accountJson != '' ? true : false,
-          child: TextField(
-            textAlignVertical: TextAlignVertical.bottom,
-            controller: commentController,
-            decoration: InputDecoration(
-              contentPadding: const EdgeInsets.fromLTRB(16.0, 0.0, 18.0, 30.0),
-              focusedBorder: const OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                borderSide: BorderSide(
-                  width: 1.5,
-                  color: Colors.transparent,
-                ),
-              ),
-              border: const OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                borderSide: BorderSide(
-                  width: 1.5,
-                  color: Colors.transparent,
-                ),
-              ), // OutlineInputBorder
-              enabledBorder: const OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                borderSide: BorderSide(
-                  width: 1.5,
-                  color: Colors.transparent,
-                ),
-              ),
-              // prefixIcon: const Icon(Icons.search),
-              suffixIcon: IconButton(
-                icon: const Icon(FluentIcons.send_24_regular),
-                onPressed: () {
-                  trackBloc.add(AddTrackCommentEvent(
-                      widget.track.id!, commentController.text));
-                },
-              ),
-              hintText: context.loc.comment,
-            ),
-            keyboardType: TextInputType.text,
-            textInputAction: TextInputAction.send,
-            onSubmitted: (submittedQuery) {
-              trackBloc.add(AddTrackCommentEvent(
-                  widget.track.id!, commentController.text));
-            },
-          ),
+          visible: accountJson != '',
+          child: _buildCommentInput(_focusNode, _isFocused, context),
         ),
       ),
     );
