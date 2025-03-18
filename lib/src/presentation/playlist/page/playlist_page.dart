@@ -293,7 +293,7 @@ class _PlaylistPageState extends State<PlaylistPage> {
                                           style: ElevatedButton.styleFrom(
                                               shape: const CircleBorder(),
                                               padding: const EdgeInsets.all(0),
-                                              backgroundColor: Colors.grey),
+                                              backgroundColor: context.primary),
                                           child: const Icon(
                                               FluentIcons.edit_16_regular,
                                               color: Colors.white)),
@@ -308,23 +308,23 @@ class _PlaylistPageState extends State<PlaylistPage> {
                                     )
                                   else
                                     const SizedBox.shrink(),
-                                  SizedBox(
-                                    width: 45,
-                                    child: ElevatedButton(
-                                        onPressed: () {
-                                          Share.share(
-                                            '${playlist.name} ${context.loc.createBy(playlist.ownerName!)} ${playlist.url}',
-                                            subject: playlist.name,
-                                          );
-                                        },
-                                        style: ElevatedButton.styleFrom(
-                                            shape: const CircleBorder(),
-                                            padding: EdgeInsets.zero,
-                                            backgroundColor: Colors.grey),
-                                        child: const Icon(
-                                            FluentIcons.share_16_regular,
-                                            color: Colors.white)),
-                                  )
+                                  // SizedBox(
+                                  //   width: 45,
+                                  //   child: ElevatedButton(
+                                  //       onPressed: () {
+                                  //         Share.share(
+                                  //           '${playlist.name} ${context.loc.createBy(playlist.ownerName!)} ${playlist.url}',
+                                  //           subject: playlist.name,
+                                  //         );
+                                  //       },
+                                  //       style: ElevatedButton.styleFrom(
+                                  //           shape: const CircleBorder(),
+                                  //           padding: EdgeInsets.zero,
+                                  //           backgroundColor: Colors.grey),
+                                  //       child: const Icon(
+                                  //           FluentIcons.share_16_regular,
+                                  //           color: Colors.white)),
+                                  // )
                                 ]),
                               ],
                             ),

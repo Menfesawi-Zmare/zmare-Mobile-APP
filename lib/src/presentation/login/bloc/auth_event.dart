@@ -17,7 +17,7 @@ class SignUpRequestedEvent extends AuthEvent {
   final String password;
   final String email;
 
-  SignUpRequestedEvent(this.username,this.password,this.email);
+  SignUpRequestedEvent(this.username, this.password, this.email);
 }
 
 class AppSettingsEvent extends AuthEvent {}
@@ -55,7 +55,8 @@ class ChangePasswordEvent extends AuthEvent {
   final String currentPassword;
   final String newPassword;
   final String repeatPassword;
-  ChangePasswordEvent(this.currentPassword, this.newPassword, this.repeatPassword);
+  ChangePasswordEvent(
+      this.currentPassword, this.newPassword, this.repeatPassword);
 }
 
 class GetSubsEvent extends AuthEvent {
@@ -86,31 +87,39 @@ class AddToPlaylistEvent extends AuthEvent {
   final PlaylistsRequestModel playlistsRequestModel;
   AddToPlaylistEvent(this.playlistsRequestModel);
 }
+
 class UpdatePlaylistEvent extends AuthEvent {
   final PlaylistUpdateRequestModel playlistUpdateRequestModel;
   UpdatePlaylistEvent(this.playlistUpdateRequestModel);
 }
+
 class DeletePlaylistEvent extends AuthEvent {
   final int playlistId;
   DeletePlaylistEvent(this.playlistId);
 }
+
 class AddDownloadEvent extends AuthEvent {
   final String trackId;
   AddDownloadEvent(this.trackId);
 }
+
 class AddViewEvent extends AuthEvent {
   final String trackId;
   AddViewEvent(this.trackId);
 }
+
 class CheckFavoriteEvent extends AuthEvent {
   final int trackId;
   CheckFavoriteEvent(this.trackId);
 }
+
 class LikeTrackEvent extends AuthEvent {
   final LikeAndDislike likeAndDislike;
   LikeTrackEvent(this.likeAndDislike);
 }
+
 class LogoutEvent extends AuthEvent {}
+
 // ignore: must_be_immutable
 class ValidateFieldsEvent extends AuthEvent {
   GlobalKey<FormState> key;
@@ -118,13 +127,20 @@ class ValidateFieldsEvent extends AuthEvent {
 
   ValidateFieldsEvent(this.key, {required this.acceptEula});
 }
+
 // ignore: must_be_immutable
 class ToggleEulaCheckboxEvent extends AuthEvent {
   bool eulaAccepted;
 
   ToggleEulaCheckboxEvent({required this.eulaAccepted});
 }
+
 class DeleteAccountEvent extends AuthEvent {
   final String currentPassword;
   DeleteAccountEvent(this.currentPassword);
+}
+
+class ResendEmailEvent extends AuthEvent {
+  final String email;
+  ResendEmailEvent(this.email);
 }

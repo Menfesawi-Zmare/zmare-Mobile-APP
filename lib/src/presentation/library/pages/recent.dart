@@ -2,10 +2,12 @@
 
 import 'dart:io';
 
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:zmare/src/core/resources/resources.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:zmare/src/presentation/widgets/no_result_widget.dart';
 import 'package:zmare/src/utils/ext/common.dart';
 import 'package:zmare/src/core/enum/box_types.dart';
 import 'package:zmare/src/utils/services/audio/player_service.dart';
@@ -54,21 +56,22 @@ class _RecentlyPlayedState extends State<RecentlyPlayed> {
                 });
               },
               tooltip: context.loc.clearAll,
-              icon: const Icon(Icons.clear_all_rounded),
+              icon: const Icon(FluentIcons.tray_item_remove_20_regular),
             ),
           ],
         ),
         body: _songs.isEmpty
-            ? emptyScreen(
-                context,
-                3,
-                context.loc.nothingTo,
-                15,
-                context.loc.showHere,
-                50.0,
-                context.loc.playSomething,
-                23.0,
-              )
+            ? NoResultWidget()
+            // emptyScreen(
+            //     context,
+            //     3,
+            //     context.loc.nothingTo,
+            //     15,
+            //     context.loc.showHere,
+            //     50.0,
+            //     context.loc.playSomething,
+            //     23.0,
+            //   )
             : ListView.separated(
                 padding: EdgeInsets.zero,
                 physics: const BouncingScrollPhysics(),

@@ -9,6 +9,7 @@ import 'package:zmare/src/data/account/model/account.dart';
 import 'package:zmare/src/data/auth/model/auth_profile.dart';
 import 'package:zmare/src/data/auth/model/login_response.dart';
 import 'package:zmare/src/data/auth/model/logout_model.dart';
+import 'package:zmare/src/data/auth/model/resend_email_model.dart';
 import 'package:zmare/src/data/auth/model/update_account_response.dart';
 import 'package:zmare/src/data/like/model/like_dislike.dart';
 import 'package:zmare/src/data/playlist/model/add_to_playlist_response.dart';
@@ -54,6 +55,7 @@ abstract class IAuthDataSource {
   Future<Either<Failure, bool>> like(LikeAndDislike likeAndDislike);
   Future<Either<Failure, AppSetting>> appSettings();
   Future<Either<Failure, LogoutModel>> logout();
+  Future<Either<Failure, ResendEmailModel>> resendEmail(String email);
 }
 
 class AuthDataSource extends IAuthDataSource {
@@ -336,6 +338,16 @@ class AuthDataSource extends IAuthDataSource {
     final response = await _client.getRequest(
       ListAPI.settings,
       converter: (response) => AppSetting.fromJson(response),
+    );
+    return response;
+  }
+
+  @override
+  Future<Either<Failure, ResendEmailModel>> resendEmail(String email) async {
+    final response = await _client.postRequest(
+      data: {"email": email},
+      ListAPI.resendEmail,
+      converter: (response) => ResendEmailModel.fromJson(response),
     );
     return response;
   }
