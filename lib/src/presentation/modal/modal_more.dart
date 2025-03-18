@@ -205,20 +205,20 @@ class ModalMore extends StatelessWidget {
                   );
                 }),
           ),
-          Visibility(
-            visible: action && playlist != null ? true : false,
-            child: ListTile(
-              title: Text(
-                  "${context.loc.removedFrom} ${playlist != null ? playlist!.name : ''}",
-                  style: context.titleMedium?.copyWith(
-                      color: context.onSurface, fontWeight: FontWeight.w500)),
-              leading: Icon(MdiIcons.deleteOutline),
-              onTap: () {
-                onRemoveCallBack!(playlist!);
-                GoRouter.of(context).pop();
-              },
-            ),
-          ),
+          // Visibility(
+          //   visible: action && playlist != null ? true : false,
+          //   child: ListTile(
+          //     title: Text(
+          //         "${context.loc.removedFrom} ${playlist != null ? playlist!.name : ''}",
+          //         style: context.titleMedium?.copyWith(
+          //             color: context.onSurface, fontWeight: FontWeight.w500)),
+          //     leading: Icon(MdiIcons.deleteOutline),
+          //     onTap: () {
+          //       onRemoveCallBack!(playlist!);
+          //       GoRouter.of(context).pop();
+          //     },
+          //   ),
+          // ),
         ],
       ),
     );
