@@ -26,11 +26,9 @@ class NoResultWidget extends StatelessWidget {
         //   Icons.sentiment_very_satisfied_rounded,
         //   size: 72,
         // ),
-
         SizedBox(
           height: 30,
         ),
-
         KhmertracksText(
           text: context.loc.resultsNotFound,
           isBold: true,
