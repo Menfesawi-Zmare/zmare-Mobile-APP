@@ -24,6 +24,8 @@ import 'package:zmare/src/data/register/model/register_social_request.dart';
 import 'package:zmare/src/domain/auth/repository/auth_repository.dart';
 import 'package:logging/logging.dart';
 
+import '../../../data/auth/model/resend_email_model.dart';
+
 part 'auth_event.dart';
 part 'auth_state.dart';
 
@@ -71,6 +73,20 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           }
         },
       );
+    });
+    on<ResendEmailEvent>((event, emit) async {
+      emit(Loading());
+      print(event.email);
+      final data = await iAuthRepository.resendEmail(event.email);
+      data.fold((l) {
+        if (l is ServerFailure) {
+          emit(Failure(l.message ?? ''));
+        }
+      }, (r) {
+        //Suspended Account
+
+        emit(EmailResentSucces(r));
+      });
     });
 
     on<SignUpRequestedEvent>((event, emit) async {

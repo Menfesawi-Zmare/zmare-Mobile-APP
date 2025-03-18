@@ -4,8 +4,9 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:zmare/src/presentation/widgets/snackbar.dart';
+import 'package:zmare/src/utils/ext/color_extension.dart';
 import 'package:zmare/src/utils/services/audio/download.dart';
-import 'package:hive/hive.dart';
+
 import 'package:zmare/src/core/enum/box_types.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
@@ -268,9 +269,9 @@ class _MultiDownloadButtonState extends State<MultiDownloadButton> {
                       }
                     },
                     style: ElevatedButton.styleFrom(
-                        shape: const CircleBorder(),
+                        shape: CircleBorder(),
                         padding: EdgeInsets.zero,
-                        backgroundColor: Colors.grey),
+                        backgroundColor: context.primary),
                     child: const Icon(FluentIcons.arrow_download_16_regular,
                         color: Colors.white))
                 : Column(
@@ -282,22 +283,23 @@ class _MultiDownloadButtonState extends State<MultiDownloadButton> {
                       ),
                       Center(
                         child: SizedBox(
-                          height: 35,
-                          width: 35,
+                          height: 5,
+                          width: 40,
                           child: LinearProgressIndicator(
+                            borderRadius: BorderRadius.circular(10),
                             value: down.progress == 1 ? null : down.progress,
                           ),
                         ),
                       ),
-                      Center(
-                        child: SizedBox(
-                          height: 30,
-                          width: 30,
-                          child: LinearProgressIndicator(
-                            value: done / widget.data.length,
-                          ),
-                        ),
-                      ),
+                      // Center(
+                      //   child: SizedBox(
+                      //     height: 10,
+                      //     width: 30,
+                      //     child: LinearProgressIndicator(
+                      //       value: done / widget.data.length,
+                      //     ),
+                      //   ),
+                      // ),
                     ],
                   ),
       ),

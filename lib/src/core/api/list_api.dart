@@ -3,6 +3,7 @@ class ListAPI {
   //Home
   static const String explorer = "/api/explorer";
   static const String homePageTracks = "/api/tracks/";
+
   //Artist
   static const String allArtist = "/api/artists";
   static const String artistDetail = "/api/artists/";
@@ -49,6 +50,7 @@ class ListAPI {
   static const String loginWithSocial = "/api/login/google";
   static const String account = "/api/account";
   static const String logout = "/api/logout";
+  static const String resendEmail = "/api/resend-verification-email";
   static const String updateBio = "/api/account/general";
   static const String updateSocial = '/api/account/social';
   static const String updatePassword = "/api/account/password";

@@ -7,6 +7,7 @@ import 'package:zmare/src/data/auth/data_sources/auth_data_source.dart';
 import 'package:zmare/src/data/auth/model/auth_profile.dart';
 import 'package:zmare/src/data/auth/model/login_response.dart';
 import 'package:zmare/src/data/auth/model/logout_model.dart';
+import 'package:zmare/src/data/auth/model/resend_email_model.dart';
 import 'package:zmare/src/data/auth/model/update_account_response.dart';
 import 'package:zmare/src/data/like/model/like_dislike.dart';
 import 'package:zmare/src/data/playlist/model/add_to_playlist_response.dart';
@@ -292,6 +293,17 @@ class AuthRepositoryImpl extends IAuthRepository {
   @override
   Future<Either<Failure, AppSetting>> appSettings() async {
     final response = await iAuthDataSource.appSettings();
+    return response.fold(
+      (failure) => Left(failure),
+      (message) {
+        return Right(message);
+      },
+    );
+  }
+
+  @override
+  Future<Either<Failure, ResendEmailModel>> resendEmail(email) async {
+    final response = await iAuthDataSource.resendEmail(email);
     return response.fold(
       (failure) => Left(failure),
       (message) {

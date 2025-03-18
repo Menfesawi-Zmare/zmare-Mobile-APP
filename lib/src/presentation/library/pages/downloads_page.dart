@@ -8,6 +8,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:zmare/src/core/resources/resources.dart';
+import 'package:zmare/src/presentation/widgets/no_result_widget.dart';
 import 'package:zmare/src/presentation/widgets/texts/khmertracks_subtitle.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:zmare/src/utils/ext/common.dart';
@@ -734,16 +735,18 @@ class _DownSongsTabState extends State<DownSongsTab>
   Widget build(BuildContext context) {
     super.build(context);
     return (widget.songs.isEmpty)
-        ? emptyScreen(
-            context,
-            3,
-            context.loc.nothingTo,
-            15.0,
-            context.loc.showHere,
-            50,
-            context.loc.addSomething,
-            23.0,
-          )
+        ? NoResultWidget()
+
+        // emptyScreen(
+        //     context,
+        //     3,
+        //     context.loc.nothingTo,
+        //     15.0,
+        //     context.loc.showHere,
+        //     50,
+        //     context.loc.addSomething,
+        //     23.0,
+        //   )
         : Column(
             children: [
               PlaylistHead(

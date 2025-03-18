@@ -135,7 +135,6 @@ class HistoryWidget extends StatelessWidget {
             )
           else
             SizedBox.fromSize(),
-          Divider(color: Colors.grey.withOpacity(0.2)),
         ]);
   }
 }
