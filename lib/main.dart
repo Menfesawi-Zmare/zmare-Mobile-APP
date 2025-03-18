@@ -20,7 +20,6 @@ Future<void> main() async {
   if (Platform.isAndroid) {
     setOptimalDisplayMode();
   }
-  // PaintingBinding.instance.imageCache.maximumSizeBytes = 1024 * 1024 * 400;
   final Box<dynamic> settings =
       getIt.get<Box<dynamic>>(instanceName: BoxType.settings.name);
   runApp(FlutterMusicPro(settings: settings));
