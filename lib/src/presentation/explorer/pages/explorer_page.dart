@@ -13,7 +13,7 @@ import '../../../core/resources/images.dart';
 import '../../../service_locator.dart';
 import '../../../utils/ext/common.dart';
 import '../../../utils/helper/app_info.dart';
-
+import "package:zmare/src/utils/helper/constants.dart";
 import 'explorer_mobile_page.dart';
 
 class ExplorerPage extends StatefulWidget {
@@ -25,17 +25,17 @@ class ExplorerPage extends StatefulWidget {
 
 class _ExplorerPageState extends State<ExplorerPage>
     with WidgetsBindingObserver {
-  bool _hasShownUpdateDialog = false;
   @override
   void initState() {
-    WidgetsBinding.instance.addObserver(this);
     _checkAppVersion();
+    WidgetsBinding.instance.addObserver(this);
+
     super.initState();
   }
 
   String? appUrl;
   String? localVersion;
-  bool? isMandatory;
+  int? isMust;
 
   void _checkAppVersion() async {
     final settings = locator.get<Box<dynamic>>(
@@ -47,24 +47,25 @@ class _ExplorerPageState extends State<ExplorerPage>
 
     localVersion = await AppInfoService.getCurrentAppVersion();
 
-    final latestVersion = settings.get('latestVersion');
-
-    isMandatory = settings.get('isMandatory') ?? false;
+    final keyLatestVersion = settings.get(latestVersion);
+    final mandatoryString = settings.get(isMandatory);
+    isMust = int.tryParse(mandatoryString ?? '0');
 
     // Compare versions
-    if (AppInfoService.isNewVersionAvailable(localVersion!, latestVersion)) {
-      _showUpdateDialog(context, isMandatory!, latestVersion);
+    if (AppInfoService.isNewVersionAvailable(
+        localVersion!, keyLatestVersion.toString())) {
+      _showUpdateDialog(context, isMust!, keyLatestVersion.toString());
     }
   }
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.resumed) {
-      if (isMandatory ?? false) _checkAppVersion();
+      if (isMust == 1) _checkAppVersion();
     } else if (state == AppLifecycleState.inactive) {
-      if (isMandatory ?? false) _checkAppVersion();
+      if (isMust == 1) _checkAppVersion();
     } else if (state == AppLifecycleState.paused) {
-      if (isMandatory ?? false) _checkAppVersion();
+      if (isMust == 1) _checkAppVersion();
     }
   }
 
@@ -76,16 +77,16 @@ class _ExplorerPageState extends State<ExplorerPage>
   }
 
   void _showUpdateDialog(
-      BuildContext context, bool isMandatory, String? latestVersion) {
+      BuildContext context, int isMandatory, String latestVersion) {
     showDialog(
       context: context,
 
-      barrierDismissible: false,
+      barrierDismissible: isMandatory == 0,
       //  !isMandatory, // Prevent closing if mandatory
       builder: (BuildContext context) {
         return PopScope(
           onPopInvokedWithResult: (didPop, result) {
-            SystemNavigator.pop();
+            if (isMandatory == 1) SystemNavigator.pop();
           },
           child: AlertDialog(
             content: Container(
@@ -108,7 +109,7 @@ class _ExplorerPageState extends State<ExplorerPage>
                     height: 10,
                   ),
                   Text(
-                    'A new version ${latestVersion} is available. Please update the app to continue.',
+                    'A new version $latestVersion is available. Please update the app to continue.',
                     textAlign: TextAlign.center,
                   ),
                 ],
@@ -116,12 +117,12 @@ class _ExplorerPageState extends State<ExplorerPage>
             ),
             actions: <Widget>[
               Row(
-                mainAxisAlignment: isMandatory
+                mainAxisAlignment: isMandatory == 1
                     ? MainAxisAlignment.center
                     : MainAxisAlignment.end,
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  if (!isMandatory)
+                  if (isMandatory == 0)
                     TextButton(
                       child: Text('Later'),
                       onPressed: () {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:zmare/src/core/enum/homepage_track_type.dart';
+import 'package:zmare/src/presentation/account/pages/account_page.dart';
 import 'package:zmare/src/presentation/explorer/pages/explorer_page.dart';
 import 'package:zmare/src/presentation/home/widgets/user_widget.dart';
 import 'package:zmare/src/presentation/library/pages/library_page.dart';
@@ -7,6 +8,9 @@ import 'package:zmare/src/presentation/login/intro/intro_page.dart';
 import 'package:zmare/src/presentation/track/pages/track_page.dart';
 import 'package:zmare/src/presentation/widgets/khmertracks_icon_title.dart';
 import 'package:zmare/src/presentation/widgets/search_button.dart';
+
+import '../../../app/routes.dart';
+import '../../../utils/ext/common.dart';
 
 class ContentWidget extends StatefulWidget {
   ContentWidget({

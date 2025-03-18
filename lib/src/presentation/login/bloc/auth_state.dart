@@ -133,3 +133,9 @@ class EulaToggleState extends AuthState {
 }
 
 class ValidFields extends AuthState {}
+
+class EmailResentSucces extends AuthState {
+  final ResendEmailModel resentModel;
+
+  EmailResentSucces(this.resentModel);
+}

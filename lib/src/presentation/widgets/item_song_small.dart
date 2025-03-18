@@ -98,67 +98,80 @@ class _ItemSongSmallState extends State<ItemSongSmall> {
                       dimension: 50,
                       child: Center(
                         child: GestureDetector(
-                          child: Stack(
-                            children: [
-                              Center(
-                                child: CircularProgressIndicator(
-                                  value:
-                                      down.progress == 1 ? null : down.progress,
+                          child: SizedBox(
+                            height: 30,
+                            width: 35,
+                            child: Stack(
+                              children: [
+                                Center(
+                                  child: LinearProgressIndicator(
+                                    value: down.progress == 1
+                                        ? null
+                                        : down.progress,
+                                  ),
                                 ),
-                              ),
-                              Center(
-                                child: ValueListenableBuilder(
-                                  valueListenable: showStopButton,
-                                  child: Center(
-                                    child: IconButton(
-                                      icon: const Icon(
-                                        Icons.close_rounded,
+                                SizedBox(
+                                  height: 30,
+                                  width: 39,
+                                  child: Padding(
+                                    padding: EdgeInsets.only(top: 15),
+                                    child: ValueListenableBuilder(
+                                      valueListenable: showStopButton,
+                                      child: Align(
+                                        alignment: Alignment.topLeft,
+                                        child: IconButton(
+                                          icon: const Icon(
+                                            Icons.cancel,
+                                          ),
+                                          iconSize: 25.0,
+                                          color:
+                                              Theme.of(context).iconTheme.color,
+                                          tooltip: context.loc.stopDown,
+                                          onPressed: () {
+                                            down.download = false;
+                                          },
+                                        ),
                                       ),
-                                      iconSize: 25.0,
-                                      color: Theme.of(context).iconTheme.color,
-                                      tooltip: context.loc.stopDown,
-                                      onPressed: () {
-                                        down.download = false;
+                                      builder: (
+                                        BuildContext context,
+                                        bool showValue,
+                                        Widget? child,
+                                      ) {
+                                        return AnimatedContainer(
+                                          duration:
+                                              const Duration(milliseconds: 200),
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Visibility(
+                                                visible: !showValue,
+                                                child: Center(
+                                                  child: Text(
+                                                    down.progress == null
+                                                        ? '0'
+                                                        : '${(100 * down.progress!).round()}',
+                                                    style: context.labelSmall!
+                                                        .copyWith(
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                  ),
+                                                ),
+                                              ),
+                                              Visibility(
+                                                visible: showValue,
+                                                child: child!,
+                                              ),
+                                            ],
+                                          ),
+                                        );
                                       },
                                     ),
                                   ),
-                                  builder: (
-                                    BuildContext context,
-                                    bool showValue,
-                                    Widget? child,
-                                  ) {
-                                    return AnimatedContainer(
-                                      duration:
-                                          const Duration(milliseconds: 200),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Visibility(
-                                            visible: !showValue,
-                                            child: Center(
-                                              child: Text(
-                                                down.progress == null
-                                                    ? '0'
-                                                    : '${(100 * down.progress!).round()}',
-                                                style: context.labelSmall!
-                                                    .copyWith(
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                              ),
-                                            ),
-                                          ),
-                                          Visibility(
-                                            visible: showValue,
-                                            child: child!,
-                                          ),
-                                        ],
-                                      ),
-                                    );
-                                  },
-                                ),
-                              )
-                            ],
+                                )
+                              ],
+                            ),
                           ),
                           onTap: () {
                             showStopButton.value = true;

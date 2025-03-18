@@ -27,18 +27,18 @@ class PlayAndShuffleButton extends StatelessWidget {
             },
             icon: const Icon(
               Icons.play_arrow,
-              color: Colors.black,
+              color: Colors.white,
             ),
             label: Text(
               context.loc.playAll,
-              style: context.titleSmall!.copyWith(color: Colors.black),
+              style: context.titleSmall!.copyWith(color: Colors.white),
             ),
             style: OutlinedButton.styleFrom(
                 side: const BorderSide(
                   color: Colors.transparent,
                 ),
                 shape: const StadiumBorder(),
-                backgroundColor: Colors.white,
+                backgroundColor: context.primary,
                 visualDensity: const VisualDensity(vertical: 1)),
           )),
           const SizedBox(
@@ -65,8 +65,8 @@ class PlayAndShuffleButton extends StatelessWidget {
               style: context.titleSmall!.copyWith(color: Colors.white),
             ),
             style: OutlinedButton.styleFrom(
-                side: const BorderSide(
-                  color: Colors.transparent,
+                side: BorderSide(
+                  color: context.primaryContainer,
                 ),
                 shape: const StadiumBorder(),
                 backgroundColor: context.primaryContainer,
