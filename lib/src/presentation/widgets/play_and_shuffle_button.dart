@@ -10,7 +10,7 @@ class PlayAndShuffleButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 16.0, right: 16.0, top: 0),
+      padding: const EdgeInsets.only(left: 0, right: 0, top: 0),
       child: Row(
         children: [
           Expanded(
@@ -69,7 +69,7 @@ class PlayAndShuffleButton extends StatelessWidget {
                   color: Colors.transparent,
                 ),
                 shape: const StadiumBorder(),
-                backgroundColor: Colors.grey,
+                backgroundColor: context.primaryContainer,
                 visualDensity: const VisualDensity(vertical: 1)),
           )),
         ],

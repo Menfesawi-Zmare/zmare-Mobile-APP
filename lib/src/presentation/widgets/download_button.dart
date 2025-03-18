@@ -238,8 +238,8 @@ class _MultiDownloadButtonState extends State<MultiDownloadButton> {
       return const SizedBox();
     }
     return SizedBox(
-      width: 50,
-      height: 50,
+      width: 35,
+      height: 35,
       child: Center(
         child: (down.lastDownloadId == widget.data.last['id'])
             ? ElevatedButton(
@@ -276,19 +276,22 @@ class _MultiDownloadButtonState extends State<MultiDownloadButton> {
                 : Column(
                     children: [
                       Center(
-                        child: Text(down.progress == null
-                            ? '0%'
-                            : '${(100 * down.progress!).round()}%'),
-                      ),
-                      Center(
                         child: SizedBox(
-                          height: 35,
-                          width: 35,
-                          child: LinearProgressIndicator(
-                            value: down.progress == 1 ? null : down.progress,
-                          ),
+                          width: 50,
+                          child: Text(down.progress == null
+                              ? '0%'
+                              : '${(100 * down.progress!).round()}%'),
                         ),
                       ),
+                      // Center(
+                      //   child: SizedBox(
+                      //     height: 35,
+                      //     width: 35,
+                      //     child: LinearProgressIndicator(
+                      //       value: down.progress == 1 ? null : down.progress,
+                      //     ),
+                      //   ),
+                      // ),
                       Center(
                         child: SizedBox(
                           height: 30,
