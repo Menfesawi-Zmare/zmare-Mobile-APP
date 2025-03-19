@@ -1,4 +1,5 @@
 import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_displaymode/flutter_displaymode.dart';
 import 'package:zmare/src/utils/services/firebase/firebase.dart';
@@ -7,21 +8,36 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:zmare/src/app.dart';
 import 'package:zmare/src/service_locator.dart';
 import 'package:hive/hive.dart';
+
 import 'src/core/enum/box_types.dart';
+import 'src/utils/helper/local_notfication.dart';
 
 final getIt = GetIt.instance;
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  // Initialize Google Mobile Ads
   MobileAds.instance.initialize();
+  await LocalNotificationService.init();
 
   await FirebaseServices.init();
 
+  // Set up dependency injection
   await setupLocator();
+
+  // Set optimal display mode for Android
   if (Platform.isAndroid) {
-    setOptimalDisplayMode();
+    await setOptimalDisplayMode();
   }
+
+  // Get settings box
   final Box<dynamic> settings =
       getIt.get<Box<dynamic>>(instanceName: BoxType.settings.name);
+
+  // // Set up Firebase Messaging
+
+  // Run the app
   runApp(FlutterMusicPro(settings: settings));
 }
 

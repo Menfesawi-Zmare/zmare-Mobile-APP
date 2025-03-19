@@ -43,16 +43,32 @@ class SocialsWidget extends StatelessWidget {
                     InkWell(
                       onTap: () =>
                           context.pushNamed(editSocialPath, extra: profile),
-                      child: Text(
-                        profile.facebook != null ||
-                                profile.twitter != null ||
-                                profile.instagram != null ||
-                                profile.youtube != null
-                            ? context.loc.edit
-                            : context.loc.add,
-                        style: context.titleMedium?.copyWith(
-                          color: Colors.blue,
-                        ),
+                      child: Row(
+                        children: [
+                          Icon(
+                            profile.facebook != null ||
+                                    profile.twitter != null ||
+                                    profile.instagram != null ||
+                                    profile.youtube != null
+                                ? Icons.add
+                                : Icons.edit,
+                            color: context.primary,
+                          ),
+                          SizedBox(
+                            width: 3,
+                          ),
+                          Text(
+                            profile.facebook != null ||
+                                    profile.twitter != null ||
+                                    profile.instagram != null ||
+                                    profile.youtube != null
+                                ? context.loc.edit
+                                : context.loc.add,
+                            style: context.titleMedium?.copyWith(
+                              color: context.primary,
+                            ),
+                          ),
+                        ],
                       ),
                     )
                   ],
@@ -69,10 +85,10 @@ class SocialsWidget extends StatelessWidget {
                 Visibility(
                     visible: profile.twitter != null ? true : false,
                     child: SocialItem(
-                        iconName: Images.twitterIcon,
-                        name: context.loc.ttlTwitter,
+                        iconName: Images.tiktokIcon,
+                        name: context.loc.twitter,
                         url:
-                            'https://www.twitter.com/${profile.twitter ?? ""}')),
+                            'https://www.tiktok.com/${profile.twitter ?? ""}')),
                 Visibility(
                     visible: profile.instagram != null ? true : false,
                     child: SocialItem(

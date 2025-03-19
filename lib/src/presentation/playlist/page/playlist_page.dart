@@ -315,9 +315,11 @@ class _PlaylistPageState extends State<PlaylistPage> {
                                       style: ElevatedButton.styleFrom(
                                           shape: const CircleBorder(),
                                           padding: const EdgeInsets.all(0),
-                                          backgroundColor: Colors.grey),
+                                          backgroundColor:
+                                              context.primaryContainer),
                                       child: const Icon(
                                           FluentIcons.edit_16_regular,
+                                          size: 17,
                                           color: Colors.white)),
                                 ),
                               ],

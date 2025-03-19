@@ -53,6 +53,52 @@ class _AboutWidgetState extends State<AboutWidget> {
                         style: context.titleLarge!
                             .copyWith(fontWeight: FontWeight.bold)),
                     Visibility(
+                      visible: widget.profile.twitter != null ? true : false,
+                      child: ListTile(
+                        visualDensity:
+                            const VisualDensity(horizontal: 0, vertical: -4),
+                        contentPadding: EdgeInsets.zero,
+                        leading: Image.asset(
+                          Images.tiktokIcon,
+                          fit: BoxFit.cover,
+                          height: 24,
+                          width: 24,
+                        ),
+                        title: Text(
+                          context.loc.twitter,
+                          style: TextStyle(color: context.colorScheme.primary),
+                        ),
+                        onTap: () => launchUrl(
+                          Uri.parse(
+                              'https://www.tiktok.com/${widget.profile.twitter ?? ""}'),
+                          mode: LaunchMode.externalApplication,
+                        ),
+                      ),
+                    ),
+                    Visibility(
+                      visible: widget.profile.youtube != null ? true : false,
+                      child: ListTile(
+                        visualDensity:
+                            const VisualDensity(horizontal: 0, vertical: -4),
+                        contentPadding: EdgeInsets.zero,
+                        leading: Image.asset(
+                          Images.youtubeIcon,
+                          fit: BoxFit.cover,
+                          height: 24,
+                          width: 24,
+                        ),
+                        title: Text(
+                          context.loc.youTube,
+                          style: TextStyle(color: context.colorScheme.primary),
+                        ),
+                        onTap: () => launchUrl(
+                          Uri.parse(
+                              'https://www.youtube.com/${widget.profile.youtube ?? ""}'),
+                          mode: LaunchMode.externalApplication,
+                        ),
+                      ),
+                    ),
+                    Visibility(
                       visible: widget.profile.instagram != null ? true : false,
                       child: ListTile(
                         visualDensity:
@@ -98,52 +144,6 @@ class _AboutWidgetState extends State<AboutWidget> {
                         ),
                       ),
                     ),
-                    Visibility(
-                      visible: widget.profile.twitter != null ? true : false,
-                      child: ListTile(
-                        visualDensity:
-                            const VisualDensity(horizontal: 0, vertical: -4),
-                        contentPadding: EdgeInsets.zero,
-                        leading: Image.asset(
-                          Images.twitterIcon,
-                          fit: BoxFit.cover,
-                          height: 24,
-                          width: 24,
-                        ),
-                        title: Text(
-                          context.loc.twitter,
-                          style: TextStyle(color: context.colorScheme.primary),
-                        ),
-                        onTap: () => launchUrl(
-                          Uri.parse(
-                              'https://www.twitter.com/${widget.profile.twitter ?? ""}'),
-                          mode: LaunchMode.externalApplication,
-                        ),
-                      ),
-                    ),
-                    Visibility(
-                      visible: widget.profile.youtube != null ? true : false,
-                      child: ListTile(
-                        visualDensity:
-                            const VisualDensity(horizontal: 0, vertical: -4),
-                        contentPadding: EdgeInsets.zero,
-                        leading: Image.asset(
-                          Images.youtubeIcon,
-                          fit: BoxFit.cover,
-                          height: 24,
-                          width: 24,
-                        ),
-                        title: Text(
-                          context.loc.youTube,
-                          style: TextStyle(color: context.colorScheme.primary),
-                        ),
-                        onTap: () => launchUrl(
-                          Uri.parse(
-                              'https://www.youtube.com/${widget.profile.youtube ?? ""}'),
-                          mode: LaunchMode.externalApplication,
-                        ),
-                      ),
-                    ),
                     const SizedBox(
                       height: 16,
                     ),
@@ -153,19 +153,19 @@ class _AboutWidgetState extends State<AboutWidget> {
               Text(context.loc.moreInfo,
                   style: context.titleLarge!
                       .copyWith(fontWeight: FontWeight.bold)),
-              ListTile(
-                visualDensity: const VisualDensity(horizontal: 0, vertical: -4),
-                contentPadding: EdgeInsets.zero,
-                leading: const Icon(FluentIcons.globe_24_regular),
-                title: Text(
-                  widget.profile.url!,
-                  style: TextStyle(color: context.colorScheme.primary),
-                ),
-                onTap: () => launchUrl(
-                  Uri.parse(widget.profile.url!),
-                  mode: LaunchMode.externalApplication,
-                ),
-              ),
+              // ListTile(
+              //   visualDensity: const VisualDensity(horizontal: 0, vertical: -4),
+              //   contentPadding: EdgeInsets.zero,
+              //   leading: const Icon(FluentIcons.globe_24_regular),
+              //   title: Text(
+              //     widget.profile.url!,
+              //     style: TextStyle(color: context.colorScheme.primary),
+              //   ),
+              //   onTap: () => launchUrl(
+              //     Uri.parse(widget.profile.url!),
+              //     mode: LaunchMode.externalApplication,
+              //   ),
+              // ),
               Visibility(
                 visible: widget.profile.country != null ? true : false,
                 child: ListTile(

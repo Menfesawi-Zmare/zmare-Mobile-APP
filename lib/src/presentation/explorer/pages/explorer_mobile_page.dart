@@ -120,7 +120,7 @@ class _ExplorerMobilePageState extends State<ExplorerMobilePage> {
                             is List<Production>) {
                           return ProductionsWidget(
                               productions: explorerModel?.data![i].productions,
-                              title: context.loc.productionLabel,
+                              title: explorerModel?.data![i].title ?? "",
                               type: "2");
                         } else if (explorerModel?.data![i].banners is Banners) {
                           return ImageBannerWidget(

@@ -51,7 +51,7 @@ dependencies:
   sign_in_with_apple: ^6.1.4
   google_sign_in: ^6.0.2
   firebase_auth: ^5.3.4 
-  firebase_core: ^3.9.0
+  firebase_core: ^3.12.1
   firebase_storage: ^12.3.7
 
  
@@ -67,7 +67,7 @@ dependencies:
   google_mobile_ads: ^3.0.0
   http_parser: ^4.0.2
   connectivity_plus: ^6.1.1
-  firebase_crashlytics: ^4.2.0
+  firebase_crashlytics: ^4.3.4
   glassmorphism: ^3.0.0
   video_player: ^2.9.2
   chewie: ^1.9.0
@@ -77,6 +77,11 @@ dependencies:
   smooth_page_indicator: ^1.2.1
   flutter_animate: ^4.5.2
   emoji_picker_flutter: ^4.3.0
+  firebase_messaging: ^15.2.4
+  flutter_local_notifications: ^17.2.4
+
+  # flutter_local_notifications: ^19.0.0
+  # timezone: ^0.10.0
   
   
 
@@ -92,14 +97,14 @@ dev_dependencies:
   flutter_launcher_icons: ^0.14.2
 flutter_launcher_icons:
 
-  image_path: "assets/icon/splash-logo.png"
+  image_path: "assets/images/logo.png"
   android: true 
   ios: true 
-  adaptive_icon_foreground: "assets/icon/splash-logo.png"
-  adaptive_icon_background: "#FFFFFF"  
-  adaptive_icon_background_dark: "#889AC7" 
+  adaptive_icon_foreground: "assets/images/logo.png"
+  adaptive_icon_background: "#0E1316"  
+  adaptive_icon_background_dark: "#0E1316" 
   adaptive_icon_foreground_inset: 16 
-  adaptive_icon_monochrome: "assets/icon/splash-logo.png"
+  adaptive_icon_monochrome: "assets/images/logo.png"
   min_sdk_android: 21
   android_icon_size: 60  
   ios_icon_size: 180
@@ -111,12 +116,12 @@ flutter_native_splash:
   android: true
   ios: true
   web: false
-  color: "#1C292C"
+  color: "#0E1316"
   image: assets/images/logo.png
   branding: assets/images/branding.png
 
   android_12:
-    color: "#1C292C"
+    color: "#0E1316"
     image: assets/images/logo2.png
     branding: assets/images/branding.png
 

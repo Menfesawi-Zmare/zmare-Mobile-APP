@@ -38,53 +38,74 @@ class CoverPhoto extends StatelessWidget {
       padding: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
       child: Column(
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              KhmertracksText(
-                text: context.loc.userDescCover,
-                isBold: true,
-              ),
-              GestureDetector(
-                onTap: () async {
-                  FilePickerResult? file = await FilePicker.platform
-                      .pickFiles(type: FileType.image, allowMultiple: false);
-                  if (file != null) {
-                    _pickedFile = File(file.files.first.path!);
-                    _cropImage(_pickedFile!.path);
-                  }
-                },
-                child: Text(
-                  profile!.cover != null ? context.loc.edit : context.loc.add,
-                  style: context.titleMedium?.copyWith(
-                    color: Colors.blue,
-                  ),
-                ),
-              )
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.only(
-                    top: 16,
-                  ),
-                  child: ClipRRect(
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //   children: [
+          //     KhmertracksText(
+          //       text: context.loc.userDescCover,
+          //       isBold: true,
+          //     ),
+          //     GestureDetector(
+          //       onTap: () async {
+          //         FilePickerResult? file = await FilePicker.platform
+          //             .pickFiles(type: FileType.image, allowMultiple: false);
+          //         if (file != null) {
+          //           _pickedFile = File(file.files.first.path!);
+          //           _cropImage(_pickedFile!.path);
+          //         }
+          //       },
+          //       child: Text(
+          //         profile!.cover != null ? context.loc.edit : context.loc.add,
+          //         style: context.titleMedium?.copyWith(
+          //           color: Colors.blue,
+          //         ),
+          //       ),
+          //     )
+          //   ],
+          // ),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.only(),
+              child: Stack(
+                children: [
+                  ClipRRect(
                     borderRadius: BorderRadius.circular(8),
                     child: SizedBox(
                         width: double.infinity,
-                        height: 120,
+                        height: 140,
                         child: KhmertracksImage(
                           boxFit: BoxFit.fitWidth,
                           imageUrl: profile!.cover!,
                           placeholderImage: Images.defalultArtistCover,
                         )),
                   ),
-                ),
+                  Positioned(
+                      top: 0,
+                      right: 5,
+                      child: Container(
+                        width: 40,
+                        decoration: BoxDecoration(
+                            color: const Color.fromARGB(177, 158, 158, 158),
+                            shape: BoxShape.circle),
+                        child: IconButton(
+                            onPressed: () async {
+                              FilePickerResult? file = await FilePicker.platform
+                                  .pickFiles(
+                                      type: FileType.image,
+                                      allowMultiple: false);
+                              if (file != null) {
+                                _pickedFile = File(file.files.first.path!);
+                                _cropImage(_pickedFile!.path);
+                              }
+                            },
+                            icon: Icon(
+                              Icons.edit,
+                              color: Colors.black54,
+                            )),
+                      ))
+                ],
               ),
-            ],
+            ),
           ),
         ],
       ),

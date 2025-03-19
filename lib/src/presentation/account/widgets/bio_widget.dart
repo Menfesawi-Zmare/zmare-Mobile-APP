@@ -43,7 +43,7 @@ class BioWidget extends StatelessWidget {
                       child: Text(
                         context.loc.edit,
                         style: context.titleMedium?.copyWith(
-                          color: Colors.blue,
+                          color: context.primary,
                         ),
                       ),
                     )
@@ -57,7 +57,9 @@ class BioWidget extends StatelessWidget {
                   children: [
                     KhmertracksTextField(
                       hintText: profile.firstName,
-                      labelText: context.loc.ttlFirstName,
+                      labelText: profile.firstName != null
+                          ? profile.firstName!
+                          : context.loc.ttlFirstName,
                       readOnly: true,
                     ),
                     const SizedBox(
@@ -65,7 +67,9 @@ class BioWidget extends StatelessWidget {
                     ),
                     KhmertracksTextField(
                       hintText: profile.lastName,
-                      labelText: context.loc.ttlLastName,
+                      labelText: profile.lastName != null
+                          ? profile.lastName!
+                          : context.loc.ttlLastName,
                       readOnly: true,
                     ),
                     const SizedBox(
@@ -73,7 +77,9 @@ class BioWidget extends StatelessWidget {
                     ),
                     KhmertracksTextField(
                       hintText: profile.email,
-                      labelText: context.loc.ttlEmail,
+                      labelText: profile.email != null
+                          ? profile.email!
+                          : context.loc.ttlEmail,
                       readOnly: true,
                     ),
                     const SizedBox(
@@ -81,7 +87,9 @@ class BioWidget extends StatelessWidget {
                     ),
                     KhmertracksTextField(
                       hintText: profile.country,
-                      labelText: context.loc.ttlCountry,
+                      labelText: profile.country != null
+                          ? profile.country!
+                          : context.loc.ttlCountry,
                       readOnly: true,
                     ),
                     const SizedBox(
@@ -89,7 +97,9 @@ class BioWidget extends StatelessWidget {
                     ),
                     KhmertracksTextField(
                       hintText: profile.city,
-                      labelText: context.loc.ttlCity,
+                      labelText: profile.city != null
+                          ? profile.city!
+                          : context.loc.ttlCity,
                       readOnly: true,
                     ),
                     const SizedBox(
@@ -107,23 +117,23 @@ class BioWidget extends StatelessWidget {
                     const SizedBox(
                       height: 16,
                     ),
-                    KhmertracksText(
-                      text: context.loc.description,
-                      isSmall: true,
-                      isBold: true,
-                    ),
+                    // KhmertracksText(
+                    //   text: context.loc.description,
+                    //   isSmall: true,
+                    //   isBold: true,
+                    // ),
                   ],
                 ),
               ),
-              Padding(
-                  padding:
-                      const EdgeInsets.only(left: 16, right: 16, bottom: 16),
-                  child: KhmertracksText(
-                    text: profile.description != null
-                        ? profile.description!
-                        : context.loc.descritionContent,
-                    isSmall: true,
-                  )),
+              // Padding(
+              //     padding:
+              //         const EdgeInsets.only(left: 16, right: 16, bottom: 16),
+              //     child: KhmertracksText(
+              //       text: profile.description != null
+              //           ? profile.description!
+              //           : context.loc.descritionContent,
+              //       isSmall: true,
+              //     )),
             ],
           );
         });
