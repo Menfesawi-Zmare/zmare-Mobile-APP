@@ -106,7 +106,7 @@
     },
     "iOSAppRateDescLabel": "Love this app? Rate us on Google Play and share your feedback!",   
     "description": "Description",
-    "links": "Links",
+    "links": "Social Medias",
     "instagram": "Instagram",
     "facebook": "Facebook",
     "twitter": "Tiktok",
@@ -446,11 +446,11 @@
     "@confirmPassword": {},
     "editProfile" : "Edit Profile",
     "deleteProfile": "Delete Profile",
-    "userTtlGeneral" : "General Settings",
+    "userTtlGeneral" : "Profile",
     "userTtlSecurity" : "Password Settings",
     "userTtlAvatar" : "Profile Settings",
     "userTtlNotifications" : "Notifications Settings",
-    "userTtlSocial" : "Social Networks Profiles",
+    "userTtlSocial" : "Your Social Media",
     "userTtlPlan" : "Account Plan",
     "userDescGeneral" : "Change account, privacy, location settings",
     "userDescSecurity" : "Change your password",
@@ -525,9 +525,9 @@
     "ttlNotificationf": "Friends Notifications",
     "subNotificationf": "Display alert and notifications for <strong>Friends Additions</strong>",
     "ttlEmailComment": "Emails on Comments",
-    "subEmailComment": "Receive emails when someone comments on your tracks",
+    "subEmailComment": "Receive emails when someone comments on your hymns",
     "ttlEmailLike": "Emails on Likes",
-    "subEmailLike": "Receive emails when someone likes your tracks",
+    "subEmailLike": "Receive emails when someone likes your hymns",
     "ttlEmailNewFriend": "Emails on New Friends",
     "subEmailNewFriend": "Receive emails when someone adds you as friend",
     "userTtlSidebar": "Settings",
@@ -570,7 +570,7 @@
     "noComment": "No Comment",
     "chatMessage": "Chat message",
     "playlist": "Playlist",
-    "track": "Track",
+    "track": "Hymn",
     "privacy": "Privacy",
     "playlistUpdated": "Playlist updated successfully",
     "deletePlaylist": "Delete Playlist?",
@@ -595,14 +595,14 @@
     "pleaseWait" : "Please wait",
     "history" : "History",
     "playlistCreated" : "Playlist created",
-    "listNoTracks" : "This list has no mezmurs.",
+    "listNoTracks" : "This list has no Hymns.",
     "listNotPlaylists" : "This list has no playlists.",
     "recentlyPlayed" : "Recently Played",
-    "addTracks" : "Add tracks",
+    "addTracks" : "Add hymns",
     "next": "Next",
-    "tracksSelected": "{number} tracks selected",
+    "tracksSelected": "{number} hymns selected",
     "@tracksSelected": {
-        "description": "tracks selected label",
+        "description": "hymns selected label",
         "placeholders": {
             "number": {
                 "type": "int"
@@ -610,7 +610,7 @@
         }
     },
     "discardPlaylist" : "Discard playlist?",
-    "discardPlaylistDetail" : "Discarding this playlist will not save the playlist or any tracks you added.",
+    "discardPlaylistDetail" : "Discarding this playlist will not save the playlist or any hymns you added.",
     "logoutContent" : "Log out of your account?",
     "emailOrUsername": "Email or username",
     "requiredEmailOrUsername" : "Email or username required",
@@ -623,7 +623,7 @@
     "createAccount" : "Create account",
     "username" : "Username",
     "enterValidEmail" : "Enter a valid email address",
-    "tracks" : "Tracks",
+    "tracks" : "Hymns",
     "sortOrder" : "Sort Order",
     "recentlyUploaded" : "Recently uploaded",
     "checkOutOurFacebook" : "Check out our facebook",
@@ -679,7 +679,7 @@
     "report2" : "I confirm that I am the copyright owner or am authorised to act on behalf of the owner of an exclusive right that is allegedly infringed.",
     "report3" : "Typing your full name in this box acts as your electronic signature",
     "send": "Send",
-    "reportTrack": "Report track {name}",
+    "reportTrack": "Report hymn {name}",
     "@reportTrack": {
         "description": "Report track Label",
         "placeholders": {
@@ -689,5 +689,5 @@
         }
     },
     "all_fields" : "All fields are required",
-    "report_added" : "The track has been reported, thank you for your feedback."
+    "report_added" : "The hymn has been reported, thank you for your feedback."
 }

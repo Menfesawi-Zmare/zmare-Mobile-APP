@@ -30,7 +30,7 @@ class ItemLibraryPlaylist extends StatelessWidget {
                 borderRadius: BorderRadius.circular(8.0),
                 // ignore: sized_box_for_whitespace
                 child: Container(
-                  width: 140,
+                  width: 100,
                   height: 80,
                   child: Stack(children: [
                     SizedBox(
@@ -43,7 +43,7 @@ class ItemLibraryPlaylist extends StatelessWidget {
                     Align(
                         alignment: Alignment.bottomCenter,
                         child: Container(
-                          width: 140,
+                          width: 100,
                           padding: const EdgeInsets.symmetric(vertical: 0),
                           decoration: BoxDecoration(
                               color: Colors.black.withOpacity(0.3)),
@@ -72,7 +72,7 @@ class ItemLibraryPlaylist extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(top: 8),
                 child: SizedBox(
-                  width: 140,
+                  width: 100,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [

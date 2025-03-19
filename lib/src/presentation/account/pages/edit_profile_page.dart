@@ -56,42 +56,40 @@ class _EditProfilePageState extends State<EditProfilePage> {
                   body: SingleChildScrollView(
                     child: Column(
                       children: [
-                        const Divider(),
-                        ProfilePictureWidget(
-                          profile: profile,
-                          validator: (val) {
-                            if (val == null) return 'Pick a picture';
-                            return null;
-                          },
-                          onChanged: (avatar) {
-                            authBloc.add(UpdateImageEvent(
-                                avatar, ProfileImageType.avatar.name));
-                          },
-                        ),
-                        const Padding(
-                          padding: EdgeInsets.all(16.0),
-                          child: Divider(),
-                        ),
-                        CoverPhoto(
-                          profile: profile,
-                          validator: (val) {
-                            if (val == null) return 'Pick a picture';
-                            return null;
-                          },
-                          onChanged: (cover) {
-                            authBloc.add(UpdateImageEvent(
-                                cover, ProfileImageType.cover.name));
-                          },
-                        ),
-                        const Padding(
-                          padding: EdgeInsets.all(16.0),
-                          child: Divider(),
+                        SizedBox(
+                          height: 200,
+                          child: Stack(
+                            children: [
+                              CoverPhoto(
+                                profile: profile,
+                                validator: (val) {
+                                  if (val == null) return 'Pick a picture';
+                                  return null;
+                                },
+                                onChanged: (cover) {
+                                  authBloc.add(UpdateImageEvent(
+                                      cover, ProfileImageType.cover.name));
+                                },
+                              ),
+                              Positioned(
+                                bottom: 0,
+                                left: 16,
+                                child: ProfilePictureWidget(
+                                  profile: profile,
+                                  validator: (val) {
+                                    if (val == null) return 'Pick a picture';
+                                    return null;
+                                  },
+                                  onChanged: (avatar) {
+                                    authBloc.add(UpdateImageEvent(
+                                        avatar, ProfileImageType.avatar.name));
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                         const BioWidget(),
-                        const Padding(
-                          padding: EdgeInsets.all(16.0),
-                          child: Divider(),
-                        ),
                         const SocialsWidget()
                       ],
                     ),
