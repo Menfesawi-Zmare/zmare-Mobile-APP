@@ -64,20 +64,10 @@ class _ProfilePageState extends State<ProfilePage>
             context: context,
             removeBottom: true,
             child: Scaffold(
-              appBar: context.materialYouAppBar(
-                "",
-                actions: [
-                  IconButton(
-                    icon: Icon(
-                      FluentIcons.search_28_regular,
-                      color: Theme.of(context).colorScheme.onSurface,
-                    ),
-                    onPressed: () {
-                      context.pushNamed(searchPath);
-                    },
-                  ),
-                ],
-              ),
+              // appBar: context.materialYouAppBar(
+              //   "",
+              //   actions: [],
+              // ),
               body: DefaultTabController(
                 length: tabs.length,
                 child: NestedScrollView(
@@ -95,6 +85,18 @@ class _ProfilePageState extends State<ProfilePage>
                             pinned: true,
                             snap: false,
                             primary: true,
+                            actions: [
+                              IconButton(
+                                icon: Icon(
+                                  FluentIcons.search_28_regular,
+                                  color:
+                                      Theme.of(context).colorScheme.onSurface,
+                                ),
+                                onPressed: () {
+                                  context.pushNamed(searchPath);
+                                },
+                              ),
+                            ],
                             forceElevated: innerBoxIsScrolled,
                             bottom: TabBar(
                               isScrollable: true,

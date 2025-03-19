@@ -762,6 +762,13 @@ class AudioPlayerHandlerImpl extends BaseAudioHandler
     );
   }
 
+  Future<void> playMediaItem(MediaItem mediaItem) async {
+    await _playlist.clear();
+    await _playlist.add(_itemToSource(mediaItem));
+    await _player!.setAudioSource(_playlist);
+    await _player!.play();
+  }
+
   @override
   Stream<Duration?> get durationState => _player!.durationStream;
 }
