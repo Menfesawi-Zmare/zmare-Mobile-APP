@@ -14,7 +14,7 @@ class Images {
   static const String defalutSongCover = 'assets/song.png';
   static const String defalutCover = 'assets/cover.png';
   static const String facebookIcon = 'assets/facebook.png';
-  static const String twitterIcon = 'assets/twitter.png';
+  static const String tiktokIcon = 'assets/tiktok.png';
   static const String youtubeIcon = 'assets/youtube.png';
   static const String instagramIcon = 'assets/instagram.png';
   static const String gmailIcon = 'assets/gmail.png';

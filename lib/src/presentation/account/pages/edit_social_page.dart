@@ -82,8 +82,8 @@ class _EditSocialPageState extends State<EditSocialPage> {
                     ),
                     KhmertracksTextField(
                       controller: twitterController,
-                      labelText: context.loc.ttlTwitter,
-                      hintText: context.loc.subTwitter,
+                      labelText: context.loc.twitter,
+                      hintText: context.loc.twitter,
                     ),
                     const SizedBox(
                       height: 16,
@@ -108,10 +108,12 @@ class _EditSocialPageState extends State<EditSocialPage> {
               ),
             ),
             bottomNavigationBar: Padding(
-              padding: const EdgeInsets.only(left: 16, right: 16, bottom: 30),
+              padding: const EdgeInsets.only(left: 16, right: 16, bottom: 350),
               child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                      backgroundColor: Theme.of(context).colorScheme.primary),
+                      shape: LinearBorder.bottom(),
+                      backgroundColor:
+                          Theme.of(context).colorScheme.primaryContainer),
                   onPressed: () {
                     ProfileData profile = ProfileData(
                         facebook: faceBookController.text,

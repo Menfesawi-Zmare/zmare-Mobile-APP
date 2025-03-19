@@ -57,37 +57,10 @@ class _AccountPageState extends State<AccountPage>
             context: context,
             removeBottom: true,
             child: Scaffold(
-              appBar: context.materialYouAppBar(
-                "",
-                actions: [
-                  IconButton(
-                    icon: Icon(
-                      FluentIcons.settings_28_regular,
-                      color: Theme.of(context).colorScheme.onSurface,
-                    ),
-                    onPressed: () {
-                      showModalBottomSheet(
-                          context: context,
-                          useRootNavigator: true,
-                          shape: const RoundedRectangleBorder(
-                            borderRadius: BorderRadius.vertical(
-                              top: Radius.circular(25.0),
-                            ),
-                          ),
-                          builder: (context) => const AccountSettingsModal());
-                    },
-                  ),
-                  IconButton(
-                    icon: Icon(
-                      FluentIcons.search_28_regular,
-                      color: Theme.of(context).colorScheme.onSurface,
-                    ),
-                    onPressed: () {
-                      context.pushNamed(searchPath);
-                    },
-                  ),
-                ],
-              ),
+              // appBar: context.materialYouAppBar(
+              //   "",
+              //   actions: [],
+              // ),
               body: DefaultTabController(
                 length: tabs.length,
                 child: NestedScrollView(
@@ -105,6 +78,37 @@ class _AccountPageState extends State<AccountPage>
                             pinned: true,
                             snap: false,
                             primary: true,
+                            actions: [
+                              IconButton(
+                                icon: Icon(
+                                  FluentIcons.settings_28_regular,
+                                  color:
+                                      Theme.of(context).colorScheme.onSurface,
+                                ),
+                                onPressed: () {
+                                  showModalBottomSheet(
+                                      context: context,
+                                      useRootNavigator: true,
+                                      shape: const RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.vertical(
+                                          top: Radius.circular(25.0),
+                                        ),
+                                      ),
+                                      builder: (context) =>
+                                          const AccountSettingsModal());
+                                },
+                              ),
+                              IconButton(
+                                icon: Icon(
+                                  FluentIcons.search_28_regular,
+                                  color:
+                                      Theme.of(context).colorScheme.onSurface,
+                                ),
+                                onPressed: () {
+                                  context.pushNamed(searchPath);
+                                },
+                              ),
+                            ],
                             forceElevated: innerBoxIsScrolled,
                             bottom: TabBar(
                               isScrollable: true,

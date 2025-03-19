@@ -130,28 +130,7 @@ class _EditBioPageState extends State<EditBioPage> {
                       const SizedBox(
                         height: 16,
                       ),
-                      KhmertracksTextField(
-                          controller: countryController,
-                          labelText: context.loc.ttlCountry,
-                          hintText: context.loc.subCountry),
-                      const SizedBox(
-                        height: 16,
-                      ),
-                      KhmertracksTextField(
-                          controller: cityController,
-                          labelText: context.loc.ttlCity,
-                          hintText: context.loc.subCity),
-                      const SizedBox(
-                        height: 16,
-                      ),
-                      KhmertracksTextField(
-                        controller: websiteController,
-                        labelText: context.loc.ttlWebsite,
-                        hintText: context.loc.subWebsite,
-                      ),
-                      const SizedBox(
-                        height: 16,
-                      ),
+
                       KhmertracksTextField(
                         readOnly: true,
                         controller: privateController,
@@ -181,15 +160,39 @@ class _EditBioPageState extends State<EditBioPage> {
                         height: 16,
                       ),
                       KhmertracksTextField(
-                          labelText: context.loc.subDescription,
-                          hintText: context.loc.ttlDescription,
-                          minLine: 6,
-                          maxLine: 12,
-                          controller: descriptionController,
-                          keyboardType: TextInputType.multiline),
+                          controller: countryController,
+                          labelText: context.loc.ttlCountry,
+                          hintText: context.loc.subCountry),
+
                       const SizedBox(
-                        height: 80,
+                        height: 16,
                       ),
+                      KhmertracksTextField(
+                          controller: cityController,
+                          labelText: context.loc.ttlCity,
+                          hintText: context.loc.subCity),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      // KhmertracksTextField(
+                      //   controller: websiteController,
+                      //   labelText: context.loc.ttlWebsite,
+                      //   hintText: context.loc.subWebsite,
+                      // ),
+                      // const SizedBox(
+                      //   height: 16,
+                      // ),
+
+                      // KhmertracksTextField(
+                      //     labelText: context.loc.subDescription,
+                      //     hintText: context.loc.ttlDescription,
+                      //     minLine: 6,
+                      //     maxLine: 12,
+                      //     controller: descriptionController,
+                      //     keyboardType: TextInputType.multiline),
+                      // const SizedBox(
+                      //   height: 80,
+                      // ),
                     ],
                   ),
                 ),
