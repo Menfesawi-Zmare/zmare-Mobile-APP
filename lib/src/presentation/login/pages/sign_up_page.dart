@@ -98,19 +98,20 @@ class _SignUpPageState extends State<SignUpPage> {
                       //   dynamicThemeKey,
                       //   defaultValue: false,
                       // );
-                      final Brightness brightness =
-                          MediaQuery.of(context).platformBrightness;
-                      bool isDarkMode = brightness == Brightness.dark;
+                      // final Brightness brightness =
+                      //     MediaQuery.of(context).platformBrightness;
+                      // bool isDarkMode = brightness == Brightness.dark;
                       return Padding(
                         padding: const EdgeInsets.only(right: 8),
                         child: SvgPicture.asset(
-                          themeMode == ThemeMode.dark
-                              ? Images.zmareIconWhite
-                              : themeMode == ThemeMode.light
-                                  ? Images.zmareIconBlack
-                                  : isDarkMode
-                                      ? Images.zmareIconWhite
-                                      : Images.zmareIconBlack,
+                          // themeMode == ThemeMode.dark
+                          //     ?
+                          Images.zmareIconWhite,
+                          // : themeMode == ThemeMode.light
+                          //     ? Images.zmareIconBlack
+                          //     : isDarkMode
+                          //         ? Images.zmareIconWhite
+                          //         : Images.zmareIconBlack,
                           height: 80,
                         ),
                       );
