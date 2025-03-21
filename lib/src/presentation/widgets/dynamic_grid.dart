@@ -5,8 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:zmare/src/core/resources/resources.dart';
 import 'package:zmare/src/utils/ext/common.dart';
 import 'package:zmare/src/utils/helper/color_ultil.dart';
-import 'package:zmare/src/utils/helper/khmertracks_palette.dart';
-import 'package:zmare/src/presentation/widgets/khmertracks_image.dart';
+
+import 'package:zmare/src/presentation/widgets/zmare_image.dart';
+
+import '../../utils/helper/zmare_palette.dart';
 
 class DynamicGrid extends StatelessWidget {
   const DynamicGrid(
@@ -69,7 +71,7 @@ class DynamicGrid extends StatelessWidget {
           child: AspectRatio(
             aspectRatio: 1 / 1,
             child: ClipOval(
-                child: KhmertracksImage(
+                child: ZmareImage(
               imageUrl: image,
               placeholderImage: Images.defalultArtistCover,
             )),
@@ -135,7 +137,7 @@ class DynamicGrid extends StatelessWidget {
                 child: Stack(children: [
                   AspectRatio(
                     aspectRatio: 1 / 1.28,
-                    child: KhmertracksImage(
+                    child: ZmareImage(
                       imageUrl: image,
                       placeholderImage: Images.defalultArtistCover,
                     ),
@@ -206,7 +208,7 @@ class DynamicGrid extends StatelessWidget {
                 dimension: 156,
                 child: AspectRatio(
                     aspectRatio: 1 / 1,
-                    child: KhmertracksImage(
+                    child: ZmareImage(
                       imageUrl: image,
                       placeholderImage: Images.defalultArtistCover,
                     )),
@@ -270,7 +272,7 @@ class DynamicGrid extends StatelessWidget {
                       child: SizedBox.square(
                         dimension: 42,
                         child: ClipOval(
-                            child: KhmertracksImage(
+                            child: ZmareImage(
                           imageUrl: image,
                           placeholderImage: Images.defalultArtistCover,
                         )),
@@ -306,7 +308,7 @@ class DynamicGrid extends StatelessWidget {
             dimension: 156,
             child: ClipRRect(
                 borderRadius: BorderRadius.circular(16),
-                child: KhmertracksImage(
+                child: ZmareImage(
                   imageUrl: image,
                   placeholderImage: Images.defalutAlbumCover,
                 )),

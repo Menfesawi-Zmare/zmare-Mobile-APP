@@ -3,7 +3,7 @@ import 'package:zmare/src/presentation/home/pages/home_mobile_page.dart';
 import 'package:zmare/src/presentation/login/bloc/auth_bloc.dart';
 import 'package:zmare/src/service_locator.dart';
 import 'package:zmare/src/utils/helper/ad_helper.dart';
-import 'package:zmare/src/presentation/widgets/khmertracks_annotate_region_widget.dart';
+import 'package:zmare/src/presentation/widgets/zmare_annotate_region_widget.dart';
 import 'package:go_router/go_router.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
@@ -31,7 +31,7 @@ class _HomePageState extends State<HomePage>
 
   @override
   Widget build(BuildContext context) {
-    return KhmertracksAnnotatedRegionWidget(
+    return ZmareAnnotatedRegionWidget(
       child: ScreenTypeLayout.builder(
         mobile: (p0) => HomeMobilePage(navigationShell: widget.navigationShell),
       ),

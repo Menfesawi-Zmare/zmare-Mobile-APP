@@ -13,7 +13,7 @@ import 'package:zmare/src/utils/ext/common.dart';
 import 'package:zmare/src/core/enum/box_types.dart';
 import 'package:zmare/src/utils/helper/lyrics.dart';
 import 'package:zmare/src/presentation/player/pages/audioplayer.dart';
-import 'package:zmare/src/presentation/widgets/khmertracks_text.dart';
+import 'package:zmare/src/presentation/widgets/zmare_text.dart';
 import 'package:logging/logging.dart';
 
 class ArtWorkWidget extends StatefulWidget {
@@ -169,7 +169,7 @@ class _ArtWorkWidgetState extends State<ArtWorkWidget> {
                                         width: widget.width * 0.9,
                                         height: widget.width * 0.9,
                                         child: Center(
-                                          child: KhmertracksText(
+                                          child: ZmareText(
                                               text: context.loc.noLyrics),
                                         ),
                                       )
@@ -188,7 +188,7 @@ class _ArtWorkWidgetState extends State<ArtWorkWidget> {
                                             size: Size(widget.width * 0.9,
                                                 widget.width * 0.9),
                                             emptyBuilder: () => Center(
-                                              child: KhmertracksText(
+                                              child: ZmareText(
                                                   text: context.loc.noLyrics),
                                             ),
                                           );

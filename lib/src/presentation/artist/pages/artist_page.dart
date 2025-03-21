@@ -21,7 +21,7 @@ import 'package:zmare/src/presentation/artist/bloc/artist_bloc.dart';
 import 'package:zmare/src/presentation/artist/pages/artist_albums.dart';
 import 'package:zmare/src/presentation/login/bloc/auth_bloc.dart';
 import 'package:zmare/src/presentation/widgets/item_song_small.dart';
-import 'package:zmare/src/presentation/widgets/khmertracks_image.dart';
+import 'package:zmare/src/presentation/widgets/zmare_image.dart';
 import 'package:zmare/src/service_locator.dart';
 import 'package:readmore/readmore.dart';
 
@@ -84,7 +84,7 @@ class _ArtistPageState extends State<ArtistPage> {
                 children: [
                   AspectRatio(
                       aspectRatio: 1 / 1,
-                      child: KhmertracksImage(
+                      child: ZmareImage(
                         imageUrl: profileUrl,
                         placeholderImage: Images.defalultArtistCover,
                       )),

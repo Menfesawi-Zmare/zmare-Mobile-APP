@@ -97,6 +97,7 @@ final GoRouter goRouter = GoRouter(
         final isLoggedIn = extras['isLoggedIn'] as bool;
         return IntroPage(
           showBackButton: isLoggedIn,
+          introPageIndex: null,
         );
       },
     ),
@@ -181,6 +182,7 @@ final GoRouter goRouter = GoRouter(
                     final isLoggedIn = extras['isLoggedIn'] as bool;
                     return IntroPage(
                       showBackButton: isLoggedIn,
+                      introPageIndex: null,
                     );
                   }),
             ],

@@ -5,10 +5,10 @@ import 'package:zmare/src/utils/ext/common.dart';
 import 'package:zmare/src/core/enum/box_types.dart';
 import 'package:zmare/src/core/enum/profile_privacy.dart';
 import 'package:zmare/src/data/profile/model/profile.dart';
-import 'package:zmare/src/presentation/widgets/khmertracks_text.dart';
+import 'package:zmare/src/presentation/widgets/zmare_text.dart';
 import 'package:zmare/src/service_locator.dart';
 
-import '../../widgets/khmertracks_text_field.dart';
+import '../../widgets/zmare_text_field.dart';
 
 class BioWidget extends StatelessWidget {
   const BioWidget({super.key});
@@ -33,7 +33,7 @@ class BioWidget extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    KhmertracksText(
+                    ZmareText(
                       text: context.loc.userTtlGeneral,
                       isBold: true,
                     ),
@@ -55,7 +55,7 @@ class BioWidget extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    KhmertracksTextField(
+                    ZmareTextField(
                       hintText: profile.firstName,
                       labelText: profile.firstName != null
                           ? profile.firstName!
@@ -65,7 +65,7 @@ class BioWidget extends StatelessWidget {
                     const SizedBox(
                       height: 16,
                     ),
-                    KhmertracksTextField(
+                    ZmareTextField(
                       hintText: profile.lastName,
                       labelText: profile.lastName != null
                           ? profile.lastName!
@@ -75,7 +75,7 @@ class BioWidget extends StatelessWidget {
                     const SizedBox(
                       height: 16,
                     ),
-                    KhmertracksTextField(
+                    ZmareTextField(
                       hintText: profile.email,
                       labelText: profile.email != null
                           ? profile.email!
@@ -85,7 +85,7 @@ class BioWidget extends StatelessWidget {
                     const SizedBox(
                       height: 16,
                     ),
-                    KhmertracksTextField(
+                    ZmareTextField(
                       hintText: profile.country,
                       labelText: profile.country != null
                           ? profile.country!
@@ -95,7 +95,7 @@ class BioWidget extends StatelessWidget {
                     const SizedBox(
                       height: 16,
                     ),
-                    KhmertracksTextField(
+                    ZmareTextField(
                       hintText: profile.city,
                       labelText: profile.city != null
                           ? profile.city!
@@ -105,7 +105,7 @@ class BioWidget extends StatelessWidget {
                     const SizedBox(
                       height: 16,
                     ),
-                    KhmertracksTextField(
+                    ZmareTextField(
                       hintText: ProfilePrivacy.values
                           .where(
                               (element) => element.toIndex == profile.private!)
@@ -117,7 +117,7 @@ class BioWidget extends StatelessWidget {
                     const SizedBox(
                       height: 16,
                     ),
-                    // KhmertracksText(
+                    // ZmareText(
                     //   text: context.loc.description,
                     //   isSmall: true,
                     //   isBold: true,
@@ -128,7 +128,7 @@ class BioWidget extends StatelessWidget {
               // Padding(
               //     padding:
               //         const EdgeInsets.only(left: 16, right: 16, bottom: 16),
-              //     child: KhmertracksText(
+              //     child: ZmareText(
               //       text: profile.description != null
               //           ? profile.description!
               //           : context.loc.descritionContent,

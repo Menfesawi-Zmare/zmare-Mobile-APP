@@ -6,8 +6,8 @@ import 'package:zmare/src/data/account/model/account.dart';
 import 'package:zmare/src/data/profile/model/profile.dart';
 import 'package:zmare/src/presentation/account/modal/profile_privacy_modal.dart';
 import 'package:zmare/src/presentation/login/bloc/auth_bloc.dart';
-import 'package:zmare/src/presentation/widgets/khmertracks_text.dart';
-import 'package:zmare/src/presentation/widgets/khmertracks_text_field.dart';
+import 'package:zmare/src/presentation/widgets/zmare_text.dart';
+import 'package:zmare/src/presentation/widgets/zmare_text_field.dart';
 import 'package:zmare/src/service_locator.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -94,7 +94,7 @@ class _EditBioPageState extends State<EditBioPage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      KhmertracksTextField(
+                      ZmareTextField(
                         controller: firstNameController,
                         labelText: context.loc.ttlFirstName,
                         hintText: context.loc.subFirstName,
@@ -102,7 +102,7 @@ class _EditBioPageState extends State<EditBioPage> {
                       const SizedBox(
                         height: 16,
                       ),
-                      KhmertracksTextField(
+                      ZmareTextField(
                         controller: lastNameController,
                         labelText: context.loc.ttlLastName,
                         hintText: context.loc.subFirstName,
@@ -116,7 +116,7 @@ class _EditBioPageState extends State<EditBioPage> {
                       const SizedBox(
                         height: 16,
                       ),
-                      KhmertracksTextField(
+                      ZmareTextField(
                         controller: emailController,
                         labelText: context.loc.ttlEmail,
                         hintText: context.loc.subEmail,
@@ -131,7 +131,7 @@ class _EditBioPageState extends State<EditBioPage> {
                         height: 16,
                       ),
 
-                      KhmertracksTextField(
+                      ZmareTextField(
                         readOnly: true,
                         controller: privateController,
                         labelText: context.loc.ttlProfile,
@@ -159,7 +159,7 @@ class _EditBioPageState extends State<EditBioPage> {
                       const SizedBox(
                         height: 16,
                       ),
-                      KhmertracksTextField(
+                      ZmareTextField(
                           controller: countryController,
                           labelText: context.loc.ttlCountry,
                           hintText: context.loc.subCountry),
@@ -167,14 +167,14 @@ class _EditBioPageState extends State<EditBioPage> {
                       const SizedBox(
                         height: 16,
                       ),
-                      KhmertracksTextField(
+                      ZmareTextField(
                           controller: cityController,
                           labelText: context.loc.ttlCity,
                           hintText: context.loc.subCity),
                       const SizedBox(
                         height: 16,
                       ),
-                      // KhmertracksTextField(
+                      // ZmareTextField(
                       //   controller: websiteController,
                       //   labelText: context.loc.ttlWebsite,
                       //   hintText: context.loc.subWebsite,
@@ -183,7 +183,7 @@ class _EditBioPageState extends State<EditBioPage> {
                       //   height: 16,
                       // ),
 
-                      // KhmertracksTextField(
+                      // ZmareTextField(
                       //     labelText: context.loc.subDescription,
                       //     hintText: context.loc.ttlDescription,
                       //     minLine: 6,
@@ -218,7 +218,7 @@ class _EditBioPageState extends State<EditBioPage> {
                       authBloc.add(UpdateBioEvent(profile));
                     }
                   },
-                  child: KhmertracksText(
+                  child: ZmareText(
                     text: context.loc.saveChanges,
                     isBold: true,
                     isSmall: true,

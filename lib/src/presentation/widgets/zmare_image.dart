@@ -2,8 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:zmare/src/core/resources/resources.dart';
 
-class KhmertracksImage extends StatelessWidget {
-  const KhmertracksImage(
+class ZmareImage extends StatelessWidget {
+  const ZmareImage(
       {super.key,
       required this.imageUrl,
       this.placeholderImage = Images.defalutCover,

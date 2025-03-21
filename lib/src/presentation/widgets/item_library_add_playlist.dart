@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:zmare/src/utils/ext/common.dart';
-import 'package:zmare/src/presentation/widgets/texts/khmertracks_title.dart';
+import 'package:zmare/src/presentation/widgets/texts/zmare_title.dart';
 
 class ItemLibraryAddPlaylist extends StatelessWidget {
   const ItemLibraryAddPlaylist(
@@ -50,7 +50,7 @@ class ItemLibraryAddPlaylist extends StatelessWidget {
                 width: 140,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [KhmertracksTitle(context.loc.createNewPlaylist)],
+                  children: [ZmareTitle(context.loc.createNewPlaylist)],
                 ),
               ),
             ),

@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:zmare/src/presentation/widgets/khmertracks_image.dart';
+import 'package:zmare/src/presentation/widgets/zmare_image.dart';
 
 class Collage extends StatelessWidget {
   final bool showGrid;
@@ -46,7 +46,7 @@ class Collage extends StatelessWidget {
                     )
                     .toList(),
               )
-            : KhmertracksImage(
+            : ZmareImage(
                 placeholderImage: placeholderImage,
                 imageUrl: imageList[0]['image']
                     .toString()

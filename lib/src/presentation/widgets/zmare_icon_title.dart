@@ -8,8 +8,8 @@ import 'package:hive_flutter/adapters.dart';
 import '../../core/enum/box_types.dart';
 import '../../service_locator.dart';
 
-class KhmertracksIconTitle extends StatelessWidget {
-  const KhmertracksIconTitle({super.key});
+class ZmareIconTitle extends StatelessWidget {
+  const ZmareIconTitle({super.key});
 
   @override
   Widget build(BuildContext context) {

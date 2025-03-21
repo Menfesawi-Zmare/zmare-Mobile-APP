@@ -6,7 +6,6 @@ class LocalNotificationService {
 
   // Initialize the notification service
   static Future<void> init() async {
-    print("local notification initialize");
     const AndroidInitializationSettings androidInitializationSettings =
         AndroidInitializationSettings('@mipmap/ic_launcher'); // App icon
 
@@ -22,25 +21,24 @@ class LocalNotificationService {
     await flutterLocalNotificationsPlugin.initialize(
       initializationSettings,
     );
-
-    print("Intialozation Done");
   }
 
   // Show an instant notification with just title and body
   static Future<void> showInstantNotification(String title, String body) async {
-    const NotificationDetails platformChannelSpecifics = NotificationDetails(
+    NotificationDetails platformChannelSpecifics = NotificationDetails(
       android: AndroidNotificationDetails(
-        'simple_notification_channel_id', // Channel ID
-        'Simple Notifications', // Channel Name
-        importance: Importance.max,
-        priority: Priority.high,
-        playSound: true, // Sound enabled
-      ),
+          'simple_notification_channel_id', // Channel ID
+          'Simple Notifications', // Channel Name
+          importance: Importance.max,
+          priority: Priority.high,
+          playSound: true, // Sound enabled
+          sound: RawResourceAndroidNotificationSound('notfication')),
       iOS: DarwinNotificationDetails(
+        sound: "notfication.mp3",
         presentSound: true, // Sound enabled for iOS
       ),
     );
-    print("title:$title");
+
     await flutterLocalNotificationsPlugin.show(
       0,
       title, // Notification Title

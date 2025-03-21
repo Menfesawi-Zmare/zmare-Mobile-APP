@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:zmare/src/utils/ext/common.dart';
 
-class KhmertracksText extends StatelessWidget {
-  const KhmertracksText(
+class ZmareText extends StatelessWidget {
+  const ZmareText(
       {super.key,
       required this.text,
       this.isBold = false,

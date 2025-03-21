@@ -9,7 +9,7 @@ import 'package:go_router/go_router.dart';
 import 'package:zmare/src/utils/ext/common.dart';
 import 'package:zmare/src/utils/helper/ad_helper.dart';
 import 'package:zmare/src/utils/services/audio/player_service.dart';
-import 'package:zmare/src/presentation/widgets/khmertracks_image.dart';
+import 'package:zmare/src/presentation/widgets/zmare_image.dart';
 
 class HistoryWidget extends StatelessWidget {
   const HistoryWidget({super.key, required this.tracks});
@@ -94,7 +94,7 @@ class HistoryWidget extends StatelessWidget {
                                             ),
                                           ),
                                         )
-                                      : KhmertracksImage(
+                                      : ZmareImage(
                                           imageUrl: tracks[index]['image'],
                                           placeholderImage: Images.defalutCover,
                                         ),

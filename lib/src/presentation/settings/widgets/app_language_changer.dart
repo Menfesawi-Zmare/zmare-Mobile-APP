@@ -2,8 +2,8 @@ import 'dart:io';
 
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:zmare/src/presentation/widgets/texts/khmertracks_subtitle.dart';
-import 'package:zmare/src/presentation/widgets/texts/khmertracks_title.dart';
+import 'package:zmare/src/presentation/widgets/texts/zmare_subtitle.dart';
+import 'package:zmare/src/presentation/widgets/texts/zmare_title.dart';
 import 'package:zmare/src/utils/ext/common.dart';
 import 'package:hive_flutter/adapters.dart';
 
@@ -135,8 +135,8 @@ class AppLanguageChanger extends StatelessWidget {
                 },
               );
             },
-            title: KhmertracksTitle(context.loc.chooseAppLanguage),
-            subtitle: KhmertracksSubTitle(Languages.languages
+            title: ZmareTitle(context.loc.chooseAppLanguage),
+            subtitle: ZmareSubTitle(Languages.languages
                 .firstWhere((element) => element.code == code)
                 .value),
           ),

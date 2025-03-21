@@ -1,8 +1,5 @@
 import "package:flutter/material.dart";
 import 'package:rive_animated_icon/rive_animated_icon.dart';
-import 'package:zmare/src/core/resources/resources.dart';
-
-import 'package:zmare/src/utils/services/audio/download.dart';
 
 class ColorLoader extends StatelessWidget {
   const ColorLoader({super.key});

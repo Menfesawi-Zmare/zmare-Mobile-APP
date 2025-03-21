@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:zmare/src/core/enum/box_types.dart';
-import 'package:zmare/src/presentation/widgets/texts/khmertracks_title.dart';
+import 'package:zmare/src/presentation/widgets/texts/zmare_title.dart';
 import 'package:zmare/src/service_locator.dart';
 
 import 'package:zmare/src/utils/ext/common.dart';
@@ -43,7 +43,7 @@ class ChooseThemeModeWidgetState extends State<ChooseThemeModeWidget> {
                 currentIndex = value!;
                 setState(() {});
               },
-              title: KhmertracksTitle(
+              title: ZmareTitle(
                 e.themeName(context),
               ),
             ),

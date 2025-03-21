@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:zmare/src/core/resources/resources.dart';
 import 'package:zmare/src/data/explorer/model/explorer_model.dart';
 import 'package:zmare/src/utils/ext/common.dart';
-import 'package:zmare/src/presentation/widgets/khmertracks_image.dart';
+import 'package:zmare/src/presentation/widgets/zmare_image.dart';
 
 class CarouselWidget extends StatefulWidget {
   const CarouselWidget({super.key, required this.banners});
@@ -45,7 +45,7 @@ class _CarouselWidgetState extends State<CarouselWidget> {
                           child: Stack(
                             fit: StackFit.expand,
                             children: [
-                              KhmertracksImage(
+                              ZmareImage(
                                 imageUrl: item.image!,
                                 placeholderImage: Images.defalultArtistCover,
                               ),

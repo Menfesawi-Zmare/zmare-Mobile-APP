@@ -4,10 +4,9 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:zmare/src/core/resources/resources.dart';
-import 'package:zmare/src/utils/ext/common.dart';
+
 import 'package:zmare/src/data/profile/model/profile.dart';
-import 'package:zmare/src/presentation/widgets/khmertracks_image.dart';
-import 'package:zmare/src/presentation/widgets/khmertracks_text.dart';
+import 'package:zmare/src/presentation/widgets/zmare_image.dart';
 
 // ignore: must_be_immutable
 class ProfilePictureWidget extends StatefulWidget {
@@ -54,7 +53,7 @@ class _ProfilePictureWidgetState extends State<ProfilePictureWidget> {
               // Row(
               //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
               //   children: [
-              //     KhmertracksText(
+              //     ZmareText(
               //       text: context.loc.userDescAvatar,
               //     ),
               //     TextButton(
@@ -111,7 +110,7 @@ class _ProfilePictureWidgetState extends State<ProfilePictureWidget> {
                       ),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(100),
-                        child: KhmertracksImage(
+                        child: ZmareImage(
                           imageUrl: widget.profile!.image!,
                           placeholderImage: Images.defalultArtistCover,
                         ),
