@@ -52,7 +52,7 @@ class SearchAll extends SearchState {
   final ProfileList profileList;
   final Pagination? pagination;
 
-  SearchAll({
+  const SearchAll({
     required this.songList,
     required this.artistList,
     required this.albumList,

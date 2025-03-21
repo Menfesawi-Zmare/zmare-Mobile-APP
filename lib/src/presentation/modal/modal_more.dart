@@ -15,9 +15,8 @@ import 'package:zmare/src/data/artist/model/artist.dart';
 import 'package:zmare/src/data/playlist/model/playlist.dart';
 import 'package:zmare/src/data/song/model/item_song_model.dart';
 import 'package:zmare/src/presentation/playlist/modal/playlists_bottomsheet.dart';
-import 'package:zmare/src/presentation/widgets/khmertracks_image.dart';
+import 'package:zmare/src/presentation/widgets/zmare_image.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:share_plus/share_plus.dart';
 
 import 'modal_artist.dart';
 
@@ -91,7 +90,7 @@ class ModalMore extends StatelessWidget {
                                 File(Uri.parse(songList.image!).toFilePath()),
                               ),
                             )
-                          : KhmertracksImage(
+                          : ZmareImage(
                               imageUrl: songList.image!,
                               placeholderImage: Images.defalutSongCover,
                             ),

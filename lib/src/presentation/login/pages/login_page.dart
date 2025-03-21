@@ -7,8 +7,8 @@ import 'package:go_router/go_router.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:zmare/src/utils/ext/common.dart';
 import 'package:zmare/src/presentation/login/bloc/auth_bloc.dart';
-import 'package:zmare/src/presentation/widgets/khmertracks_text.dart';
-import 'package:zmare/src/presentation/widgets/khmertracks_text_field.dart';
+import 'package:zmare/src/presentation/widgets/zmare_text.dart';
+import 'package:zmare/src/presentation/widgets/zmare_text_field.dart';
 import 'package:zmare/src/service_locator.dart';
 import 'package:logging/logging.dart';
 
@@ -120,7 +120,7 @@ class _LoginPageState extends State<LoginPage> {
                         .copyWith(fontWeight: FontWeight.w400, fontSize: 14),
                   ),
                 ),
-                KhmertracksTextField(
+                ZmareTextField(
                   prefixIcon: Icon(
                     FluentIcons.person_12_filled,
                     size: 20,
@@ -146,7 +146,7 @@ class _LoginPageState extends State<LoginPage> {
                         .copyWith(fontWeight: FontWeight.w400, fontSize: 14),
                   ),
                 ),
-                KhmertracksTextField(
+                ZmareTextField(
                   prefixIcon: Icon(
                     FluentIcons.lock_closed_12_filled,
                     size: 20,
@@ -199,7 +199,7 @@ class _LoginPageState extends State<LoginPage> {
                               passwordController.text));
                         }
                       },
-                      child: KhmertracksText(
+                      child: ZmareText(
                         text: context.loc.login,
                         isBold: true,
                         isSmall: true,

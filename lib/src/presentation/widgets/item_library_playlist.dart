@@ -3,7 +3,7 @@ import 'package:zmare/src/core/resources/resources.dart';
 import 'package:zmare/src/utils/ext/common.dart';
 import 'package:zmare/src/core/enum/playlist_privacy_type.dart';
 import 'package:zmare/src/data/playlist/model/playlist.dart';
-import 'package:zmare/src/presentation/widgets/khmertracks_image.dart';
+import 'package:zmare/src/presentation/widgets/zmare_image.dart';
 
 class ItemLibraryPlaylist extends StatelessWidget {
   const ItemLibraryPlaylist(
@@ -35,7 +35,7 @@ class ItemLibraryPlaylist extends StatelessWidget {
                   child: Stack(children: [
                     SizedBox(
                       width: 140,
-                      child: KhmertracksImage(
+                      child: ZmareImage(
                         imageUrl: playlist!.image!,
                         placeholderImage: Images.defalutCover,
                       ),

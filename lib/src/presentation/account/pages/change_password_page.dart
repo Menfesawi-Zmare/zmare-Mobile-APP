@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:zmare/src/utils/ext/common.dart';
 import 'package:zmare/src/presentation/login/bloc/auth_bloc.dart';
-import 'package:zmare/src/presentation/widgets/khmertracks_text.dart';
-import 'package:zmare/src/presentation/widgets/khmertracks_text_field.dart';
+import 'package:zmare/src/presentation/widgets/zmare_text.dart';
+import 'package:zmare/src/presentation/widgets/zmare_text_field.dart';
 import 'package:zmare/src/service_locator.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -59,7 +59,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    KhmertracksTextField(
+                    ZmareTextField(
                       controller: currentPasswordController,
                       labelText: context.loc.ttlCurrentPassword,
                       hintText: context.loc.subCurrentPassword,
@@ -79,7 +79,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                       padding: EdgeInsets.only(top: 16, bottom: 16),
                       child: Divider(),
                     ),
-                    KhmertracksTextField(
+                    ZmareTextField(
                       controller: newPasswordController,
                       labelText: context.loc.ttlNewPassword,
                       hintText: context.loc.subNewPassword,
@@ -98,7 +98,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                     const SizedBox(
                       height: 16,
                     ),
-                    KhmertracksTextField(
+                    ZmareTextField(
                       controller: repeatPasswordController,
                       labelText: context.loc.ttlRepeatPassword,
                       hintText: context.loc.subRepeatPassword,
@@ -130,7 +130,7 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
                         newPasswordController.text,
                         repeatPasswordController.text));
                   },
-                  child: KhmertracksText(
+                  child: ZmareText(
                     text: context.loc.saveChanges,
                     isBold: true,
                     isSmall: true,

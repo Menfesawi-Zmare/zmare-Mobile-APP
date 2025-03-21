@@ -17,8 +17,8 @@ import 'package:zmare/src/presentation/widgets/empty_screen.dart';
 import 'package:zmare/src/presentation/widgets/like_button.dart';
 
 import 'package:zmare/src/presentation/widgets/playlist_head.dart';
-import 'package:zmare/src/presentation/widgets/texts/khmertracks_subtitle.dart';
-import 'package:zmare/src/presentation/widgets/texts/khmertracks_title.dart';
+import 'package:zmare/src/presentation/widgets/texts/zmare_subtitle.dart';
+import 'package:zmare/src/presentation/widgets/texts/zmare_title.dart';
 
 class LikedSongs extends StatefulWidget {
   final String playlistName;
@@ -713,10 +713,10 @@ class _AlbumsTabState extends State<AlbumsTab>
                             ? Images.defalultArtistCover
                             : Images.defalutAlbumCover,
                       ),
-                title: KhmertracksTitle(
+                title: ZmareTitle(
                   '${widget.sortedAlbumKeysList[index]}',
                 ),
-                subtitle: KhmertracksSubTitle(widget
+                subtitle: ZmareSubTitle(widget
                             .albums[widget.sortedAlbumKeysList[index]]!
                             .length ==
                         1

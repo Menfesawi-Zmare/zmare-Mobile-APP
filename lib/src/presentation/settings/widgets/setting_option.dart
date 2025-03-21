@@ -1,8 +1,6 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:zmare/src/presentation/widgets/texts/khmertracks_subtitle.dart';
-import 'package:zmare/src/presentation/widgets/texts/khmertracks_title.dart';
+import 'package:zmare/src/presentation/widgets/texts/zmare_subtitle.dart';
+import 'package:zmare/src/presentation/widgets/texts/zmare_title.dart';
 import 'package:zmare/src/utils/ext/color_extension.dart';
 
 class SettingsOption extends StatelessWidget {
@@ -43,9 +41,9 @@ class SettingsOption extends StatelessWidget {
                 icon,
                 color: Theme.of(context).colorScheme.primary,
               ),
-        title: KhmertracksTitle(title),
+        title: ZmareTitle(title),
         subtitle: subtitle != null
-            ? KhmertracksSubTitle(
+            ? ZmareSubTitle(
                 subtitle,
                 maxLines: 2,
               )

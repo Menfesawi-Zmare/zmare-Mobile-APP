@@ -2,7 +2,7 @@ import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:zmare/src/data/playlist/model/create_playlist_model.dart';
-import 'package:zmare/src/presentation/widgets/khmertracks_text.dart';
+import 'package:zmare/src/presentation/widgets/zmare_text.dart';
 import 'package:zmare/src/utils/ext/common.dart';
 import 'package:zmare/src/utils/helper/mediaitem_converter.dart';
 import 'package:zmare/src/data/playlist/model/playlist.dart';
@@ -125,7 +125,7 @@ class _PlaylistsBottomSheetState extends State<PlaylistsBottomSheet> {
                     return SizedBox(
                       height: 200,
                       child: Center(
-                        child: KhmertracksText(
+                        child: ZmareText(
                           text: context.loc.noPlaylists,
                           // style: Theme.of(context).textTheme.bodyMedium,
                         ),

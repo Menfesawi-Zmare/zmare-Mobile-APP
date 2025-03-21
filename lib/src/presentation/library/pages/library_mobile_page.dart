@@ -17,8 +17,8 @@ import 'package:zmare/src/presentation/library/widget/history_widget.dart';
 import 'package:zmare/src/presentation/library/widget/library_playlist_widget.dart';
 import 'package:zmare/src/presentation/login/bloc/auth_bloc.dart';
 import 'package:zmare/src/presentation/profile/bloc/profile_bloc.dart';
-import 'package:zmare/src/presentation/widgets/khmertracks_bottom_sheet.dart';
-import 'package:zmare/src/presentation/widgets/khmertracks_text.dart';
+import 'package:zmare/src/presentation/widgets/zmare_bottom_sheet.dart';
+import 'package:zmare/src/presentation/widgets/zmare_text.dart';
 import 'package:zmare/src/service_locator.dart';
 
 class LibraryMobilePage extends StatefulWidget {
@@ -163,9 +163,9 @@ class _LibraryMobilePageState extends State<LibraryMobilePage> {
                         title: context.loc.logout,
                         icon: Icons.logout_outlined,
                         onTap: () {
-                          khmertracksAlertDialog(
+                          zmareAlertDialog(
                             context,
-                            title: KhmertracksText(
+                            title: ZmareText(
                               text: context.loc.logoutContent,
                             ),
                             child: const SizedBox.shrink(),

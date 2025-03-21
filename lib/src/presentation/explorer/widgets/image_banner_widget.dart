@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:zmare/src/presentation/widgets/khmertracks_image.dart';
+import 'package:zmare/src/presentation/widgets/zmare_image.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ImageBannerWidget extends StatelessWidget {
@@ -20,7 +20,7 @@ class ImageBannerWidget extends StatelessWidget {
           child: SizedBox(
               width: double.infinity,
               height: 160,
-              child: KhmertracksImage(
+              child: ZmareImage(
                 imageUrl: image,
               )),
         ),

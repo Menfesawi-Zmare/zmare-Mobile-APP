@@ -9,7 +9,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:zmare/src/app/routes.dart';
 import 'package:zmare/src/core/resources/images.dart';
 import 'package:zmare/src/presentation/login/bloc/auth_bloc.dart';
-import 'package:zmare/src/presentation/widgets/texts/khmertracks_subtitle.dart';
+import 'package:zmare/src/presentation/widgets/texts/zmare_subtitle.dart';
 import 'package:zmare/src/service_locator.dart';
 import 'package:zmare/src/utils/ext/common.dart';
 import 'package:zmare/src/utils/services/audio/download.dart';

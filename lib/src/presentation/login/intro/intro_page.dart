@@ -8,7 +8,7 @@ import 'package:flutter_svg/svg.dart';
 
 import 'package:video_player/video_player.dart';
 import 'package:zmare/src/core/resources/resources.dart';
-import 'package:zmare/src/presentation/widgets/khmertracks_text.dart';
+
 import 'package:zmare/src/utils/services/firebase/authenticate.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -19,8 +19,10 @@ import 'package:zmare/src/presentation/login/bloc/auth_bloc.dart';
 import 'package:zmare/src/service_locator.dart';
 
 class IntroPage extends StatefulWidget {
-  const IntroPage({super.key, this.showBackButton = false});
+  const IntroPage(
+      {super.key, this.showBackButton = false, required this.introPageIndex});
   final bool showBackButton;
+  final int? introPageIndex;
 
   @override
   State<IntroPage> createState() => _IntroPageState();
@@ -44,7 +46,7 @@ class _IntroPageState extends State<IntroPage> with TickerProviderStateMixin {
 
   @override
   void dispose() {
-    controller.dispose();
+    widget.introPageIndex == 4 ? null : controller.dispose();
     super.dispose();
   }
 

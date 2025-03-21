@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:zmare/src/utils/ext/common.dart';
 import 'package:zmare/src/presentation/login/bloc/auth_bloc.dart';
-import 'package:zmare/src/presentation/widgets/khmertracks_text.dart';
-import 'package:zmare/src/presentation/widgets/khmertracks_text_field.dart';
+import 'package:zmare/src/presentation/widgets/zmare_text.dart';
+import 'package:zmare/src/presentation/widgets/zmare_text_field.dart';
 import 'package:zmare/src/service_locator.dart';
 import 'package:go_router/go_router.dart';
 
@@ -55,7 +55,7 @@ class _DeleteAccountPageState extends State<DeleteAccountPage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      KhmertracksText(
+                      ZmareText(
                         text: context.loc.delete_acc_desc,
                         isSmall: true,
                       ),
@@ -63,7 +63,7 @@ class _DeleteAccountPageState extends State<DeleteAccountPage> {
                         padding: EdgeInsets.only(top: 16, bottom: 16),
                         child: Divider(),
                       ),
-                      KhmertracksTextField(
+                      ZmareTextField(
                         controller: currentPasswordController,
                         labelText: context.loc.ttlCurrentPassword,
                         hintText: context.loc.subCurrentPassword,
@@ -112,7 +112,7 @@ class _DeleteAccountPageState extends State<DeleteAccountPage> {
                           DeleteAccountEvent(currentPasswordController.text));
                     }
                   },
-                  child: KhmertracksText(
+                  child: ZmareText(
                     text: context.loc.delete,
                     isBold: true,
                     isSmall: true,

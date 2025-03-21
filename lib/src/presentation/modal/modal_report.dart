@@ -6,9 +6,9 @@ import 'package:zmare/src/core/enum/report_reason.dart';
 import 'package:zmare/src/core/enum/report_type.dart';
 import 'package:zmare/src/data/track/model/track_report_request.model.dart';
 import 'package:zmare/src/presentation/track/bloc/track_bloc.dart';
-import 'package:zmare/src/presentation/widgets/khmertracks_text.dart';
-import 'package:zmare/src/presentation/widgets/khmertracks_text_field.dart';
-import 'package:zmare/src/presentation/widgets/khmertracks_text_small.dart';
+
+import 'package:zmare/src/presentation/widgets/zmare_text_field.dart';
+import 'package:zmare/src/presentation/widgets/zmare_text_small.dart';
 import 'package:zmare/src/service_locator.dart';
 import 'package:go_router/go_router.dart';
 
@@ -117,7 +117,7 @@ class _ModalReportState extends State<ModalReport> {
                       ),
                       child: Padding(
                         padding: const EdgeInsets.all(16),
-                        child: KhmertracksTextField(
+                        child: ZmareTextField(
                           labelText: context.loc.report_description,
                           hintText: context.loc.ttlDescription,
                           minLine: 6,
@@ -155,7 +155,7 @@ class _ModalReportState extends State<ModalReport> {
                                       checkboxValue1 = value!;
                                     });
                                   },
-                                  title: KhmertracksTextSmall(
+                                  title: ZmareTextSmall(
                                     text: context.loc.report2,
                                   ),
                                 ),
@@ -170,7 +170,7 @@ class _ModalReportState extends State<ModalReport> {
                                       checkboxValue2 = value!;
                                     });
                                   },
-                                  title: KhmertracksTextSmall(
+                                  title: ZmareTextSmall(
                                     text: context.loc.report2,
                                   ),
                                 ),
@@ -185,7 +185,7 @@ class _ModalReportState extends State<ModalReport> {
                                       checkboxValue3 = value!;
                                     });
                                   },
-                                  title: KhmertracksTextSmall(
+                                  title: ZmareTextSmall(
                                     text: context.loc.report3,
                                   ),
                                 ),
@@ -200,7 +200,7 @@ class _ModalReportState extends State<ModalReport> {
                             ),
                             child: Padding(
                               padding: const EdgeInsets.all(16),
-                              child: KhmertracksTextField(
+                              child: ZmareTextField(
                                 controller: signatureController,
                                 hintText: context.loc.signature,
                                 labelText: context.loc.subSignature,

@@ -5,15 +5,15 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hive/hive.dart';
+
 import 'package:hive_flutter/adapters.dart';
 import 'package:zmare/src/app/routes.dart';
 import 'package:zmare/src/core/enum/box_types.dart';
 import 'package:zmare/src/utils/ext/common.dart';
 import 'package:zmare/src/utils/ext/string_extensions.dart';
 import 'package:zmare/src/presentation/login/bloc/auth_bloc.dart';
-import 'package:zmare/src/presentation/widgets/khmertracks_text.dart';
-import 'package:zmare/src/presentation/widgets/khmertracks_text_field.dart';
+import 'package:zmare/src/presentation/widgets/zmare_text.dart';
+import 'package:zmare/src/presentation/widgets/zmare_text_field.dart';
 import 'package:zmare/src/service_locator.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -140,7 +140,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         .copyWith(fontWeight: FontWeight.w400, fontSize: 14),
                   ),
                 ),
-                KhmertracksTextField(
+                ZmareTextField(
                   prefixIcon: Icon(
                     Icons.person,
                     size: 20,
@@ -171,7 +171,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         .copyWith(fontWeight: FontWeight.w400, fontSize: 14),
                   ),
                 ),
-                KhmertracksTextField(
+                ZmareTextField(
                   prefixIcon: Icon(
                     Icons.email_outlined,
                     size: 20,
@@ -200,7 +200,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         .copyWith(fontWeight: FontWeight.w400, fontSize: 14),
                   ),
                 ),
-                KhmertracksTextField(
+                ZmareTextField(
                   prefixIcon: Icon(
                     FluentIcons.password_20_regular,
                     size: 20,
@@ -302,7 +302,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       onPressed: () => authBloc.add(ValidateFieldsEvent(
                           _formLogin,
                           acceptEula: acceptEULA)),
-                      child: KhmertracksText(
+                      child: ZmareText(
                         text: context.loc.createAccount,
                         isBold: true,
                         isSmall: true,

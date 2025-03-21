@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:zmare/src/core/resources/resources.dart';
 import 'package:zmare/src/utils/ext/common.dart';
 import 'package:zmare/src/data/album/model/album.dart';
-import 'package:zmare/src/presentation/widgets/khmertracks_image.dart';
+import 'package:zmare/src/presentation/widgets/zmare_image.dart';
 
 import 'package:go_router/go_router.dart';
 
@@ -36,7 +36,7 @@ class CustomAlbumPage extends StatelessWidget {
                     aspectRatio: 1 / 1,
                     child: ClipRRect(
                         borderRadius: BorderRadius.circular(16),
-                        child: KhmertracksImage(
+                        child: ZmareImage(
                           imageUrl: listAlbums![index].image!,
                           placeholderImage: Images.defalultArtistCover,
                         )),

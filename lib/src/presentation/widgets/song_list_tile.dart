@@ -3,10 +3,12 @@ import 'dart:io';
 import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
 import 'package:zmare/src/core/resources/resources.dart';
-import 'package:zmare/src/presentation/widgets/khmertracks_image.dart';
-import 'package:zmare/src/presentation/widgets/texts/khmertracks_subtitle.dart';
-import 'package:zmare/src/presentation/widgets/texts/khmertracks_title.dart';
+import 'package:zmare/src/presentation/widgets/zmare_image.dart';
+import 'package:zmare/src/presentation/widgets/texts/zmare_subtitle.dart';
+
 import 'package:zmare/src/utils/ext/color_extension.dart';
+
+import 'texts/zmare_title.dart';
 
 class SongListTile extends StatelessWidget {
   const SongListTile({
@@ -55,13 +57,13 @@ class SongListTile extends StatelessWidget {
                   )
                 : ClipRRect(
                     borderRadius: BorderRadius.circular(11),
-                    child: KhmertracksImage(
+                    child: ZmareImage(
                       imageUrl: song.artUri.toString(),
                       placeholderImage: Images.defalutSongCover,
                     ),
                   )),
-        title: KhmertracksTitle(song.title),
-        subtitle: KhmertracksSubTitle('${song.artist} • ${song.album}'),
+        title: ZmareTitle(song.title),
+        subtitle: ZmareSubTitle('${song.artist} • ${song.album}'),
         onTap: () => onTap(),
         tileColor: highlight
             ? context.colorScheme.secondaryContainer

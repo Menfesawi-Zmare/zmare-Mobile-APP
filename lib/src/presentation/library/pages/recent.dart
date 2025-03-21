@@ -13,11 +13,11 @@ import 'package:zmare/src/core/enum/box_types.dart';
 import 'package:zmare/src/utils/services/audio/player_service.dart';
 import 'package:zmare/src/data/song/model/item_song_model.dart';
 import 'package:zmare/src/presentation/modal/modal_more.dart';
-import 'package:zmare/src/presentation/widgets/empty_screen.dart';
-import 'package:zmare/src/presentation/widgets/khmertracks_image.dart';
 
-import 'package:zmare/src/presentation/widgets/texts/khmertracks_subtitle.dart';
-import 'package:zmare/src/presentation/widgets/texts/khmertracks_title.dart';
+import 'package:zmare/src/presentation/widgets/zmare_image.dart';
+
+import 'package:zmare/src/presentation/widgets/texts/zmare_subtitle.dart';
+import 'package:zmare/src/presentation/widgets/texts/zmare_title.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class RecentlyPlayed extends StatefulWidget {
@@ -142,7 +142,7 @@ class _RecentlyPlayedState extends State<RecentlyPlayed> {
                                             ),
                                           ),
                                         )
-                                      : KhmertracksImage(
+                                      : ZmareImage(
                                           imageUrl: _songs[index]['image'],
                                           placeholderImage: Images.defalutCover,
                                         ),
@@ -176,11 +176,11 @@ class _RecentlyPlayedState extends State<RecentlyPlayed> {
                                   );
                                 },
                                 icon: Icon(MdiIcons.dotsHorizontal)),
-                            title: KhmertracksTitle(
+                            title: ZmareTitle(
                               '${_songs[index]["title"]}',
                               maxLines: 1,
                             ),
-                            subtitle: KhmertracksSubTitle(
+                            subtitle: ZmareSubTitle(
                               '${_songs[index]["artist"]}',
                             ),
                             onTap: () {

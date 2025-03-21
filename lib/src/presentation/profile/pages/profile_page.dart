@@ -15,7 +15,7 @@ import 'package:zmare/src/presentation/profile/widget/likes_widget.dart';
 import 'package:zmare/src/presentation/profile/widget/profile_playlists_widget.dart';
 import 'package:zmare/src/presentation/profile/widget/subscriber_widget.dart';
 import 'package:zmare/src/presentation/profile/widget/subscriptions_widget.dart';
-import 'package:zmare/src/presentation/widgets/khmertracks_image.dart';
+import 'package:zmare/src/presentation/widgets/zmare_image.dart';
 
 import 'package:zmare/src/service_locator.dart';
 
@@ -124,7 +124,7 @@ class _ProfilePageState extends State<ProfilePage>
                                                   EdgeInsets.only(bottom: 30),
                                               width: double.infinity,
                                               height: 250,
-                                              child: KhmertracksImage(
+                                              child: ZmareImage(
                                                 imageUrl: widget.profile.cover!,
                                                 placeholderImage:
                                                     Images.defalultArtistCover,
@@ -171,8 +171,7 @@ class _ProfilePageState extends State<ProfilePage>
                                                       child: SizedBox(
                                                           width: 60,
                                                           height: 60,
-                                                          child:
-                                                              KhmertracksImage(
+                                                          child: ZmareImage(
                                                             imageUrl: widget
                                                                 .profile.image!,
                                                             placeholderImage: Images
