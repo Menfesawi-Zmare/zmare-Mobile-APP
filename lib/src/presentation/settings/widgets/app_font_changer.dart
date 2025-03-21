@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:zmare/src/presentation/pages/font_picker_page.dart';
-import 'package:zmare/src/presentation/widgets/texts/khmertracks_subtitle.dart';
-import 'package:zmare/src/presentation/widgets/texts/khmertracks_title.dart';
+import 'package:zmare/src/presentation/widgets/texts/zmare_subtitle.dart';
+import 'package:zmare/src/presentation/widgets/texts/zmare_title.dart';
 import 'package:zmare/src/utils/ext/common.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -20,8 +20,8 @@ class AppFontChanger extends StatelessWidget {
         builder: (context, value, child) {
           return ListTile(
             leading: Icon(MdiIcons.formatFont),
-            title: KhmertracksTitle(context.loc.fontStyle),
-            subtitle: KhmertracksSubTitle(context.loc.fontStyleDescription),
+            title: ZmareTitle(context.loc.fontStyle),
+            subtitle: ZmareSubTitle(context.loc.fontStyleDescription),
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute<void>(
                   fullscreenDialog: true,

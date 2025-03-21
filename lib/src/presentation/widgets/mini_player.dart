@@ -4,7 +4,7 @@ import 'package:audio_service/audio_service.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:zmare/src/core/resources/resources.dart';
-import 'package:zmare/src/presentation/widgets/khmertracks_image.dart';
+import 'package:zmare/src/presentation/widgets/zmare_image.dart';
 import 'package:zmare/src/utils/ext/common.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:zmare/src/core/enum/box_types.dart';
@@ -177,7 +177,7 @@ class _MiniPlayerState extends State<MiniPlayer> {
                                                 )
                                               : SizedBox.square(
                                                   dimension: 45,
-                                                  child: KhmertracksImage(
+                                                  child: ZmareImage(
                                                       imageUrl: mediaItem.artUri
                                                           .toString(),
                                                       placeholderImage:

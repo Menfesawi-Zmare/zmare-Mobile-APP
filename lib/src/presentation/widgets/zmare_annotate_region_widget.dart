@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class KhmertracksAnnotatedRegionWidget extends StatelessWidget {
-  const KhmertracksAnnotatedRegionWidget({
+class ZmareAnnotatedRegionWidget extends StatelessWidget {
+  const ZmareAnnotatedRegionWidget({
     super.key,
     required this.child,
   });

@@ -5,7 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:zmare/src/utils/ext/common.dart';
 import 'package:zmare/src/data/album/model/album.dart';
 import 'package:zmare/src/data/artist/model/artist.dart';
-import 'package:zmare/src/presentation/widgets/khmertracks_image.dart';
+import 'package:zmare/src/presentation/widgets/zmare_image.dart';
 
 class ArtistAlbums extends StatelessWidget {
   const ArtistAlbums(
@@ -60,7 +60,7 @@ class ArtistAlbums extends StatelessWidget {
                           width: 156,
                           child: ClipRRect(
                               borderRadius: BorderRadius.circular(16),
-                              child: KhmertracksImage(
+                              child: ZmareImage(
                                 imageUrl: albumList[index].image!,
                                 placeholderImage: Images.defalutAlbumCover,
                               )),

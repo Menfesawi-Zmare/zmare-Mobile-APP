@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:zmare/src/utils/ext/common.dart';
-import 'package:zmare/src/presentation/widgets/khmertracks_text.dart';
+import 'package:zmare/src/presentation/widgets/zmare_text.dart';
 
 class ModalPlaylistDescrition extends StatelessWidget {
   const ModalPlaylistDescrition({super.key, required this.description});
@@ -13,7 +13,7 @@ class ModalPlaylistDescrition extends StatelessWidget {
         child: Column(mainAxisSize: MainAxisSize.min, children: [
           Padding(
             padding: const EdgeInsets.all(16.0),
-            child: KhmertracksText(
+            child: ZmareText(
               text: description,
               isSmall: true,
             ),

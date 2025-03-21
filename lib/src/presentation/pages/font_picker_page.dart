@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:zmare/src/core/enum/box_types.dart';
-import 'package:zmare/src/presentation/widgets/khmertracks_text_field.dart';
+import 'package:zmare/src/presentation/widgets/zmare_text_field.dart';
 import 'package:zmare/src/service_locator.dart';
 import 'package:zmare/src/utils/ext/common.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -48,7 +48,7 @@ class _FontPickerPageState extends State<FontPickerPage> {
             height: kToolbarHeight,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: KhmertracksTextField(
+              child: ZmareTextField(
                 controller: textEditingController,
                 hintText: context.loc.search,
                 keyboardType: TextInputType.name,

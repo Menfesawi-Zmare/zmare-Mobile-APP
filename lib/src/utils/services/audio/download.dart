@@ -4,12 +4,12 @@ import 'dart:io';
 
 import 'package:audiotagger/audiotagger.dart';
 import 'package:audiotagger/models/tag.dart';
-import 'package:device_info_plus/device_info_plus.dart';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:zmare/src/core/resources/images.dart';
-import 'package:zmare/src/utils/services/audio/ext_storage_provider.dart';
+
 import 'package:hive/hive.dart';
 // ignore: depend_on_referenced_packages
 import 'package:http/http.dart';
@@ -20,7 +20,6 @@ import 'package:zmare/src/service_locator.dart';
 import 'package:logging/logging.dart';
 import 'package:metadata_god/metadata_god.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 class Download with ChangeNotifier {
   static final Map<String, Download> _instances = {};

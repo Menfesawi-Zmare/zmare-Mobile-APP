@@ -5,9 +5,9 @@ import 'package:zmare/src/core/resources/resources.dart';
 import 'package:zmare/src/utils/ext/common.dart';
 import 'package:zmare/src/utils/services/audio/player_service.dart';
 import 'package:zmare/src/presentation/widgets/download_button.dart';
-import 'package:zmare/src/presentation/widgets/khmertracks_image.dart';
-import 'package:zmare/src/presentation/widgets/texts/khmertracks_subtitle.dart';
-import 'package:zmare/src/presentation/widgets/texts/khmertracks_title.dart';
+import 'package:zmare/src/presentation/widgets/zmare_image.dart';
+import 'package:zmare/src/presentation/widgets/texts/zmare_subtitle.dart';
+import 'package:zmare/src/presentation/widgets/texts/zmare_title.dart';
 
 class DownloadsSearch extends SearchDelegate {
   final bool isDowns;
@@ -89,16 +89,16 @@ class DownloadsSearch extends SearchDelegate {
                   errorBuilder: (_, __, ___) =>
                       Image.asset(Images.defalutCover),
                 )
-              : KhmertracksImage(
+              : ZmareImage(
                   placeholderImage: Images.defalutCover,
                   imageUrl: suggestionList[index]['image']
                       .toString()
                       .replaceAll('http:', 'https:')),
         ),
-        title: KhmertracksTitle(
+        title: ZmareTitle(
           suggestionList[index]['title'].toString(),
         ),
-        subtitle: KhmertracksSubTitle(
+        subtitle: ZmareSubTitle(
           suggestionList[index]['artist'].toString(),
         ),
         trailing: isDowns
@@ -166,7 +166,7 @@ class DownloadsSearch extends SearchDelegate {
                     errorBuilder: (_, __, ___) =>
                         Image.asset(Images.defalutCover),
                   )
-                : KhmertracksImage(
+                : ZmareImage(
                     placeholderImage: Images.defalutCover,
                     imageUrl: suggestionList[index]['image']
                         .toString()

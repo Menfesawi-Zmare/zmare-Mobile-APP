@@ -3,8 +3,8 @@ import 'package:zmare/src/utils/ext/common.dart';
 import 'package:zmare/src/data/account/model/account.dart';
 import 'package:zmare/src/data/profile/model/profile.dart';
 import 'package:zmare/src/presentation/login/bloc/auth_bloc.dart';
-import 'package:zmare/src/presentation/widgets/khmertracks_text.dart';
-import 'package:zmare/src/presentation/widgets/khmertracks_text_field.dart';
+import 'package:zmare/src/presentation/widgets/zmare_text.dart';
+import 'package:zmare/src/presentation/widgets/zmare_text_field.dart';
 import 'package:zmare/src/service_locator.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -72,7 +72,7 @@ class _EditSocialPageState extends State<EditSocialPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    KhmertracksTextField(
+                    ZmareTextField(
                       controller: faceBookController,
                       labelText: context.loc.ttlFacebook,
                       hintText: context.loc.subFacebook,
@@ -80,7 +80,7 @@ class _EditSocialPageState extends State<EditSocialPage> {
                     const SizedBox(
                       height: 16,
                     ),
-                    KhmertracksTextField(
+                    ZmareTextField(
                       controller: twitterController,
                       labelText: context.loc.twitter,
                       hintText: context.loc.twitter,
@@ -88,7 +88,7 @@ class _EditSocialPageState extends State<EditSocialPage> {
                     const SizedBox(
                       height: 16,
                     ),
-                    KhmertracksTextField(
+                    ZmareTextField(
                       controller: instagramController,
                       labelText: context.loc.ttlInstagram,
                       hintText: context.loc.subInstagram,
@@ -96,7 +96,7 @@ class _EditSocialPageState extends State<EditSocialPage> {
                     const SizedBox(
                       height: 16,
                     ),
-                    KhmertracksTextField(
+                    ZmareTextField(
                         controller: youTubeController,
                         labelText: context.loc.ttlYoutube,
                         hintText: context.loc.subYoutube),
@@ -122,7 +122,7 @@ class _EditSocialPageState extends State<EditSocialPage> {
                         youtube: youTubeController.text);
                     authBloc.add(UpdateSocialEvent(profile));
                   },
-                  child: KhmertracksText(
+                  child: ZmareText(
                     text: context.loc.saveChanges,
                     isBold: true,
                     isSmall: true,

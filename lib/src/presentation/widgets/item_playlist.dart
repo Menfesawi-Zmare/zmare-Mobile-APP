@@ -2,11 +2,11 @@ import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:zmare/src/core/resources/resources.dart';
 import 'package:go_router/go_router.dart';
+import 'package:zmare/src/presentation/widgets/texts/zmare_title.dart';
 import 'package:zmare/src/utils/ext/common.dart';
 import 'package:zmare/src/core/enum/playlist_privacy_type.dart';
 import 'package:zmare/src/utils/ext/string_extensions.dart';
-import 'package:zmare/src/presentation/widgets/khmertracks_image.dart';
-import 'package:zmare/src/presentation/widgets/texts/khmertracks_title.dart';
+import 'package:zmare/src/presentation/widgets/zmare_image.dart';
 
 import '../../data/playlist/model/playlist.dart';
 
@@ -37,7 +37,7 @@ class ItemPlaylist extends StatelessWidget {
                     ),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(6),
-                      child: KhmertracksImage(
+                      child: ZmareImage(
                         imageUrl: playlist.image!,
                         placeholderImage: Images.defalutCover,
                       ),
@@ -46,7 +46,7 @@ class ItemPlaylist extends StatelessWidget {
                 ),
               ],
             ),
-            title: KhmertracksTitle(playlist.name!),
+            title: ZmareTitle(playlist.name!),
             subtitle: RichText(
               text: TextSpan(
                 children: [

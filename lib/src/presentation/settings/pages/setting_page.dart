@@ -1,9 +1,8 @@
 import 'dart:io';
 
-import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:zmare/src/presentation/settings/widgets/app_font_changer.dart';
+
 import 'package:zmare/src/presentation/settings/widgets/app_language_changer.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hive_flutter/hive_flutter.dart';

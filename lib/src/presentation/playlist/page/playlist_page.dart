@@ -14,15 +14,13 @@ import 'package:zmare/src/presentation/login/bloc/auth_bloc.dart';
 import 'package:zmare/src/presentation/modal/modal_playlist_description.dart';
 import 'package:zmare/src/presentation/modal/modal_update_playlist.dart';
 import 'package:zmare/src/presentation/playlist/bloc/playlist_bloc.dart';
-import 'package:zmare/src/presentation/widgets/download_button.dart';
+
 import 'package:zmare/src/presentation/widgets/item_song_small.dart';
-import 'package:zmare/src/presentation/widgets/khmertracks_bottom_sheet.dart';
-import 'package:zmare/src/presentation/widgets/khmertracks_image.dart';
-import 'package:zmare/src/presentation/widgets/khmertracks_text.dart';
+
+import 'package:zmare/src/presentation/widgets/zmare_image.dart';
 
 import 'package:zmare/src/presentation/widgets/play_and_shuffle_button.dart';
 import 'package:zmare/src/service_locator.dart';
-import 'package:share_plus/share_plus.dart';
 
 import '../../../data/playlist/model/playlist.dart';
 
@@ -124,9 +122,9 @@ class _PlaylistPageState extends State<PlaylistPage> {
           //   actions: [
           //     if (widget.action.toLowerCase() == 'true')
           //       IconButton(
-          //           onPressed: () => khmertracksAlertDialog(
+          //           onPressed: () => ZmareAlertDialog(
           //                 context,
-          //                 title: KhmertracksText(
+          //                 title: ZmareText(
           //                   text: context.loc.deletePlaylist,
           //                   isBold: true,
           //                 ),
@@ -178,7 +176,7 @@ class _PlaylistPageState extends State<PlaylistPage> {
                         children: [
                           AspectRatio(
                               aspectRatio: 1 / 1,
-                              child: KhmertracksImage(
+                              child: ZmareImage(
                                 imageUrl: playlist.image!,
                                 placeholderImage: Images.defalultArtistCover,
                               )),
@@ -472,7 +470,7 @@ class _PlaylistPageState extends State<PlaylistPage> {
           //                           ),
           //                           child: ClipRRect(
           //                               borderRadius: BorderRadius.circular(12),
-          //                               child: KhmertracksImage(
+          //                               child: ZmareImage(
           //                                 imageUrl: playlist.image!,
           //                                 placeholderImage: Images.defalutCover,
           //                               )),
@@ -482,7 +480,7 @@ class _PlaylistPageState extends State<PlaylistPage> {
           //                 Padding(
           //                   padding: const EdgeInsets.only(
           //                       left: 16, right: 16, top: 10),
-          //                   child: KhmertracksText(
+          //                   child: ZmareText(
           //                     text: playlist.name!,
           //                     isBold: true,
           //                   ),
@@ -497,7 +495,7 @@ class _PlaylistPageState extends State<PlaylistPage> {
           //                       Column(
           //                         crossAxisAlignment: CrossAxisAlignment.start,
           //                         children: [
-          // KhmertracksText(
+          // ZmareText(
           //   text: context.loc
           //       .createBy(playlist.ownerName ?? ""),
           //   isSmall: true,

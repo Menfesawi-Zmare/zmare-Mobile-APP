@@ -8,8 +8,8 @@ import 'package:zmare/src/core/enum/playlist_privacy_type.dart';
 import 'package:zmare/src/data/playlist/model/playlist_update_request_model.dart';
 import 'package:zmare/src/presentation/login/bloc/auth_bloc.dart';
 import 'package:zmare/src/presentation/modal/modal_playlist_privacy.dart';
-import 'package:zmare/src/presentation/widgets/khmertracks_image.dart';
-import 'package:zmare/src/presentation/widgets/khmertracks_text_field.dart';
+import 'package:zmare/src/presentation/widgets/zmare_image.dart';
+import 'package:zmare/src/presentation/widgets/zmare_text_field.dart';
 
 import '../../data/playlist/model/playlist.dart';
 
@@ -95,7 +95,7 @@ class _ModalUpdatePlaylistState extends State<ModalUpdatePlaylist> {
                         height: 125,
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(8),
-                          child: KhmertracksImage(
+                          child: ZmareImage(
                             imageUrl: widget.playlist.image!,
                             placeholderImage: Images.defalutSongCover,
                           ),
@@ -105,7 +105,7 @@ class _ModalUpdatePlaylistState extends State<ModalUpdatePlaylist> {
                       Row(
                         children: [
                           Expanded(
-                            child: KhmertracksTextField(
+                            child: ZmareTextField(
                               controller: playlistNameController,
                               labelText: context.loc.title,
                             ),
@@ -113,7 +113,7 @@ class _ModalUpdatePlaylistState extends State<ModalUpdatePlaylist> {
                         ],
                       ),
                       const SizedBox(height: 16),
-                      KhmertracksTextField(
+                      ZmareTextField(
                         controller: descriptionController,
                         labelText: context.loc.description,
                         floatingLabelBehavior: FloatingLabelBehavior.auto,
@@ -123,7 +123,7 @@ class _ModalUpdatePlaylistState extends State<ModalUpdatePlaylist> {
                         ],
                       ),
                       const SizedBox(height: 16),
-                      KhmertracksTextField(
+                      ZmareTextField(
                         readOnly: true,
                         controller: privacyController,
                         labelText: context.loc.privacy,

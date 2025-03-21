@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:zmare/src/utils/ext/text_style_extension.dart';
 
-class KhmertracksTextSmall extends StatelessWidget {
-  const KhmertracksTextSmall({super.key, required this.text});
+class ZmareTextSmall extends StatelessWidget {
+  const ZmareTextSmall({super.key, required this.text});
   final String text;
   @override
   Widget build(BuildContext context) {

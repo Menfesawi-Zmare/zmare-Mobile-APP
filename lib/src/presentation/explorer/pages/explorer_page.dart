@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:responsive_builder/responsive_builder.dart';
@@ -13,7 +13,7 @@ import '../../../core/resources/images.dart';
 import '../../../service_locator.dart';
 import '../../../utils/ext/common.dart';
 import '../../../utils/helper/app_info.dart';
-import "package:zmare/src/utils/helper/constants.dart";
+
 import 'explorer_mobile_page.dart';
 
 class ExplorerPage extends StatefulWidget {
@@ -89,7 +89,7 @@ class _ExplorerPageState extends State<ExplorerPage>
             if (isMandatory == 1) SystemNavigator.pop();
           },
           child: AlertDialog(
-            content: Container(
+            content: SizedBox(
               height: 250, // Set the desired height
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,

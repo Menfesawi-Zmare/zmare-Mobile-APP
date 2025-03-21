@@ -38,7 +38,7 @@ class NextSong extends StatelessWidget {
                       context.loc.upNext.toUpperCase(),
                       style: context.bodySmall,
                     ),
-                    Container(
+                    SizedBox(
                       width: 170,
                       // color: Colors.black,
                       child: RichText(

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart'; // Add this package for SVG support
 import 'package:zmare/src/core/resources/images.dart';
 import 'package:zmare/src/utils/ext/common.dart';
-import 'package:zmare/src/presentation/widgets/khmertracks_text_field.dart';
+import 'package:zmare/src/presentation/widgets/zmare_text_field.dart';
 
 Future<void> showTextInputDialog({
   required BuildContext context,
@@ -45,7 +45,7 @@ Future<void> showTextInputDialog({
               const SizedBox(height: 20),
               // Text input field
               Expanded(
-                child: KhmertracksTextField(
+                child: ZmareTextField(
                   textInputAction: TextInputAction.done,
                   maxLine: 5,
                   autofocus: true,

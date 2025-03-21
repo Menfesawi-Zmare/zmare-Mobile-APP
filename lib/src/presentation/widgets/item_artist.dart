@@ -4,10 +4,10 @@ import 'package:zmare/src/core/resources/resources.dart';
 import 'package:go_router/go_router.dart';
 import 'package:zmare/src/utils/ext/common.dart';
 import 'package:zmare/src/data/artist/model/artist.dart';
-import 'package:zmare/src/presentation/widgets/khmertracks_image.dart';
-import 'package:zmare/src/presentation/widgets/texts/khmertracks_title.dart';
+import 'package:zmare/src/presentation/widgets/zmare_image.dart';
+import 'package:zmare/src/presentation/widgets/texts/zmare_title.dart';
 
-import 'texts/khmertracks_subtitle.dart';
+import 'texts/zmare_subtitle.dart';
 
 class ItemArtist extends StatelessWidget {
   const ItemArtist({super.key, required this.artists});
@@ -30,7 +30,7 @@ class ItemArtist extends StatelessWidget {
                 width: 64,
                 height: 64,
                 child: ClipOval(
-                  child: KhmertracksImage(
+                  child: ZmareImage(
                     imageUrl: artists.image!,
                     placeholderImage: Images.defalultArtistCover,
                   ),
@@ -38,8 +38,8 @@ class ItemArtist extends StatelessWidget {
               ),
             ],
           ),
-          title: KhmertracksTitle(artists.name!),
-          subtitle: KhmertracksSubTitle(
+          title: ZmareTitle(artists.name!),
+          subtitle: ZmareSubTitle(
               '${artists.albumTotal} ${artists.albumTotal! > 1 ? context.loc.albums : context.loc.album} • ${artists.trackTotal} ${artists.trackTotal! > 1 ? context.loc.songs : context.loc.song}'),
           trailing: IconButton(
               onPressed: () => context.pushNamed(artistPath, extra: artists),

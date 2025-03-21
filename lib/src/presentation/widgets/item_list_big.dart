@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hive/hive.dart';
+
 import 'package:hive_flutter/adapters.dart';
 import 'package:zmare/src/core/resources/resources.dart';
 import 'package:zmare/src/presentation/widgets/snackbar.dart';
@@ -10,9 +10,9 @@ import 'package:zmare/src/utils/ext/common.dart';
 import 'package:zmare/src/utils/services/audio/player_service.dart';
 import 'package:zmare/src/data/song/model/item_song_model.dart';
 import 'package:zmare/src/presentation/modal/modal_more.dart';
-import 'package:zmare/src/presentation/widgets/khmertracks_image.dart';
-import 'package:zmare/src/presentation/widgets/texts/khmertracks_subtitle.dart';
-import 'package:zmare/src/presentation/widgets/texts/khmertracks_title.dart';
+import 'package:zmare/src/presentation/widgets/zmare_image.dart';
+import 'package:zmare/src/presentation/widgets/texts/zmare_subtitle.dart';
+import 'package:zmare/src/presentation/widgets/texts/zmare_title.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 import '../../core/enum/box_types.dart';
@@ -69,15 +69,15 @@ class _ItemListBigState extends State<ItemListBig> {
                   ),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(8),
-                    child: KhmertracksImage(
+                    child: ZmareImage(
                       imageUrl: widget.songList.image!,
                       placeholderImage: Images.defalutCover,
                     ),
                   ),
                 ),
               ),
-              title: KhmertracksTitle(widget.songList.title!),
-              subtitle: KhmertracksSubTitle(
+              title: ZmareTitle(widget.songList.title!),
+              subtitle: ZmareSubTitle(
                   '${widget.songList.artist} • ${widget.songList.album}'),
               trailing: Row(
                 mainAxisSize: MainAxisSize.min,

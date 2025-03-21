@@ -5,8 +5,8 @@ import 'package:zmare/src/utils/ext/common.dart';
 import 'package:zmare/src/core/enum/grid_type.dart';
 import 'package:zmare/src/presentation/settings/widgets/extra_controls_widget.dart';
 import 'package:zmare/src/presentation/settings/widgets/settings_group_card.dart';
-import 'package:zmare/src/presentation/widgets/khmertracks_text.dart';
-import 'package:zmare/src/presentation/widgets/texts/khmertracks_title.dart';
+import 'package:zmare/src/presentation/widgets/zmare_text.dart';
+import 'package:zmare/src/presentation/widgets/texts/zmare_title.dart';
 
 class PersonalizePage extends StatefulWidget {
   const PersonalizePage({super.key});
@@ -30,7 +30,7 @@ class _PersonalizePageState extends State<PersonalizePage> {
       context: context,
       builder: (context) {
         return SimpleDialog(
-          title: KhmertracksText(text: title),
+          title: ZmareText(text: title),
           contentPadding: const EdgeInsets.all(10.0),
           children: [
             ...GridType.values.map(
@@ -40,7 +40,7 @@ class _PersonalizePageState extends State<PersonalizePage> {
                     ? Icon(Icons.check_circle,
                         color: Theme.of(context).colorScheme.primary)
                     : null,
-                title: KhmertracksTitle(
+                title: ZmareTitle(
                   e.name(context),
                 ),
                 onTap: () {

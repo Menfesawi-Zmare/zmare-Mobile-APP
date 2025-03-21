@@ -77,22 +77,35 @@ class _TrackMobilePageState extends State<TrackMobilePage>
                 _pagingController.itemList = [];
               }
             },
-            child: PagedListView<int, ItemSongModel>(
-              pagingController: _pagingController,
-              builderDelegate: PagedChildBuilderDelegate<ItemSongModel>(
-                  noItemsFoundIndicatorBuilder: (context) => NoResultWidget(
-                      showRefresh: true,
-                      onTap: () => _pagingController.refresh()),
-                  itemBuilder: (context, item, index) {
-                    return ItemListBig(
-                        songList: item, listItemSong: totalTracks);
-                  }),
-              // separatorBuilder: (BuildContext context, int index) {
-              //   return const Divider(
-              //     indent: 78,
-              //     height: 0,
-              //   );
-              // },
+            child: BlocBuilder(
+              bloc: trackBloc,
+              builder: (context, state) {
+                return PagedListView<int, ItemSongModel>(
+                  pagingController: _pagingController,
+                  builderDelegate: PagedChildBuilderDelegate<ItemSongModel>(
+                      noItemsFoundIndicatorBuilder: (context) =>
+                          state is TrackLoading
+                              ? Center(
+                                  child: SizedBox(
+                                      height: 35,
+                                      width: 35,
+                                      child: CircularProgressIndicator()),
+                                )
+                              : NoResultWidget(
+                                  showRefresh: true,
+                                  onTap: () => _pagingController.refresh()),
+                      itemBuilder: (context, item, index) {
+                        return ItemListBig(
+                            songList: item, listItemSong: totalTracks);
+                      }),
+                  // separatorBuilder: (BuildContext context, int index) {
+                  //   return const Divider(
+                  //     indent: 78,
+                  //     height: 0,
+                  //   );
+                  // },
+                );
+              },
             ),
           ),
         ));

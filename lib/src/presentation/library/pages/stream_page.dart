@@ -9,7 +9,7 @@ import 'package:zmare/src/data/artist/model/artist.dart';
 import 'package:zmare/src/data/song/model/item_song_model.dart';
 import 'package:zmare/src/presentation/track/bloc/track_bloc.dart';
 import 'package:zmare/src/presentation/widgets/item_list_big.dart';
-import 'package:zmare/src/presentation/widgets/khmertracks_image.dart';
+import 'package:zmare/src/presentation/widgets/zmare_image.dart';
 
 import 'package:zmare/src/presentation/widgets/no_subscribe_widget.dart';
 import 'package:zmare/src/service_locator.dart';
@@ -112,7 +112,7 @@ class _StreamPageState extends State<StreamPage> {
                                   child: AspectRatio(
                                     aspectRatio: 1 / 1,
                                     child: ClipOval(
-                                        child: KhmertracksImage(
+                                        child: ZmareImage(
                                       imageUrl: groupBy(artists!,
                                               (Artist element) => element.id)
                                           .values

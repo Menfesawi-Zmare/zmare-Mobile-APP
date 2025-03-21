@@ -4,14 +4,15 @@ import 'package:go_router/go_router.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:zmare/src/presentation/widgets/snackbar.dart';
+import 'package:zmare/src/presentation/widgets/texts/zmare_subtitle.dart';
+import 'package:zmare/src/presentation/widgets/texts/zmare_title.dart';
 import 'package:zmare/src/utils/services/audio/download.dart';
 import 'package:zmare/src/utils/ext/common.dart';
 import 'package:zmare/src/utils/services/audio/player_service.dart';
 import 'package:zmare/src/data/playlist/model/playlist.dart';
 import 'package:zmare/src/data/song/model/item_song_model.dart';
 import 'package:zmare/src/presentation/modal/modal_more.dart';
-import 'package:zmare/src/presentation/widgets/texts/khmertracks_subtitle.dart';
-import 'package:zmare/src/presentation/widgets/texts/khmertracks_title.dart';
+
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 import '../../core/enum/box_types.dart';
@@ -84,9 +85,9 @@ class _ItemSongSmallState extends State<ItemSongSmall> {
                         image: NetworkImage(widget.songList.image!),
                         fit: BoxFit.cover)),
               ),
-              title: KhmertracksTitle(widget.songList.title!),
+              title: ZmareTitle(widget.songList.title!),
               subtitle: widget.showArtistName
-                  ? KhmertracksSubTitle(widget.songList.artist)
+                  ? ZmareSubTitle(widget.songList.artist)
                   : null,
               trailing: Row(
                 mainAxisSize: MainAxisSize.min,

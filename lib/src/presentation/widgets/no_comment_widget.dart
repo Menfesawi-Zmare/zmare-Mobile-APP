@@ -1,7 +1,7 @@
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:zmare/src/utils/ext/common.dart';
-import 'package:zmare/src/presentation/widgets/khmertracks_text.dart';
+import 'package:zmare/src/presentation/widgets/zmare_text.dart';
 
 class NoCommentWidget extends StatelessWidget {
   const NoCommentWidget({super.key, this.onTap, this.showRefresh = false});
@@ -21,7 +21,7 @@ class NoCommentWidget extends StatelessWidget {
             FluentIcons.comment_24_regular,
             size: 72,
           ),
-          KhmertracksText(
+          ZmareText(
             text: context.loc.noComment,
             isBold: true,
           ),

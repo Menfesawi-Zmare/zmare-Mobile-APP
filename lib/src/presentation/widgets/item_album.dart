@@ -3,11 +3,11 @@ import 'package:zmare/src/core/resources/resources.dart';
 import 'package:go_router/go_router.dart';
 import 'package:zmare/src/utils/ext/common.dart';
 import 'package:zmare/src/data/album/model/album.dart';
-import 'package:zmare/src/presentation/widgets/khmertracks_image.dart';
-import 'package:zmare/src/presentation/widgets/texts/khmertracks_title.dart';
+import 'package:zmare/src/presentation/widgets/zmare_image.dart';
+import 'package:zmare/src/presentation/widgets/texts/zmare_title.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
-import 'texts/khmertracks_subtitle.dart';
+import 'texts/zmare_subtitle.dart';
 
 class ItemAlbum extends StatelessWidget {
   const ItemAlbum({super.key, required this.album});
@@ -35,7 +35,7 @@ class ItemAlbum extends StatelessWidget {
                     ),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(6),
-                      child: KhmertracksImage(
+                      child: ZmareImage(
                         imageUrl: album.image!,
                         placeholderImage: Images.defalutAlbumCover,
                       ),
@@ -44,8 +44,8 @@ class ItemAlbum extends StatelessWidget {
                 ),
               ],
             ),
-            title: KhmertracksTitle(album.name!),
-            subtitle: KhmertracksSubTitle(
+            title: ZmareTitle(album.name!),
+            subtitle: ZmareSubTitle(
                 '${album.trackTotal} ${album.trackTotal! > 1 ? context.loc.songs : context.loc.song}'),
             trailing: IconButton(
                 onPressed: () =>

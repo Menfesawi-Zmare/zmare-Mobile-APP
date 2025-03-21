@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:google_fonts/google_fonts.dart';
+
 import 'package:rive_animated_icon/rive_animated_icon.dart';
 import 'package:zmare/src/utils/ext/color_extension.dart';
 
@@ -88,11 +88,9 @@ class OnBoardingCard extends StatelessWidget {
                 height: 40,
               ),
               Text(
-                "Zmare",
-                style: GoogleFonts.jotiOne(
-                  fontSize: 15,
-                  color: context.primary,
-                ),
+                "ምዕራፍ",
+                style: TextStyle(
+                    fontSize: 18, fontFamily: "Hidase", color: context.primary),
               ),
             ],
           ),
