@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:zmare/src/core/resources/resources.dart';
 import 'package:zmare/src/utils/ext/common.dart';
 import 'package:zmare/src/data/artist/model/artist.dart';
-import 'package:zmare/src/presentation/widgets/khmertracks_image.dart';
+import 'package:zmare/src/presentation/widgets/zmare_image.dart';
 
 import 'package:go_router/go_router.dart';
 
@@ -35,7 +35,7 @@ class CustomArtistPage extends StatelessWidget {
                   AspectRatio(
                     aspectRatio: 1 / 1,
                     child: ClipOval(
-                        child: KhmertracksImage(
+                        child: ZmareImage(
                       imageUrl: listArtists![index].image!,
                       placeholderImage: Images.defalultArtistCover,
                     )),

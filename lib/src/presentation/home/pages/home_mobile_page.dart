@@ -21,7 +21,7 @@ class HomeMobilePage extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            navigationShell.currentIndex == 4 ? SizedBox() : MiniPlayer(),
+            if (navigationShell.currentIndex == 4) SizedBox() else MiniPlayer(),
             if (Platform.isIOS)
               IosNavigation(navigationShell: navigationShell)
             else

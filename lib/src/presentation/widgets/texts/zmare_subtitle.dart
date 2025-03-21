@@ -2,23 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:zmare/src/utils/ext/text_style_extension.dart';
 
-class KhmertracksTitle extends StatelessWidget {
-  const KhmertracksTitle(
-    this.title, {
-    super.key,
-    this.maxLines,
-    this.overflow = TextOverflow.ellipsis,
-  });
+class ZmareSubTitle extends StatelessWidget {
+  const ZmareSubTitle(this.title,
+      {super.key, this.maxLines = 1, this.center = false});
   final String? title;
   final int? maxLines;
-  final TextOverflow? overflow;
+  final bool center;
   @override
   Widget build(BuildContext context) {
     return Text(title!,
-        overflow: overflow,
+        overflow: TextOverflow.ellipsis,
         maxLines: maxLines,
-        style: context.bodyMedium?.copyWith(
-            fontWeight: FontWeight.bold,
+        textAlign: center ? TextAlign.center : TextAlign.start,
+        style: context.bodySmall?.copyWith(
+            fontSize: 14,
+            fontWeight: FontWeight.w400,
             fontFamily: GoogleFonts.notoSansEthiopic().fontFamily));
   }
 }

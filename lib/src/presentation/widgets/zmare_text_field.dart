@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class KhmertracksTextField extends StatelessWidget {
-  const KhmertracksTextField({
+class ZmareTextField extends StatelessWidget {
+  const ZmareTextField({
     super.key,
     this.labelText = '',
     this.labelWidget,

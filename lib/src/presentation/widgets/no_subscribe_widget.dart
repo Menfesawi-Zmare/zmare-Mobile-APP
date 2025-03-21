@@ -2,8 +2,9 @@ import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:zmare/src/utils/ext/common.dart';
-import 'package:zmare/src/presentation/widgets/khmertracks_text.dart';
-import 'package:zmare/src/presentation/widgets/texts/khmertracks_subtitle.dart';
+import 'package:zmare/src/presentation/widgets/zmare_text.dart';
+
+import 'texts/zmare_subtitle.dart';
 
 class NoSubscribeWidget extends StatelessWidget {
   const NoSubscribeWidget({super.key, this.onTap, this.showRefresh = false});
@@ -24,14 +25,14 @@ class NoSubscribeWidget extends StatelessWidget {
             // ignore: deprecated_member_use
             color: Colors.white,
           ),
-          KhmertracksText(
+          ZmareText(
             text: context.loc.newMusicsRightToYou,
             isBold: true,
           ),
           const SizedBox(
             height: 20,
           ),
-          KhmertracksSubTitle(
+          ZmareSubTitle(
             context.loc.newMusicsRightToYouSub,
             maxLines: 5,
             center: true,

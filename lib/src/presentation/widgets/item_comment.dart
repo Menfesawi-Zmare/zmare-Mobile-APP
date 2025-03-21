@@ -1,15 +1,14 @@
-import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:zmare/src/core/resources/resources.dart';
+
 import 'package:zmare/src/data/profile/model/profile.dart';
 import 'package:zmare/src/data/track/model/response/load_comment_response.dart';
 import 'package:zmare/src/app/routes.dart';
 import 'package:zmare/src/utils/ext/common.dart';
 import 'package:zmare/src/utils/ext/string_extensions.dart';
-import 'package:zmare/src/presentation/widgets/khmertracks_image.dart';
-import 'package:zmare/src/presentation/widgets/textinput_dialog.dart';
-import 'package:zmare/src/presentation/widgets/texts/khmertracks_title.dart';
+import 'package:zmare/src/presentation/widgets/zmare_image.dart';
+
+import 'package:zmare/src/presentation/widgets/texts/zmare_title.dart';
 
 class ItemComment extends StatefulWidget {
   const ItemComment(
@@ -91,7 +90,7 @@ class _ItemCommentState extends State<ItemComment> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      KhmertracksTitle(
+                                      ZmareTitle(
                                         widget.comment.message,
                                         maxLines: 10,
                                       ),
@@ -113,7 +112,7 @@ class _ItemCommentState extends State<ItemComment> {
                       width: 40,
                       height: 40,
                       child: ClipOval(
-                        child: KhmertracksImage(
+                        child: ZmareImage(
                           imageUrl: widget.comment.user!.image!,
                           placeholderImage: "../../../../assets/artist.png",
                         ),
@@ -127,7 +126,7 @@ class _ItemCommentState extends State<ItemComment> {
                           width: 40,
                           height: 40,
                           child: ClipOval(
-                            child: KhmertracksImage(
+                            child: ZmareImage(
                               imageUrl: widget.comment.user!.image!,
                               placeholderImage: "../../../../assets/artist.png",
                             ),
@@ -179,7 +178,7 @@ class _ItemCommentState extends State<ItemComment> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      KhmertracksTitle(
+                                      ZmareTitle(
                                         widget.comment.message,
                                         maxLines: 10,
                                       ),

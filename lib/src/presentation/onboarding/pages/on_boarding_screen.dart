@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hive/hive.dart';
-import 'package:rive_animated_icon/rive_animated_icon.dart';
+
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:zmare/src/core/enum/box_types.dart';
 import 'package:zmare/src/presentation/onboarding/pages/on_boarding_one.dart';

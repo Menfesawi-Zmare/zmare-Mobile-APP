@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:zmare/src/utils/ext/common.dart';
 
-Future<void> khmerTracksBottomSheet(
+Future<void> zmareBottomSheet(
   BuildContext context,
   Widget child,
 ) =>
@@ -23,7 +23,7 @@ Future<void> khmerTracksBottomSheet(
       ),
     );
 
-Future<void> khmertracksAlertDialog(
+Future<void> zmareAlertDialog(
   BuildContext context, {
   required Widget child,
   required Widget title,

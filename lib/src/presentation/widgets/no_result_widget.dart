@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:zmare/src/core/resources/images.dart';
 import 'package:zmare/src/utils/ext/common.dart';
-import 'package:zmare/src/presentation/widgets/khmertracks_text.dart';
+import 'package:zmare/src/presentation/widgets/zmare_text.dart';
 
 class NoResultWidget extends StatelessWidget {
   const NoResultWidget({super.key, this.onTap, this.showRefresh = false});
@@ -29,7 +29,7 @@ class NoResultWidget extends StatelessWidget {
         SizedBox(
           height: 30,
         ),
-        KhmertracksText(
+        ZmareText(
           text: context.loc.resultsNotFound,
           isBold: true,
         ),

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:zmare/src/utils/ext/common.dart';
 import 'package:zmare/src/utils/helper/audio_query.dart';
 import 'package:zmare/src/presentation/widgets/empty_screen.dart';
-import 'package:zmare/src/presentation/widgets/texts/khmertracks_title.dart';
+import 'package:zmare/src/presentation/widgets/texts/zmare_title.dart';
 import 'package:go_router/go_router.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
@@ -74,7 +74,7 @@ class _AlbumsTabState extends State<AlbumsTab>
                     fileName: widget
                         .albums[widget.albumsList[index]]![0].displayNameWOExt,
                   ),
-                  title: KhmertracksTitle(
+                  title: ZmareTitle(
                     widget.albumsList[index],
                     overflow: TextOverflow.ellipsis,
                   ),

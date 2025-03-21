@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:zmare/src/presentation/widgets/texts/khmertracks_subtitle.dart';
-import 'package:zmare/src/presentation/widgets/texts/khmertracks_title.dart';
+import 'package:zmare/src/presentation/widgets/texts/zmare_subtitle.dart';
+import 'package:zmare/src/presentation/widgets/texts/zmare_title.dart';
 import 'package:zmare/src/utils/ext/common.dart';
 import 'package:zmare/src/utils/helper/audio_query.dart';
 import 'package:zmare/src/utils/services/audio/player_service.dart';
@@ -87,13 +87,13 @@ class _SongsTabState extends State<SongsTab>
                           tempPath: widget.tempPath,
                           fileName: widget.songs[index].displayNameWOExt,
                         ),
-                        title: KhmertracksTitle(
+                        title: ZmareTitle(
                           widget.songs[index].title.trim() != ''
                               ? widget.songs[index].title
                               : widget.songs[index].displayNameWOExt,
                           overflow: TextOverflow.ellipsis,
                         ),
-                        subtitle: KhmertracksSubTitle(
+                        subtitle: ZmareSubTitle(
                           '${widget.songs[index].artist?.replaceAll('<unknown>', 'Unknown') ?? context.loc.unknown} - ${widget.songs[index].album?.replaceAll('<unknown>', 'Unknown') ?? context.loc.unknown}',
                         ),
                         onTap: () {

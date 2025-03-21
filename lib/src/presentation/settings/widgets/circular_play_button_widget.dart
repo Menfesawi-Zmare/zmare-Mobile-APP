@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:zmare/src/utils/ext/common.dart';
 import 'package:zmare/src/core/enum/box_types.dart';
-import 'package:zmare/src/presentation/widgets/texts/khmertracks_title.dart';
+import 'package:zmare/src/presentation/widgets/texts/zmare_title.dart';
 import 'package:zmare/src/service_locator.dart';
 
 class CircularPlayButtonWidget extends StatefulWidget {
@@ -22,7 +22,7 @@ class _CircularPlayButtonWidgetState extends State<CircularPlayButtonWidget> {
   Widget build(BuildContext context) {
     return SwitchListTile(
       secondary: const Icon(FluentIcons.play_circle_28_regular),
-      title: KhmertracksTitle(
+      title: ZmareTitle(
         context.loc.circularPlayButton,
       ),
       onChanged: (bool value) async {

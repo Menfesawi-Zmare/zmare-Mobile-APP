@@ -7,7 +7,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:zmare/src/utils/ext/common.dart';
 import 'package:zmare/src/core/enum/box_types.dart';
 import 'package:zmare/src/utils/helper/audio_query.dart';
-import 'package:zmare/src/presentation/library/modal/download_filter.dart';
+
 import 'package:zmare/src/presentation/widgets/data_search.dart';
 
 import 'package:on_audio_query/on_audio_query.dart';

@@ -5,13 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:zmare/src/core/resources/resources.dart';
 import 'package:go_router/go_router.dart';
 import 'package:zmare/src/app/routes.dart';
+import 'package:zmare/src/presentation/widgets/texts/zmare_subtitle.dart';
+import 'package:zmare/src/presentation/widgets/texts/zmare_title.dart';
 import 'package:zmare/src/utils/ext/common.dart';
 import 'package:zmare/src/utils/ext/string_extensions.dart';
 import 'package:zmare/src/data/profile/model/profile.dart';
-import 'package:zmare/src/presentation/widgets/khmertracks_image.dart';
-import 'package:zmare/src/presentation/widgets/texts/khmertracks_title.dart';
-
-import 'texts/khmertracks_subtitle.dart';
+import 'package:zmare/src/presentation/widgets/zmare_image.dart';
 
 class ItemProfile extends StatefulWidget {
   const ItemProfile({super.key, required this.profile});
@@ -50,7 +49,7 @@ class _ItemProfileState extends State<ItemProfile> {
                 width: 64,
                 height: 64,
                 child: ClipOval(
-                  child: KhmertracksImage(
+                  child: ZmareImage(
                     imageUrl: widget.profile.image!,
                     placeholderImage: Images.defalultArtistCover,
                   ),
@@ -58,9 +57,9 @@ class _ItemProfileState extends State<ItemProfile> {
               ),
             ],
           ),
-          title: KhmertracksTitle(realName(widget.profile.username,
+          title: ZmareTitle(realName(widget.profile.username,
               widget.profile.firstName, widget.profile.lastName)),
-          subtitle: KhmertracksSubTitle(location(
+          subtitle: ZmareSubTitle(location(
               widget.profile.country ?? '', widget.profile.city ?? '')),
           trailing: IconButton(
               onPressed: () =>

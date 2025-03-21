@@ -6,9 +6,9 @@ import 'package:zmare/src/utils/ext/common.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:zmare/src/data/profile/model/profile.dart';
-import 'package:zmare/src/presentation/widgets/khmertracks_image.dart';
+import 'package:zmare/src/presentation/widgets/zmare_image.dart';
 import 'package:responsive_builder/responsive_builder.dart';
-import 'package:video_player/video_player.dart';
+
 import '../../../core/enum/box_types.dart';
 import '../../../service_locator.dart';
 
@@ -47,7 +47,7 @@ class _UserWidgetState extends State<UserWidget> {
                       child: ClipOval(
                           child: SizedBox.square(
                         dimension: 30,
-                        child: KhmertracksImage(
+                        child: ZmareImage(
                           imageUrl: profile.image!,
                           placeholderImage: Images.defalultArtistCover,
                         ),

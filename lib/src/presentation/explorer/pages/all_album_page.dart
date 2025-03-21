@@ -3,13 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:zmare/src/core/resources/resources.dart';
 import 'package:go_router/go_router.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
-import 'package:zmare/src/presentation/widgets/texts/khmertracks_subtitle.dart';
+import 'package:zmare/src/presentation/widgets/texts/zmare_subtitle.dart';
 import 'package:zmare/src/utils/ext/common.dart';
 import 'package:zmare/src/data/album/model/album.dart';
 import 'package:zmare/src/presentation/album/bloc/album_bloc.dart';
-import 'package:zmare/src/presentation/widgets/khmertracks_image.dart';
+import 'package:zmare/src/presentation/widgets/zmare_image.dart';
 
-import 'package:zmare/src/presentation/widgets/texts/khmertracks_title.dart';
+import 'package:zmare/src/presentation/widgets/texts/zmare_title.dart';
 import 'package:zmare/src/service_locator.dart';
 
 class AllAlbumPage extends StatefulWidget {
@@ -98,7 +98,7 @@ class _AllAlbumPageState extends State<AllAlbumPage> {
                           aspectRatio: 1 / 1,
                           child: ClipRRect(
                               borderRadius: BorderRadius.circular(16),
-                              child: KhmertracksImage(
+                              child: ZmareImage(
                                 imageUrl: item.image!,
                                 placeholderImage: Images.defalutAlbumCover,
                               )),
@@ -111,11 +111,11 @@ class _AllAlbumPageState extends State<AllAlbumPage> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              KhmertracksTitle(
+                              ZmareTitle(
                                 item.name!,
                                 maxLines: 1,
                               ),
-                              KhmertracksSubTitle(
+                              ZmareSubTitle(
                                   "${item.trackTotal} ${context.loc.mezmursLables}")
                             ],
                           ),

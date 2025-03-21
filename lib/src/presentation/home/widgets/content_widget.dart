@@ -8,7 +8,7 @@ import 'package:zmare/src/presentation/explorer/pages/explorer_page.dart';
 import 'package:zmare/src/presentation/library/pages/library_page.dart';
 import 'package:zmare/src/presentation/login/intro/intro_page.dart';
 import 'package:zmare/src/presentation/track/pages/track_page.dart';
-import 'package:zmare/src/presentation/widgets/khmertracks_icon_title.dart';
+import 'package:zmare/src/presentation/widgets/zmare_icon_title.dart';
 import 'package:zmare/src/presentation/widgets/search_button.dart';
 
 import '../../../service_locator.dart';
@@ -45,7 +45,7 @@ class _ContentWidgetState extends State<ContentWidget>
       appBar: widget.currentPage == 4
           ? null // No AppBar when currentPage is 4
           : AppBar(
-              title: const KhmertracksIconTitle(),
+              title: const ZmareIconTitle(),
               actions: const [
                 SearchButton(),
                 // UserWidget(),
@@ -63,7 +63,11 @@ class _ContentWidgetState extends State<ContentWidget>
             1: TrackPage(type: HomepageTrackType.latest.toName),
             2: TrackPage(type: HomepageTrackType.popular.toName),
             3: const LibraryPage(),
-            4: accountJson.isNotEmpty ? const AccountPage() : const IntroPage(),
+            4: accountJson.isNotEmpty
+                ? const AccountPage()
+                : IntroPage(
+                    introPageIndex: widget.currentPage,
+                  ),
           };
 
           return pages[widget.currentPage]!;

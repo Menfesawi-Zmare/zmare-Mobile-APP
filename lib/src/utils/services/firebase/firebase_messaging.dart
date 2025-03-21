@@ -2,7 +2,7 @@ import 'package:audio_service/audio_service.dart' as audiohandler;
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+
 import 'package:zmare/src/app/routes.dart';
 
 import 'package:zmare/src/presentation/player/pages/audioplayer.dart';
@@ -29,7 +29,9 @@ class FirebaseMessagingService {
     FirebaseMessaging.instance
         .getInitialMessage()
         .then((RemoteMessage? message) async {
-      final data = message!.data;
+      final title = message!.notification?.title ?? 'No Title';
+      final body = message.notification?.body ?? 'No Body';
+      LocalNotificationService.showInstantNotification(title, body);
 
       await Firebase.initializeApp();
 
@@ -37,14 +39,16 @@ class FirebaseMessagingService {
     });
 
     FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
-      final data = message.data;
-      print("onMessage:${data['title']}");
-      LocalNotificationService.showInstantNotification(
-          data['title'], data['body']);
+      final title = message.notification?.title ?? 'No Title';
+      final body = message.notification?.body ?? 'No Body';
+      LocalNotificationService.showInstantNotification(title, body);
       // _handleMessage(message!);
     });
 
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) async {
+      final title = message.notification?.title ?? 'No Title';
+      final body = message.notification?.body ?? 'No Body';
+      LocalNotificationService.showInstantNotification(title, body);
       await Firebase.initializeApp();
       _handleMessage(message);
     });
@@ -54,10 +58,9 @@ class FirebaseMessagingService {
 
   static Future<void> _firebaseMessagingBackgroundHandler(
       RemoteMessage message) async {
-    final data = message.data;
-    print("onBackground:${data['title']}");
-    LocalNotificationService.showInstantNotification(
-        data['title'], data['body']);
+    final title = message.notification?.title ?? 'No Title';
+    final body = message.notification?.body ?? 'No Body';
+    LocalNotificationService.showInstantNotification(title, body);
     await Firebase.initializeApp();
     _handleMessage(message);
   }

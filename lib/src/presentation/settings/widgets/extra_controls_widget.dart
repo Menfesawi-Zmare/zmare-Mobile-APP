@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:zmare/src/utils/ext/common.dart';
 import 'package:zmare/src/core/enum/box_types.dart';
-import 'package:zmare/src/presentation/widgets/texts/khmertracks_subtitle.dart';
-import 'package:zmare/src/presentation/widgets/texts/khmertracks_title.dart';
+import 'package:zmare/src/presentation/widgets/texts/zmare_subtitle.dart';
+import 'package:zmare/src/presentation/widgets/texts/zmare_title.dart';
 import 'package:zmare/src/service_locator.dart';
 
 class ExtraControlsWidget extends StatefulWidget {
@@ -20,10 +20,10 @@ class _ExtraControlsWidgetState extends State<ExtraControlsWidget> {
   Widget build(BuildContext context) {
     return SwitchListTile(
       secondary: const Icon(Icons.play_arrow_rounded),
-      title: KhmertracksTitle(
+      title: ZmareTitle(
         context.loc.extraControls,
       ),
-      subtitle: KhmertracksSubTitle(
+      subtitle: ZmareSubTitle(
         context.loc.extraControlsSub,
       ),
       onChanged: (bool value) async {

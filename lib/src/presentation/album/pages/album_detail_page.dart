@@ -8,12 +8,12 @@ import 'package:zmare/src/core/resources/resources.dart';
 import 'package:zmare/src/utils/services/audio/player_service.dart';
 import 'package:zmare/src/utils/ext/common.dart';
 import 'package:zmare/src/utils/helper/color_ultil.dart';
-import 'package:zmare/src/utils/helper/khmertracks_palette.dart';
+import 'package:zmare/src/utils/helper/zmare_palette.dart';
 import 'package:zmare/src/data/album/model/album.dart';
 import 'package:zmare/src/data/song/model/item_song_model.dart';
 import 'package:zmare/src/presentation/album/bloc/album_bloc.dart';
 import 'package:zmare/src/presentation/widgets/item_song_small.dart';
-import 'package:zmare/src/presentation/widgets/khmertracks_image.dart';
+import 'package:zmare/src/presentation/widgets/zmare_image.dart';
 import 'package:zmare/src/service_locator.dart';
 
 class AlbumDetailPage extends StatefulWidget {
@@ -68,7 +68,7 @@ class _AlbumDetailPageState extends State<AlbumDetailPage> {
                   children: [
                     AspectRatio(
                         aspectRatio: 1 / 1,
-                        child: KhmertracksImage(
+                        child: ZmareImage(
                           imageUrl: widget.album.image!,
                           placeholderImage: Images.defalultArtistCover,
                         )),
@@ -102,7 +102,7 @@ class _AlbumDetailPageState extends State<AlbumDetailPage> {
                             ? SizedBox.square(
                                 dimension: 40,
                                 child: ClipOval(
-                                  child: KhmertracksImage(
+                                  child: ZmareImage(
                                     imageUrl: songList.isNotEmpty
                                         ? songList[0].artistImage!
                                         : "",

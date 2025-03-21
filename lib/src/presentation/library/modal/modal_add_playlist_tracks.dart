@@ -8,9 +8,9 @@ import 'package:zmare/src/utils/ext/common.dart';
 import 'package:zmare/src/core/enum/box_types.dart';
 import 'package:zmare/src/data/playlist/model/playlists_request_model.dart';
 import 'package:zmare/src/presentation/login/bloc/auth_bloc.dart';
-import 'package:zmare/src/presentation/widgets/khmertracks_bottom_sheet.dart';
-import 'package:zmare/src/presentation/widgets/khmertracks_image.dart';
-import 'package:zmare/src/presentation/widgets/khmertracks_text.dart';
+import 'package:zmare/src/presentation/widgets/zmare_bottom_sheet.dart';
+import 'package:zmare/src/presentation/widgets/zmare_image.dart';
+import 'package:zmare/src/presentation/widgets/zmare_text.dart';
 import 'package:zmare/src/presentation/widgets/textinput_dialog.dart';
 import 'package:zmare/src/service_locator.dart';
 
@@ -62,9 +62,9 @@ class _ModalAddPlaylistTracksState extends State<ModalAddPlaylistTracks> {
                       if (listCheckBox!
                           .where((element) => element == true)
                           .isNotEmpty) {
-                        khmertracksAlertDialog(
+                        zmareAlertDialog(
                           context,
-                          title: KhmertracksText(
+                          title: ZmareText(
                             text: context.loc.discardPlaylist,
                           ),
                           child: Text(context.loc.discardPlaylistDetail,
@@ -158,7 +158,7 @@ class _ModalAddPlaylistTracksState extends State<ModalAddPlaylistTracks> {
                             ),
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(6),
-                              child: KhmertracksImage(
+                              child: ZmareImage(
                                 imageUrl: _historyTracks[index]['image'],
                                 placeholderImage: Images.defalutSongCover,
                               ),

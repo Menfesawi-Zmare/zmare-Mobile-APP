@@ -9,7 +9,7 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:zmare/src/utils/ext/common.dart';
 import 'package:zmare/src/data/artist/model/artist.dart';
 import 'package:zmare/src/presentation/artist/bloc/artist_bloc.dart';
-import 'package:zmare/src/presentation/widgets/khmertracks_image.dart';
+import 'package:zmare/src/presentation/widgets/zmare_image.dart';
 
 import 'package:zmare/src/service_locator.dart';
 
@@ -112,7 +112,7 @@ class _AllArtistPageState extends State<AllArtistPage> {
                                       AspectRatio(
                                         aspectRatio: 1 / 1,
                                         child: ClipOval(
-                                            child: KhmertracksImage(
+                                            child: ZmareImage(
                                           imageUrl: item.image!,
                                           placeholderImage:
                                               Images.defalultArtistCover,

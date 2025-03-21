@@ -14,8 +14,7 @@ import 'package:zmare/src/utils/helper/app_open_ad_manager.dart';
 import '../src/app/routes.dart';
 
 import 'core/theme/zmare_theme.dart';
-
-import 'presentation/widgets/khmertracks_annotate_region_widget.dart';
+import 'presentation/widgets/zmare_annotate_region_widget.dart';
 
 class FlutterMusicPro extends StatefulWidget {
   const FlutterMusicPro({super.key, required this.settings});
@@ -35,6 +34,7 @@ class _FlutterMusicProState extends State<FlutterMusicPro> {
   @override
   void initState() {
     super.initState();
+
     AppOpenAdManager appOpenAdManager = AppOpenAdManager()..loadAd();
     _appLifecycleReactor =
         AppLifecycleReactor(appOpenAdManager: appOpenAdManager);
@@ -49,7 +49,7 @@ class _FlutterMusicProState extends State<FlutterMusicPro> {
 
   @override
   Widget build(BuildContext context) {
-    return KhmertracksAnnotatedRegionWidget(
+    return ZmareAnnotatedRegionWidget(
       child: ValueListenableBuilder<Box>(
         valueListenable: widget.settings.listenable(
           keys: [

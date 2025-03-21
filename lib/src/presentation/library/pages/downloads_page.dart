@@ -9,18 +9,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:zmare/src/core/resources/resources.dart';
 import 'package:zmare/src/presentation/widgets/no_result_widget.dart';
-import 'package:zmare/src/presentation/widgets/texts/khmertracks_subtitle.dart';
+import 'package:zmare/src/presentation/widgets/texts/zmare_subtitle.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:zmare/src/utils/ext/common.dart';
 import 'package:zmare/src/core/enum/box_types.dart';
 import 'package:zmare/src/utils/helper/picker.dart';
 import 'package:zmare/src/utils/services/audio/player_service.dart';
 import 'package:zmare/src/presentation/library/modal/download_filter.dart';
-import 'package:zmare/src/presentation/widgets/empty_screen.dart';
 
 import 'package:zmare/src/presentation/widgets/playlist_head.dart';
 
-import 'package:zmare/src/presentation/widgets/texts/khmertracks_title.dart';
+import 'package:zmare/src/presentation/widgets/texts/zmare_title.dart';
 import 'package:logging/logging.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -805,9 +804,8 @@ class _DownSongsTabState extends State<DownSongsTab>
                           recommend: false,
                         );
                       },
-                      title:
-                          KhmertracksTitle('${widget.songs[index]['title']}'),
-                      subtitle: KhmertracksSubTitle(
+                      title: ZmareTitle('${widget.songs[index]['title']}'),
+                      subtitle: ZmareSubTitle(
                         '${widget.songs[index]['artist'] ?? 'Artist name'}',
                       ),
                       trailing: Row(

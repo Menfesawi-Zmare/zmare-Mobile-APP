@@ -6,7 +6,7 @@ import 'package:zmare/src/utils/ext/common.dart';
 import 'package:zmare/src/utils/helper/audio_query.dart';
 import 'package:zmare/src/utils/services/audio/player_service.dart';
 import 'package:zmare/src/presentation/widgets/download_button.dart';
-import 'package:zmare/src/presentation/widgets/khmertracks_image.dart';
+import 'package:zmare/src/presentation/widgets/zmare_image.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 class DataSearch extends SearchDelegate {
@@ -233,7 +233,7 @@ class DownloadsSearch extends SearchDelegate {
                     errorBuilder: (_, __, ___) =>
                         Image.asset(Images.defalutCover),
                   )
-                : KhmertracksImage(
+                : ZmareImage(
                     placeholderImage: Images.defalutCover,
                     imageUrl: suggestionList[index]['image']
                         .toString()
@@ -314,7 +314,7 @@ class DownloadsSearch extends SearchDelegate {
                     errorBuilder: (_, __, ___) =>
                         Image.asset(Images.defalutCover),
                   )
-                : KhmertracksImage(
+                : ZmareImage(
                     placeholderImage: Images.defalutCover,
                     imageUrl: suggestionList[index]['image']
                         .toString()
