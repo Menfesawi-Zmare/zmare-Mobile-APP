@@ -18,16 +18,16 @@ class DioInterceptor extends Interceptor with FirebaseCrashLogger {
       );
     } catch (_) {}
     try {
-      // const JsonEncoder encoder = JsonEncoder.withIndent('  ');
-      // final String prettyJson = encoder.convert(options.data);
-      // log.d(
-      //   // ignore: unnecessary_null_comparison
-      //   "REQUEST ► ︎ ${options.method != null ? options.method.toUpperCase() : 'METHOD'} ${"${options.baseUrl}${options.path}"}\n\n"
-      //   "Headers:\n"
-      //   "$headerMessage\n"
-      //   "❖ QueryParameters : \n"
-      //   "Body: $prettyJson",
-      // );
+      const JsonEncoder encoder = JsonEncoder.withIndent('  ');
+      final String prettyJson = encoder.convert(options.data);
+      log.d(
+        // ignore: unnecessary_null_comparison
+        "REQUEST ► ︎ ${options.method != null ? options.method.toUpperCase() : 'METHOD'} ${"${options.baseUrl}${options.path}"}\n\n"
+        "Headers:\n"
+        "$headerMessage\n"
+        "❖ QueryParameters : \n"
+        "Body: $prettyJson",
+      );
     } catch (e, stackTrace) {
       log.e("Failed to extract json request $e");
       nonFatalError(error: e, stackTrace: stackTrace);
@@ -38,12 +38,12 @@ class DioInterceptor extends Interceptor with FirebaseCrashLogger {
 
   @override
   void onError(DioException err, ErrorInterceptorHandler handler) {
-    // log.e(
-    //   "<-- ${err.message} ${err.response?.requestOptions != null ? (err.response!.requestOptions.baseUrl + err.response!.requestOptions.path) : 'URL'}\n\n"
-    //   "${err.response != null ? err.response!.data : 'Unknown Error'}",
-    // );
+    log.e(
+      "<-- ${err.message} ${err.response?.requestOptions != null ? (err.response!.requestOptions.baseUrl + err.response!.requestOptions.path) : 'URL'}\n\n"
+      "${err.response != null ? err.response!.data : 'Unknown Error'}",
+    );
 
-    // nonFatalError(error: err, stackTrace: err.stackTrace);
+    nonFatalError(error: err, stackTrace: err.stackTrace);
     super.onError(err, handler);
   }
 
@@ -52,16 +52,16 @@ class DioInterceptor extends Interceptor with FirebaseCrashLogger {
     String headerMessage = "";
     response.headers.forEach((k, v) => headerMessage += '► $k: $v\n');
 
-    // const JsonEncoder encoder = JsonEncoder.withIndent('  ');
-    // final String prettyJson = encoder.convert(response.data);
-    // log.d(
-    //   // ignore: unnecessary_null_comparison
-    //   "◀ ︎RESPONSE ${response.statusCode} ${response.requestOptions != null ? (response.requestOptions.baseUrl + response.requestOptions.path) : 'URL'}\n\n"
-    //   "Headers:\n"
-    //   "$headerMessage\n"
-    //   "❖ Results : \n"
-    //   "Response: $prettyJson",
-    // );
-    // super.onResponse(response, handler);
+    const JsonEncoder encoder = JsonEncoder.withIndent('  ');
+    final String prettyJson = encoder.convert(response.data);
+    log.d(
+      // ignore: unnecessary_null_comparison
+      "◀ ︎RESPONSE ${response.statusCode} ${response.requestOptions != null ? (response.requestOptions.baseUrl + response.requestOptions.path) : 'URL'}\n\n"
+      "Headers:\n"
+      "$headerMessage\n"
+      "❖ Results : \n"
+      "Response: $prettyJson",
+    );
+    super.onResponse(response, handler);
   }
 }
