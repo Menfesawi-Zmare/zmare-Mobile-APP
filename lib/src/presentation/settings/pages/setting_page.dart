@@ -19,19 +19,27 @@ import '../widgets/setting_option.dart';
 import '../widgets/settings_group_card.dart';
 import '../widgets/version_widget.dart';
 
-class SettingsPage extends StatefulWidget {
+class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
 
   @override
-  State<SettingsPage> createState() => _SettingsPageState();
-}
-
-class _SettingsPageState extends State<SettingsPage> {
-  @override
   Widget build(BuildContext context) {
+    Box showMiniPlayer = locator.get<Box<dynamic>>(
+      instanceName: BoxType.showMiniPlayer.name,
+    );
+
+    try {
+      showMiniPlayer.put('showMiniPlayer', false);
+      print(
+          'showMiniPlayer updated to: ${showMiniPlayer.get('showMiniPlayer')}');
+    } catch (e) {
+      print('Error updating showMiniPlayer: $e');
+    }
+
     final settings = locator.get<Box<dynamic>>(
       instanceName: BoxType.settings.name,
     );
+
     final currentTheme = ThemeMode.values[locator
         .get<Box<dynamic>>(instanceName: BoxType.settings.name)
         .get(themeModeKey, defaultValue: 0)];
@@ -43,6 +51,7 @@ class _SettingsPageState extends State<SettingsPage> {
     String? appUrl = settings.get(
         Platform.isAndroid ? playStoreUrl : appStoreUrl,
         defaultValue: null);
+
     return Scaffold(
       appBar: context.materialYouAppBar(
         context.loc.settingsLabel,
