@@ -2,23 +2,24 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:dynamic_color/dynamic_color.dart';
-
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/adapters.dart';
-
+import 'package:zmare/src/core/enum/box_types.dart';
+import 'package:zmare/src/presentation/widgets/mini_player.dart';
+import 'package:zmare/src/service_locator.dart';
 import 'package:zmare/src/utils/ext/common.dart';
 import 'package:zmare/src/utils/helper/app_lifecycle_reactor.dart';
 import 'package:zmare/src/utils/helper/app_open_ad_manager.dart';
-
 import '../src/app/routes.dart';
-
 import 'core/theme/zmare_theme.dart';
 import 'presentation/widgets/zmare_annotate_region_widget.dart';
 
 class FlutterMusicPro extends StatefulWidget {
   const FlutterMusicPro({super.key, required this.settings});
   final Box<dynamic> settings;
+
   @override
   State<FlutterMusicPro> createState() => _FlutterMusicProState();
 
@@ -40,6 +41,12 @@ class _FlutterMusicProState extends State<FlutterMusicPro> {
         AppLifecycleReactor(appOpenAdManager: appOpenAdManager);
     _appLifecycleReactor.listenToAppStateChanges();
   }
+
+  final showMiniPlayer = locator
+      .get<Box<dynamic>>(instanceName: BoxType.showMiniPlayer.name)
+      .listenable(
+    keys: ['showMiniPlayer'],
+  );
 
   @override
   void dispose() {
@@ -102,10 +109,10 @@ class _FlutterMusicProState extends State<FlutterMusicPro> {
                 fontPreference,
                 ThemeData.dark().textTheme,
               );
+
               return MaterialApp.router(
                 locale: locale,
                 routerConfig: goRouter,
-                // home: OnBoardingScreen(),
                 debugShowCheckedModeBanner: false,
                 themeMode: themeMode,
                 localizationsDelegates: AppLocalizations.localizationsDelegates,
@@ -175,6 +182,37 @@ class _FlutterMusicProState extends State<FlutterMusicPro> {
                     color: ThemeData.dark().dividerColor,
                   ),
                 ),
+                builder: (context, child) {
+                  return Stack(
+                    children: [
+                      child!,
+                      Overlay(
+                        initialEntries: [
+                          OverlayEntry(builder: (context) {
+                            return Positioned(
+                              bottom: 90,
+                              left: 0,
+                              right: 0,
+                              child: Material(
+                                  elevation: 4,
+                                  child: ValueListenableBuilder(
+                                    valueListenable: showMiniPlayer,
+                                    builder: (BuildContext context, box,
+                                        Widget? child) {
+                                      final showMiniPlayer = box.get(
+                                          'showMiniPlayer',
+                                          defaultValue: true);
+
+                                      return Visibility(child: MiniPlayer());
+                                    },
+                                  )),
+                            );
+                          }),
+                        ],
+                      ),
+                    ],
+                  );
+                },
               );
             },
           );

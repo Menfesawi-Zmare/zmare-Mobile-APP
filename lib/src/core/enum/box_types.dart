@@ -1,4 +1,5 @@
 enum BoxType {
+  showMiniPlayer('showMiniPlayer'),
   onboarding('onboarding'),
   explorer('explorer'),
   latest('latest'),

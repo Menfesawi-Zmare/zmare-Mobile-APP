@@ -80,30 +80,33 @@ class _TrackMobilePageState extends State<TrackMobilePage>
             child: BlocBuilder(
               bloc: trackBloc,
               builder: (context, state) {
-                return PagedListView<int, ItemSongModel>(
-                  pagingController: _pagingController,
-                  builderDelegate: PagedChildBuilderDelegate<ItemSongModel>(
-                      noItemsFoundIndicatorBuilder: (context) =>
-                          state is TrackLoading
-                              ? Center(
-                                  child: SizedBox(
-                                      height: 35,
-                                      width: 35,
-                                      child: CircularProgressIndicator()),
-                                )
-                              : NoResultWidget(
-                                  showRefresh: true,
-                                  onTap: () => _pagingController.refresh()),
-                      itemBuilder: (context, item, index) {
-                        return ItemListBig(
-                            songList: item, listItemSong: totalTracks);
-                      }),
-                  // separatorBuilder: (BuildContext context, int index) {
-                  //   return const Divider(
-                  //     indent: 78,
-                  //     height: 0,
-                  //   );
-                  // },
+                return SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.73,
+                  child: PagedListView<int, ItemSongModel>(
+                    pagingController: _pagingController,
+                    builderDelegate: PagedChildBuilderDelegate<ItemSongModel>(
+                        noItemsFoundIndicatorBuilder: (context) =>
+                            state is TrackLoading
+                                ? Center(
+                                    child: SizedBox(
+                                        height: 35,
+                                        width: 35,
+                                        child: CircularProgressIndicator()),
+                                  )
+                                : NoResultWidget(
+                                    showRefresh: true,
+                                    onTap: () => _pagingController.refresh()),
+                        itemBuilder: (context, item, index) {
+                          return ItemListBig(
+                              songList: item, listItemSong: totalTracks);
+                        }),
+                    // separatorBuilder: (BuildContext context, int index) {
+                    //   return const Divider(
+                    //     indent: 78,
+                    //     height: 0,
+                    //   );
+                    // },
+                  ),
                 );
               },
             ),

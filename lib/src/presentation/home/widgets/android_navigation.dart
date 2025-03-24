@@ -12,6 +12,7 @@ class AndroidNavigation extends StatelessWidget {
     return Theme(
       data: Theme.of(context).copyWith(splashFactory: NoSplash.splashFactory),
       child: NavigationBar(
+        // height: 30,
         animationDuration: Duration(seconds: 2),
         selectedIndex: navigationShell.currentIndex,
         onDestinationSelected: (index) => _onTap(context, index),
@@ -56,22 +57,12 @@ class AndroidNavigation extends StatelessWidget {
                 height: 28,
                 fit: BoxFit.cover,
                 color: Colors.white,
-              )
-
-              // icon: const Icon(FluentIcons.arrow_trending_12_regular),
-              // selectedIcon: const Icon(FluentIcons.arrow_trending_12_filled),
-              ),
-          // NavigationDestination(
-          //   label: context.loc.randomLabel,
-          //   icon: const Icon(FluentIcons.arrow_repeat_all_16_regular),
-          //   selectedIcon: const Icon(FluentIcons.arrow_repeat_all_16_filled),
-          // ),
+              )),
           NavigationDestination(
             label: context.loc.libraryLabel,
             icon: const Icon(FluentIcons.library_16_regular),
             selectedIcon: const Icon(FluentIcons.library_16_filled),
           ),
-
           NavigationDestination(
             label: context.loc.profileLabel,
             icon: const Icon(FluentIcons.person_12_regular),

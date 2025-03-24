@@ -9,6 +9,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:zmare/src/app/routes.dart';
 import 'package:zmare/src/utils/ext/common.dart';
 import 'package:zmare/src/core/enum/box_types.dart';
 import 'package:zmare/src/data/playlist/model/playlist.dart';
@@ -47,6 +48,9 @@ class _LibraryMobilePageState extends State<LibraryMobilePage> {
     }
   }
 
+  Box showMiniPlayer = locator.get<Box<dynamic>>(
+    instanceName: BoxType.showMiniPlayer.name,
+  );
   @override
   void initState() {
     super.initState();
@@ -155,6 +159,7 @@ class _LibraryMobilePageState extends State<LibraryMobilePage> {
                         title: context.loc.settings,
                         icon: FluentIcons.settings_48_regular,
                         onTap: () {
+                          // showMiniPlayer.put('showMiniPlayer', false);
                           context.pushNamed(settingsPath);
                         },
                       ),
@@ -215,7 +220,8 @@ class _LibraryMobilePageState extends State<LibraryMobilePage> {
                         title: context.loc.settings,
                         icon: FluentIcons.settings_48_regular,
                         onTap: () {
-                          context.pushNamed(settingsPath);
+                          GoRouter.of(rootNavigatorKey.currentContext!)
+                              .pushNamed(settingsPath);
                         },
                       ),
                     ],

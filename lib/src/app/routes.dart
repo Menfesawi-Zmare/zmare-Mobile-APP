@@ -40,7 +40,7 @@ import 'package:zmare/src/presentation/library/pages/recent.dart';
 import 'package:zmare/src/presentation/library/pages/my_music_page.dart';
 import 'package:zmare/src/presentation/library/pages/stream_page.dart';
 import 'package:zmare/src/presentation/library/pages/subscriptions_page.dart';
-import 'package:zmare/src/presentation/login/intro/intro_page.dart';
+
 import 'package:zmare/src/presentation/login/pages/login_page.dart';
 import 'package:zmare/src/presentation/login/pages/sign_up_page.dart';
 import 'package:zmare/src/presentation/player/pages/audioplayer.dart';
@@ -62,13 +62,13 @@ final onBoarding = locator.get<Box<dynamic>>(
 );
 bool isOnboardingShown =
     onBoarding.get('isOnboardingShown', defaultValue: false);
-final GlobalKey<NavigatorState> _rootNavigatorKey =
+final GlobalKey<NavigatorState> rootNavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: 'root');
 final GlobalKey<NavigatorState> _sectionANavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: 'sectionANav');
 
 final GoRouter goRouter = GoRouter(
-  navigatorKey: _rootNavigatorKey,
+  navigatorKey: rootNavigatorKey,
   initialLocation: isOnboardingShown ? homePagePath : onboardingPath,
   errorBuilder: (context, state) => Center(
     child: Text(state.error.toString()),
@@ -87,30 +87,17 @@ final GoRouter goRouter = GoRouter(
     //   name: homePageName,
     //   builder: (context, state) => const HomePage(navigationShell: ,),
     // ),
-    GoRoute(
-      name: loginName,
-      path: loginPath,
-      parentNavigatorKey: _rootNavigatorKey,
-      builder: (context, state) {
-        final extras = state.extra as Map<String, dynamic>;
 
-        final isLoggedIn = extras['isLoggedIn'] as bool;
-        return IntroPage(
-          showBackButton: isLoggedIn,
-          introPageIndex: null,
-        );
-      },
-    ),
     GoRoute(
       path: signInPath,
       name: signInName,
-      parentNavigatorKey: _rootNavigatorKey,
+      parentNavigatorKey: rootNavigatorKey,
       builder: (context, state) => const LoginPage(),
     ),
     GoRoute(
         path: verifyAccountPath,
         name: verifyAccountName,
-        parentNavigatorKey: _rootNavigatorKey,
+        parentNavigatorKey: rootNavigatorKey,
         builder: (context, state) {
           final email = state.extra as String;
           return VerifyAccount(
@@ -120,7 +107,7 @@ final GoRouter goRouter = GoRouter(
     GoRoute(
       path: signUpPath,
       name: signUpName,
-      parentNavigatorKey: _rootNavigatorKey,
+      parentNavigatorKey: rootNavigatorKey,
       builder: (context, state) => const SignUpPage(),
     ),
     StatefulShellRoute.indexedStack(
@@ -159,14 +146,6 @@ final GoRouter goRouter = GoRouter(
           StatefulShellBranch(
             routes: <RouteBase>[
               GoRoute(
-                  path: randomPagePath,
-                  builder: (BuildContext context, GoRouterState state) =>
-                      ContentWidget(currentPage: PageType.random.toIndex)),
-            ],
-          ),
-          StatefulShellBranch(
-            routes: <RouteBase>[
-              GoRoute(
                   path: libraryPagePath,
                   builder: (BuildContext context, GoRouterState state) =>
                       ContentWidget(currentPage: PageType.library.toIndex)),
@@ -177,12 +156,12 @@ final GoRouter goRouter = GoRouter(
               GoRoute(
                   path: loginPath,
                   builder: (BuildContext context, GoRouterState state) {
-                    final extras = state.extra as Map<String, dynamic>;
+                    final extras = state.extra as Map<String, dynamic>? ?? {};
 
-                    final isLoggedIn = extras['isLoggedIn'] as bool;
-                    return IntroPage(
-                      showBackButton: isLoggedIn,
-                      introPageIndex: null,
+                    final isLoggedIn = extras['isLoggedIn'] as bool? ?? false;
+                    return ContentWidget(
+                      currentPage: PageType.login.toIndex,
+                      isLoggedIn: isLoggedIn,
                     );
                   }),
             ],
@@ -259,7 +238,20 @@ final GoRouter goRouter = GoRouter(
           GoRoute(
               path: playerPath,
               name: playerPath,
-              builder: (context, state) => const PlayScreen()),
+              pageBuilder: (context, state) {
+                return CustomTransitionPage(
+                  opaque: false, // This will make the page non-opaque
+                  transitionDuration: const Duration(milliseconds: 100),
+                  child: const PlayScreen(),
+                  transitionsBuilder:
+                      (context, animation, secondaryAnimation, child) {
+                    return FadeTransition(
+                        opacity: animation, child: child); // Custom transition
+                  },
+                );
+              }),
+
+// builder: (context, state) => const PlayScreen()),
           GoRoute(
               path: 'view-playlist/:action',
               name: viewPlaylistsPath,
