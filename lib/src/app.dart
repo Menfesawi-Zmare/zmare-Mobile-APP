@@ -194,7 +194,7 @@ class _FlutterMusicProState extends State<FlutterMusicPro> {
                               left: 0,
                               right: 0,
                               child: Material(
-                                  elevation: 4,
+                                  color: Colors.transparent,
                                   child: ValueListenableBuilder(
                                     valueListenable: showMiniPlayer,
                                     builder: (BuildContext context, box,
