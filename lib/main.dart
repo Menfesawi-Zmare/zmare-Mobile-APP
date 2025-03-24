@@ -1,7 +1,9 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_displaymode/flutter_displaymode.dart';
+import 'package:zmare/src/presentation/network/bloc/network_bloc.dart';
 import 'package:zmare/src/utils/services/firebase/firebase.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
@@ -21,8 +23,6 @@ Future<void> main() async {
   MobileAds.instance.initialize();
   await LocalNotificationService.init();
 
-  await FirebaseServices.init();
-
   // Set up dependency injection
   await setupLocator();
 
@@ -38,7 +38,12 @@ Future<void> main() async {
   // // Set up Firebase Messaging
 
   // Run the app
-  runApp(FlutterMusicPro(settings: settings));
+  runApp(
+    BlocProvider(
+      create: (context) => NetworkBloc()..add(NetworkObserve()),
+      child: FlutterMusicPro(settings: settings), // Your main app widget
+    ),
+  );
 }
 
 Future<void> setOptimalDisplayMode() async {
