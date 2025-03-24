@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hive/hive.dart';
 
 import 'package:video_player/video_player.dart';
 import 'package:zmare/src/core/resources/resources.dart';
@@ -17,6 +18,8 @@ import 'package:zmare/src/core/enum/login_type.dart';
 import 'package:zmare/src/data/register/model/register_social_request.dart';
 import 'package:zmare/src/presentation/login/bloc/auth_bloc.dart';
 import 'package:zmare/src/service_locator.dart';
+
+import '../../../core/enum/box_types.dart';
 
 class IntroPage extends StatefulWidget {
   const IntroPage(
@@ -32,6 +35,7 @@ class _IntroPageState extends State<IntroPage> with TickerProviderStateMixin {
   bool isLoading = false;
   late VideoPlayerController controller;
   late AuthBloc authBloc = locator.get<AuthBloc>();
+
   @override
   void initState() {
     super.initState();
@@ -47,6 +51,7 @@ class _IntroPageState extends State<IntroPage> with TickerProviderStateMixin {
   @override
   void dispose() {
     widget.introPageIndex == 4 ? null : controller.dispose();
+
     super.dispose();
   }
 

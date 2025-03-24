@@ -5,6 +5,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:palette_generator/palette_generator.dart';
 
 import 'package:zmare/src/presentation/player/pages/now_play.dart';
@@ -63,6 +64,7 @@ class _PlayScreenState extends State<PlayScreen>
     if (accountJson != '') {
       isSignedUp = true;
     }
+
     controller =
         AnimationController(vsync: this, duration: const Duration(seconds: 27));
     // Initialize the animation controller
@@ -128,6 +130,7 @@ class _PlayScreenState extends State<PlayScreen>
   @override
   void dispose() {
     controller.dispose();
+
     super.dispose();
   }
 
@@ -147,7 +150,7 @@ class _PlayScreenState extends State<PlayScreen>
       background: const ColoredBox(color: Colors.transparent),
       key: const Key('playScreen'),
       onDismissed: (direction) {
-        Navigator.pop(context);
+        GoRouter.of(rootNavigatorKey.currentContext!).pop();
       },
       child: StreamBuilder<MediaItem?>(
         stream: audioHandler.mediaItem,
@@ -202,7 +205,7 @@ class _PlayScreenState extends State<PlayScreen>
                     icon: const Icon(FluentIcons.chevron_down_48_regular),
                     tooltip: context.loc.back,
                     onPressed: () {
-                      Navigator.pop(context);
+                      GoRouter.of(rootNavigatorKey.currentContext!).pop();
                     },
                   ),
                   actions: [
