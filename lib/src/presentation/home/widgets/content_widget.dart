@@ -16,12 +16,14 @@ import '../../../utils/ext/common.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 class ContentWidget extends StatefulWidget {
-  const ContentWidget({
+  ContentWidget({
     super.key,
     required this.currentPage,
+    this.isLoggedIn,
   });
 
   final int currentPage;
+  bool? isLoggedIn;
 
   @override
   State<ContentWidget> createState() => _ContentWidgetState();
@@ -62,10 +64,11 @@ class _ContentWidgetState extends State<ContentWidget>
             0: const ExplorerPage(),
             1: TrackPage(type: HomepageTrackType.latest.toName),
             2: TrackPage(type: HomepageTrackType.popular.toName),
-            3: const LibraryPage(),
+            3: LibraryPage(),
             4: accountJson.isNotEmpty
                 ? const AccountPage()
                 : IntroPage(
+                    showBackButton: widget.isLoggedIn ?? false,
                     introPageIndex: widget.currentPage,
                   ),
           };

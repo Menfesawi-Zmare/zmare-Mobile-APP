@@ -36,9 +36,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         return 1;
       case PageType.popular:
         return 2;
-      case PageType.random:
-        return 3;
       case PageType.library:
+        return 3;
+      case PageType.login:
         return 4;
       default:
         return 0;
@@ -52,9 +52,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       case 2:
         return PageType.popular;
       case 3:
-        return PageType.random;
-      case 4:
         return PageType.library;
+      case 4:
+        return PageType.login;
       case 0:
       default:
         return PageType.explorer;
