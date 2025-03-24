@@ -20,12 +20,14 @@ import 'package:hive_flutter/hive_flutter.dart';
 import '../../network/bloc/network_bloc.dart';
 
 class ContentWidget extends StatefulWidget {
-  const ContentWidget({
+  ContentWidget({
     super.key,
     required this.currentPage,
+    this.isLoggedIn,
   });
 
   final int currentPage;
+  bool? isLoggedIn;
 
   @override
   State<ContentWidget> createState() => _ContentWidgetState();
@@ -55,7 +57,7 @@ class _ContentWidgetState extends State<ContentWidget>
                 // UserWidget(),
                 SizedBox(width: 8),
               ],
-            ),
+
       body: BlocListener<NetworkBloc, NetworkState>(
         listener: (context, state) {
           if (state is NetworkSuccess) {
@@ -98,6 +100,24 @@ class _ContentWidgetState extends State<ContentWidget>
                             style: context.bodySmall,
                           ))
                     ],
+
+      // Use ValueListenableBuilder to rebuild the body when accountJson changes
+      body: ValueListenableBuilder(
+        valueListenable: account,
+        builder: (context, box, child) {
+          final accountJson = box.get(accountDetail, defaultValue: '');
+
+          final Map<int, Widget> pages = {
+            0: const ExplorerPage(),
+            1: TrackPage(type: HomepageTrackType.latest.toName),
+            2: TrackPage(type: HomepageTrackType.popular.toName),
+            3: LibraryPage(),
+            4: accountJson.isNotEmpty
+                ? const AccountPage()
+                : IntroPage(
+                    showBackButton: widget.isLoggedIn ?? false,
+                    introPageIndex: widget.currentPage,
+
                   ),
                 ),
                 backgroundColor: context.onPrimary,
