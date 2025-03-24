@@ -98,6 +98,11 @@ Future<void> _setupHive() async {
   locator.registerLazySingleton<Box<dynamic>>(() => boxGrid,
       instanceName: BoxType.grid.name);
   final boxOnboarding = await Hive.openBox('onboarding');
+  final showMiniplayer = await Hive.openBox('showMiniPlayer');
+  locator.registerSingleton<Box<dynamic>>(
+    showMiniplayer,
+    instanceName: BoxType.showMiniPlayer.name,
+  );
   locator.registerSingleton<Box<dynamic>>(
     boxOnboarding,
     instanceName: BoxType.onboarding.name,
