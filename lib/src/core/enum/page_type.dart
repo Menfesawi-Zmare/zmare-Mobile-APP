@@ -5,8 +5,9 @@ enum PageType {
   explorer,
   latest,
   popular,
-  random,
-  library;
+  // random,
+  library,
+  login;
 
   int get toIndex {
     switch (this) {
@@ -16,9 +17,9 @@ enum PageType {
         return 1;
       case PageType.popular:
         return 2;
-      case PageType.random:
-        return 3;
       case PageType.library:
+        return 3;
+      case PageType.login:
         return 4;
     }
   }
@@ -31,10 +32,10 @@ enum PageType {
         return context.loc.latestLabel;
       case PageType.popular:
         return context.loc.popularLabel;
-      case PageType.random:
-        return context.loc.randomLabel;
       case PageType.library:
         return context.loc.libraryLabel;
+      case PageType.login:
+        return context.loc.profileLabel;
     }
   }
 }
