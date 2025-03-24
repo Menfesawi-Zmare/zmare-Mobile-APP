@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'dart:convert'; // Add this import for jsonDecode
 // import 'package:material_color_utilities/quantize/quantizer_wu.dart';
 import 'package:zmare/src/core/enum/box_types.dart';
@@ -14,6 +16,8 @@ import 'package:zmare/src/presentation/widgets/search_button.dart';
 import '../../../service_locator.dart';
 import '../../../utils/ext/common.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+
+import '../../network/bloc/network_bloc.dart';
 
 class ContentWidget extends StatefulWidget {
   ContentWidget({
@@ -53,7 +57,50 @@ class _ContentWidgetState extends State<ContentWidget>
                 // UserWidget(),
                 SizedBox(width: 8),
               ],
-            ),
+
+      body: BlocListener<NetworkBloc, NetworkState>(
+        listener: (context, state) {
+          if (state is NetworkSuccess) {
+            // ScaffoldMessenger.of(context).clearSnackBars();
+            // ScaffoldMessenger.of(context).showSnackBar(
+            //   SnackBar(
+            //     content: SizedBox(
+            //       height: 20,
+            //       child: Text(
+            //         'You are back online!',
+            //         style: context.titleSmall,
+            //       ),
+            //     ),
+            //     backgroundColor: context.onPrimary,
+            //   ),
+            // );
+          } else if (state is NetworkFailure) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                duration: Duration(minutes: 3),
+                content: SizedBox(
+                  height: 20,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Text(
+                        'You are offline.',
+                        style: context.titleSmall,
+                      ),
+                      TextButton(
+                          style:
+                              TextButton.styleFrom(padding: EdgeInsets.all(0)),
+                          onPressed: () {
+                            context.pushNamed(downloadsPath);
+                            ScaffoldMessenger.of(context).clearSnackBars();
+                          },
+                          child: Text(
+                            "Downloads",
+                            style: context.bodySmall,
+                          ))
+                    ],
+
       // Use ValueListenableBuilder to rebuild the body when accountJson changes
       body: ValueListenableBuilder(
         valueListenable: account,
@@ -70,11 +117,35 @@ class _ContentWidgetState extends State<ContentWidget>
                 : IntroPage(
                     showBackButton: widget.isLoggedIn ?? false,
                     introPageIndex: widget.currentPage,
-                  ),
-          };
 
-          return pages[widget.currentPage]!;
+                  ),
+                ),
+                backgroundColor: context.onPrimary,
+              ),
+            );
+          }
         },
+        // Use ValueListenableBuilder to rebuild the body when accountJson changes
+        child: ValueListenableBuilder(
+          valueListenable: account,
+          builder: (context, box, child) {
+            final accountJson = box.get(accountDetail, defaultValue: '');
+
+            final Map<int, Widget> pages = {
+              0: const ExplorerPage(),
+              1: TrackPage(type: HomepageTrackType.latest.toName),
+              2: TrackPage(type: HomepageTrackType.popular.toName),
+              3: const LibraryPage(),
+              4: accountJson.isNotEmpty
+                  ? const AccountPage()
+                  : IntroPage(
+                      introPageIndex: widget.currentPage,
+                    ),
+            };
+
+            return pages[widget.currentPage]!;
+          },
+        ),
       ),
     );
   }

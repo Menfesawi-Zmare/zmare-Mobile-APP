@@ -2,6 +2,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:zmare/src/utils/helper/network_helper.dart';
 
+import '../../../utils/services/firebase/firebase.dart';
+
 part 'network_event.dart';
 part 'network_state.dart';
 
@@ -18,7 +20,12 @@ class NetworkBloc extends Bloc<NetworkEvent, NetworkState> {
     NetworkHelper.observeNetwork();
   }
 
-  void _notifyStatus(NetworkNotify event, emit) {
-    event.isConnected ? emit(NetworkSuccess()) : emit(NetworkFailure());
+  void _notifyStatus(NetworkNotify event, emit) async {
+    if (event.isConnected) {
+      await FirebaseServices.init();
+      emit(NetworkSuccess());
+    } else {
+      emit(NetworkFailure());
+    }
   }
 }

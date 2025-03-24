@@ -2,6 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:dynamic_color/dynamic_color.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -14,6 +17,7 @@ import 'package:zmare/src/utils/helper/app_lifecycle_reactor.dart';
 import 'package:zmare/src/utils/helper/app_open_ad_manager.dart';
 import '../src/app/routes.dart';
 import 'core/theme/zmare_theme.dart';
+import 'presentation/network/bloc/network_bloc.dart';
 import 'presentation/widgets/zmare_annotate_region_widget.dart';
 
 class FlutterMusicPro extends StatefulWidget {
