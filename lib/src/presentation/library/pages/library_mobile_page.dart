@@ -163,39 +163,42 @@ class _LibraryMobilePageState extends State<LibraryMobilePage> {
                           context.pushNamed(settingsPath);
                         },
                       ),
-                      Divider(color: Colors.grey.withOpacity(0.2)),
-                      LibraryTile(
-                        title: context.loc.logout,
-                        icon: Icons.logout_outlined,
-                        onTap: () {
-                          zmareAlertDialog(
-                            context,
-                            title: ZmareText(
-                              text: context.loc.logoutContent,
-                            ),
-                            child: const SizedBox.shrink(),
-                            confirmationButton: OutlinedButton(
-                              // style: TextButton.styleFrom(
-                              //   // backgroundColor:
-                              //   //     Theme.of(context).colorScheme.primary,
-                              //   padding:
-                              //       const EdgeInsets.symmetric(horizontal: 16),
-                              // ),
-                              onPressed: () {
-                                setState(() {
-                                  showLogout = false;
-                                });
-                                context.pop();
-                                playlists = [];
-                                authBloc.add(LogoutEvent());
-                              },
-                              child: Text(context.loc.logout,
-                                  style: TextStyle(
-                                      color: context.colorScheme.primary)),
-                            ),
-                          );
-                        },
-                      ),
+                      SizedBox(
+                        height: 40,
+                      )
+                      // Divider(color: Colors.grey.withOpacity(0.2)),
+                      // LibraryTile(
+                      //   title: context.loc.logout,
+                      //   icon: Icons.logout_outlined,
+                      //   onTap: () {
+                      //     zmareAlertDialog(
+                      //       context,
+                      //       title: ZmareText(
+                      //         text: context.loc.logoutContent,
+                      //       ),
+                      //       child: const SizedBox.shrink(),
+                      //       confirmationButton: OutlinedButton(
+                      //         // style: TextButton.styleFrom(
+                      //         //   // backgroundColor:
+                      //         //   //     Theme.of(context).colorScheme.primary,
+                      //         //   padding:
+                      //         //       const EdgeInsets.symmetric(horizontal: 16),
+                      //         // ),
+                      //         onPressed: () {
+                      //           setState(() {
+                      //             showLogout = false;
+                      //           });
+                      //           context.pop();
+                      //           playlists = [];
+                      //           authBloc.add(LogoutEvent());
+                      //         },
+                      //         child: Text(context.loc.logout,
+                      //             style: TextStyle(
+                      //                 color: context.colorScheme.primary)),
+                      //       ),
+                      //     );
+                      //   },
+                      // ),
                     ],
                   );
                 } else {

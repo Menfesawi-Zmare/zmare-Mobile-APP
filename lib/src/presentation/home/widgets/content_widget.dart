@@ -57,11 +57,11 @@ class _ContentWidgetState extends State<ContentWidget>
                 // UserWidget(),
                 SizedBox(width: 8),
               ],
-
+            ),
       body: BlocListener<NetworkBloc, NetworkState>(
         listener: (context, state) {
           if (state is NetworkSuccess) {
-            // ScaffoldMessenger.of(context).clearSnackBars();
+            ScaffoldMessenger.of(context).clearSnackBars();
             // ScaffoldMessenger.of(context).showSnackBar(
             //   SnackBar(
             //     content: SizedBox(
@@ -77,7 +77,10 @@ class _ContentWidgetState extends State<ContentWidget>
           } else if (state is NetworkFailure) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
+                margin: EdgeInsets.only(bottom: 50),
                 duration: Duration(minutes: 3),
+                behavior: SnackBarBehavior.floating,
+                backgroundColor: context.onPrimary,
                 content: SizedBox(
                   height: 20,
                   child: Row(
@@ -100,27 +103,8 @@ class _ContentWidgetState extends State<ContentWidget>
                             style: context.bodySmall,
                           ))
                     ],
-
-      // Use ValueListenableBuilder to rebuild the body when accountJson changes
-      body: ValueListenableBuilder(
-        valueListenable: account,
-        builder: (context, box, child) {
-          final accountJson = box.get(accountDetail, defaultValue: '');
-
-          final Map<int, Widget> pages = {
-            0: const ExplorerPage(),
-            1: TrackPage(type: HomepageTrackType.latest.toName),
-            2: TrackPage(type: HomepageTrackType.popular.toName),
-            3: LibraryPage(),
-            4: accountJson.isNotEmpty
-                ? const AccountPage()
-                : IntroPage(
-                    showBackButton: widget.isLoggedIn ?? false,
-                    introPageIndex: widget.currentPage,
-
                   ),
                 ),
-                backgroundColor: context.onPrimary,
               ),
             );
           }

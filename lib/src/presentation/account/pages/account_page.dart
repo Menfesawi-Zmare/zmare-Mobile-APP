@@ -21,6 +21,10 @@ import 'package:zmare/src/presentation/widgets/zmare_image.dart';
 
 import 'package:zmare/src/service_locator.dart';
 
+import '../../login/bloc/auth_bloc.dart';
+import '../../widgets/zmare_bottom_sheet.dart';
+import '../../widgets/zmare_text.dart';
+
 class AccountPage extends StatefulWidget {
   const AccountPage({super.key});
   @override
@@ -33,6 +37,8 @@ class _AccountPageState extends State<AccountPage>
       locator.get<Box<dynamic>>(instanceName: BoxType.account.name).listenable(
     keys: [accountDetail],
   );
+  bool showLogout = false;
+  final AuthBloc authBloc = locator.get<AuthBloc>();
   Profile profile = Profile();
   @override
   Widget build(BuildContext context) {
@@ -79,6 +85,42 @@ class _AccountPageState extends State<AccountPage>
                             snap: false,
                             primary: true,
                             actions: [
+                              IconButton(
+                                icon: Icon(
+                                  FluentIcons.arrow_exit_20_filled,
+                                  color:
+                                      Theme.of(context).colorScheme.onSurface,
+                                ),
+                                onPressed: () {
+                                  zmareAlertDialog(
+                                    context,
+                                    title: ZmareText(
+                                      text: context.loc.logoutContent,
+                                    ),
+                                    child: const SizedBox.shrink(),
+                                    confirmationButton: OutlinedButton(
+                                      // style: TextButton.styleFrom(
+                                      //   // backgroundColor:
+                                      //   //     Theme.of(context).colorScheme.primary,
+                                      //   padding:
+                                      //       const EdgeInsets.symmetric(horizontal: 16),
+                                      // ),
+                                      onPressed: () {
+                                        setState(() {
+                                          showLogout = false;
+                                        });
+                                        context.pop();
+                                        // playlists = [];
+                                        authBloc.add(LogoutEvent());
+                                      },
+                                      child: Text(context.loc.logout,
+                                          style: TextStyle(
+                                              color:
+                                                  context.colorScheme.primary)),
+                                    ),
+                                  );
+                                },
+                              ),
                               IconButton(
                                 icon: Icon(
                                   FluentIcons.settings_28_regular,

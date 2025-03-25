@@ -10,7 +10,7 @@ class Images {
   static const String transparentIcon = 'assets/images/huraIcon.png';
   static const String defalutProductionCover = 'assets/production.png';
   static const String defalultArtistCover = 'assets/artist.png';
-  static const String defalutAlbumCover = 'assets/album.png';
+  static const String defalutAlbumCover = 'assets/artist.png';
   static const String defalutSongCover = 'assets/song.png';
   static const String defalutCover = 'assets/cover.png';
   static const String facebookIcon = 'assets/facebook.png';

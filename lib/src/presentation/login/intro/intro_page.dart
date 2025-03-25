@@ -10,6 +10,7 @@ import 'package:hive/hive.dart';
 import 'package:video_player/video_player.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 import 'package:zmare/src/core/resources/resources.dart';
+import 'package:zmare/src/presentation/login/pages/login_page.dart';
 
 import 'package:zmare/src/utils/services/firebase/authenticate.dart';
 import 'package:go_router/go_router.dart';
@@ -66,7 +67,9 @@ class _IntroPageState extends State<IntroPage> with TickerProviderStateMixin {
           if (state is Loading) {
             context.show();
           }
+
           if (state is LoginWithGmail) {
+            context.dismiss();
             if (state.registerResponse.status == true) {
               context.dismiss();
               context.go(homePagePath);

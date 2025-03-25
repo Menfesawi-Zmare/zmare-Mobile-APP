@@ -16,6 +16,8 @@ import 'package:zmare/src/service_locator.dart';
 // ignore: depend_on_referenced_packages
 import "package:collection/collection.dart";
 
+import '../../widgets/no_result_widget.dart';
+
 class StreamPage extends StatefulWidget {
   const StreamPage({super.key});
 
@@ -224,21 +226,38 @@ class _StreamPageState extends State<StreamPage> {
                         _pagingController.itemList = [];
                       }
                     },
-                    child: PagedListView<int, ItemSongModel>.separated(
-                      padding: EdgeInsets.zero,
-                      pagingController: _pagingController,
-                      builderDelegate: PagedChildBuilderDelegate<ItemSongModel>(
-                          noItemsFoundIndicatorBuilder: (context) =>
-                              NoSubscribeWidget(
-                                  onTap: () => _pagingController.refresh()),
-                          itemBuilder: (context, item, index) {
-                            return ItemListBig(
-                                songList: item, listItemSong: totalTracks);
-                          }),
-                      separatorBuilder: (BuildContext context, int index) {
-                        return const Divider(
-                          indent: 78,
-                          height: 0,
+                    child: BlocBuilder(
+                      bloc: trackBloc,
+                      builder: (context, state) {
+                        return PagedListView<int, ItemSongModel>.separated(
+                          padding: EdgeInsets.zero,
+                          pagingController: _pagingController,
+                          builderDelegate:
+                              PagedChildBuilderDelegate<ItemSongModel>(
+                                  noItemsFoundIndicatorBuilder: (context) =>
+                                      state is TrackLoading
+                                          ? Center(
+                                              child: SizedBox(
+                                                  height: 35,
+                                                  width: 35,
+                                                  child:
+                                                      CircularProgressIndicator()),
+                                            )
+                                          : NoResultWidget(
+                                              showRefresh: true,
+                                              onTap: () =>
+                                                  _pagingController.refresh()),
+                                  itemBuilder: (context, item, index) {
+                                    return ItemListBig(
+                                        songList: item,
+                                        listItemSong: totalTracks);
+                                  }),
+                          separatorBuilder: (BuildContext context, int index) {
+                            return const Divider(
+                              indent: 78,
+                              height: 0,
+                            );
+                          },
                         );
                       },
                     ),

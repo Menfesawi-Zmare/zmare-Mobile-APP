@@ -1,8 +1,10 @@
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'package:hive_flutter/adapters.dart';
 import 'package:zmare/src/utils/ext/common.dart';
@@ -182,7 +184,40 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
                 const SizedBox(
-                  height: 60,
+                  height: 20,
+                ),
+                SizedBox(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 30),
+                    child: RichText(
+                      // Use RichText for styled text
+                      textAlign: TextAlign.right,
+                      text: TextSpan(
+                        style: context.bodyMedium?.copyWith(
+                          // Apply your base text style
+                          fontFamily: GoogleFonts.poppins().fontFamily,
+                          fontWeight: FontWeight.w400,
+                          fontSize: 16,
+                        ),
+                        children: <TextSpan>[
+                          TextSpan(
+                              text: "Forgot Password?",
+                              style: TextStyle(fontSize: 14)),
+                          TextSpan(
+                            text: " Reset",
+                            style: TextStyle(
+                                fontSize: 14,
+                                color: context.primary,
+                                fontWeight: FontWeight.w900),
+                            recognizer: TapGestureRecognizer()..onTap = () {},
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 40,
                 ),
                 Center(
                   child: ElevatedButton(

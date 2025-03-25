@@ -64,7 +64,7 @@ android {
         release {
             keyAlias keystoreProperties['keyAlias']
             keyPassword keystoreProperties['keyPassword']
-            storeFile keystoreProperties['storeFile'] ? file(keystoreProperties['storeFile']) : null
+            storeFile file("D:/flutter_dev/zmare/zmare-Mobile-APP/android/app/jks/release-keystore.jks")
             storePassword keystoreProperties['storePassword']
         }
     }

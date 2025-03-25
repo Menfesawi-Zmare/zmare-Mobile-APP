@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -191,27 +190,29 @@ class _FlutterMusicProState extends State<FlutterMusicPro> {
                     children: [
                       child!,
                       Overlay(
+                        clipBehavior: Clip.hardEdge,
                         initialEntries: [
-                          OverlayEntry(builder: (context) {
-                            return Positioned(
-                              bottom: 90,
-                              left: 0,
-                              right: 0,
-                              child: Material(
-                                  color: Colors.transparent,
-                                  child: ValueListenableBuilder(
-                                    valueListenable: showMiniPlayer,
-                                    builder: (BuildContext context, box,
-                                        Widget? child) {
-                                      final showMiniPlayer = box.get(
-                                          'showMiniPlayer',
-                                          defaultValue: true);
-
-                                      return Visibility(child: MiniPlayer());
-                                    },
-                                  )),
-                            );
-                          }),
+                          OverlayEntry(
+                              canSizeOverlay: true,
+                              opaque: true,
+                              builder: (context) {
+                                return Positioned(
+                                  bottom: 90,
+                                  left: 0,
+                                  right: 0,
+                                  child: GestureDetector(
+                                    behavior: HitTestBehavior.translucent,
+                                    onTap: () {},
+                                    child: ValueListenableBuilder(
+                                      valueListenable: showMiniPlayer,
+                                      builder: (BuildContext context, box,
+                                          Widget? child) {
+                                        return MiniPlayer();
+                                      },
+                                    ),
+                                  ),
+                                );
+                              }),
                         ],
                       ),
                     ],
