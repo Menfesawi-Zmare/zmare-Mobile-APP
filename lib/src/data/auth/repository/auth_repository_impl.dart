@@ -256,10 +256,10 @@ class AuthRepositoryImpl extends IAuthRepository {
   }
 
   @override
-  Future<Either<Failure, RegisterResponse>> registerNormal(
-      String username, String password, String email) async {
-    final response =
-        await iAuthDataSource.registerNormal(username, password, email);
+  Future<Either<Failure, RegisterResponse>> registerNormal(String username,
+      String confirmPassword, String password, String email) async {
+    final response = await iAuthDataSource.registerNormal(
+        username, confirmPassword, password, email);
     return response.fold(
       (failure) => Left(failure),
       (registerResponse) {
@@ -304,6 +304,43 @@ class AuthRepositoryImpl extends IAuthRepository {
   @override
   Future<Either<Failure, ResendEmailModel>> resendEmail(email) async {
     final response = await iAuthDataSource.resendEmail(email);
+    return response.fold(
+      (failure) => Left(failure),
+      (message) {
+        return Right(message);
+      },
+    );
+  }
+
+  @override
+  Future<Either<Failure, RequestEmailResponse>> requestResetEmail(
+      String email) async {
+    final response = await iAuthDataSource.requestResetEmail(email);
+    return response.fold(
+      (failure) => Left(failure),
+      (message) {
+        return Right(message);
+      },
+    );
+  }
+
+  @override
+  Future<Either<Failure, OtpVerifyResponse>> verifyOtp(
+      String otp, String email) async {
+    final response = await iAuthDataSource.verifyOtp(email, otp);
+    return response.fold(
+      (failure) => Left(failure),
+      (message) {
+        return Right(message);
+      },
+    );
+  }
+
+  @override
+  Future<Either<Failure, ResetPasswordResponse>> resetPassword(
+      String email, String password, String confirmPassword) async {
+    final response =
+        await iAuthDataSource.resetPassword(email, password, confirmPassword);
     return response.fold(
       (failure) => Left(failure),
       (message) {

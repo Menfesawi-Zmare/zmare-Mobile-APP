@@ -72,19 +72,11 @@ class _RecentlyPlayedState extends State<RecentlyPlayed> {
             //     context.loc.playSomething,
             //     23.0,
             //   )
-            : ListView.separated(
+            : ListView.builder(
                 padding: EdgeInsets.zero,
                 physics: const BouncingScrollPhysics(),
                 shrinkWrap: true,
                 itemCount: _songs.length,
-                separatorBuilder: (context, index) => Divider(
-                      indent: 78,
-                      height: 0,
-                      color: Theme.of(context)
-                          .colorScheme
-                          .onSurfaceVariant
-                          .withOpacity(0.3),
-                    ),
                 itemBuilder: (context, index) {
                   return _songs.isEmpty
                       ? const SizedBox()
@@ -175,7 +167,7 @@ class _RecentlyPlayedState extends State<RecentlyPlayed> {
                                     )),
                                   );
                                 },
-                                icon: Icon(MdiIcons.dotsHorizontal)),
+                                icon: Icon(MdiIcons.dotsVertical)),
                             title: ZmareTitle(
                               '${_songs[index]["title"]}',
                               maxLines: 1,

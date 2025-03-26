@@ -54,6 +54,9 @@ import 'package:on_audio_query/on_audio_query.dart';
 import '../core/enum/box_types.dart';
 import '../data/playlist/model/playlist.dart';
 import '../presentation/home/pages/home_page.dart';
+import '../presentation/login/pages/resetpassword/otp_page.dart';
+import '../presentation/login/pages/resetpassword/change_password_page.dart';
+import '../presentation/login/pages/resetpassword/reset_password_page.dart';
 
 final settings = Hive.box(BoxType.settings.name);
 final account = Hive.box(BoxType.account.name);
@@ -351,6 +354,30 @@ final GoRouter goRouter = GoRouter(
               path: changePasswordPath,
               name: changePasswordPath,
               builder: (context, state) => const ChangePasswordPage()),
+          GoRoute(
+              path: resetPassword,
+              name: resetPassword,
+              builder: (context, state) => const ResetPasswordPage()),
+          GoRoute(
+              path: otpPath,
+              name: otpPath,
+              builder: (context, state) {
+                final data = state.extra as Map<String, String>?;
+                final email = data?['email'] ?? '';
+                return OtpPage(
+                  email: email,
+                );
+              }),
+          GoRoute(
+              path: resetPage,
+              name: resetPage,
+              builder: (context, state) {
+                final data = state.extra as Map<String, String>?;
+                final email = data?['email'] ?? '';
+                return ResetPasswordInputPage(
+                  email: email,
+                );
+              }),
           GoRoute(
               path: deleteAccountPath,
               name: deleteAccountPath,

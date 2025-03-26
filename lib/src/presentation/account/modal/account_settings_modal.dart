@@ -32,17 +32,17 @@ class AccountSettingsModal extends StatelessWidget {
               context.pushNamed(changePasswordPath);
             },
           ),
-          ListTile(
-            contentPadding: const EdgeInsets.only(left: 20, right: 10),
-            title: Text(context.loc.user_menu_delete,
-                style:
-                    context.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
-            leading: const Icon(FluentIcons.delete_24_regular),
-            onTap: () {
-              context.pop();
-              context.pushNamed(deleteAccountPath);
-            },
-          ),
+          // ListTile(
+          //   contentPadding: const EdgeInsets.only(left: 20, right: 10),
+          //   title: Text(context.loc.user_menu_delete,
+          //       style:
+          //           context.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
+          //   leading: const Icon(FluentIcons.delete_24_regular),
+          //   onTap: () {
+          //     context.pop();
+          //     context.pushNamed(deleteAccountPath);
+          //   },
+          // ),
         ],
       ),
     );

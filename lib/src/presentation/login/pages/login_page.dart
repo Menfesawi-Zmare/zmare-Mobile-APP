@@ -202,14 +202,17 @@ class _LoginPageState extends State<LoginPage> {
                         children: <TextSpan>[
                           TextSpan(
                               text: "Forgot Password?",
-                              style: TextStyle(fontSize: 14)),
+                              style: TextStyle(fontSize: 12)),
                           TextSpan(
                             text: " Reset",
                             style: TextStyle(
-                                fontSize: 14,
+                                fontSize: 12,
                                 color: context.primary,
                                 fontWeight: FontWeight.w900),
-                            recognizer: TapGestureRecognizer()..onTap = () {},
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () {
+                                context.pushNamed(resetPassword);
+                              },
                           ),
                         ],
                       ),

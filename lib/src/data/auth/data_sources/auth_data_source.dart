@@ -26,7 +26,7 @@ abstract class IAuthDataSource {
   Future<Either<Failure, RegisterResponse>> loginWithSocial(
       RegisterSocialRequest registerSocialRequest);
   Future<Either<Failure, RegisterResponse>> registerNormal(
-      String username, String password, String email);
+      String confirmPassword, String username, String password, String email);
   Future<Either<Failure, LoginResponse>> loginWithUsernameAndPassword(
       String username, String password);
   Future<Either<Failure, AuthProfile>> authProfile();
@@ -56,6 +56,11 @@ abstract class IAuthDataSource {
   Future<Either<Failure, AppSetting>> appSettings();
   Future<Either<Failure, LogoutModel>> logout();
   Future<Either<Failure, ResendEmailModel>> resendEmail(String email);
+  Future<Either<Failure, RequestEmailResponse>> requestResetEmail(String email);
+  Future<Either<Failure, OtpVerifyResponse>> verifyOtp(
+      String otp, String email);
+  Future<Either<Failure, ResetPasswordResponse>> resetPassword(
+      String email, String password, String confirmPassword);
 }
 
 class AuthDataSource extends IAuthDataSource {
@@ -294,12 +299,12 @@ class AuthDataSource extends IAuthDataSource {
   }
 
   @override
-  Future<Either<Failure, RegisterResponse>> registerNormal(
-      String username, String password, String email) async {
+  Future<Either<Failure, RegisterResponse>> registerNormal(String username,
+      String confirmPassword, String password, String email) async {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['username'] = username;
     data['password'] = password;
-    data['password_confirmation'] = password;
+    data['password_confirmation'] = confirmPassword;
     data['email'] = email;
     data['type'] = 'normal';
     data['image'] = '';
@@ -348,6 +353,46 @@ class AuthDataSource extends IAuthDataSource {
       data: {"email": email},
       ListAPI.resendEmail,
       converter: (response) => ResendEmailModel.fromJson(response),
+    );
+    return response;
+  }
+
+  @override
+  Future<Either<Failure, RequestEmailResponse>> requestResetEmail(
+      String email) async {
+    final response = await _client.postRequest(
+      data: {"email": email},
+      ListAPI.requestReset,
+      converter: (response) => RequestEmailResponse.fromJson(response),
+    );
+    return response;
+  }
+
+  @override
+  Future<Either<Failure, OtpVerifyResponse>> verifyOtp(
+      String otp, String email) async {
+    final response = await _client.postRequest(
+      data: {"email": email, "otp": otp},
+      ListAPI.verifyOTP,
+      converter: (response) => OtpVerifyResponse.fromJson(response),
+    );
+    return response;
+  }
+
+  @override
+  Future<Either<Failure, ResetPasswordResponse>> resetPassword(
+    String email,
+    String password,
+    String confirmPassword,
+  ) async {
+    final response = await _client.postRequest(
+      data: {
+        "email": email,
+        "password": password,
+        "confirmPassword": confirmPassword
+      },
+      ListAPI.resetPassword,
+      converter: (response) => ResetPasswordResponse.fromJson(response),
     );
     return response;
   }

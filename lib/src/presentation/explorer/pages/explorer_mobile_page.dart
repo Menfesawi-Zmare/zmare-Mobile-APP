@@ -81,59 +81,94 @@ class _ExplorerMobilePageState extends State<ExplorerMobilePage> {
                     NoResultWidget(showRefresh: true, onTap: () => refresh()),
               );
             }
-            return ListView(
+            if (state is ExplorerLoaded) {
+              // Check if ALL data lists are empty (or null)
+              bool isAllDataEmpty = explorerModel!.data!.every((item) {
+                return (item.carousels?.isEmpty ?? true) &&
+                    (item.artists?.isEmpty ?? true) &&
+                    (item.albums?.isEmpty ?? true) &&
+                    (item.playlists?.isEmpty ?? true) &&
+                    (item.productions?.isEmpty ?? true) &&
+                    (item.banners == null) &&
+                    (item.ads == null);
+              });
+
+              // If ALL data is empty, show NoResultWidget
+              if (isAllDataEmpty) {
+                return Center(
+                  child:
+                      NoResultWidget(showRefresh: true, onTap: () => refresh()),
+                );
+              }
+
+              // Otherwise, build the ListView
+              return ListView(
                 shrinkWrap: true,
                 physics: const AlwaysScrollableScrollPhysics(),
                 children: [
                   ListView.builder(
-                      shrinkWrap: true,
-                      physics: const ScrollPhysics(),
-                      padding: EdgeInsets.zero,
-                      itemCount: explorerModel?.data!.length,
-                      itemBuilder: (
-                        context,
-                        i,
-                      ) {
-                        if (explorerModel?.data![i].carousels
-                            is List<BannerModel>) {
-                          return CarouselWidget(
-                              banners: explorerModel?.data![i].carousels);
-                        } else if (explorerModel?.data![i].artists
-                            is List<Artist>) {
-                          return ArtistsWidget(
-                              artists: explorerModel?.data![i].artists,
-                              title: context.loc.artists,
-                              type: "0");
-                        } else if (explorerModel?.data![i].albums
-                            is List<Album>) {
-                          return AlbumsWidget(
-                              albums: explorerModel?.data![i].albums,
-                              title: context.loc.albums,
-                              type: "1");
-                        } else if (explorerModel?.data![i].playlists
-                            is List<Playlist>) {
-                          return PlaylistsWidget(
-                            playlists: explorerModel?.data![i].playlists,
-                            title: context.loc.playlist,
-                          );
-                        } else if (explorerModel?.data![i].productions
-                            is List<Production>) {
-                          return ProductionsWidget(
-                              productions: explorerModel?.data![i].productions,
-                              title: explorerModel?.data![i].title ?? "",
-                              type: "2");
-                        } else if (explorerModel?.data![i].banners is Banners) {
-                          return ImageBannerWidget(
-                              image: explorerModel!.data![i].banners!.image!,
-                              link: explorerModel!.data![i].banners!.link!);
-                        } else if (explorerModel?.data![i].ads is Ads) {
-                          return AdmobBannerWidget(
-                              androidAds: explorerModel?.data![i].ads!.android!,
-                              iosAds: explorerModel?.data![i].ads!.ios!);
-                        }
-                        return null;
-                      }),
-                ]);
+                    shrinkWrap: true,
+                    physics: const ScrollPhysics(),
+                    padding: EdgeInsets.zero,
+                    itemCount: explorerModel?.data?.length,
+                    itemBuilder: (context, i) {
+                      final item = explorerModel?.data?[i];
+                      if (item == null) return const SizedBox.shrink();
+
+                      if (item.carousels is List<BannerModel> &&
+                          item.carousels!.isNotEmpty) {
+                        return CarouselWidget(banners: item.carousels);
+                      } else if (item.artists is List<Artist> &&
+                          item.artists!.isNotEmpty) {
+                        return ArtistsWidget(
+                          artists: item.artists,
+                          title: context.loc.artists,
+                          type: "0",
+                        );
+                      } else if (item.albums is List<Album> &&
+                          item.albums!.isNotEmpty) {
+                        return AlbumsWidget(
+                          albums: item.albums,
+                          title: context.loc.albums,
+                          type: "1",
+                        );
+                      } else if (item.playlists is List<Playlist> &&
+                          item.playlists!.isNotEmpty) {
+                        return PlaylistsWidget(
+                          playlists: item.playlists,
+                          title: context.loc.playlist,
+                        );
+                      } else if (item.productions is List<Production> &&
+                          item.productions!.isNotEmpty) {
+                        return ProductionsWidget(
+                          productions: item.productions,
+                          title: item.title ?? "",
+                          type: "2",
+                        );
+                      } else if (item.banners is Banners &&
+                          item.banners!.image != null) {
+                        return ImageBannerWidget(
+                          image: item.banners!.image!,
+                          link: item.banners!.link!,
+                        );
+                      } else if (item.ads is Ads) {
+                        return AdmobBannerWidget(
+                          androidAds: item.ads!.android!,
+                          iosAds: item.ads!.ios!,
+                        );
+                      } else {
+                        return const SizedBox.shrink(); // Skip empty sections
+                      }
+                    },
+                  ),
+                ],
+              );
+            }
+
+            // Fallback (should not reach here if all states are handled)
+            return Center(
+              child: NoResultWidget(showRefresh: true, onTap: () => refresh()),
+            );
           },
         ),
       ),

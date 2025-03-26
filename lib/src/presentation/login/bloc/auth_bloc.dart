@@ -55,6 +55,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       emit(Loading());
       final data = await iAuthRepository.loginWithUsernameAndPassword(
           event.email, event.password);
+
       data.fold(
         (l) {
           if (l is ServerFailure) {
@@ -76,7 +77,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     });
     on<ResendEmailEvent>((event, emit) async {
       emit(Loading());
-      print(event.email);
+
       final data = await iAuthRepository.resendEmail(event.email);
       data.fold((l) {
         if (l is ServerFailure) {
@@ -88,11 +89,55 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         emit(EmailResentSucces(r));
       });
     });
+    on<RequestResetPassworEvent>((event, emit) async {
+      emit(RequestResetPasswordLoading());
 
+      final data = await iAuthRepository.requestResetEmail(event.email);
+      data.fold((l) {
+        if (l is ServerFailure) {
+          emit(Failure(l.message ?? ''));
+        }
+      }, (r) {
+        //Suspended Account
+
+        emit(RequestResetPasswordSuccess(r));
+      });
+    });
+
+    on<VerifyOtpEvent>((event, emit) async {
+      emit(OtpVerifyLoading());
+
+      final data = await iAuthRepository.verifyOtp(event.email, event.otp);
+      data.fold((l) {
+        if (l is ServerFailure) {
+          emit(Failure(l.message ?? ''));
+        }
+      }, (r) {
+        //Suspended Account
+
+        emit(OtpVerifySuccess(r));
+      });
+    });
+
+    on<ResetPasswordEvent>((event, emit) async {
+      emit(ResetPasswordLoading());
+
+      final data = await iAuthRepository.resetPassword(
+          event.email, event.password, event.confirmPassword);
+      data.fold((l) {
+        if (l is ServerFailure) {
+          emit(Failure(l.message ?? ''));
+        }
+      }, (r) {
+        //Suspended Account
+
+        emit(ResetPasswordSuccess(r));
+      });
+    });
     on<SignUpRequestedEvent>((event, emit) async {
       emit(Loading());
       final data = await iAuthRepository.registerNormal(
-          event.username, event.password, event.email);
+          event.username, event.password, event.confirmPassword, event.email);
       data.fold(
         (l) {
           if (l is ServerFailure) {

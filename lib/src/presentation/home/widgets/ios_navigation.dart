@@ -25,29 +25,31 @@ class IosNavigation extends StatelessWidget {
             destinations: [
               NavigationDestination(
                 label: context.loc.explorerLabel,
+                icon: const Icon(Icons.church_outlined),
+                selectedIcon: const Icon(Icons.church_rounded),
+              ),
+              NavigationDestination(
+                label: context.loc.latestLabel,
                 icon: SvgPicture.asset(
-                  height: 23,
+                  height: 32,
                   fit: BoxFit.cover,
                   // ignore: deprecated_member_use
                   colorBlendMode: BlendMode.srcIn,
-                  "assets/images/home.svg",
+                  "assets/images/mesenko.svg",
                   // ignore: deprecated_member_use
                   color: Colors.white,
                 ),
                 selectedIcon: SvgPicture.asset(
-                  height: 23,
+                  height: 32,
                   fit: BoxFit.cover,
                   // ignore: deprecated_member_use
                   colorBlendMode: BlendMode.srcIn,
-                  "assets/images/home_filled.svg",
+                  "assets/images/mesenko-filled.svg",
                   // ignore: deprecated_member_use
                   color: Colors.white,
                 ),
-              ),
-              NavigationDestination(
-                label: context.loc.latestLabel,
-                icon: const Icon(Icons.church_outlined),
-                selectedIcon: const Icon(Icons.church_rounded),
+                // icon: const Icon(Icons.church_outlined),
+                // selectedIcon: const Icon(Icons.church_rounded),
               ),
               NavigationDestination(
                   label: context.loc.popularLabel,
@@ -81,9 +83,26 @@ class IosNavigation extends StatelessWidget {
               ),
 
               NavigationDestination(
+                label: context.loc.libraryLabel,
+                icon: const Icon(FluentIcons.book_20_regular),
+                selectedIcon: const Icon(FluentIcons.book_20_filled),
+              ),
+              NavigationDestination(
                 label: context.loc.profileLabel,
-                icon: const Icon(FluentIcons.person_12_regular),
-                selectedIcon: const Icon(FluentIcons.person_16_regular),
+                icon: SvgPicture.asset(
+                  "assets/man.svg",
+                  height: 28,
+                  fit: BoxFit.cover,
+                  // colorFilter:
+                  //     const ColorFilter.mode(Colors.white, BlendMode.srcIn),
+                ),
+                selectedIcon: SvgPicture.asset(
+                  "assets/man.svg",
+                  height: 28,
+                  fit: BoxFit.cover,
+                  // colorFilter:
+                  //     const ColorFilter.mode(Colors.white, BlendMode.srcIn),
+                ),
               ),
             ],
           ),
