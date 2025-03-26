@@ -47,7 +47,7 @@ class IosNavigation extends StatelessWidget {
               NavigationDestination(
                 label: context.loc.latestLabel,
                 icon: SvgPicture.asset(
-                  height: 38,
+                  height: 32,
                   fit: BoxFit.cover,
                   // ignore: deprecated_member_use
                   colorBlendMode: BlendMode.srcIn,
@@ -56,7 +56,7 @@ class IosNavigation extends StatelessWidget {
                   color: Colors.white,
                 ),
                 selectedIcon: SvgPicture.asset(
-                  height: 38,
+                  height: 32,
                   fit: BoxFit.cover,
                   // ignore: deprecated_member_use
                   colorBlendMode: BlendMode.srcIn,

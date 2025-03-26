@@ -120,14 +120,11 @@ class _MiniPlayerState extends State<MiniPlayer> {
                   child: StreamBuilder<MediaItem?>(
                     stream: audioHandler.mediaItem,
                     builder: (context, snapshot) {
-                      final bool isPlaying = snapshot.hasData;
                       return Container(
                         margin: EdgeInsets.fromLTRB(10, 0, 0, 10),
                         padding: EdgeInsets.all(10),
                         decoration: BoxDecoration(
-                          color: isPlaying
-                              ? context.colorScheme.primary.withOpacity(0.2)
-                              : context.surfaceVariant,
+                          color: context.surfaceVariant,
                           shape: BoxShape.circle,
                         ),
                         height: 45,
@@ -136,11 +133,9 @@ class _MiniPlayerState extends State<MiniPlayer> {
                           riveIcon: RiveIcon.sound,
                           width: 10,
                           height: 10,
-                          color: isPlaying
-                              ? context.colorScheme.primary
-                              : context.colorScheme.onSurfaceVariant,
+                          color: context.colorScheme.primary,
                           strokeWidth: 10,
-                          loopAnimation: isPlaying,
+                          loopAnimation: true,
                           onTap: () {
                             toogleVisibility();
                           },

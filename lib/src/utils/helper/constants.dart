@@ -1,7 +1,7 @@
 import 'dart:ui';
 
-// const String baseUrl = 'https://zmare.powerethio.com';
-const String baseUrl = 'http://192.168.100.199:8000';
+const String baseUrl = 'https://zmare.powerethio.com';
+// const String baseUrl = 'http://192.168.100.199:8000';
 //Font
 const defaultFontName = 'Kanit';
 const String androidNotificationChannelName = 'zmare';
