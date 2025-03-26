@@ -8,6 +8,7 @@ class RegisterResponse {
   RegisterResponse.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     data = json['data'] != null ? Data.fromJson(json['data']) : null;
+    print("data:${data}");
     message = json['message'];
   }
 

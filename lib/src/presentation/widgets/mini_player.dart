@@ -38,6 +38,7 @@ class _MiniPlayerState extends State<MiniPlayer> {
   Box<dynamic> playerSettings = locator.get(
     instanceName: BoxType.settings.name,
   );
+  late String? isMandatoryInt;
 
   bool isPlayerVisisble = true;
   bool _shouldShowMiniPlayer = true;
@@ -45,6 +46,7 @@ class _MiniPlayerState extends State<MiniPlayer> {
   @override
   void initState() {
     super.initState();
+    isMandatoryInt = settings.get(isMandatory);
     // Add a listener to GoRouter for route changes
     GoRouter.of(rootNavigatorKey.currentContext!)
         .routerDelegate
@@ -78,7 +80,8 @@ class _MiniPlayerState extends State<MiniPlayer> {
       '/landing/reset',
       '/landing/otpPath',
       '/landing/resetPage',
-      '/signup'
+      '/signup',
+      '/onboarding'
     ];
 
     setState(() {
@@ -100,6 +103,9 @@ class _MiniPlayerState extends State<MiniPlayer> {
   @override
   Widget build(BuildContext context) {
     if (!_shouldShowMiniPlayer) {
+      return const SizedBox();
+    }
+    if (isMandatoryInt != null && isMandatoryInt == "1") {
       return const SizedBox();
     }
 

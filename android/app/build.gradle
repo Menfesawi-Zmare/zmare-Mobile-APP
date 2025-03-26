@@ -3,6 +3,7 @@ plugins {
     id 'kotlin-android'
     id 'com.google.gms.google-services'
 }
+
 def localProperties = new Properties()
 def localPropertiesFile = rootProject.file('local.properties')
 if (localPropertiesFile.exists()) {
@@ -64,7 +65,7 @@ android {
         release {
             keyAlias keystoreProperties['keyAlias']
             keyPassword keystoreProperties['keyPassword']
-            storeFile file("/home/barok/Documents/Mine/flutter/ZmareApp/zmare-Mobile-APP/android/app/jks/release-keystore.jks")
+            storeFile file("/home/barok/Documents/Mine/flutter/ZmareApp/zmare-Mobile-APP/android/app/jks/debug-keystore.jks")
             storePassword keystoreProperties['storePassword']
         }
     }

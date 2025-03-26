@@ -19,24 +19,8 @@ class AndroidNavigation extends StatelessWidget {
         destinations: [
           NavigationDestination(
             label: context.loc.explorerLabel,
-            icon: SvgPicture.asset(
-              height: 23,
-              fit: BoxFit.cover,
-              // ignore: deprecated_member_use
-              colorBlendMode: BlendMode.srcIn,
-              "assets/images/home.svg",
-              // ignore: deprecated_member_use
-              color: Colors.white,
-            ),
-            selectedIcon: SvgPicture.asset(
-              height: 23,
-              fit: BoxFit.cover,
-              // ignore: deprecated_member_use
-              colorBlendMode: BlendMode.srcIn,
-              "assets/images/home_filled.svg",
-              // ignore: deprecated_member_use
-              color: Colors.white,
-            ),
+            icon: const Icon(Icons.church_outlined),
+            selectedIcon: const Icon(Icons.church_rounded),
           ),
           NavigationDestination(
             label: context.loc.latestLabel,

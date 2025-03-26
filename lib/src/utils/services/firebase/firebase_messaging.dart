@@ -29,8 +29,8 @@ class FirebaseMessagingService {
     FirebaseMessaging.instance
         .getInitialMessage()
         .then((RemoteMessage? message) async {
-      final title = message!.notification?.title ?? 'No Title';
-      final body = message.notification?.body ?? 'No Body';
+      final title = message!.notification?.title ?? '';
+      final body = message.notification?.body ?? '';
       LocalNotificationService.showInstantNotification(title, body);
 
       await Firebase.initializeApp();
@@ -39,15 +39,15 @@ class FirebaseMessagingService {
     });
 
     FirebaseMessaging.onMessage.listen((RemoteMessage message) async {
-      final title = message.notification?.title ?? 'No Title';
-      final body = message.notification?.body ?? 'No Body';
+      final title = message.notification?.title ?? '';
+      final body = message.notification?.body ?? '';
       LocalNotificationService.showInstantNotification(title, body);
       // _handleMessage(message!);
     });
 
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) async {
-      final title = message.notification?.title ?? 'No Title';
-      final body = message.notification?.body ?? 'No Body';
+      final title = message.notification?.title ?? '';
+      final body = message.notification?.body ?? '';
       LocalNotificationService.showInstantNotification(title, body);
       await Firebase.initializeApp();
       _handleMessage(message);
@@ -58,8 +58,8 @@ class FirebaseMessagingService {
 
   static Future<void> _firebaseMessagingBackgroundHandler(
       RemoteMessage message) async {
-    final title = message.notification?.title ?? 'No Title';
-    final body = message.notification?.body ?? 'No Body';
+    final title = message.notification?.title ?? '';
+    final body = message.notification?.body ?? '';
     LocalNotificationService.showInstantNotification(title, body);
     await Firebase.initializeApp();
     _handleMessage(message);

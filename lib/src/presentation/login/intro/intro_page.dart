@@ -311,6 +311,8 @@ class _IntroPageState extends State<IntroPage> with TickerProviderStateMixin {
                                               await service.signInwithGoogle();
 
                                           if (userCredential != null) {
+                                            print(
+                                                "user:${userCredential.user}");
                                             authBloc.add(LoginWithSocial(
                                                 RegisterSocialRequest(
                                                     firstName: userCredential
@@ -332,6 +334,7 @@ class _IntroPageState extends State<IntroPage> with TickerProviderStateMixin {
                                                 e.message!);
                                           }
                                           GoogleSignIn().signOut();
+                                          print("error$e");
                                           context.showMaterialSnackBar(
                                               "Try again later please!");
                                         }
