@@ -103,7 +103,7 @@ class _MiniPlayerState extends State<MiniPlayer> {
 
   @override
   Widget build(BuildContext context) {
-    if (!isPlayerVisisble) {
+    if (isPlayerVisisble) {
       return ConstrainedBox(
         constraints: BoxConstraints.tightFor(width: 45 + 10 + 10),
         child: Material(
