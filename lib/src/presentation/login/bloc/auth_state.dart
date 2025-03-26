@@ -139,3 +139,24 @@ class EmailResentSucces extends AuthState {
 
   EmailResentSucces(this.resentModel);
 }
+
+class RequestResetPasswordSuccess extends AuthState {
+  final RequestEmailResponse requestEmailResponse;
+  RequestResetPasswordSuccess(this.requestEmailResponse);
+}
+
+class RequestResetPasswordLoading extends AuthState {}
+
+class OtpVerifySuccess extends AuthState {
+  final OtpVerifyResponse otpVerifyResponse;
+  OtpVerifySuccess(this.otpVerifyResponse);
+}
+
+class OtpVerifyLoading extends AuthState {}
+
+class ResetPasswordSuccess extends AuthState {
+  final ResetPasswordResponse otpVerifyResponse;
+  ResetPasswordSuccess(this.otpVerifyResponse);
+}
+
+class ResetPasswordLoading extends AuthState {}

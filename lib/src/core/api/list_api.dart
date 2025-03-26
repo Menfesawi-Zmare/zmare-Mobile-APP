@@ -65,4 +65,13 @@ class ListAPI {
   static const String production = "/api/productions";
   //APP Settings
   static const String settings = "/api/settings";
+
+  //RequestReset
+  static const String requestReset = "/api/forgot-password";
+
+  //verify otp
+  static const String verifyOTP = "/api/verify-otp";
+
+  //reset Password
+  static const String resetPassword = "/api/reset-password";
 }

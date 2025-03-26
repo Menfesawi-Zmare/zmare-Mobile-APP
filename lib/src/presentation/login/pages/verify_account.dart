@@ -25,16 +25,26 @@ class VerifyAccount extends StatefulWidget {
 
 class _VerifyAccountState extends State<VerifyAccount> {
   void _launchEmailApp() async {
-    final Uri emailUri = Uri(
-      scheme: 'mailto',
-      //to: 'example@example.com', // Optional: pre-fill the "To" field
-      //subject: 'Subject', // Optional: pre-fill the subject
-      //body: 'Body', // Optional: pre-fill the body
-    );
-    if (await canLaunchUrl(emailUri)) {
-      await launchUrl(emailUri);
-    } else {
-      throw 'Could not launch email app';
+    try {
+      // For Android, we can use the mailto scheme
+      // For iOS, we should use the message:// scheme
+      final Uri emailUri = Uri(
+        scheme: Platform.isAndroid ? 'mailto' : 'message',
+      );
+
+      if (await canLaunchUrl(emailUri)) {
+        await launchUrl(emailUri);
+      } else {
+        // Fallback for devices that don't support the scheme
+        final fallbackUri = Uri(scheme: 'https', host: 'mail.google.com');
+        if (await canLaunchUrl(fallbackUri)) {
+          await launchUrl(fallbackUri);
+        } else {
+          context.showMaterialSnackBar("Could not open email app");
+        }
+      }
+    } catch (e) {
+      context.showMaterialSnackBar("Error opening email app: ${e.toString()}");
     }
   }
 
@@ -83,8 +93,9 @@ class _VerifyAccountState extends State<VerifyAccount> {
                 child: Text(
                   "We have sent you an email",
                   style: context.titleLarge?.copyWith(
+                      color: Colors.white70,
                       fontFamily: GoogleFonts.poppins().fontFamily,
-                      fontWeight: FontWeight.bold,
+                      fontWeight: FontWeight.w800,
                       fontSize: 20),
                 ),
               ),
@@ -108,7 +119,10 @@ class _VerifyAccountState extends State<VerifyAccount> {
                         TextSpan(
                             text:
                                 "Click on the email verification link sent to you on ",
-                            style: TextStyle(fontSize: 14)),
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: Colors.white70,
+                            )),
                         TextSpan(
                           text: widget.email!,
                           style: TextStyle(
@@ -119,6 +133,10 @@ class _VerifyAccountState extends State<VerifyAccount> {
                           ),
                         ),
                         TextSpan(
+                          style: TextStyle(
+                            color: const Color(0xB3FFFFFF),
+                            fontSize: 14,
+                          ),
                           text: ". \n Then click next.",
                         ),
                       ],
@@ -167,14 +185,14 @@ class _VerifyAccountState extends State<VerifyAccount> {
                         const TextSpan(
                           text: "Didn't receive an email? ",
                           style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.white60,
                           ),
                         ),
                         TextSpan(
-                          text: "Check your ",
+                          text: " Check your ",
                           style: TextStyle(
-                            color: Colors.white,
+                            color: Colors.white70,
                           ),
                         ),
                         TextSpan(
@@ -187,7 +205,7 @@ class _VerifyAccountState extends State<VerifyAccount> {
                         TextSpan(
                           text: " or ",
                           style: TextStyle(
-                            color: Colors.white,
+                            color: Colors.white70,
                           ),
                         ),
                         TextSpan(
@@ -200,17 +218,16 @@ class _VerifyAccountState extends State<VerifyAccount> {
                         TextSpan(
                           text: " folder. If it's not there, you can ",
                           style: TextStyle(
-                            color: Colors.white,
+                            color: Colors.white70,
                           ),
                         ),
                         TextSpan(
-                          text: "Resend",
+                          text: " Resend",
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            fontSize: 16,
+                            fontSize: 14,
                             color: context
                                 .primary, // Highlight the "resend" action
-                            decoration: TextDecoration.underline,
                           ),
                           recognizer: TapGestureRecognizer()
                             ..onTap = () {

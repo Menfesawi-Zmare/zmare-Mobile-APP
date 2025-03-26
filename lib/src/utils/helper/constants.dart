@@ -1,8 +1,9 @@
 import 'dart:ui';
 
-const String baseUrl = 'https://zmare.powerethio.com';
+// const String baseUrl = 'https://zmare.powerethio.com';
+const String baseUrl = 'http://192.168.100.199:8000';
 //Font
-const defaultFontName = 'Poppins';
+const defaultFontName = 'Kanit';
 const String androidNotificationChannelName = 'zmare';
 const String androidNotificationChannelId = 'com.zmare.pro';
 
@@ -115,6 +116,9 @@ const myMusicDetailPath = 'my-music-detail-path';
 const myMusicDetailName = 'my-music-detail-path';
 const downloadsPath = 'downloads';
 const recentlyPath = 'recently';
+const resetPassword = 'reset';
+const otpPath = 'otpPath';
+const resetPage = 'resetPage';
 const nowPlayingPath = 'now-playing';
 const searchPath = 'search';
 const searchName = 'search';

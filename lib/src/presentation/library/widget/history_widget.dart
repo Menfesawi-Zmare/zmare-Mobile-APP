@@ -43,12 +43,14 @@ class HistoryWidget extends StatelessWidget {
                     },
                     child: Text(context.loc.viewAll,
                         style: context.titleMedium?.copyWith(
-                            fontWeight: FontWeight.w400, color: Colors.blue)))
+                            fontWeight: FontWeight.w400,
+                            color: context.primary)))
                 : TextButton(
                     onPressed: () => context.pushNamed(recentlyPath),
                     child: Text(context.loc.view,
                         style: context.titleSmall!.copyWith(
-                            fontWeight: FontWeight.w400, color: Colors.blue))),
+                            fontWeight: FontWeight.w400,
+                            color: context.primary))),
           ),
           if (tracks.isNotEmpty)
             SizedBox(

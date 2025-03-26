@@ -23,7 +23,7 @@ abstract class IAuthRepository {
   Future<Either<Failure, RegisterResponse>> loginWithSocial(
       RegisterSocialRequest registerSocialRequest);
   Future<Either<Failure, RegisterResponse>> registerNormal(
-      String username, String password, String email);
+      String username, String confirmPassword, String password, String email);
   Future<Either<Failure, LoginResponse>> loginWithUsernameAndPassword(
       String username, String password);
   Future<Either<Failure, AuthProfile>> authProfile();
@@ -53,4 +53,9 @@ abstract class IAuthRepository {
   Future<Either<Failure, AppSetting>> appSettings();
   Future<Either<Failure, LogoutModel>> logout();
   Future<Either<Failure, ResendEmailModel>> resendEmail(String email);
+  Future<Either<Failure, RequestEmailResponse>> requestResetEmail(String email);
+  Future<Either<Failure, OtpVerifyResponse>> verifyOtp(
+      String otp, String email);
+  Future<Either<Failure, ResetPasswordResponse>> resetPassword(
+      String email, String password, String confirmPassword);
 }

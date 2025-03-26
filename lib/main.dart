@@ -1,16 +1,13 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_displaymode/flutter_displaymode.dart';
 import 'package:zmare/src/presentation/network/bloc/network_bloc.dart';
-import 'package:zmare/src/utils/services/firebase/firebase.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:zmare/src/app.dart';
 import 'package:zmare/src/service_locator.dart';
 import 'package:hive/hive.dart';
-
 import 'src/core/enum/box_types.dart';
 import 'src/utils/helper/local_notfication.dart';
 
@@ -31,17 +28,13 @@ Future<void> main() async {
     await setOptimalDisplayMode();
   }
 
-  // Get settings box
   final Box<dynamic> settings =
       getIt.get<Box<dynamic>>(instanceName: BoxType.settings.name);
 
-  // // Set up Firebase Messaging
-
-  // Run the app
   runApp(
     BlocProvider(
       create: (context) => NetworkBloc()..add(NetworkObserve()),
-      child: FlutterMusicPro(settings: settings), // Your main app widget
+      child: FlutterMusicPro(settings: settings),
     ),
   );
 }

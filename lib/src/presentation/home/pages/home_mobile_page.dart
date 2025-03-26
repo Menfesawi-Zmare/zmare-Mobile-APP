@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:zmare/src/presentation/widgets/mini_player.dart';
 import 'package:go_router/go_router.dart';
 import 'package:zmare/src/presentation/home/widgets/android_navigation.dart';
 import 'package:zmare/src/presentation/home/widgets/ios_navigation.dart';

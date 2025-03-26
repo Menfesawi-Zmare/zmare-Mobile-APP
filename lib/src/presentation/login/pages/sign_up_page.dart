@@ -30,9 +30,11 @@ class _SignUpPageState extends State<SignUpPage> {
   final AuthBloc authBloc = locator.get<AuthBloc>();
   final _formLogin = GlobalKey<FormState>();
   bool _showPassword = true;
+  bool _showConfirmPassword = true;
   bool acceptEULA = false;
   final userNameController = TextEditingController();
   final passwordController = TextEditingController();
+  final confirmPasswordController = TextEditingController();
   final emailController = TextEditingController();
   String? tos = settings.get(tosUrl, defaultValue: '');
   @override
@@ -46,6 +48,7 @@ class _SignUpPageState extends State<SignUpPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       appBar: context.materialYouAppBar(
         // context.loc.createAccount,
         "",
@@ -59,8 +62,11 @@ class _SignUpPageState extends State<SignUpPage> {
               context.show();
             }
             if (state is ValidFields) {
-              authBloc.add(SignUpRequestedEvent(userNameController.text,
-                  passwordController.text, emailController.text));
+              authBloc.add(SignUpRequestedEvent(
+                  userNameController.text,
+                  passwordController.text,
+                  confirmPasswordController.text,
+                  emailController.text));
             }
             if (state is RegisterNormalState) {
               context.dismiss();
@@ -238,6 +244,52 @@ class _SignUpPageState extends State<SignUpPage> {
                 ListTile(
                   dense: true,
                   minTileHeight: 20,
+                  contentPadding: EdgeInsets.zero,
+                  title: Text(
+                    context.loc.confirmPassword,
+                    style: context.titleMedium!
+                        .copyWith(fontWeight: FontWeight.w400, fontSize: 14),
+                  ),
+                ),
+                ZmareTextField(
+                  prefixIcon: Icon(
+                    FluentIcons.password_20_regular,
+                    size: 20,
+                  ),
+                  outlineInputBorder: true,
+                  floatingLabelBehavior: FloatingLabelBehavior.auto,
+                  enableSuggestions: false,
+                  autocorrect: false,
+                  controller: confirmPasswordController,
+                  obscureText: _showConfirmPassword,
+                  validator: (value) {
+                    if (value!.trim().isEmpty) {
+                      return context.loc.requiredPassword;
+                    } else if (value.length < 6) {
+                      return context.loc.requiredPasswordLength6;
+                    } else if (value.length > 15) {
+                      return context.loc.requiredPasswordLength15;
+                    } else {
+                      return null;
+                    }
+                  },
+                  suffixIcon: GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        _showConfirmPassword = !_showConfirmPassword;
+                      });
+                    },
+                    child: Icon(
+                      _showConfirmPassword
+                          ? Icons.visibility_off
+                          : Icons.visibility,
+                      size: 15,
+                    ),
+                  ),
+                ),
+                ListTile(
+                  dense: true,
+                  minTileHeight: 20,
                   trailing: BlocBuilder(
                     bloc: authBloc,
                     buildWhen: (old, current) =>
@@ -289,7 +341,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   ),
                 ),
                 const SizedBox(
-                  height: 20,
+                  height: 43,
                 ),
                 Center(
                   child: ElevatedButton(

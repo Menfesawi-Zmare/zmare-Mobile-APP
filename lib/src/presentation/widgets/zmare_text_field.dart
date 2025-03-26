@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class ZmareTextField extends StatelessWidget {
-  const ZmareTextField({
+  ZmareTextField({
     super.key,
     this.labelText = '',
     this.labelWidget,
@@ -34,8 +34,11 @@ class ZmareTextField extends StatelessWidget {
     this.fillColor,
     this.borderRadius = 12.0,
     this.enabled = true,
+    this.focusedBorder,
+    this.enabledBorder,
   });
-
+  OutlineInputBorder? focusedBorder;
+  OutlineInputBorder? enabledBorder;
   final bool obscureText;
   final bool enableSuggestions;
   final bool autocorrect;

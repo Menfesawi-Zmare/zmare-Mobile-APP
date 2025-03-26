@@ -14,10 +14,12 @@ class SignInRequestedEvent extends AuthEvent {
 
 class SignUpRequestedEvent extends AuthEvent {
   final String username;
+  final String confirmPassword;
   final String password;
   final String email;
 
-  SignUpRequestedEvent(this.username, this.password, this.email);
+  SignUpRequestedEvent(
+      this.username, this.confirmPassword, this.password, this.email);
 }
 
 class AppSettingsEvent extends AuthEvent {}
@@ -143,4 +145,22 @@ class DeleteAccountEvent extends AuthEvent {
 class ResendEmailEvent extends AuthEvent {
   final String email;
   ResendEmailEvent(this.email);
+}
+
+class RequestResetPassworEvent extends AuthEvent {
+  final String email;
+  RequestResetPassworEvent(this.email);
+}
+
+class VerifyOtpEvent extends AuthEvent {
+  final String otp;
+  final String email;
+  VerifyOtpEvent(this.email, this.otp);
+}
+
+class ResetPasswordEvent extends AuthEvent {
+  final String email;
+  final String password;
+  final String confirmPassword;
+  ResetPasswordEvent(this.email, this.password, this.confirmPassword);
 }
