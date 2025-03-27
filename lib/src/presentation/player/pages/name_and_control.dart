@@ -230,7 +230,7 @@ class NameNControls extends StatelessWidget {
                         IconButton(
                           onPressed: openPlayList,
                           icon: const Icon(
-                            Icons.queue_music_outlined,
+                            Icons.list,
                             size: 25,
                           ),
                         ),
@@ -577,7 +577,7 @@ class NameNControls extends StatelessWidget {
                               },
                             );
                           },
-                          icon: const Icon(FluentIcons.sleep_20_regular),
+                          icon: const Icon(Icons.nightlight_round_outlined),
                           color: Theme.of(context).colorScheme.secondary,
                         ),
                         // if (audioHandler.mediaItem.value!.artUri
@@ -640,9 +640,9 @@ class NameNControls extends StatelessWidget {
         sleepCounter(
           int.parse(value),
         );
-        context.pop();
         context.showMaterialSnackBar(
             '${context.loc.sleepTimerSetFor} $value ${context.loc.songs}');
+        context.pop();
       },
     );
   }
@@ -693,7 +693,7 @@ class NameNControls extends StatelessWidget {
                     textTheme: CupertinoTextThemeData(
                       dateTimePickerTextStyle: TextStyle(
                         fontSize: 16,
-                        color: Theme.of(context).colorScheme.secondary,
+                        color: Theme.of(context).colorScheme.onSurface,
                       ),
                     ),
                   ),

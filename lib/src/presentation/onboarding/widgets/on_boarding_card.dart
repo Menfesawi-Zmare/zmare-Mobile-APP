@@ -17,7 +17,7 @@ class OnBoardingCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width - 40,
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.all(16),
       // margin: const EdgeInsets.only(top: 60),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),

@@ -29,45 +29,45 @@ class SongListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-        contentPadding: const EdgeInsets.only(left: 16),
-        minVerticalPadding: 8.0,
-        leading: Container(
-            height: 56,
-            width: 56,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(11),
-            ),
-            child: offline
-                ? ClipRRect(
-                    borderRadius: BorderRadius.circular(11),
-                    child: Image(
-                      fit: BoxFit.cover,
-                      image: FileImage(
-                        File(
-                          song.artUri!.toFilePath(),
-                        ),
+      contentPadding: const EdgeInsets.only(left: 16),
+      minVerticalPadding: 8.0,
+      leading: Container(
+          height: 56,
+          width: 56,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(11),
+          ),
+          child: offline
+              ? ClipRRect(
+                  borderRadius: BorderRadius.circular(11),
+                  child: Image(
+                    fit: BoxFit.cover,
+                    image: FileImage(
+                      File(
+                        song.artUri!.toFilePath(),
                       ),
-                      errorBuilder: (context, exception, stackTrace) {
-                        return const Image(
-                          fit: BoxFit.cover,
-                          image: AssetImage(Images.defalutCover),
-                        );
-                      },
                     ),
-                  )
-                : ClipRRect(
-                    borderRadius: BorderRadius.circular(11),
-                    child: ZmareImage(
-                      imageUrl: song.artUri.toString(),
-                      placeholderImage: Images.defalutSongCover,
-                    ),
-                  )),
-        title: ZmareTitle(song.title),
-        subtitle: ZmareSubTitle('${song.artist} • ${song.album}'),
-        onTap: () => onTap(),
-        tileColor: highlight
-            ? context.colorScheme.secondaryContainer
-            : Colors.transparent,
-        trailing: trailingWidget);
+                    errorBuilder: (context, exception, stackTrace) {
+                      return const Image(
+                        fit: BoxFit.cover,
+                        image: AssetImage(Images.defalutCover),
+                      );
+                    },
+                  ),
+                )
+              : ClipRRect(
+                  borderRadius: BorderRadius.circular(11),
+                  child: ZmareImage(
+                    imageUrl: song.artUri.toString(),
+                    placeholderImage: Images.defalutSongCover,
+                  ),
+                )),
+      title: ZmareTitle(song.title),
+      subtitle: ZmareSubTitle('${song.artist} • ${song.album}'),
+      onTap: () => onTap(),
+      // tileColor:
+      //     highlight ? context.colorScheme.surfaceVariant : Colors.transparent,
+      trailing: trailingWidget,
+    );
   }
 }

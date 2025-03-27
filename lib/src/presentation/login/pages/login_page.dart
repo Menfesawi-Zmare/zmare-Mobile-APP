@@ -60,7 +60,7 @@ class _LoginPageState extends State<LoginPage> {
           child: Form(
             key: _formLogin,
             child: ListView(
-              physics: const NeverScrollableScrollPhysics(),
+              // physics: const NeverScrollableScrollPhysics(),
               padding: const EdgeInsets.symmetric(horizontal: 16),
               children: [
                 SizedBox(

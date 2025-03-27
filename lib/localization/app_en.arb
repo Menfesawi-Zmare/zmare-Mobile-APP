@@ -630,7 +630,7 @@
     "checkOutOurFacebook" : "Check out our facebook",
     "checkOutOurTwitter" : "Check out our Tiktok",
     "checkOutOurInstagram" : "Check out our instagram",
-    "checkOutOurYoutube" : "Check out our youtube",
+    "checkOutOurYoutube" : "Check out our website",
     "colorsUI": "Colors & UI",
     "@colorsUI": {
         "description": "Text shown on the section title on settings screen",

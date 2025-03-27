@@ -59,6 +59,14 @@ class _IntroPageState extends State<IntroPage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    final settings = locator.get<Box<dynamic>>(
+      instanceName: BoxType.settings.name,
+    );
+
+    final currentTheme = ThemeMode.values[locator
+        .get<Box<dynamic>>(instanceName: BoxType.settings.name)
+        .get(themeModeKey, defaultValue: 0)];
+    final appTagline = settings.get(tagline, defaultValue: null);
     return BlocProvider(
       create: (context) => authBloc,
       child: BlocListener(
@@ -83,20 +91,6 @@ class _IntroPageState extends State<IntroPage> with TickerProviderStateMixin {
         },
         child: Scaffold(
           extendBody: true,
-          // extendBodyBehindAppBar: widget.showBackButton ? true : false,
-          // appBar: AppBar(
-          //     backgroundColor: Colors.transparent,
-          //     toolbarHeight: widget.showBackButton ? null : 0,
-          //     leading: widget.showBackButton
-          //         ? IconButton(
-          //             color: Theme.of(context).colorScheme.primary,
-          //             onPressed: () {
-          //               context.pop();
-          //             },
-          //             icon: Icon(Platform.isIOS
-          //                 ? Icons.arrow_back_ios
-          //                 : Icons.arrow_back))
-          //         : null),
           body: VisibilityDetector(
             key: const Key('intro_page_video'),
             onVisibilityChanged: (visibilityInfo) {
@@ -134,406 +128,537 @@ class _IntroPageState extends State<IntroPage> with TickerProviderStateMixin {
                   Container(
                     color: context.colorScheme.onPrimary.withOpacity(0.6),
                   ),
-                  // Positioned(
-                  //     top: 20,
-                  //     child: IconButton(
-                  //         color: Theme.of(context).colorScheme.primary,
-                  //         onPressed: () {
-                  //           context.pop();
-                  //         },
-                  //         icon: Icon(Platform.isIOS
-                  //             ? Icons.arrow_back_ios
-                  //             : Icons.arrow_back))),
-                  SizedBox(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        SizedBox(
-                          height: 160,
-                        ),
-                        Center(
-                            child: SvgPicture.asset(
-                          Images.zmareIconWhite,
-                          width: 150.0,
-                          height: 140.0,
-                        )),
-                        Padding(
-                          padding: const EdgeInsets.only(
-                              left: 16, top: 20, right: 16, bottom: 8),
-                          child: Text(
-                            context.loc.appTitle,
-                            textAlign: TextAlign.center,
-                            style: context.headlineMedium?.copyWith(
-                                color: Palette.white,
-                                fontSize: 44,
-                                fontFamily: 'Hidase',
-                                fontWeight: FontWeight.w900),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 40,
-                          ),
-                          child: Text(context.loc.appDescription,
-                              style: context.titleMedium
-                                  ?.copyWith(color: Palette.white),
-                              textAlign: TextAlign.center),
-                        ),
-                        SizedBox(
-                          height: 40,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 20,
-                          ),
-                          child: Row(
-                            children: [
-                              Expanded(
-                                flex: 1,
-                                child: TextButton(
-                                  onPressed: () {
-                                    context.pushNamed(signUpName);
-                                  },
-                                  style: ButtonStyle(
-                                    padding: WidgetStateProperty.all<
-                                        EdgeInsetsGeometry>(
-                                      const EdgeInsets.only(
-                                          top: 12, bottom: 12),
-                                    ),
-                                    backgroundColor: WidgetStatePropertyAll(
-                                        context.primaryContainer),
-                                    shape:
-                                        WidgetStateProperty.all<OutlinedBorder>(
-                                      RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(25.0),
-                                        side: BorderSide(
-                                          color: context.primary,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  child: Text(context.loc.signUp,
-                                      style: context.titleMedium?.copyWith(
-                                          color: Palette.white,
-                                          fontWeight: FontWeight.bold)),
-                                ),
-                              ),
-                              SizedBox(
-                                width: 10,
-                              ),
-                              Expanded(
-                                flex: 1,
-                                child: TextButton(
-                                  onPressed: () {
-                                    context.pushNamed(signInName);
-                                  },
-                                  style: ButtonStyle(
-                                    padding: WidgetStateProperty.all<
-                                        EdgeInsetsGeometry>(
-                                      const EdgeInsets.only(
-                                          top: 12, bottom: 12),
-                                    ),
-                                    shape:
-                                        WidgetStateProperty.all<OutlinedBorder>(
-                                      RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(25.0),
-                                        side: BorderSide(
-                                          color: Palette.white,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  child: Text(context.loc.login,
-                                      style: context.titleMedium?.copyWith(
-                                          color: Palette.white,
-                                          fontWeight: FontWeight.bold)),
-                                ),
-                              ),
-
-                              // Padding(
-                              //   padding: const EdgeInsets.only(
-                              //       right: 20.0, left: 20.0, bottom: 10),
-                              //   child: TextButton(
-                              //       onPressed: () => context.pushNamed(signInName),
-                              //       child: Text(context.loc.login,
-                              //           style: context.titleMedium?.copyWith(
-                              //               color: context.onSurface,
-                              //               fontWeight: FontWeight.bold))),
-                              // ),
-                            ],
-                          ),
-                        ),
-
-                        Column(
-                          children: [
-                            SizedBox(
-                              height: 100,
-                            ),
-                            Text(
-                              "Or via in social media",
-                              style: context.bodyMedium
-                                  ?.copyWith(fontWeight: FontWeight.w600),
-                            ),
-                            SizedBox(
-                              height: 15,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                SizedBox(
-                                  height: 50,
-                                  width: 50,
-                                  child: Center(
-                                    child: ElevatedButton(
-                                      style: ElevatedButton.styleFrom(
-                                        padding: const EdgeInsets.symmetric(
-                                            vertical: 12),
-                                        backgroundColor: Colors.transparent,
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(10.0),
-                                          side: BorderSide(
-                                            color: context.primary,
-                                          ),
-                                        ),
-                                      ),
-                                      onPressed: () async {
-                                        setState(() {
-                                          isLoading = true;
-                                        });
-                                        FirebaseService service =
-                                            FirebaseService();
-                                        try {
-                                          UserCredential? userCredential =
-                                              await service.signInwithGoogle();
-
-                                          if (userCredential != null) {
-                                            print(
-                                                "user:${userCredential.user}");
-                                            authBloc.add(LoginWithSocial(
-                                                RegisterSocialRequest(
-                                                    firstName: userCredential
-                                                        .user!.displayName,
-                                                    lastName: '',
-                                                    username: '',
-                                                    email: userCredential
-                                                        .user!.email!,
-                                                    image: userCredential
-                                                        .user!.photoURL!
-                                                        .replaceAll(
-                                                            's96-c', 's1024-c'),
-                                                    type: LoginType
-                                                        .google.name)));
-                                          }
-                                        } catch (e) {
-                                          if (e is FirebaseAuthException) {
-                                            context.showMaterialSnackBar(
-                                                e.message!);
-                                          }
-                                          GoogleSignIn().signOut();
-                                          print("error$e");
-                                          context.showMaterialSnackBar(
-                                              "Try again later please!");
-                                        }
-                                        setState(() {
-                                          isLoading = false;
-                                        });
-                                      },
-                                      child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Align(
-                                              alignment: Alignment.center,
-                                              child: Image.asset(
-                                                Images.gmailIcon,
-                                                height: 24,
-                                                width: 24,
-                                              ),
-                                            ),
-                                            // SizedBox(
-                                            //   width: 20,
-                                            // ),
-                                            // Align(
-                                            //   alignment: Alignment.center,
-                                            //   child: Text(
-                                            //     context.loc.continueWithGmail,
-                                            //     textAlign: TextAlign.center,
-                                            //     style: context.titleMedium?.copyWith(
-                                            //         color: context.onSurface,
-                                            //         fontWeight: FontWeight.bold),
-                                            //   ),
-                                            // ),
-                                          ]),
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                if (Platform.isIOS)
-                                  SizedBox(
-                                    height: 50,
-                                    width: 50,
-                                    child: ElevatedButton(
-                                      style: ElevatedButton.styleFrom(
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(10.0),
-                                            side: BorderSide(
-                                              color: context.primary,
-                                            ),
-                                          ),
-                                          padding: const EdgeInsets.symmetric(
-                                              vertical: 12),
-                                          backgroundColor: Colors.transparent),
-                                      onPressed: () async {
-                                        setState(() {
-                                          isLoading = true;
-                                        });
-                                        FirebaseService service =
-                                            FirebaseService();
-                                        try {
-                                          UserCredential? userCredential =
-                                              await service.signInWithApple();
-                                          if (userCredential != null) {
-                                            authBloc.add(LoginWithSocial(
-                                                RegisterSocialRequest(
-                                                    firstName: userCredential
-                                                        .user!.displayName,
-                                                    lastName: '',
-                                                    username: '',
-                                                    email: userCredential
-                                                        .user!.email!,
-                                                    image: '',
-                                                    type:
-                                                        LoginType.apple.name)));
-                                          }
-                                        } catch (e) {
-                                          if (e is FirebaseAuthException) {
-                                            context.showMaterialSnackBar(
-                                                e.message!);
-                                          }
-                                          GoogleSignIn().signOut();
-                                          context.showMaterialSnackBar(
-                                              context.loc.pleaseTryAgain);
-                                        }
-                                        setState(() {
-                                          isLoading = false;
-                                        });
-                                      },
-                                      child: Stack(children: [
-                                        Align(
-                                          alignment: Alignment.center,
-                                          child: Image.asset(
-                                            Images.appleIcon,
-                                            height: 24,
-                                            width: 24,
-                                          ),
-                                        ),
-                                        // Align(
-                                        //   alignment: Alignment.center,
-                                        //   child: Text(
-                                        //     context.loc.continueWithApple,
-                                        //     textAlign: TextAlign.center,
-                                        //     style: context.titleMedium?.copyWith(
-                                        //         color: context.colorScheme.surface,
-                                        //         fontWeight: FontWeight.bold),
-                                        //   ),
-                                        // ),
-                                      ]),
-                                    ),
-                                  ),
-                              ],
-                            ),
-                          ],
-                        ),
-                        // if (Platform.isIOS)
-                        // Padding(
-                        //   padding: const EdgeInsets.only(
-                        //       right: 20.0, left: 20.0, bottom: 10),
-                        //   child: ElevatedButton(
-                        //     style: ElevatedButton.styleFrom(
-                        //         padding: const EdgeInsets.symmetric(vertical: 12),
-                        //         backgroundColor:
-                        //             Theme.of(context).colorScheme.onSurface),
-                        //     onPressed: () async {
-                        //       setState(() {
-                        //         isLoading = true;
-                        //       });
-                        //       FirebaseService service = FirebaseService();
-                        //       try {
-                        //         UserCredential? userCredential =
-                        //             await service.signInWithApple();
-                        //         if (userCredential != null) {
-                        //           authBloc.add(LoginWithSocial(
-                        //               RegisterSocialRequest(
-                        //                   firstName:
-                        //                       userCredential.user!.displayName,
-                        //                   lastName: '',
-                        //                   username: '',
-                        //                   email: userCredential.user!.email!,
-                        //                   image: '',
-                        //                   type: LoginType.apple.name)));
-                        //         }
-                        //       } catch (e) {
-                        //         if (e is FirebaseAuthException) {
-                        //           context.showMaterialSnackBar(e.message!);
-                        //         }
-                        //         GoogleSignIn().signOut();
-                        //         context.showMaterialSnackBar(
-                        //             context.loc.pleaseTryAgain);
-                        //       }
-                        //       setState(() {
-                        //         isLoading = false;
-                        //       });
-                        //     },
-                        //     child: Stack(children: [
-                        //       Align(
-                        //         alignment: Alignment.centerLeft,
-                        //         child: Padding(
-                        //           padding: const EdgeInsets.only(left: 16),
-                        //           child: Image.asset(
-                        //             Images.appleIcon,
-                        //             height: 24,
-                        //             width: 24,
-                        //           ),
-                        //         ),
-                        //       ),
-                        //       Align(
-                        //         alignment: Alignment.center,
-                        //         child: Text(
-                        //           context.loc.continueWithApple,
-                        //           textAlign: TextAlign.center,
-                        //           style: context.titleMedium?.copyWith(
-                        //               color: context.colorScheme.surface,
-                        //               fontWeight: FontWeight.bold),
-                        //         ),
-                        //       ),
-                        //     ]),
-                        //   ),
-                        // ),
-                        // // Padding(
-                        //   padding: const EdgeInsets.only(
-                        //       right: 20.0, left: 20.0, bottom: 10),
-                        //   child: TextButton(
-                        //       onPressed: () => context.pushNamed(signInName),
-                        //       child: Text(context.loc.login,
-                        //           style: context.titleMedium?.copyWith(
-                        //               color: context.onSurface,
-                        //               fontWeight: FontWeight.bold))),
-                        // ),
-                      ],
-                    ),
-                  ),
+                  LayoutBuilder(
+                    builder: (context, constraints) {
+                      if (constraints.maxWidth > 700) {
+                        return landscapeView(context, appTagline);
+                      } else {
+                        return portraitView(context, appTagline);
+                      }
+                    },
+                  )
                 ],
               ),
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  Widget portraitView(BuildContext context, String? appTagline) {
+    return SizedBox(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          SizedBox(
+            height: 160,
+          ),
+          Center(
+              child: SvgPicture.asset(
+            Images.zmareIconWhite,
+            width: 150.0,
+            height: 140.0,
+          )),
+          Padding(
+            padding:
+                const EdgeInsets.only(left: 16, top: 20, right: 16, bottom: 8),
+            child: Text(
+              context.loc.appTitle,
+              textAlign: TextAlign.center,
+              style: context.headlineMedium?.copyWith(
+                  color: Palette.white,
+                  fontSize: 44,
+                  fontFamily: 'Hidase',
+                  fontWeight: FontWeight.w900),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 40,
+            ),
+            child: Text(appTagline!,
+                style: context.titleMedium?.copyWith(color: Palette.white),
+                textAlign: TextAlign.center),
+          ),
+          SizedBox(
+            height: 40,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 20,
+            ),
+            child: Row(
+              children: [
+                Expanded(
+                  flex: 1,
+                  child: TextButton(
+                    onPressed: () {
+                      context.pushNamed(signUpName);
+                    },
+                    style: ButtonStyle(
+                      padding: WidgetStateProperty.all<EdgeInsetsGeometry>(
+                        const EdgeInsets.only(top: 12, bottom: 12),
+                      ),
+                      backgroundColor:
+                          WidgetStatePropertyAll(context.primaryContainer),
+                      shape: WidgetStateProperty.all<OutlinedBorder>(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(25.0),
+                          side: BorderSide(
+                            color: context.primary,
+                          ),
+                        ),
+                      ),
+                    ),
+                    child: Text(context.loc.signUp,
+                        style: context.titleMedium?.copyWith(
+                            color: Palette.white, fontWeight: FontWeight.bold)),
+                  ),
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                Expanded(
+                  flex: 1,
+                  child: TextButton(
+                    onPressed: () {
+                      context.pushNamed(signInName);
+                    },
+                    style: ButtonStyle(
+                      padding: WidgetStateProperty.all<EdgeInsetsGeometry>(
+                        const EdgeInsets.only(top: 12, bottom: 12),
+                      ),
+                      shape: WidgetStateProperty.all<OutlinedBorder>(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(25.0),
+                          side: BorderSide(
+                            color: Palette.white,
+                          ),
+                        ),
+                      ),
+                    ),
+                    child: Text(context.loc.login,
+                        style: context.titleMedium?.copyWith(
+                            color: Palette.white, fontWeight: FontWeight.bold)),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Column(
+            children: [
+              SizedBox(
+                height: 100,
+              ),
+              Text(
+                "Or via in social media",
+                style:
+                    context.bodyMedium?.copyWith(fontWeight: FontWeight.w600),
+              ),
+              SizedBox(
+                height: 15,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    height: 50,
+                    width: 50,
+                    child: Center(
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(vertical: 12),
+                          backgroundColor: Colors.transparent,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                            side: BorderSide(
+                              color: context.primary,
+                            ),
+                          ),
+                        ),
+                        onPressed: () async {
+                          setState(() {
+                            isLoading = true;
+                          });
+                          FirebaseService service = FirebaseService();
+                          try {
+                            UserCredential? userCredential =
+                                await service.signInwithGoogle();
+
+                            if (userCredential != null) {
+                              print("user:${userCredential.user}");
+                              authBloc.add(LoginWithSocial(
+                                  RegisterSocialRequest(
+                                      firstName:
+                                          userCredential.user!.displayName,
+                                      lastName: '',
+                                      username: '',
+                                      email: userCredential.user!.email!,
+                                      image: userCredential.user!.photoURL!
+                                          .replaceAll('s96-c', 's1024-c'),
+                                      type: LoginType.google.name)));
+                            }
+                          } catch (e) {
+                            if (e is FirebaseAuthException) {
+                              context.showMaterialSnackBar(e.message!);
+                            }
+                            GoogleSignIn().signOut();
+                            print("error$e");
+                            context.showMaterialSnackBar(
+                                "Try again later please!");
+                          }
+                          setState(() {
+                            isLoading = false;
+                          });
+                        },
+                        child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Align(
+                                alignment: Alignment.center,
+                                child: Image.asset(
+                                  Images.gmailIcon,
+                                  height: 24,
+                                  width: 24,
+                                ),
+                              ),
+                            ]),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  if (Platform.isIOS)
+                    SizedBox(
+                      height: 50,
+                      width: 50,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                              side: BorderSide(
+                                color: context.primary,
+                              ),
+                            ),
+                            padding: const EdgeInsets.symmetric(vertical: 12),
+                            backgroundColor: Colors.transparent),
+                        onPressed: () async {
+                          setState(() {
+                            isLoading = true;
+                          });
+                          FirebaseService service = FirebaseService();
+                          try {
+                            UserCredential? userCredential =
+                                await service.signInWithApple();
+                            if (userCredential != null) {
+                              authBloc.add(LoginWithSocial(
+                                  RegisterSocialRequest(
+                                      firstName:
+                                          userCredential.user!.displayName,
+                                      lastName: '',
+                                      username: '',
+                                      email: userCredential.user!.email!,
+                                      image: '',
+                                      type: LoginType.apple.name)));
+                            }
+                          } catch (e) {
+                            if (e is FirebaseAuthException) {
+                              context.showMaterialSnackBar(e.message!);
+                            }
+                            GoogleSignIn().signOut();
+                            context.showMaterialSnackBar(
+                                context.loc.pleaseTryAgain);
+                          }
+                          setState(() {
+                            isLoading = false;
+                          });
+                        },
+                        child: Stack(children: [
+                          Align(
+                            alignment: Alignment.center,
+                            child: Image.asset(
+                              Images.appleIcon,
+                              height: 24,
+                              width: 24,
+                            ),
+                          ),
+                        ]),
+                      ),
+                    ),
+                ],
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget landscapeView(BuildContext context, String? appTagline) {
+    return SizedBox(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Column(
+            children: [
+              // SizedBox(
+              //   height: 160,
+              // ),
+              Center(
+                  child: SvgPicture.asset(
+                Images.zmareIconWhite,
+                width: 130.0,
+                height: 110.0,
+              )),
+              Padding(
+                padding: const EdgeInsets.only(
+                    left: 16, top: 20, right: 16, bottom: 6),
+                child: Text(
+                  context.loc.appTitle,
+                  textAlign: TextAlign.center,
+                  style: context.headlineMedium?.copyWith(
+                      color: Palette.white,
+                      fontSize: 40,
+                      fontFamily: 'Hidase',
+                      fontWeight: FontWeight.w900),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 40,
+                ),
+                child: Text(appTagline!.toString(),
+                    style: context.titleMedium?.copyWith(color: Palette.white),
+                    textAlign: TextAlign.center),
+              ),
+              SizedBox(
+                height: 40,
+              ),
+            ],
+          ),
+          SizedBox(
+            width: 350,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                SizedBox(
+                  height: 50,
+                  child: Expanded(
+                    flex: 1,
+                    child: TextButton(
+                      onPressed: () {
+                        context.pushNamed(signUpName);
+                      },
+                      style: ButtonStyle(
+                        padding: WidgetStateProperty.all<EdgeInsetsGeometry>(
+                          const EdgeInsets.only(top: 12, bottom: 12),
+                        ),
+                        backgroundColor:
+                            WidgetStatePropertyAll(context.primaryContainer),
+                        shape: WidgetStateProperty.all<OutlinedBorder>(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(25.0),
+                            side: BorderSide(
+                              color: context.primary,
+                            ),
+                          ),
+                        ),
+                      ),
+                      child: Text(context.loc.signUp,
+                          style: context.titleMedium?.copyWith(
+                              color: Palette.white,
+                              fontWeight: FontWeight.bold)),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                SizedBox(
+                  height: 50,
+                  child: Expanded(
+                    flex: 1,
+                    child: TextButton(
+                      onPressed: () {
+                        context.pushNamed(signInName);
+                      },
+                      style: ButtonStyle(
+                        padding: WidgetStateProperty.all<EdgeInsetsGeometry>(
+                          const EdgeInsets.only(top: 12, bottom: 12),
+                        ),
+                        shape: WidgetStateProperty.all<OutlinedBorder>(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(25.0),
+                            side: BorderSide(
+                              color: Palette.white,
+                            ),
+                          ),
+                        ),
+                      ),
+                      child: Text(context.loc.login,
+                          style: context.titleMedium?.copyWith(
+                              color: Palette.white,
+                              fontWeight: FontWeight.bold)),
+                    ),
+                  ),
+                ),
+                Column(
+                  children: [
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Text(
+                      "Or via in social media",
+                      style: context.bodyMedium
+                          ?.copyWith(fontWeight: FontWeight.w600),
+                    ),
+                    SizedBox(
+                      height: 15,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          height: 50,
+                          width: 50,
+                          child: Center(
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 12),
+                                backgroundColor: Colors.transparent,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  side: BorderSide(
+                                    color: context.primary,
+                                  ),
+                                ),
+                              ),
+                              onPressed: () async {
+                                setState(() {
+                                  isLoading = true;
+                                });
+                                FirebaseService service = FirebaseService();
+                                try {
+                                  UserCredential? userCredential =
+                                      await service.signInwithGoogle();
+
+                                  if (userCredential != null) {
+                                    print("user:${userCredential.user}");
+                                    authBloc.add(LoginWithSocial(
+                                        RegisterSocialRequest(
+                                            firstName: userCredential
+                                                .user!.displayName,
+                                            lastName: '',
+                                            username: '',
+                                            email: userCredential.user!.email!,
+                                            image: userCredential
+                                                .user!.photoURL!
+                                                .replaceAll('s96-c', 's1024-c'),
+                                            type: LoginType.google.name)));
+                                  }
+                                } catch (e) {
+                                  if (e is FirebaseAuthException) {
+                                    context.showMaterialSnackBar(e.message!);
+                                  }
+                                  GoogleSignIn().signOut();
+                                  print("error$e");
+                                  context.showMaterialSnackBar(
+                                      "Try again later please!");
+                                }
+                                setState(() {
+                                  isLoading = false;
+                                });
+                              },
+                              child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Align(
+                                      alignment: Alignment.center,
+                                      child: Image.asset(
+                                        Images.gmailIcon,
+                                        height: 24,
+                                        width: 24,
+                                      ),
+                                    ),
+                                  ]),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        if (Platform.isIOS)
+                          SizedBox(
+                            height: 50,
+                            width: 50,
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    side: BorderSide(
+                                      color: context.primary,
+                                    ),
+                                  ),
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 12),
+                                  backgroundColor: Colors.transparent),
+                              onPressed: () async {
+                                setState(() {
+                                  isLoading = true;
+                                });
+                                FirebaseService service = FirebaseService();
+                                try {
+                                  UserCredential? userCredential =
+                                      await service.signInWithApple();
+                                  if (userCredential != null) {
+                                    authBloc.add(LoginWithSocial(
+                                        RegisterSocialRequest(
+                                            firstName: userCredential
+                                                .user!.displayName,
+                                            lastName: '',
+                                            username: '',
+                                            email: userCredential.user!.email!,
+                                            image: '',
+                                            type: LoginType.apple.name)));
+                                  }
+                                } catch (e) {
+                                  if (e is FirebaseAuthException) {
+                                    context.showMaterialSnackBar(e.message!);
+                                  }
+                                  GoogleSignIn().signOut();
+                                  context.showMaterialSnackBar(
+                                      context.loc.pleaseTryAgain);
+                                }
+                                setState(() {
+                                  isLoading = false;
+                                });
+                              },
+                              child: Stack(children: [
+                                Align(
+                                  alignment: Alignment.center,
+                                  child: Image.asset(
+                                    Images.appleIcon,
+                                    height: 24,
+                                    width: 24,
+                                  ),
+                                ),
+                              ]),
+                            ),
+                          ),
+                      ],
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }

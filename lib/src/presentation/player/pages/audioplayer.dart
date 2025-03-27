@@ -238,7 +238,7 @@ class _PlayScreenState extends State<PlayScreen>
                                   return mediaItem == null
                                       ? const SizedBox()
                                       : NowPlayingStream(
-                                          scrollController: _scrollController,
+                                          // scrollController: _scrollController,
                                           audioHandler: audioHandler,
                                         );
                                 },
@@ -294,7 +294,7 @@ class _PlayScreenState extends State<PlayScreen>
                                   return mediaItem == null
                                       ? const SizedBox()
                                       : NowPlayingStream(
-                                          scrollController: _scrollController,
+                                          // scrollController: _scrollController,
                                           audioHandler: audioHandler,
                                         );
                                 },

@@ -8,14 +8,14 @@ import 'package:zmare/src/utils/helper/mediaitem_converter.dart';
 
 class NowPlayingStream extends StatelessWidget {
   final AudioPlayerHandler audioHandler;
-  final ScrollController? scrollController;
+  // final ScrollController? scrollController;
   final bool head;
   final double headHeight;
 
   const NowPlayingStream({
     super.key,
     required this.audioHandler,
-    this.scrollController,
+    // this.scrollController,
     this.head = false,
     this.headHeight = 50,
   });
@@ -26,24 +26,24 @@ class NowPlayingStream extends StatelessWidget {
     int queuePosition,
     int queueLength,
   ) {
-    if (queuePosition > 3) {
-      scrollController?.animateTo(
-        itemIndex * 72,
-        curve: Curves.linear,
-        duration: const Duration(
-          milliseconds: 350,
-        ),
-      );
-    } else if (queuePosition < 10 && queueLength > 10) {
-      scrollController?.animateTo(
-        (queueLength - 10) * 72,
-        curve: Curves.linear,
-        duration: const Duration(
-          milliseconds: 350,
-        ),
-      );
-      return;
-    }
+    // if (queuePosition > 3) {
+    //   scrollController?.animateTo(
+    //     itemIndex * 72,
+    //     curve: Curves.linear,
+    //     duration: const Duration(
+    //       milliseconds: 350,
+    //     ),
+    //   );
+    // } else if (queuePosition < 10 && queueLength > 10) {
+    //   scrollController?.animateTo(
+    //     (queueLength - 10) * 72,
+    //     curve: Curves.linear,
+    //     duration: const Duration(
+    //       milliseconds: 350,
+    //     ),
+    //   );
+    //   return;
+    // }
     return;
   }
 
@@ -56,14 +56,14 @@ class NowPlayingStream extends StatelessWidget {
         final queue = queueState.queue;
         final int queueStateIndex = queueState.queueIndex ?? 0;
         final num queuePosition = queue.length - queueStateIndex;
-        WidgetsBinding.instance.addPostFrameCallback(
-          (_) => _updateScrollController(
-            scrollController,
-            queueState.queueIndex ?? 0,
-            queuePosition.toInt(),
-            queue.length,
-          ),
-        );
+        // WidgetsBinding.instance.addPostFrameCallback(
+        //   (_) => _updateScrollController(
+        //     // scrollController,
+        //     queueState.queueIndex ?? 0,
+        //     queuePosition.toInt(),
+        //     queue.length,
+        //   ),
+        // );
         return ReorderableListView.builder(
           padding:
               const EdgeInsets.only(bottom: kBottomNavigationBarHeight + 60),
@@ -76,7 +76,7 @@ class NowPlayingStream extends StatelessWidget {
             }
             audioHandler.moveQueueItem(oldIndex, newIndex);
           },
-          scrollController: scrollController,
+          // scrollController: scrollController,
           physics: const BouncingScrollPhysics(),
           shrinkWrap: true,
           itemCount: queue.length,

@@ -39,10 +39,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       data.fold(
         (l) {
           if (l is ServerFailure) {
+            print("fetched data from l:$l.");
             emit(Failure(l.message ?? ''));
           }
         },
         (r) {
+          print("fetched data from r:${r.data}");
           settings.put(loginType, LoginType.google.name);
           settings.put(accessToken, r.data!.token);
           settings.put(userIntroKey, true);
@@ -437,6 +439,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           emit(Failure(l.message ?? ""));
         }
       }, (r) {
+        settings.put(tagline, r.tagline);
         settings.put(explorerPerPage, r.ePerPage);
         settings.put(facebookUrl, r.facebook);
         settings.put(youtubeUrl, r.youtube);

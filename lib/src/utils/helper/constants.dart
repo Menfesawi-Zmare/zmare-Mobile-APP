@@ -27,6 +27,7 @@ const String accountDetail = 'account_detail';
 const String loginType = 'login_type';
 //API App Settings
 const String explorerPerPage = 'key_e_per_page';
+const String tagline = 'key_tagline';
 const String facebookUrl = 'key_facebook';
 const String youtubeUrl = 'key_youtube';
 const String telegramUrl = 'key_telegram';

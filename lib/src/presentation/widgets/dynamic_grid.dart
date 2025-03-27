@@ -219,10 +219,13 @@ class DynamicGrid extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(title,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: context.titleMedium),
+                  SizedBox(
+                    width: 115,
+                    child: Text(title,
+                        // maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: context.titleMedium),
+                  ),
                   Icon(
                     Icons.arrow_circle_right_outlined,
                     color: Theme.of(context).colorScheme.surface,
@@ -315,12 +318,14 @@ class DynamicGrid extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-            child: Text(title,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                textAlign: TextAlign.left,
-                style: context.bodyLarge
-                    ?.copyWith(color: context.colorScheme.onSurface)),
+            child: Text(
+              title,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              textAlign: TextAlign.left,
+              style: context.bodyLarge
+                  ?.copyWith(color: context.colorScheme.onSurface),
+            ),
           ),
         ],
       ),

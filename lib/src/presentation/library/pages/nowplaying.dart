@@ -64,7 +64,7 @@ class _NowPlayingState extends State<NowPlaying> {
                       return mediaItem == null
                           ? const SizedBox()
                           : NowPlayingStream(
-                              scrollController: _scrollController,
+                              // scrollController: _scrollController,
                               audioHandler: audioHandler,
                             );
                     },

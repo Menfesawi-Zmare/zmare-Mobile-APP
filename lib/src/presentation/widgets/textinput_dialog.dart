@@ -50,7 +50,7 @@ Future<void> showTextInputDialog({
                   maxLine: 5,
                   autofocus: true,
                   controller: controller,
-                  labelText: 'Comment',
+                  labelText: title,
                   onFieldSubmitted: (value) {
                     onSubmitted(value);
                   },

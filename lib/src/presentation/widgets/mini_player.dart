@@ -102,16 +102,6 @@ class _MiniPlayerState extends State<MiniPlayer> {
 
   @override
   Widget build(BuildContext context) {
-<<<<<<< HEAD
-    if (isPlayerVisisble) {
-      return ConstrainedBox(
-        constraints: BoxConstraints.tightFor(width: 45 + 10 + 10),
-        child: Material(
-          color: Colors.transparent,
-          child: Align(
-              alignment: Alignment.centerLeft,
-              child: GestureDetector(
-=======
     if (!_shouldShowMiniPlayer) {
       return const SizedBox();
     }
@@ -130,7 +120,6 @@ class _MiniPlayerState extends State<MiniPlayer> {
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: GestureDetector(
->>>>>>> 4e8a02c82ad7e17b0e31eba26016194800dd7dc1
                   onTap: () {
                     toogleVisibility();
                   },

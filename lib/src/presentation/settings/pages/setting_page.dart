@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -48,6 +49,8 @@ class SettingsPage extends StatelessWidget {
     String? tw = settings.get(twitterUrl, defaultValue: null);
     String? yt = settings.get(youtubeUrl, defaultValue: null);
     String? ig = settings.get(instagramUrl, defaultValue: null);
+    String? terms = settings.get(tosUrl, defaultValue: null);
+    String? privacy = settings.get(privacyUrl, defaultValue: null);
     String? appUrl = settings.get(
         Platform.isAndroid ? playStoreUrl : appStoreUrl,
         defaultValue: null);
@@ -227,26 +230,6 @@ class SettingsPage extends StatelessWidget {
                   ),
                 ),
                 Visibility(
-                  visible: yt != null ? true : false,
-                  child: Column(
-                    children: [
-                      // Divider(color: Colors.grey.withOpacity(0.2)),
-                      SettingsOption(
-                        icon: FontAwesomeIcons.youtube,
-                        title: context.loc.youTube,
-                        subtitle: context.loc.checkOutOurYoutube,
-                        onTap: () => launchUrl(
-                          Uri.parse(yt!),
-                          mode: LaunchMode.externalApplication,
-                        ),
-                        trailing: Icon(Platform.isAndroid
-                            ? Icons.arrow_forward
-                            : Icons.arrow_forward_ios),
-                      ),
-                    ],
-                  ),
-                ),
-                Visibility(
                   visible: fb != null ? true : false,
                   child: SettingsOption(
                     icon: FontAwesomeIcons.facebook,
@@ -281,10 +264,70 @@ class SettingsPage extends StatelessWidget {
                     ],
                   ),
                 ),
+                Visibility(
+                  visible: yt != null ? true : false,
+                  child: Column(
+                    children: [
+                      // Divider(color: Colors.grey.withOpacity(0.2)),
+                      SettingsOption(
+                        icon: FontAwesomeIcons.globe,
+                        title: context.loc.ttlWebsite,
+                        subtitle: context.loc.checkOutOurYoutube,
+                        onTap: () => launchUrl(
+                          Uri.parse(yt!),
+                          mode: LaunchMode.externalApplication,
+                        ),
+                        trailing: Icon(Platform.isAndroid
+                            ? Icons.arrow_forward
+                            : Icons.arrow_forward_ios),
+                      ),
+                    ],
+                  ),
+                ),
               ],
             ),
           ),
           SettingsGroup(title: context.loc.othersLabel, options: [
+            Visibility(
+              visible: terms != null ? true : false,
+              child: Column(
+                children: [
+                  // Divider(color: Colors.grey.withOpacity(0.2)),
+                  SettingsOption(
+                    icon: Icons.privacy_tip_outlined,
+                    title: "Terms and Conditions",
+                    subtitle: "Read our terms and conditions",
+                    onTap: () => launchUrl(
+                      Uri.parse(terms!),
+                      mode: LaunchMode.externalApplication,
+                    ),
+                    trailing: Icon(Platform.isAndroid
+                        ? Icons.arrow_forward
+                        : Icons.arrow_forward_ios),
+                  ),
+                ],
+              ),
+            ),
+            Visibility(
+              visible: privacy != null ? true : false,
+              child: Column(
+                children: [
+                  // Divider(color: Colors.grey.withOpacity(0.2)),
+                  SettingsOption(
+                    icon: Icons.assignment,
+                    title: context.loc.privacyPolicyLabel,
+                    subtitle: "Check our privacy policy",
+                    onTap: () => launchUrl(
+                      Uri.parse(privacy!),
+                      mode: LaunchMode.externalApplication,
+                    ),
+                    trailing: Icon(Platform.isAndroid
+                        ? Icons.arrow_forward
+                        : Icons.arrow_forward_ios),
+                  ),
+                ],
+              ),
+            ),
             const VersionWidget(),
             // Divider(color: Colors.grey.withOpacity(0.2)),
             Center(

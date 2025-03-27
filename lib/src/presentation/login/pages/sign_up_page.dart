@@ -84,7 +84,7 @@ class _SignUpPageState extends State<SignUpPage> {
             key: _formLogin,
             autovalidateMode: AutovalidateMode.onUserInteraction,
             child: ListView(
-              physics: const NeverScrollableScrollPhysics(),
+              // physics: const NeverScrollableScrollPhysics(),
               padding: const EdgeInsets.symmetric(horizontal: 16),
               children: [
                 SizedBox(

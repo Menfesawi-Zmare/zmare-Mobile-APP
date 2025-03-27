@@ -111,7 +111,7 @@
     "instagram": "Instagram",
     "facebook": "Facebook",
     "twitter": "Tiktok",
-    "youtube": "Youtube",
+    "youtube": "ድህረ ገጽ",
     "join": "ይቀላቀሉ",
     "copied": "ወደ ክሊፕ ቦርድ ተገልብጧል!",
     "@copied": {},
@@ -630,7 +630,7 @@
     "checkOutOurFacebook" : "የእኛን Facebook ይመልከቱ",
     "checkOutOurTwitter" : "የእኛን Tiktok ይመልከቱ",
     "checkOutOurInstagram" : "የእኛን Instagram ይመልከቱ",
-    "checkOutOurYoutube" : "የእኛን YouTube ይመልከቱ",
+    "checkOutOurYoutube" : "የእኛን ድህረ ገጽ ይመልከቱ",
     "colorsUI": "ቀለሞች እና UI",
     "@colorsUI": {
         "description": "በማስተካከያ ማያ ገጽ ላይ የሚታየው ክፍል ርዕስ",
