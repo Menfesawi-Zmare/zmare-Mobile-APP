@@ -39,6 +39,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                   .pushNamed(otpPath, extra: {"email": emailController.text});
               context.showMaterialSnackBar(state.requestEmailResponse.message!);
             } else if (state is Failure) {
+              context.dismiss();
               context.showMaterialSnackBar(state.message);
             }
           },

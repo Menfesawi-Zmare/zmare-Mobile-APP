@@ -147,20 +147,21 @@ class _VerifyAccountState extends State<VerifyAccount> {
               SizedBox(
                 height: 100,
               ),
-              OutlinedButton(
-                  style: ButtonStyle(),
-                  onPressed: _launchEmailApp,
-                  child: Text(
-                    "Open Email App",
-                    style: TextStyle(
-                        fontFamily: GoogleFonts.poppins().fontFamily,
-                        fontWeight: FontWeight.w600,
-                        fontSize: 16),
-                  )),
+              // OutlinedButton(
+              //     style: ButtonStyle(),
+              //     onPressed: _launchEmailApp,
+              //     child: Text(
+              //       "Open Email App",
+              //       style: TextStyle(
+              //           fontFamily: GoogleFonts.poppins().fontFamily,
+              //           fontWeight: FontWeight.w600,
+              //           fontSize: 16),
+              //     )),
               SizedBox(
                 height: 10,
               ),
-              TextButton(
+              OutlinedButton(
+                  style: ButtonStyle(),
                   onPressed: () {
                     context.pushNamed(signInName);
                   },
