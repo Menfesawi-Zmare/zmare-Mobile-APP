@@ -112,9 +112,15 @@ class _ModalCommentState extends State<ModalComment> {
               // spacing: 10,
               children: [
                 Icon(Icons.edit, size: 15),
+                SizedBox(
+                  width: 10,
+                ),
                 Text("Edit"),
               ],
             ),
+          ),
+          SizedBox(
+            height: 10,
           ),
           InkWell(
             onTap: () {
@@ -125,6 +131,9 @@ class _ModalCommentState extends State<ModalComment> {
               // spacing: 10,
               children: [
                 Icon(Icons.delete, size: 15),
+                SizedBox(
+                  width: 10,
+                ),
                 Text("Delete"),
               ],
             ),

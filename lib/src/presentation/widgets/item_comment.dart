@@ -10,6 +10,8 @@ import 'package:zmare/src/presentation/widgets/zmare_image.dart';
 
 import 'package:zmare/src/presentation/widgets/texts/zmare_title.dart';
 
+import '../../core/resources/images.dart';
+
 class ItemComment extends StatefulWidget {
   const ItemComment(
       {super.key,
@@ -109,12 +111,15 @@ class _ItemCommentState extends State<ItemComment> {
                       ],
                     ),
                     SizedBox(
+                      width: 10,
+                    ),
+                    SizedBox(
                       width: 40,
                       height: 40,
                       child: ClipOval(
                         child: ZmareImage(
                           imageUrl: widget.comment.user!.image!,
-                          placeholderImage: "../../../../assets/artist.png",
+                          placeholderImage: Images.defalultArtistCover,
                         ),
                       ),
                     ),
@@ -128,11 +133,14 @@ class _ItemCommentState extends State<ItemComment> {
                           child: ClipOval(
                             child: ZmareImage(
                               imageUrl: widget.comment.user!.image!,
-                              placeholderImage: "../../../../assets/artist.png",
+                              placeholderImage: Images.defalultArtistCover,
                             ),
                           ),
                         ),
                       ],
+                    ),
+                    SizedBox(
+                      width: 10,
                     ),
                     Column(
                       crossAxisAlignment: profile!.id == widget.comment.user!.id

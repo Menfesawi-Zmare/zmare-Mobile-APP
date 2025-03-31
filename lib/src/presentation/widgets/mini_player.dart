@@ -250,25 +250,52 @@ class _MiniPlayerState extends State<MiniPlayer> {
                                               minLeadingWidth: 0.0,
                                               splashColor: Colors.transparent,
                                               contentPadding: EdgeInsets.zero,
-                                              title: AnimatedText(
-                                                text:
-                                                    '${mediaItem.title} • ${mediaItem.artist}',
-                                                pauseAfterRound:
-                                                    const Duration(seconds: 3),
-                                                defaultAlignment:
-                                                    TextAlign.left,
+                                              title: Column(
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
-                                                showFadingOnlyWhenScrolling:
-                                                    false,
-                                                fadingEdgeEndFraction: 0.1,
-                                                fadingEdgeStartFraction: 0.1,
-                                                style: context.titleMedium
-                                                    ?.copyWith(
-                                                  fontWeight: FontWeight.w400,
-                                                  fontFamily: 'Washera',
-                                                ),
+                                                children: [
+                                                  Text(
+                                                    mediaItem.title,
+                                                    style: context.titleMedium
+                                                        ?.copyWith(
+                                                      fontSize: 14,
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      fontFamily: 'Washera',
+                                                    ),
+                                                  ),
+                                                  Text(
+                                                    mediaItem.artist!,
+                                                    style: context.titleMedium
+                                                        ?.copyWith(
+                                                      fontSize: 12,
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                      fontFamily: 'Washera',
+                                                    ),
+                                                  )
+                                                ],
                                               ),
+
+                                              // AnimatedText(
+                                              //   text:
+                                              //       '${mediaItem.title} • ${mediaItem.artist}',
+                                              //   pauseAfterRound:
+                                              //       const Duration(seconds: 3),
+                                              //   defaultAlignment:
+                                              //       TextAlign.left,
+                                              //   crossAxisAlignment:
+                                              //       CrossAxisAlignment.start,
+                                              //   showFadingOnlyWhenScrolling:
+                                              //       false,
+                                              //   fadingEdgeEndFraction: 0.1,
+                                              //   fadingEdgeStartFraction: 0.1,
+                                              //   style: context.titleMedium
+                                              //       ?.copyWith(
+                                              //     fontWeight: FontWeight.w400,
+                                              //     fontFamily: 'Washera',
+                                              //   ),
+                                              // ),
                                               leading: Hero(
                                                 tag: 'currentArtwork',
                                                 child: Padding(

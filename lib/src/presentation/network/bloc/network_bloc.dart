@@ -1,5 +1,7 @@
 // ignore: depend_on_referenced_packages
 import 'package:bloc/bloc.dart';
+import 'package:flutter/material.dart';
+import 'package:zmare/src/app/routes.dart';
 import 'package:zmare/src/utils/helper/network_helper.dart';
 
 import '../../../utils/services/firebase/firebase.dart';

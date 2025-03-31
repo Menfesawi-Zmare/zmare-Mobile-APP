@@ -18,6 +18,7 @@ import '../../../utils/ext/common.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import '../../network/bloc/network_bloc.dart';
+import '../bloc/home_bloc.dart';
 
 class ContentWidget extends StatefulWidget {
   ContentWidget({
@@ -59,7 +60,7 @@ class _ContentWidgetState extends State<ContentWidget>
               ],
             ),
       body: BlocListener<NetworkBloc, NetworkState>(
-        listener: (context, state) {
+        listener: (context, state) async {
           if (state is NetworkSuccess) {
             ScaffoldMessenger.of(context).clearSnackBars();
             // ScaffoldMessenger.of(context).showSnackBar(
@@ -74,11 +75,27 @@ class _ContentWidgetState extends State<ContentWidget>
             //     backgroundColor: context.onPrimary,
             //   ),
             // );
+
+            context
+                .read<HomeBloc>()
+                .add(CurrentIndexEvent(widget.currentPage == 0
+                    ? PageType.explorer
+                    : widget.currentPage == 1
+                        ? PageType.latest
+                        : widget.currentPage == 2
+                            ? PageType.popular
+                            : widget.currentPage == 3
+                                ? PageType.library
+                                : PageType.login));
+            setState(() {});
           } else if (state is NetworkFailure) {
-            ScaffoldMessenger.of(context).showSnackBar(
+            final messenger = ScaffoldMessenger.of(context);
+            messenger.hideCurrentSnackBar();
+            messenger.showSnackBar(
               SnackBar(
+                dismissDirection: DismissDirection.horizontal,
                 margin: EdgeInsets.only(bottom: 50),
-                duration: Duration(minutes: 3),
+                duration: Duration(seconds: 3),
                 behavior: SnackBarBehavior.floating,
                 backgroundColor: context.onPrimary,
                 content: SizedBox(

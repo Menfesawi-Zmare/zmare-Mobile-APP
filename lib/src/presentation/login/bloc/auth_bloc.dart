@@ -39,8 +39,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       data.fold(
         (l) {
           if (l is ServerFailure) {
-            print("fetched data from l:$l.");
-            emit(Failure(l.message ?? ''));
+            if (l.message!.contains("The connection errored")) {
+              emit(Failure("Please, Check Your Connection"));
+            } else {
+              emit(Failure(l.message ?? ''));
+            }
           }
         },
         (r) {
@@ -61,7 +64,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       data.fold(
         (l) {
           if (l is ServerFailure) {
-            emit(Failure(l.message ?? ''));
+            if (l.message!.contains("The connection errored")) {
+              emit(Failure("Please, Check Your Connection"));
+            } else {
+              emit(Failure(l.message ?? ''));
+            }
           }
         },
         (r) {
@@ -143,7 +150,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       data.fold(
         (l) {
           if (l is ServerFailure) {
-            emit(Failure(l.message!));
+            if (l.message!.contains("The connection errored")) {
+              emit(Failure("Please, Check Your Connection"));
+            } else {
+              emit(Failure(l.message ?? ''));
+            }
           }
         },
         (r) {
