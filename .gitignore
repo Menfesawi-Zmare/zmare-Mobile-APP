@@ -14,3 +14,26 @@ android/.gradle
 ios/Pods
 *.log
 .dart_tool/flutter_build/
+# macOS
+.DS_Store
+**/.DS_Store
+
+# Firebase / Google secrets
+google-services.json
+GoogleService-Info.plist
+ios/firebase_app_id_file.json
+lib/firebase_options.dart
+
+# Android signing
+*.keystore
+*.jks
+key.properties
+android/key.properties
+
+# Build artifacts
+android/app/.cxx/
+ios/build/
+ios/Pods/
+
+# Debug
+logcat*.txt
